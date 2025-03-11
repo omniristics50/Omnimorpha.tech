@@ -1,13 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Camera System - Omnimorpha</title>
+    <title>Omnimorpha AI Cameras</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #111;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #222;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        section {
+            padding: 50px;
+        }
+        .camera-feed {
+            width: 80%;
+            height: 400px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            border: 2px solid #555;
+        }
+        .camera-status {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #0f0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Omnimorpha AI Camera System</h1>
-    <p>This AI-powered camera system replaces traditional mirrors with advanced LiDAR, ultra-wide AI vision, facial recognition, and night vision technology.</p>
-    <a href="index.html">Back to Home</a>
+
+<header>Omnimorpha - AI Camera System</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="cameras.html">AI Cameras</a>
+    <a href="halia.html">Halia AI</a>
+</nav>
+
+<section>
+    <h2>AI-Powered Camera Feed</h2>
+    <div class="camera-feed" id="cameraFeed">
+        <p>Loading AI camera system...</p>
+    </div>
+    <p class="camera-status" id="cameraStatus">Status: Initializing...</p>
+</section>
+
+<script>
+    function loadCameraSystem() {
+        let cameraFeed = document.getElementById("cameraFeed");
+        let cameraStatus = document.getElementById("cameraStatus");
+        
+        setTimeout(() => {
+            cameraFeed.innerHTML = '<p>AI Camera Active - Real-time Monitoring Enabled</p>';
+            cameraStatus.innerText = "Status: Online";
+        }, 2000);
+    }
+    
+    window.onload = loadCameraSystem;
+</script>
+
+<footer>
+    <p>&copy; 2025 Omnimorpha. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnimorpha Projects</title>
+    <style>
+        body {
+            text-align: center;
+            background: #0f2027;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #00c3ff, #0099cc);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #222;
+            text-shadow: 0 0 10px white;
+        }
+
+        /* Page Content */
+        .container {
+            padding: 120px 50px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        h1 {
+            color: #00c3ff;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #ddd;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .project-card a {
+            color: #00c3ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="x-band.html">X Band</a>
+        <a href="ai-earbuds.html">AI Earbuds</a>
+        <a href="smartphone.html">Smartphone</a>
+        <a href="ai-camera.html">AI Camera</a>
+        <a href="hypercars.html">Hypercars</a>
+        <a href="snow-vehicles.html">Snow Vehicles</a>
+        <a href="powermotion.html">Training Arena</a>
+        <a href="investor-materials.html">Investor Materials</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Omnimorpha Projects</h1>
+        <p>Discover Omnimorpha's AI-powered innovations revolutionizing multiple industries.</p>
+
+        <!-- Project Grid -->
+        <div class="project-grid">
+            <div class="project-card">
+                <h2>X Band</h2>
+                <p>AI-powered wearable technology for ultimate connectivity.</p>
+                <a href="x-band.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>AI Earbuds</h2>
+                <p>Next-gen smart earbuds with immersive sound and AI voice integration.</p>
+                <a href="ai-earbuds.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>Omnimorpha Smartphone</h2>
+                <p>The future of mobile communication with AI at its core.</p>
+                <a href="smartphone.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>AI Camera</h2>
+                <p>Advanced AI-powered security and vision system for vehicles.</p>
+                <a href="ai-camera.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>Omnimorpha Hypercars</h2>
+                <p>High-speed AI-driven hypercars: Hyper-V & Hyper-X 2.0.</p>
+                <a href="hypercars.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>Snow Vehicles</h2>
+                <p>AI-powered Snow Mobile, Snow Car, and Snow Truck for extreme weather travel.</p>
+                <a href="snow-vehicles.html">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <h2>PowerMotion Training Arena</h2>
+                <p>AI-enhanced sports training arena with real-time adaptability.</p>
+                <a href="powermotion.html">Learn More →</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
 

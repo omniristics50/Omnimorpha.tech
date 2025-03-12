@@ -1,26 +1,10 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('galaxy-bg.jpg') no-repeat center center/cover;
+    background-image: url('PASTE-YOUR-IMAGE-URL-HERE');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.logo {
-    width: 300px;
-    margin-top: 20px;
-}
-
-.title {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.subtitle {
-    font-size: 1.2rem;
 }

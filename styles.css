@@ -1,8 +1,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: image: url('https://raw.githubusercontent.com/omniristics50/Omnimorpha.tech/main/galaxy-bg.jpg') no-repeat center center/cover;
-   background-size: cover;
+    background-image: url('https://raw.githubusercontent.com/omniristics50/Omnimorpha.tech/main/galaxy-bg.jpg');
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: white;

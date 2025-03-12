@@ -15,8 +15,13 @@ body {
 }
 
 .logo {
-    width: 300px;
-    margin-top: 20px;
+    .logo {
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
 }
 
 .title {

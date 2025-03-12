@@ -1,92 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omnimorpha AI Cameras</title>
+    <title>Omnimorpha AI Camera</title>
     <style>
         body {
-            background-color: black;
+            text-align: center;
+            background: #0f2027;
             color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
         }
-        header {
-            background: #111;
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #00c3ff, #0099cc);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #222;
-            padding: 10px;
-        }
-        nav a {
+
+        .navbar a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        section {
-            padding: 50px;
+
+        .navbar a:hover {
+            color: #222;
+            text-shadow: 0 0 10px white;
         }
-        .camera-feed {
-            width: 80%;
-            height: 400px;
-            background: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: auto;
-            border: 2px solid #555;
+
+        /* Page Content */
+        .container {
+            padding: 120px 50px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
         }
-        .camera-status {
-            margin-top: 20px;
+
+        h1 {
+            color: #00c3ff;
+            font-size: 36px;
+        }
+
+        p {
             font-size: 20px;
-            color: #0f0;
+            color: #ddd;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<header>Omnimorpha - AI Camera System</header>
-
-<nav>
-    <a href="index.html">Home</a>
-    <a href="cameras.html">AI Cameras</a>
-    <a href="halia.html">Halia AI</a>
-</nav>
-
-<section>
-    <h2>AI-Powered Camera Feed</h2>
-    <div class="camera-feed" id="cameraFeed">
-        <p>Loading AI camera system...</p>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="x-band.html">X Band</a>
+        <a href="ai-earbuds.html">AI Earbuds</a>
+        <a href="smartphone.html">Smartphone</a>
+        <a href="ai-camera.html">AI Camera</a>
+        <a href="hypercars.html">Hypercars</a>
+        <a href="snow-vehicles.html">Snow Vehicles</a>
+        <a href="powermotion.html">Training Arena</a>
+        <a href="investor-materials.html">Investor Materials</a>
+        <a href="contact.html">Contact</a>
     </div>
-    <p class="camera-status" id="cameraStatus">Status: Initializing...</p>
-</section>
 
-<script>
-    function loadCameraSystem() {
-        let cameraFeed = document.getElementById("cameraFeed");
-        let cameraStatus = document.getElementById("cameraStatus");
-        
-        setTimeout(() => {
-            cameraFeed.innerHTML = '<p>AI Camera Active - Real-time Monitoring Enabled</p>';
-            cameraStatus.innerText = "Status: Online";
-        }, 2000);
-    }
-    
-    window.onload = loadCameraSystem;
-</script>
-
-<footer>
-    <p>&copy; 2025 Omnimorpha. All rights reserved.</p>
-</footer>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Omnimorpha AI Camera</h1>
+        <p>Advanced AI-powered security and vision system, designed to enhance safety, facial recognition, and real-time tracking.</p>
+    </div>
 
 </body>
 </html>
+

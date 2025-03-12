@@ -1,7 +1,8 @@
+/* General Page Styling */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: black; /* Solid black background */
+    background: linear-gradient(to bottom, black, #001f3f); /* Black to Deep Blue */
     color: white;
     text-align: center;
     height: 100vh;
@@ -11,17 +12,39 @@ body {
     justify-content: center;
 }
 
-.logo {
-    width: 500px; /* Adjust as needed */
-    max-width: 90%;
+/* Title Styling */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
-.title {
-    font-size: 2rem;
+/* Subtitle Styling */
+p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Links */
+a {
+    color: #00aaff; /* Light blue links */
+    text-decoration: none;
     font-weight: bold;
 }
 
-.subtitle {
+a:hover {
+    color: #ffcc00; /* Gold hover effect */
+}
+
+/* List Styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
     font-size: 1.2rem;
+    margin: 10px 0;
 }
 

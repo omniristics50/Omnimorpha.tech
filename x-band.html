@@ -35,4 +35,95 @@
             transition: 0.3s;
         }
 
-        .
+        .navbar a:hover {
+            color: #222;
+            text-shadow: 0 0 10px white;
+        }
+
+        /* Page Content */
+        .container {
+            padding: 100px 50px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #00c3ff;
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #ddd;
+        }
+
+        /* Feature List */
+        .features {
+            text-align: left;
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .features li {
+            font-size: 18px;
+            color: #00c3ff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li::before {
+            content: "✔ ";
+            color: #00ffcc;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Smooth Fade-In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="x-band.html">X Band</a>
+        <a href="ai-earbuds.html">AI Earbuds</a>
+        <a href="smartphone.html">Smartphone</a>
+        <a href="ai-camera.html">AI Camera</a>
+        <a href="hypercars.html">Hypercars</a>
+        <a href="snow-vehicles.html">Snow Vehicles</a>
+        <a href="powermotion.html">Training Arena</a>
+        <a href="investor-materials.html">Investor Materials</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Omnimorpha X Band</h1>
+        <p>An **AI-powered wearable** that redefines **health tracking** and **smart connectivity.**</p>
+
+        <h2>🔹 How It’s Designed</h2>
+        <p>Made with **graphene-based material**, the X Band is ultra-light, durable, and packed with advanced **AI sensors** for real-time health monitoring.</p>
+
+        <h2>🌍 How It Improves Daily Life</h2>
+        <p>It **analyzes your habits** and delivers **personalized fitness coaching**, smart health alerts, and **gesture-based control** for seamless device interaction.</p>
+
+        <h2>⚡ Key Features</h2>
+        <ul class="features">
+            <li>AI-powered **real-time health tracking**</li>
+            <li>Gesture-based **smart device control**</li>
+            <li>Energy-efficient **graphene battery**</li>
+            <li>Adaptive **AI assistant for insights**</li>
+        </ul>
+    </div>
+
+</body>
+</html>

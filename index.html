@@ -14,104 +14,27 @@
             padding: 0;
         }
 
-        /* Navigation Bar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: linear-gradient(to right, #00c3ff, #0099cc);
-            padding: 15px 0;
-            text-align: center;
-            z-index: 1000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .navbar a {
+        /* Dark Mode Styling */
+        .dark-mode {
+            background: #111;
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
         }
 
-        .navbar a:hover {
-            color: #222;
-            text-shadow: 0 0 10px white;
+        /* Dark Mode Navigation Bar */
+        .dark-mode .navbar {
+            background: linear-gradient(to right, #222, #444);
         }
 
-        /* Page Content */
-        .container {
-            padding: 120px 50px;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards;
+        /* Dark Mode Buttons */
+        .dark-mode .btn {
+            background: linear-gradient(to right, #444, #666);
+            color: white;
         }
 
-        h1 {
-            color: #00c3ff;
-            font-size: 36px;
+        .dark-mode .btn:hover {
+            background: linear-gradient(to right, #666, #888);
         }
 
-        p {
-            font-size: 20px;
-            color: #ddd;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        /* Explore More Button */
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background: #00c3ff;
-            color: black;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: #0099cc;
-            transform: scale(1.1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="x-band.html">X Band</a>
-        <a href="ai-earbuds.html">AI Earbuds</a>
-        <a href="smartphone.html">Smartphone</a>
-        <a href="ai-camera.html">AI Camera</a>
-        <a href="hypercars.html">Hypercars</a>
-        <a href="snow-vehicles.html">Snow Vehicles</a>
-        <a href="powermotion.html">Training Arena</a>
-        <a href="investor-materials.html">Investor Materials</a>
-        <a href="contact.html">Contact</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Omnimorpha: The Future of AI-Driven Innovation</h1>
-        <p>Your AI-powered ecosystem is coming soon.</p>
-
-        <h2>🚀 Patent Pending: AI-Powered Camera System</h2>
-        <p>Omnimorpha introduces a groundbreaking AI-powered vehicle camera system, eliminating traditional mirrors and enhancing security through LiDAR, infrared, ultra-wide AI vision, and facial recognition. Now patent pending!</p>
-
-        <h2>📊 Investor Materials</h2>
-        <p>Explore our latest investor pitch decks and business strategies designed for funding and expansion.</p>
-
-        <a href="investor-materials.html" class="btn">Explore More</a>
-    </div>
-
-</body>
-</html>
+        /* Dark Mode Text */
+        .dark-mode h1, 
+   

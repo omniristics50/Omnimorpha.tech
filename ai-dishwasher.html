@@ -1,33 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Restricted Access</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | AI Dishwasher</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
-      background-color: #0b0b0b;
-      color: #f2f2f2;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding: 2rem;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0c10;
+      color: #ffffff;
+    }
+    header {
+      background-color: #1f2833;
+      padding: 20px;
       text-align: center;
     }
-    h1 {
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #66fcf1;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      background-color: #45a29e;
+      margin: 0;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: #0b0c10;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    main h2, main h3 {
       font-size: 2rem;
-      line-height: 1.6;
+      color: #66fcf1;
+    }
+    main p, main ul {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 20px auto;
+      color: #c5c6c7;
+      text-align: left;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+      background-color: #1f2833;
+    }
+    a {
+      color: #66fcf1;
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1>This page is temporarily restricted for intellectual property protection.<br><br>
-    For inquiries, please contact:<br><br>
-    <strong>Courtney S. Linton</strong><br>
-    <a href="mailto:clintons38@gmail.com" style="color: #f2f2f2;">clintons38@gmail.com</a><br><br>
-    All rights reserved © Omnimorpha</h1>
-  </div>
+  <header>
+    <h1>Omnimorpha</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="halia.html">Halia AI</a></li>
+      <li><a href="dishwasher.html">AI Dishwasher</a></li>
+      <li><a href="arena.html">PowerMotion Arena</a></li>
+      <li><a href="investors.html">Investors</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Omnimorpha AI Dishwasher</h2>
+    <p>
+      Revolutionize your kitchen with the world’s most advanced AI-powered dishwasher.
+      Controlled by Halia AI, it’s engineered to combine precision cleaning with beautiful simplicity.
+    </p>
+
+    <ul>
+      <li>🧠 AI-powered dish detection for optimized wash cycles</li>
+      <li>♻️ Eco-efficient water usage with real-time consumption tracking</li>
+      <li>🌡️ Steam sanitization and temperature-intelligent scrubbing</li>
+      <li>🗣️ Voice-activated control via Halia AI</li>
+      <li>📱 Remote monitoring and scheduling from your mobile device</li>
+    </ul>
+
+    <p>
+      This is not just a dishwasher. It’s a clean start for the future of smart living.
+    </p>
+  </main>
+
+  <footer>
+    &copy; <script>document.write(new Date().getFullYear())</script> Omnimorpha. All rights reserved.<br>
+    Founded by Courtney S. Linton<br>
+    <em>All content is confidential. Do not copy, reproduce, or redistribute without written consent.</em>
+  </footer>
 </body>
 </html>

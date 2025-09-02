@@ -1,273 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VELOCIÉ™ | Omnimorpha</title>
-  <meta name="description" content="VELOCIÉ™ by Omnimorpha: AI-driven, buttonless electric motorcycles paired with a smart HUD helmet. Limited editions: BlazeDrop™, BlackVenom™, LunarStrike™."/>
   <style>
-    :root{
-      --bg:#000; --ink:#fff; --teal:#00e6e6; --teal-dark:#00bfbf;
-      --ink-dim:#cfcfcf; --card:#0b0b0b; --line:#111;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      background-image: url('galaxy-bg.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    /* Base (copied style language from index.html) */
-    body{ margin:0; font-family: Arial, sans-serif; background:#000; color:#fff; }
-    nav{ background-color:rgba(0,0,0,.85); padding:15px; text-align:center; flex-wrap:wrap; }
-    nav a{ color:var(--teal); text-decoration:none; margin:0 12px; font-weight:bold; }
-    nav a:hover{ text-decoration:underline; }
-    .container{ max-width:1200px; margin:0 auto; padding:60px 20px; }
-    h1{ font-size:36px; margin:0 0 20px; }
-    h2{ font-size:28px; margin:60px 0 10px; color:var(--teal); }
-    h3{ font-size:22px; margin:16px 0 6px; }
-    p{ font-size:18px; line-height:1.6; color:var(--ink-dim); }
-    /* Buttons */
-    .btn{ display:inline-block; padding:10px 18px; border-radius:6px; font-weight:bold; text-decoration:none; }
-    .btn-teal{ background:var(--teal); color:#000; }
-    .btn-teal:hover{ background:var(--teal-dark); }
-    .btn-outline{ border:1px solid #2a2a2a; color:#ddd; }
-    .btn-outline:hover{ border-color:#444; }
-    /* Layout helpers */
-    .grid{ display:grid; gap:18px; }
-    .grid-2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .card{ background:var(--card); border:1px solid #111; border-radius:10px; padding:16px; }
-    .muted{ color:var(--ink-dim); }
-    .tag{ display:inline-block; font-size:12px; padding:3px 8px; border:1px solid #1e1e1e; border-radius:999px; color:#aaa; margin-right:6px; }
-    .divider{ height:1px; background:#101010; margin:30px 0; border:none; }
-    /* Media */
-    .media{ width:100%; height:auto; border-radius:10px; border:1px solid #101010; background:#070707; }
-    /* Tables */
-    table{ width:100%; border-collapse: collapse; margin-top:10px; }
-    th, td{ border-bottom:1px solid #111; padding:10px; text-align:left; font-size:15px; }
-    th{ color:#9fe; }
-    /* Hero */
-    .hero{ background:linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.85)), url('images/velocite/hero.jpg') center/cover no-repeat; }
-    .hero-inner{ padding:90px 20px; text-align:center; }
-    .hero h1{ font-size:44px; }
-    .hero p{ max-width:900px; margin:12px auto 22px; }
-    .cta-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-    /* Responsive */
-    @media (max-width: 900px){
-      .grid-3{ grid-template-columns:1fr; }
-      .grid-2{ grid-template-columns:1fr; }
-      .hero h1{ font-size:34px; }
+    nav {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 15px;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #00e6e6;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: #00e6e6;
+    }
+    h2 {
+      font-size: 28px;
+      margin-top: 40px;
+      color: #00e6e6;
+    }
+    p {
+      font-size: 18px;
+      max-width: 900px;
+      margin: 10px auto 30px;
+      line-height: 1.6;
+    }
+    .bike {
+      margin: 40px 0;
+    }
+    .bike picture img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 230, 230, 0.5);
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Nav (match your site) -->
   <nav>
     <a href="index.html">Home</a>
+    <a href="velocite.html" aria-current="page">Velocié</a>
     <a href="ai-dishwasher.html">AI Dishwasher</a>
     <a href="ai-camera.html">AI Camera</a>
     <a href="ai-washer-dryer.html">AI Washer & Dryer</a>
-    <a href="ai-earbuds.html">AI Earbuds</a>
     <a href="smartphone.html">Smartphone</a>
     <a href="x-band.html">X Band</a>
-    <a href="snow-vehicles.html">Snow Vehicles</a>
-    <a href="velocite.html">Velocié</a>
-    <a href="treva.html">TREVA</a>
-    <a href="ayrelle-noir.html">AYRÉLLE Noir</a>
-    <a href="theverge.html">THEVERGE</a>
-    <a href="le-gorge.html">LE GORGE</a>
-    <a href="giordano-vero.html">GIORDANO VERO</a>
-    <a href="refrigerator.html">IntelliChill Refrigerator</a>
-    <a href="stove.html">Smart Stove</a>
-    <a href="microwave.html">Microwave</a>
     <a href="investors.html">Investors</a>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>VELOCIÉ™ — AI-Driven Electric Motorcycles</h1>
-      <p>Buttonless, voice-guided, and paired with our Smart HUD Helmet. Precision performance meets the Omnimorpha AI ecosystem for a ride that learns you.</p>
-      <div class="cta-row">
-        <!-- Replace these with your hosted URLs (not sandbox links) -->
-        <a class="btn btn-teal" href="/docs/velocite/Velocite_Investor_Pitch_Deck_FINAL.pdf">View Investor Deck (PDF)</a>
-        <a class="btn btn-outline" href="/docs/velocite/Velocite_Investor_Pitch_Deck_FINAL.pptx">Download PPTX</a>
-        <a class="btn btn-outline" href="/docs/velocite/Velocite_Deck_Lightweight.pdf">Lightweight PDF</a>
-        <a class="btn btn-outline" href="/docs/velocite/Velocite_Investor_Teaser.pdf">One-Pager</a>
-      </div>
-      <p class="muted" style="margin-top:8px;">Tip: host files under <code>/docs/velocite/</code> for public access.</p>
-    </div>
-  </section>
+  <div class="container">
+    <h1>VELOCIÉ™ — AI-Driven Electric Motorcycles</h1>
+    <p>Buttonless, voice-guided, and paired with our smart HUD helmet. Precision performance meets Omnimorpha’s AI ecosystem.</p>
 
-  <main class="container">
-
-    <!-- Quick identity -->
-    <div class="grid grid-2">
-      <div>
-        <img class="media" src="images/velocite/hero-inline.jpg" alt="Velocié L-X with Smart Helmet"/>
-      </div>
-      <div>
-        <h2>Why Velocié</h2>
-        <p>Our bikes launch with AI Control + Buttonless Start, face/body verification, adaptive ride modes, and 360° awareness. The Smart HUD Helmet overlays speed, nav, range, hazards, and rider biometrics—making the bike a living extension of you.</p>
-        <div>
-          <span class="tag">AI Buttonless Start</span>
-          <span class="tag">Smart HUD Helmet</span>
-          <span class="tag">Graphene Solid-State</span>
-          <span class="tag">OmniLink™</span>
-        </div>
-      </div>
+    <!-- Hero -->
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/hero.webp" type="image/webp">
+        <img src="/images/velocite/hero.jpg" alt="Velocié Hero Shot" loading="lazy">
+      </picture>
     </div>
 
-    <!-- Lineup -->
-    <h2>Lineup</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <img class="media" src="images/velocite/lx.jpg" alt="Velocié L-X"/>
-        <h3>L-X — Flagship Street</h3>
-        <p>Graphene solid-state range, AI SmartDrive™, buttonless start, paired HUD helmet.</p>
-        <table>
-          <tr><th>Range</th><td>Up to 280 km*</td></tr>
-          <tr><th>0–100 km/h</th><td>&lt; 3.2s*</td></tr>
-          <tr><th>Charging</th><td>Fast charge 20–80% &lt; 18 min*</td></tr>
-        </table>
-      </div>
-      <div class="card">
-        <img class="media" src="images/velocite/lxr.jpg" alt="Velocié L-XR"/>
-        <h3>L-XR — Racing Edition</h3>
-        <p>Track-tuned aero, live telemetry in visor, carbon frame, precision control.</p>
-        <table>
-          <tr><th>Range (track)</th><td>Up to 200 km*</td></tr>
-          <tr><th>0–100 km/h</th><td>&lt; 2.8s*</td></tr>
-          <tr><th>Frame</th><td>Carbon composite</td></tr>
-        </table>
-      </div>
-      <div class="card">
-        <img class="media" src="images/velocite/le.jpg" alt="Velocié L-E"/>
-        <h3>L-E — Urban Commuter</h3>
-        <p>Lightweight, efficient, AI safety overlays, everyday range.</p>
-        <table>
-          <tr><th>Range</th><td>Up to 240 km*</td></tr>
-          <tr><th>Charge</th><td>Home + fast-charge</td></tr>
-          <tr><th>Assist</th><td>Adaptive City Mode</td></tr>
-        </table>
-      </div>
+    <!-- L-X -->
+    <h2>Velocié L-X — Flagship Street</h2>
+    <p>Graphene solid-state range, AI SmartDrive™, buttonless start, paired HUD helmet.</p>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/lx.webp" type="image/webp">
+        <img src="/images/velocite/lx.jpg" alt="Velocié L-X" loading="lazy">
+      </picture>
     </div>
-    <p class="muted">*Pre-production targets. Final specs subject to validation.</p>
+
+    <!-- L-XR -->
+    <h2>Velocié L-XR — Racing Edition</h2>
+    <p>Track-tuned aerodynamics, live telemetry in visor, carbon frame.</p>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/lxr.webp" type="image/webp">
+        <img src="/images/velocite/lxr.jpg" alt="Velocié L-XR" loading="lazy">
+      </picture>
+    </div>
+
+    <!-- L-E -->
+    <h2>Velocié L-E — Urban Commuter</h2>
+    <p>Lightweight, efficient, AI safety overlays, everyday range.</p>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/le.webp" type="image/webp">
+        <img src="/images/velocite/le.jpg" alt="Velocié L-E" loading="lazy">
+      </picture>
+    </div>
 
     <!-- Helmet -->
     <h2>Smart HUD Helmet</h2>
-    <div class="grid grid-2">
-      <div>
-        <h3>Intelligence in Your Visor</h3>
-        <ul class="muted" style="line-height:1.9; padding-left:18px;">
-          <li>AI control: voice + gesture, secure rider verification</li>
-          <li>HUD overlays: speed, range, GPS, diagnostics, alerts</li>
-          <li>Predictive safety: fatigue monitoring, blind-spot & hazard warnings</li>
-          <li>OmniLink™ sync + OTA upgrades across Omnimorpha ecosystem</li>
-        </ul>
-      </div>
-      <div>
-        <img class="media" src="images/velocite/helmet.jpg" alt="Smart HUD Helmet"/>
-      </div>
-    </div>
-
-    <!-- Deep Tech -->
-    <h2>Core Technology</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <h3>AI DriveCore™</h3>
-        <p>Adaptive ride modes (Street, Sport, Touring, Stealth), predictive traction and energy optimization tuned to your behavior.</p>
-      </div>
-      <div class="card">
-        <h3>Graphene Solid-State</h3>
-        <p>High energy density and thermals with rapid charge windows for real-world uptime.</p>
-      </div>
-      <div class="card">
-        <h3>OmniVision™ 360</h3>
-        <p>Camera fusion for blind-spot, lane, and proximity awareness piped to your visor in real time.</p>
-      </div>
+    <p>AI control: voice + gesture, HUD overlays, predictive safety, OmniLink™ ecosystem sync.</p>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/helmet.webp" type="image/webp">
+        <img src="/images/velocite/helmet.jpg" alt="Smart HUD Helmet" loading="lazy">
+      </picture>
     </div>
 
     <!-- Limited Editions -->
     <h2>Limited Editions</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <img class="media" src="images/velocite/blazedrop.jpg" alt="BlazeDrop"/>
-        <h3>BlazeDrop™</h3>
-        <p>Fire-born masterpiece. <strong>100 units worldwide.</strong></p>
-      </div>
-      <div class="card">
-        <img class="media" src="images/velocite/blackvenom.jpg" alt="BlackVenom"/>
-        <h3>BlackVenom™</h3>
-        <p>Predator stealth. <strong>75 units worldwide.</strong></p>
-      </div>
-      <div class="card">
-        <img class="media" src="images/velocite/lunarstrike.jpg" alt="LunarStrike"/>
-        <h3>LunarStrike™</h3>
-        <p>Cosmic elegance. <strong>50 units worldwide.</strong></p>
-      </div>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/blazedrop.webp" type="image/webp">
+        <img src="/images/velocite/blazedrop.jpg" alt="BlazeDrop Edition" loading="lazy">
+      </picture>
+    </div>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/blackvenom.webp" type="image/webp">
+        <img src="/images/velocite/blackvenom.jpg" alt="BlackVenom Edition" loading="lazy">
+      </picture>
+    </div>
+    <div class="bike">
+      <picture>
+        <source srcset="/images/velocite/lunarstrike.webp" type="image/webp">
+        <img src="/images/velocite/lunarstrike.jpg" alt="LunarStrike Edition" loading="lazy">
+      </picture>
     </div>
 
-    <!-- Detailed Specs -->
-    <h2>Technical Specifications (Snapshot)</h2>
-    <div class="card">
-      <table>
-        <tr><th>Model</th><th>Battery</th><th>Range (target)</th><th>0–100 km/h</th><th>Charging</th><th>Notes</th></tr>
-        <tr><td>L-X</td><td>Graphene solid-state</td><td>Up to 280 km</td><td>&lt; 3.2s</td><td>20–80% &lt; 18 min</td><td>AI SmartDrive™, HUD pair</td></tr>
-        <tr><td>L-XR</td><td>Graphene solid-state</td><td>Up to 200 km</td><td>&lt; 2.8s</td><td>Track quick-swap*</td><td>Carbon frame, telemetry</td></tr>
-        <tr><td>L-E</td><td>Graphene solid-state</td><td>Up to 240 km</td><td>—</td><td>Home + fast-charge</td><td>City-tuned safety overlays</td></tr>
-      </table>
-      <p class="muted">*Quick-swap concept under evaluation for track operations.</p>
-    </div>
-
-    <!-- MSRP (if you want it public) -->
-    <h2>MSRP Guidance</h2>
-    <div class="card">
-      <table>
-        <tr><th>Model</th><th>MSRP (USD)</th><th>Positioning</th></tr>
-        <tr><td>L-E</td><td>$9,500*</td><td>Urban commuter</td></tr>
-        <tr><td>L-X</td><td>$18,000*</td><td>Premium street</td></tr>
-        <tr><td>L-XR</td><td>$22,000–$30,000*</td><td>Track / racing</td></tr>
-      </table>
-      <p class="muted">*Indicative pricing for investor communication; subject to change at launch.</p>
-    </div>
-
-    <!-- Roadmap -->
-    <h2>Roadmap</h2>
-    <div class="grid grid-3">
-      <div class="card"><h3>2025</h3><p>Flagship L-X & L-XR launch, early collectors, partner pilots.</p></div>
-      <div class="card"><h3>2026</h3><p>L-E commuter, LXV touring, regional expansions (US/EU/Asia).</p></div>
-      <div class="card"><h3>2027+</h3><p>Smart HUD 2.0, owners circle, racing & lifestyle collabs, global scale.</p></div>
-    </div>
-
-    <!-- FAQ -->
-    <h2>FAQ</h2>
-    <div class="card">
-      <h3>Is Velocié buttonless like Omnimorpha cars?</h3>
-      <p>Yes. All Velocié bikes ship with AI Control + Buttonless Start, face/body verification, and voice/gesture control via the helmet.</p>
-      <h3>Do bikes include the helmet?</h3>
-      <p>Each model pairs with a matching Smart HUD Helmet (configurations vary by trim and edition).</p>
-      <h3>When can I invest?</h3>
-      <p>See the investor deck and teaser above. Contact us to proceed under NDA.</p>
-    </div>
-
-    <!-- Investor CTA -->
+    <!-- Investor Deck -->
     <h2>Investor Materials</h2>
     <p>Decks, teaser, and financials prepared for diligence.</p>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Download Center</h3>
-        <p><a class="btn btn-teal" href="/docs/velocite/Velocite_Investor_Pitch_Deck_FINAL.pdf">Open Deck (PDF)</a></p>
-        <p><a class="btn btn-outline" href="/docs/velocite/Velocite_Investor_Pitch_Deck_FINAL.pptx">Download PPTX</a></p>
-        <p><a class="btn btn-outline" href="/docs/velocite/Velocite_Deck_Lightweight.pdf">Lightweight PDF</a></p>
-        <p><a class="btn btn-outline" href="/docs/velocite/Velocite_Investor_Teaser.pdf">Teaser One-Pager</a></p>
-      </div>
-      <div class="card">
-        <h3>Contact</h3>
-        <p>Founder & CEO: <strong>Courtney S. Linton</strong><br/>
-        <a href="mailto:clintons38@gmail.com" style="color:var(--teal); text-decoration:none;">clintons38@gmail.com</a></p>
-      </div>
-    </div>
+    <p>
+      <a href="/docs/velocite/Velocite_Investor_Deck.pdf" style="color:#00e6e6;">Open Deck (PDF)</a> |
+      <a href="/docs/velocite/Velocite_Investor_Deck.pptx" style="color:#00e6e6;">Download PPTX</a>
+    </p>
+  </div>
 
-    <hr class="divider"/>
-
-    <p class="muted">© 2025 Omnimorpha. VELOCIÉ™ is a division of Omnimorpha. All rights reserved.</p>
-  </main>
 </body>
 </html>
+
 

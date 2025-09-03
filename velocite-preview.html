@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Velocité | Core Image Preview</title>
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --card:#151517;
+      --gold:#c8a75a;
+      --text:#e9e9ea;
+      --muted:#b9b9bd;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,#0a0a0b,#0f0f12 40%,#0a0a0b);
+      color:var(--text); font-family:Inter, Segoe UI, Roboto, Arial, sans-serif;
+      min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    }
+    header{
+      width:100%; max-width:1200px; padding:28px 20px 8px;
+    }
+    h1{margin:0 0 6px; font-weight:700; letter-spacing:.5px}
+    p.sub{margin:0 0 18px; color:var(--muted)}
+    .grid{
+      width:100%; max-width:1200px; padding:16px 20px 48px;
+      display:grid; gap:18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    }
+    @media (max-width: 640px){
+      .grid{grid-template-columns: 1fr;}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(200,167,90,.25);
+      border-radius:16px; overflow:hidden; position:relative;
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+    }
+    .frame{
+      position:relative; padding:10px;
+      border:2px solid var(--gold);
+      border-radius:12px; margin:10px;
+      background: radial-gradient(120% 120% at 50% 0%, rgba(200,167,90,.06), rgba(0,0,0,.08));
+    }
+    .frame img{
+      width:100%; height:100%; display:block; border-radius:8px; object-fit:cover;
+      aspect-ratio: 16 / 9;
+    }
+    .caption{
+      padding:10px 14px 14px; font-size:14px; color:var(--muted);
+      display:flex; justify-content:space-between; gap:8px;
+    }
+    .name{font-weight:600; color:var(--text)}
+    .tag{color:var(--gold); font-weight:600}
+    footer{
+      position:fixed; bottom:14px; left:0; right:0; display:flex; justify-content:center;
+      pointer-events:none;
+    }
+    .hint{
+      pointer-events:auto;
+      background:rgba(10,10,12,.7); border:1px solid rgba(200,167,90,.25);
+      color:var(--muted); padding:8px 12px; border-radius:999px; font-size:12px;
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Velocité — Core Renders (Watermarked)</h1>
+    <p class="sub">Quick visual check before upload · Gold-framed grid · 3×3 layout</p>
+  </header>
+
+  <main class="grid">
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/hero.jpg" alt="Velocité Hero">
+    </div><div class="caption"><span class="name">Hero</span><span class="tag">1 of 500</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/hero-inline.jpg" alt="Velocité Hero-Inline">
+    </div><div class="caption"><span class="name">Hero-Inline</span><span class="tag">$45k–$48k</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/lx.jpg" alt="Velocité LX">
+    </div><div class="caption"><span class="name">LX</span><span class="tag">Limited</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/lxr.jpg" alt="Velocité LXR">
+    </div><div class="caption"><span class="name">LXR</span><span class="tag">Limited</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/le.jpg" alt="Velocité LE">
+    </div><div class="caption"><span class="name">LE</span><span class="tag">Limited</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/helmet.jpg" alt="Velocité Helmet">
+    </div><div class="caption"><span class="name">Helmet</span><span class="tag">LE</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/blazedrop.jpg" alt="Velocité BlazeDrop">
+    </div><div class="caption"><span class="name">BlazeDrop</span><span class="tag">LE</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/blackvenom.jpg" alt="Velocité BlackVenom">
+    </div><div class="caption"><span class="name">BlackVenom</span><span class="tag">LE</span></div></div>
+
+    <div class="card"><div class="frame">
+      <img src="/images/velocite/lunarstrike.jpg" alt="Velocité LunarStrike">
+    </div><div class="caption"><span class="name">LunarStrike</span><span class="tag">LE</span></div></div>
+  </main>
+
+  <footer><div class="hint">If any tile is blank, the filename or folder path is wrong. Expected: /images/velocite/*.jpg</div></footer>
+</body>
+</html>
 

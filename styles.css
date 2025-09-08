@@ -1,155 +1,91 @@
-/* ================================
-   Omnimorpha Global Styles
-   Updated Dark Theme
-   ================================ */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOCIÉ™ | Omnimorpha</title>
 
-/* Root palette */
-:root {
-  --bg: #0A0B0E;         /* Deep charcoal base */
-  --ink: #E9F1F1;        /* Soft white text */
-  --accent: #00E6E6;     /* Omnimorpha teal */
-  --card-bg: rgba(255, 255, 255, 0.02);
-  --card-outline: rgba(255, 255, 255, 0.06);
-}
+  <!-- Link to the updated stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=20250908a">
+</head>
+<body>
 
-/* Reset + global body */
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: "Segoe UI", "Roboto", sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  overflow-x: hidden;
-}
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="velocite.html">Velocité</a>
+    <a href="hypercars.html">Hypercars</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-/* Background image with dim overlay */
-body {
-  background-image: url('galaxy-bg.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
-              rgba(0,0,0,0.65);
-  pointer-events: none;
-  z-index: -1;
-}
+  <!-- Velocité Showcase -->
+  <section class="velocite">
+    <h1>VELOCITÉ Lineup</h1>
 
-/* Typography */
-h1, h2, h3, h4 {
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--ink);
-}
-p {
-  line-height: 1.6;
-  color: var(--ink);
-}
+    <div class="grid">
+      <!-- L-X -->
+      <a class="card" href="images/velocite/lx-01-large.jpg" data-full="images/velocite/lx-01-large.jpg">
+        <img src="images/velocite/lx-01.jpg" alt="VELOCITÉ L-X">
+        <span class="label">L-X (Flagship)</span>
+      </a>
 
-/* Links */
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.25s ease;
-}
-a:hover {
-  color: #66ffff;
-  text-decoration: underline;
-}
+      <!-- L-XR -->
+      <a class="card" href="images/velocite/lxr-01-large.jpg" data-full="images/velocite/lxr-01-large.jpg">
+        <img src="images/velocite/lxr-01.jpg" alt="VELOCITÉ L-XR">
+        <span class="label">L-XR (Racing)</span>
+      </a>
 
-/* Navbar */
-nav {
-  background-color: rgba(0,0,0,0.85);
-  padding: 15px;
-  text-align: center;
-}
-nav a {
-  margin: 0 12px;
-  font-weight: bold;
-}
+      <!-- L-E -->
+      <a class="card" href="images/velocite/le-01-large.jpg" data-full="images/velocite/le-01-large.jpg">
+        <img src="images/velocite/le-01.jpg" alt="VELOCITÉ L-E">
+        <span class="label">L-E (Commuter)</span>
+      </a>
 
-/* Velocité Grid Layout */
-.velocite {
-  max-width: 1200px;
-  margin: 48px auto;
-  padding: 0 16px;
-}
-.velocite h1 {
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  color: var(--ink);
-  letter-spacing: 0.15em;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
-}
-.card {
-  position: relative;
-  display: block;
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--card-bg);
-  outline: 1px solid var(--card-outline);
-}
-.card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.35s ease;
-}
-.card:hover img {
-  transform: scale(1.03);
-}
-.card .label {
-  position: absolute;
-  left: 12px;
-  bottom: 10px;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(6px);
-  color: var(--ink);
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
+      <!-- LXV -->
+      <a class="card" href="images/velocite/lxv-01-large.jpg" data-full="images/velocite/lxv-01-large.jpg">
+        <img src="images/velocite/lxv-01.jpg" alt="VELOCITÉ LXV">
+        <span class="label">LXV (Touring)</span>
+      </a>
 
-/* Lightbox */
-#lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92);
-  display: grid;
-  place-items: center;
-  z-index: 9999;
-}
-#lightbox img {
-  max-width: min(92vw, 1400px);
-  max-height: 88vh;
-  border-radius: 10px;
-}
-#lightbox .close {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  font-size: 28px;
-  line-height: 28px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 0;
-  color: #111;
-  background: #fff;
-  cursor: pointer;
-}
-[hidden] {
-  display: none !important;
-}
+      <!-- L-NIGHT -->
+      <a class="card" href="images/velocite/lnight-01-large.jpg" data-full="images/velocite/lnight-01-large.jpg">
+        <img src="images/velocite/lnight-01.jpg" alt="VELOCITÉ L-NIGHT">
+        <span class="label">L-NIGHT (Stealth)</span>
+      </a>
+
+      <!-- Add more bikes or helmet renders here -->
+    </div>
+
+    <!-- Modal Lightbox -->
+    <div id="lightbox" hidden>
+      <button class="close" aria-label="Close">×</button>
+      <img id="lightboxImg" alt="">
+    </div>
+  </section>
+
+  <!-- Lightbox Script -->
+  <script>
+    document.querySelectorAll('.card[data-full]').forEach(card => {
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('lightboxImg').src = card.dataset.full || card.href;
+        document.getElementById('lightbox').hidden = false;
+      });
+    });
+
+    const lb = document.getElementById('lightbox');
+    lb.addEventListener('click', e => {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
+        lb.hidden = true;
+        document.getElementById('lightboxImg').src = "";
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !lb.hidden) {
+        lb.hidden = true;
+      }
+    });
+  </script>
+</body>
+</html>
+

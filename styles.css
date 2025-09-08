@@ -1,19 +1,155 @@
-/* Smooth Fade-In Animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* ================================
+   Omnimorpha Global Styles
+   Updated Dark Theme
+   ================================ */
+
+/* Root palette */
+:root {
+  --bg: #0A0B0E;         /* Deep charcoal base */
+  --ink: #E9F1F1;        /* Soft white text */
+  --accent: #00E6E6;     /* Omnimorpha teal */
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --card-outline: rgba(255, 255, 255, 0.06);
 }
 
-/* Apply Animation to Elements */
-.container {
-    animation: fadeIn 1.5s ease-in-out;
+/* Reset + global body */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
 }
 
-/* Hover Effect for Buttons */
-.btn {
-    transition: transform 0.3s ease-in-out;
+/* Background image with dim overlay */
+body {
+  background-image: url('galaxy-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
+              rgba(0,0,0,0.65);
+  pointer-events: none;
+  z-index: -1;
 }
 
-.btn:hover {
-    transform: scale(1.1);
+/* Typography */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+p {
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+a:hover {
+  color: #66ffff;
+  text-decoration: underline;
+}
+
+/* Navbar */
+nav {
+  background-color: rgba(0,0,0,0.85);
+  padding: 15px;
+  text-align: center;
+}
+nav a {
+  margin: 0 12px;
+  font-weight: bold;
+}
+
+/* Velocité Grid Layout */
+.velocite {
+  max-width: 1200px;
+  margin: 48px auto;
+  padding: 0 16px;
+}
+.velocite h1 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+.card {
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card-bg);
+  outline: 1px solid var(--card-outline);
+}
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.card:hover img {
+  transform: scale(1.03);
+}
+.card .label {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Lightbox */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+#lightbox img {
+  max-width: min(92vw, 1400px);
+  max-height: 88vh;
+  border-radius: 10px;
+}
+#lightbox .close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  font-size: 28px;
+  line-height: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  color: #111;
+  background: #fff;
+  cursor: pointer;
+}
+[hidden] {
+  display: none !important;
 }

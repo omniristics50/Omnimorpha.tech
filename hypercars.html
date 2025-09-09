@@ -2,32 +2,121 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Restricted Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omnimorpha Hypercars</title>
+  <link rel="stylesheet" href="styles.css?v=20250908a">
   <style>
-    body {
-      background-color: #0b0b0b;
-      color: #f2f2f2;
-      font-family: sans-serif;
+    .lightbox-content {
       display: flex;
+      gap: 24px;
+      align-items: flex-start;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding: 2rem;
-      text-align: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
     }
-    h1 {
-      font-size: 2rem;
-      line-height: 1.6;
+    #lightboxText {
+      max-width: 380px;
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    #lightbox img {
+      max-width: 560px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1>This page is temporarily restricted for intellectual property protection.<br><br>
-    For inquiries, please contact:<br><br>
-    <strong>Courtney S. Linton</strong><br>
-    <a href="mailto:clintons38@gmail.com" style="color: #f2f2f2;">clintons38@gmail.com</a><br><br>
-    All rights reserved © Omnimorpha</h1>
-  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="velocite.html">Velocité</a>
+    <a href="hypercars.html">Hypercars</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Hypercars Showcase -->
+  <section class="velocite">
+    <h1>Omnimorpha Hypercars</h1>
+
+    <div class="grid">
+      <!-- Hyper-V -->
+      <a class="card" href="images/hypercars/hyper-v-large.jpg" data-full="images/hypercars/hyper-v-large.jpg" data-id="hyperv">
+        <img src="images/hypercars/hyper-v.jpg" alt="Omnimorpha Hyper-V">
+        <span class="label">Hyper-V</span>
+      </a>
+
+      <!-- Hyper-X 2.0 -->
+      <a class="card" href="images/hypercars/hyper-x2-large.jpg" data-full="images/hypercars/hyper-x2-large.jpg" data-id="hyperx2">
+        <img src="images/hypercars/hyper-x2.jpg" alt="Omnimorpha Hyper-X 2.0">
+        <span class="label">Hyper-X 2.0</span>
+      </a>
+
+      <!-- Veylon -->
+      <a class="card" href="images/hypercars/veylon-large.jpg" data-full="images/hypercars/veylon-large.jpg" data-id="veylon">
+        <img src="images/hypercars/veylon.jpg" alt="Omnimorpha Veylon">
+        <span class="label">Veylon</span>
+      </a>
+
+      <!-- Quantum Luxe -->
+      <a class="card" href="images/hypercars/quantum-luxe-large.jpg" data-full="images/hypercars/quantum-luxe-large.jpg" data-id="quantumluxe">
+        <img src="images/hypercars/quantum-luxe.jpg" alt="Omnimorpha Quantum Luxe">
+        <span class="label">Quantum Luxe</span>
+      </a>
+
+      <!-- Grand Empress -->
+      <a class="card" href="images/hypercars/grand-empress-large.jpg" data-full="images/hypercars/grand-empress-large.jpg" data-id="grandempress">
+        <img src="images/hypercars/grand-empress.jpg" alt="Omnimorpha Grand Empress">
+        <span class="label">Grand Empress</span>
+      </a>
+    </div>
+
+    <!-- Modal Lightbox -->
+    <div id="lightbox" hidden>
+      <button class="close" aria-label="Close">×</button>
+      <div class="lightbox-content">
+        <img id="lightboxImg" alt="">
+        <div id="lightboxText"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Script -->
+  <script>
+    // Hypercar descriptions
+    const descriptions = {
+      hyperv: "<h2>Omnimorpha Hyper-V</h2><p>The ultimate AI-powered hypercar. Features graphene-enhanced solid-state battery, DriveCore Circuit Engine™, 0–60 mph in 2.5 seconds, and adaptive aerodynamics controlled by Halia AI.</p>",
+      hyperx2: "<h2>Omnimorpha Hyper-X 2.0</h2><p>Second-generation Hyper-X delivering raw performance. Equipped with OmniCharge™ fast charging, 200+ mph top speed, and a sleek aerodynamic silhouette refined for racing.</p>",
+      veylon: "<h2>Omnimorpha Veylon</h2><p>A luxury-performance blend. Carbon-fiber frame, AI-controlled climate adaptation system, futuristic camera-only navigation, and signature Omnimorphonic Roar™ sound profile.</p>",
+      quantumluxe: "<h2>Quantum Luxe</h2><p>The pinnacle of futuristic elegance. Powered by HaliaPulse™ acoustic system, adaptive luxury interior, graphene battery integration, and investor-class exclusivity.</p>",
+      grandempress: "<h2>Grand Empress</h2><p>A hypercar built for royalty. Combines quantum energy roadmap vision with unmatched design, AI co-pilot system, and bespoke craftsmanship.</p>"
+    };
+
+    document.querySelectorAll('.card[data-full]').forEach(card => {
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        const full = card.dataset.full;
+        const id = card.dataset.id;
+        document.getElementById('lightboxImg').src = full;
+        document.getElementById('lightboxText').innerHTML = descriptions[id] || "";
+        document.getElementById('lightbox').hidden = false;
+      });
+    });
+
+    const lb = document.getElementById('lightbox');
+    lb.addEventListener('click', e => {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
+        lb.hidden = true;
+        document.getElementById('lightboxImg').src="";
+        document.getElementById('lightboxText').innerHTML="";
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !lb.hidden) {
+        lb.hidden = true;
+      }
+    });
+  </script>
 </body>
 </html>

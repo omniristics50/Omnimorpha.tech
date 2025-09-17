@@ -1,123 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Omnimorpha Hypercars</title>
-  <link rel="stylesheet" href="styles.css?v=20250908a">
+  <link rel="stylesheet" href="styles.css">
   <style>
-    .lightbox-content {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 1000px;
+    :root{ --ink:#E9F1F1; }
+
+    .hypercars{max-width:1200px;margin:48px auto;padding:0 16px}
+    .hypercars h1{letter-spacing:.15em;text-transform:uppercase;color:var(--ink);text-align:center;margin:0 0 24px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:18px;
     }
-    #lightboxText {
-      max-width: 380px;
-      font-size: 1rem;
-      color: var(--ink);
-      line-height: 1.5;
+    .card{
+      position:relative;
+      display:block;
+      border-radius:16px;
+      overflow:hidden;
+      background:rgba(255,255,255,.02);
+      outline:1px solid rgba(255,255,255,.06);
+      text-decoration:none;
     }
-    #lightbox img {
-      max-width: 560px;
-      border-radius: 10px;
+    .card img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .35s ease}
+    .card:hover img{transform:scale(1.03)}
+    .card .label{
+      position:absolute;left:12px;bottom:10px;
+      background:rgba(0,0,0,.55);backdrop-filter: blur(6px);
+      color:var(--ink);padding:6px 10px;border-radius:10px;font-weight:600;font-size:.9rem;
+      pointer-events:none; /* label never blocks clicks */
     }
+    .card .meta{
+      padding:12px 12px 14px;
+      display:block;
+      background:rgba(255,255,255,0.02);
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .card .meta h3{
+      margin:0 0 6px;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--ink);
+      letter-spacing:.02em;
+    }
+    .card .meta p{
+      margin:0;
+      font-size:.92rem;
+      line-height:1.5;
+      color:var(--ink);
+      opacity:.9;
+    }
+    .card .zoom{
+      position:absolute; top:10px; right:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:10px;
+      background:rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.3);
+      color:#fff; font-weight:700; font-size:14px;
+      cursor:pointer; user-select:none;
+    }
+    .card .zoom:focus{ outline:2px solid #00e6e6; outline-offset:2px; }
+
+    /* Lightbox (shared pattern) */
+    #lightbox{
+      position:fixed;inset:0;background:rgba(0,0,0,.92);
+      display:grid;place-items:center;z-index:9999;
+    }
+    #lightbox img{max-width:min(92vw,1400px);max-height:88vh;border-radius:10px}
+    #lightbox .close{
+      position:fixed;top:18px;right:18px;
+      font-size:28px;line-height:28px;
+      width:44px;height:44px;border-radius:50%;
+      border:0;color:#111;background:#fff;cursor:pointer
+    }
+    [hidden]{display:none!important}
   </style>
 </head>
 <body>
-
   <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
     <a href="velocite.html">Velocité</a>
     <a href="hypercars.html">Hypercars</a>
+    <a href="ai-dishwasher.html">AI Dishwasher</a>
     <a href="contact.html">Contact</a>
   </nav>
 
-  <!-- Hypercars Showcase -->
-  <section class="velocite">
+  <!-- HYPERCARS Lineup -->
+  <section class="hypercars">
     <h1>Omnimorpha Hypercars</h1>
 
     <div class="grid">
       <!-- Hyper-V -->
-      <a class="card" href="images/hypercars/hyper-v-large.jpg" data-full="images/hypercars/hyper-v-large.jpg" data-id="hyperv">
-        <img src="images/hypercars/hyper-v.jpg" alt="Omnimorpha Hyper-V">
+      <a class="card" href="hyper-v.html" aria-label="Open Hyper-V">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-V" data-full="images/hypercars/hyper-v-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/hyper-v-01.webp" type="image/webp">
+          <img src="images/hypercars/hyper-v-01.jpg" alt="Omnimorpha Hyper-V" loading="lazy">
+        </picture>
         <span class="label">Hyper-V</span>
+        <span class="meta">
+          <h3>Hyper-V — Flagship Hypercar</h3>
+          <p>DriveCore Hyper™ dual-motor, graphene solid-state pack, 0–60 ~2.0 s (target), Halia AI cockpit with buttonless interior.</p>
+        </span>
       </a>
 
-      <!-- Hyper-X 2.0 -->
-      <a class="card" href="images/hypercars/hyper-x2-large.jpg" data-full="images/hypercars/hyper-x2-large.jpg" data-id="hyperx2">
-        <img src="images/hypercars/hyper-x2.jpg" alt="Omnimorpha Hyper-X 2.0">
-        <span class="label">Hyper-X 2.0</span>
-      </a>
-
-      <!-- Veylon -->
-      <a class="card" href="images/hypercars/veylon-large.jpg" data-full="images/hypercars/veylon-large.jpg" data-id="veylon">
-        <img src="images/hypercars/veylon.jpg" alt="Omnimorpha Veylon">
-        <span class="label">Veylon</span>
+      <!-- Hyper-X -->
+      <a class="card" href="hyper-x.html" aria-label="Open Hyper-X">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-X" data-full="images/hypercars/hyper-x-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/hyper-x-01.webp" type="image/webp">
+          <img src="images/hypercars/hyper-x-01.jpg" alt="Omnimorpha Hyper-X" loading="lazy">
+        </picture>
+        <span class="label">Hyper-X</span>
+        <span class="meta">
+          <h3>Hyper-X — Track Focus</h3>
+          <p>Aero-first chassis, tri-vector torque control, 0–60 ~1.9 s (target), Halia Coach with live telemetry & race modes.</p>
+        </span>
       </a>
 
       <!-- Quantum Luxe -->
-      <a class="card" href="images/hypercars/quantum-luxe-large.jpg" data-full="images/hypercars/quantum-luxe-large.jpg" data-id="quantumluxe">
-        <img src="images/hypercars/quantum-luxe.jpg" alt="Omnimorpha Quantum Luxe">
+      <a class="card" href="quantum-luxe.html" aria-label="Open Quantum Luxe">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Quantum Luxe" data-full="images/hypercars/quantum-luxe-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/quantum-luxe-01.webp" type="image/webp">
+          <img src="images/hypercars/quantum-luxe-01.jpg" alt="Omnimorpha Quantum Luxe" loading="lazy">
+        </picture>
         <span class="label">Quantum Luxe</span>
+        <span class="meta">
+          <h3>Quantum Luxe — Grand Touring</h3>
+          <p>Long-range graphene SSB, adaptive climate exterior, whisper cabin, Halia Concierge with route & wellness modes.</p>
+        </span>
+      </a>
+
+      <!-- Sovereign -->
+      <a class="card" href="sovereign.html" aria-label="Open Sovereign">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Sovereign" data-full="images/hypercars/sovereign-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/sovereign-01.webp" type="image/webp">
+          <img src="images/hypercars/sovereign-01.jpg" alt="Omnimorpha Sovereign" loading="lazy">
+        </picture>
+        <span class="label">Sovereign</span>
+        <span class="meta">
+          <h3>Sovereign — Crown Series</h3>
+          <p>Executive grand coupe, AI climate-adaptive skin, Halia VoiceLink Takeover™, ceremonial crest interior detailing.</p>
+        </span>
       </a>
 
       <!-- Grand Empress -->
-      <a class="card" href="images/hypercars/grand-empress-large.jpg" data-full="images/hypercars/grand-empress-large.jpg" data-id="grandempress">
-        <img src="images/hypercars/grand-empress.jpg" alt="Omnimorpha Grand Empress">
+      <a class="card" href="grand-empress.html" aria-label="Open Grand Empress">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Grand Empress" data-full="images/hypercars/grand-empress-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/grand-empress-01.webp" type="image/webp">
+          <img src="images/hypercars/grand-empress-01.jpg" alt="Omnimorpha Grand Empress" loading="lazy">
+        </picture>
         <span class="label">Grand Empress</span>
+        <span class="meta">
+          <h3>Grand Empress — Ultimate Luxury</h3>
+          <p>Four-seat salon, graphene SSB extended pack, private lounge cabin, Halia valet & ambient intelligence suite.</p>
+        </span>
+      </a>
+
+      <!-- Hyper-V Ultima (Limited) -->
+      <a class="card" href="hyper-v-ultima.html" aria-label="Open Hyper-V Ultima">
+        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-V Ultima" data-full="images/hypercars/hyper-v-ultima-01-large.jpg">⤢</span>
+        <picture>
+          <source srcset="images/hypercars/hyper-v-ultima-01.webp" type="image/webp">
+          <img src="images/hypercars/hyper-v-ultima-01.jpg" alt="Omnimorpha Hyper-V Ultima" loading="lazy">
+        </picture>
+        <span class="label">Hyper-V Ultima (Ltd.)</span>
+        <span class="meta">
+          <h3>Hyper-V Ultima — Limited Series</h3>
+          <p>Numbered edition, elevated aero & cooling, curated materials, investor slide includes financial opportunity panel.</p>
+        </span>
       </a>
     </div>
 
-    <!-- Modal Lightbox -->
-    <div id="lightbox" hidden>
+    <!-- Modal -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
       <button class="close" aria-label="Close">×</button>
-      <div class="lightbox-content">
-        <img id="lightboxImg" alt="">
-        <div id="lightboxText"></div>
-      </div>
+      <img id="lightboxImg" alt="">
     </div>
   </section>
 
-  <!-- Lightbox Script -->
+  <!-- Lightbox Script (images are NOT blocked; only ⤢ opens) -->
   <script>
-    // Hypercar descriptions
-    const descriptions = {
-      hyperv: "<h2>Omnimorpha Hyper-V</h2><p>The ultimate AI-powered hypercar. Features graphene-enhanced solid-state battery, DriveCore Circuit Engine™, 0–60 mph in 2.5 seconds, and adaptive aerodynamics controlled by Halia AI.</p>",
-      hyperx2: "<h2>Omnimorpha Hyper-X 2.0</h2><p>Second-generation Hyper-X delivering raw performance. Equipped with OmniCharge™ fast charging, 200+ mph top speed, and a sleek aerodynamic silhouette refined for racing.</p>",
-      veylon: "<h2>Omnimorpha Veylon</h2><p>A luxury-performance blend. Carbon-fiber frame, AI-controlled climate adaptation system, futuristic camera-only navigation, and signature Omnimorphonic Roar™ sound profile.</p>",
-      quantumluxe: "<h2>Quantum Luxe</h2><p>The pinnacle of futuristic elegance. Powered by HaliaPulse™ acoustic system, adaptive luxury interior, graphene battery integration, and investor-class exclusivity.</p>",
-      grandempress: "<h2>Grand Empress</h2><p>A hypercar built for royalty. Combines quantum energy roadmap vision with unmatched design, AI co-pilot system, and bespoke craftsmanship.</p>"
-    };
-
-    document.querySelectorAll('.card[data-full]').forEach(card => {
-      card.addEventListener('click', e => {
-        e.preventDefault();
-        const full = card.dataset.full;
-        const id = card.dataset.id;
-        document.getElementById('lightboxImg').src = full;
-        document.getElementById('lightboxText').innerHTML = descriptions[id] || "";
-        document.getElementById('lightbox').hidden = false;
-      });
-    });
-
+  (function(){
     const lb = document.getElementById('lightbox');
-    lb.addEventListener('click', e => {
-      if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
-        lb.hidden = true;
-        document.getElementById('lightboxImg').src="";
-        document.getElementById('lightboxText').innerHTML="";
-      }
+    const img = document.getElementById('lightboxImg');
+
+    function open(src){
+      if(!src) return;
+      img.src = src;
+      lb.hidden = false;
+    }
+    function close(){
+      lb.hidden = true;
+      img.src = "";
+    }
+
+    // Zoom buttons only
+    document.querySelectorAll('.card .zoom').forEach(z=>{
+      const src = z.getAttribute('data-full');
+      z.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); open(src); });
+      z.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(src);} });
     });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !lb.hidden) {
-        lb.hidden = true;
-      }
+
+    lb.addEventListener('click', (e)=>{
+      if(e.target.id==='lightbox' || e.target.classList.contains('close')) close();
     });
+    document.addEventListener('keydown', (e)=>{
+      if(lb.hidden) return;
+      if(e.key==='Escape') close();
+    }, {passive:true});
+  })();
   </script>
 </body>
 </html>
+
 

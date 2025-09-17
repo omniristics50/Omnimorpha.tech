@@ -8,73 +8,37 @@
   <style>
     :root{ --ink:#E9F1F1; }
 
+    /* Dropdown nav */
+    nav { position: relative; display:flex; gap:14px; flex-wrap:wrap; background:rgba(0,0,0,.85); padding:15px; }
+    nav a { font-weight:600; }
+    .nav-group{ position:relative; }
+    .nav-group > .nav-menu{
+      position:absolute; left:0; top:100%; min-width:180px;
+      background:rgba(0,0,0,.9); border:1px solid rgba(255,255,255,.1);
+      border-radius:12px; padding:8px; display:none;
+    }
+    .nav-group:hover > .nav-menu{ display:block; }
+    .nav-menu a{ display:block; padding:8px 10px; border-radius:8px; }
+    .nav-menu a:hover{ background:rgba(255,255,255,.06); }
+
+    /* Page layout + cards */
     .hypercars{max-width:1200px;margin:48px auto;padding:0 16px}
     .hypercars h1{letter-spacing:.15em;text-transform:uppercase;color:var(--ink);text-align:center;margin:0 0 24px}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-      gap:18px;
-    }
-    .card{
-      position:relative;
-      display:block;
-      border-radius:16px;
-      overflow:hidden;
-      background:rgba(255,255,255,.02);
-      outline:1px solid rgba(255,255,255,.06);
-      text-decoration:none;
-    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+    .card{position:relative;display:block;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);outline:1px solid rgba(255,255,255,.06);text-decoration:none}
     .card img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .35s ease}
     .card:hover img{transform:scale(1.03)}
-    .card .label{
-      position:absolute;left:12px;bottom:10px;
-      background:rgba(0,0,0,.55);backdrop-filter: blur(6px);
-      color:var(--ink);padding:6px 10px;border-radius:10px;font-weight:600;font-size:.9rem;
-      pointer-events:none; /* label never blocks clicks */
-    }
-    .card .meta{
-      padding:12px 12px 14px;
-      display:block;
-      background:rgba(255,255,255,0.02);
-      border-top:1px solid rgba(255,255,255,0.06);
-    }
-    .card .meta h3{
-      margin:0 0 6px;
-      font-size:1rem;
-      font-weight:700;
-      color:var(--ink);
-      letter-spacing:.02em;
-    }
-    .card .meta p{
-      margin:0;
-      font-size:.92rem;
-      line-height:1.5;
-      color:var(--ink);
-      opacity:.9;
-    }
-    .card .zoom{
-      position:absolute; top:10px; right:10px;
-      display:inline-flex; align-items:center; justify-content:center;
-      width:34px; height:34px; border-radius:10px;
-      background:rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.3);
-      color:#fff; font-weight:700; font-size:14px;
-      cursor:pointer; user-select:none;
-    }
-    .card .zoom:focus{ outline:2px solid #00e6e6; outline-offset:2px; }
+    .card .label{position:absolute;left:12px;bottom:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:var(--ink);padding:6px 10px;border-radius:10px;font-weight:600;font-size:.9rem;pointer-events:none}
+    .card .meta{padding:12px 12px 14px;display:block;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.06)}
+    .card .meta h3{margin:0 0 6px;font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:.02em}
+    .card .meta p{margin:0;font-size:.92rem;line-height:1.5;color:var(--ink);opacity:.9}
+    .card .zoom{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.3);color:#fff;font-weight:700;font-size:14px;cursor:pointer;user-select:none}
+    .card .zoom:focus{outline:2px solid #00e6e6;outline-offset:2px}
 
-    /* Lightbox (shared pattern) */
-    #lightbox{
-      position:fixed;inset:0;background:rgba(0,0,0,.92);
-      display:grid;place-items:center;z-index:9999;
-    }
+    /* Lightbox */
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:grid;place-items:center;z-index:9999}
     #lightbox img{max-width:min(92vw,1400px);max-height:88vh;border-radius:10px}
-    #lightbox .close{
-      position:fixed;top:18px;right:18px;
-      font-size:28px;line-height:28px;
-      width:44px;height:44px;border-radius:50%;
-      border:0;color:#111;background:#fff;cursor:pointer
-    }
+    #lightbox .close{position:fixed;top:18px;right:18px;font-size:28px;line-height:28px;width:44px;height:44px;border-radius:50%;border:0;color:#111;background:#fff;cursor:pointer}
     [hidden]{display:none!important}
   </style>
 </head>
@@ -82,8 +46,30 @@
   <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
-    <a href="velocite.html">Velocité</a>
-    <a href="hypercars.html">Hypercars</a>
+
+    <div class="nav-group">
+      <a href="velocite.html">Velocité ▾</a>
+      <div class="nav-menu">
+        <a href="velocite-lx.html">L-X</a>
+        <a href="velocite-lxr.html">L-XR</a>
+        <a href="velocite-le.html">L-E</a>
+        <a href="velocite-lxv.html">LXV</a>
+        <a href="velocite-l-night.html">L-NIGHT</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="hypercars.html">Hypercars ▾</a>
+      <div class="nav-menu">
+        <a href="hyper-v.html">Hyper-V</a>
+        <a href="hyper-x.html">Hyper-X</a>
+        <a href="quantum-luxe.html">Quantum Luxe</a>
+        <a href="sovereign.html">Sovereign</a>
+        <a href="grand-empress.html">Grand Empress</a>
+        <a href="hyper-v-ultima.html">Hyper-V Ultima</a>
+      </div>
+    </div>
+
     <a href="ai-dishwasher.html">AI Dishwasher</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -185,23 +171,15 @@
     </div>
   </section>
 
-  <!-- Lightbox Script (images are NOT blocked; only ⤢ opens) -->
+  <!-- Lightbox Script (only ⤢ opens; images/cards navigate) -->
   <script>
   (function(){
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightboxImg');
 
-    function open(src){
-      if(!src) return;
-      img.src = src;
-      lb.hidden = false;
-    }
-    function close(){
-      lb.hidden = true;
-      img.src = "";
-    }
+    function open(src){ if(!src) return; img.src = src; lb.hidden = false; }
+    function close(){ lb.hidden = true; img.src = ""; }
 
-    // Zoom buttons only
     document.querySelectorAll('.card .zoom').forEach(z=>{
       const src = z.getAttribute('data-full');
       z.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); open(src); });
@@ -219,5 +197,6 @@
   </script>
 </body>
 </html>
+
 
 

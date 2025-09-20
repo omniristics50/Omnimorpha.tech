@@ -3,167 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omnimorpha | Portal</title>
+  <title>Omnimorpha Portal | Search</title>
+
+  <!-- Favicon / Web Icon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+
+  <!-- SEO Meta -->
+  <meta name="description" content="Omnimorpha Portal – Search Omnimorpha or the web. Explore AI-powered vehicles, smart homes, wearable tech, and more.">
+  <meta property="og:title" content="Omnimorpha Portal | Search" />
+  <meta property="og:description" content="Search Omnimorpha or the web across omnimorpha.tech." />
+  <meta property="og:url" content="https://omnimorpha.tech/portal.html" />
+  <meta property="og:image" content="https://omnimorpha.tech/images/omnimorpha-logo.png" />
+
   <style>
-    :root{
-      --bg:#f3f5f8;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --text:#111827;
-      --border:#e5e7eb;
-      --accent:#0ea5e9;
-      --accent-weak:#dbeafe;
-      --shadow:0 6px 24px rgba(2, 6, 23, 0.08);
-      --radius:16px;
+    :root {
+      --bg:#f3f5f8; --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e5e7eb;
+      --accent:#0ea5e9; --shadow:0 10px 30px rgba(2,6,23,.08);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text); background:var(--bg);
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      display:grid;
+      place-items:center;
     }
-    .nav{
-      position:sticky; top:0; z-index:40;
-      background:#fff; border-bottom:1px solid var(--border);
-      backdrop-filter: saturate(180%) blur(6px);
+    .wrap {
+      width:min(720px,92vw);
+      text-align:center;
     }
-    .nav-inner{max-width:1280px; margin:0 auto; display:flex; align-items:center; gap:16px; padding:12px 18px;}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800;}
-    .brand-logo{width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--accent), #60a5fa); display:grid; place-items:center; color:white; font-size:18px; box-shadow:var(--shadow)}
-    .brand small{display:block; font-weight:600; color:var(--muted);}
-    .nav a{color:#111827; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px}
-    .nav a:hover{background:var(--accent-weak)}
-    .nav-links{display:flex; gap:6px; margin-left:10px; flex-wrap:wrap}
-    .nav-actions{margin-left:auto; display:flex; align-items:center; gap:10px}
-    .icon-btn{width:36px; height:36px; border-radius:12px; display:grid; place-items:center; border:1px solid var(--border); background:#fff}
-    .wrap{max-width:1280px; margin:20px auto; padding:0 18px}
-    .grid{display:grid; grid-template-columns: 1.1fr 1fr 0.8fr; gap:18px}
-    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
-    .card-header{padding:14px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between}
-    .card-title{margin:0; font-size:16px; font-weight:800;}
-    .card-sub{margin:6px 0 0; color:var(--muted); font-size:13px}
-    .card-body{padding:16px}
-    .hero{display:grid; grid-template-columns: 1.15fr 1fr; gap:16px; padding:16px}
-    .hero-img{border-radius:12px; overflow:hidden; border:1px solid var(--border); height:250px; background:#eef1f6}
-    .hero h2{margin:0 0 8px; font-size:22px}
-    .hero p{margin:0; color:#334155}
-    .pill{display:inline-block; background:var(--accent-weak); color:#075985; font-weight:700; font-size:12px; padding:6px 10px; border-radius:999px}
-    .muted{color:var(--muted)}
-    .list{display:flex; flex-direction:column; gap:12px}
-    .list a{color:#0b5cab; text-decoration:none; font-weight:600}
-    .list a:hover{text-decoration:underline}
-    .date{font-weight:800; font-size:14px; color:#111827}
-    .quick-links .item{padding:10px 12px; border:1px solid var(--border); border-radius:12px; display:flex; align-items:center; gap:10px}
-    .quick-links .item:hover{background:#f8fafc}
-    .apps{display:flex; flex-direction:column; gap:10px}
-    .app{display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px dashed var(--border); border-radius:12px}
-    .app .dot{width:10px; height:10px; border-radius:50%; background:var(--accent)}
-    footer{max-width:1280px; margin:30px auto; padding:0 18px 40px; color:var(--muted)}
-    @media (max-width:1100px){
-      .grid{grid-template-columns:1fr;}
-      .hero{grid-template-columns:1fr;}
+    .logo {
+      display:inline-grid;
+      place-items:center;
+      width:64px;
+      height:64px;
+      border-radius:18px;
+      margin:0 auto 14px;
+      color:#fff;
+      font-weight:900;
+      font-size:28px;
+      background:linear-gradient(135deg, var(--accent), #60a5fa);
+      box-shadow:var(--shadow);
+    }
+    h1 {
+      margin:6px 0 8px;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+    p.sub {
+      margin:0 0 22px;
+      color:var(--muted);
+    }
+    .card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
+    .search-row {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:6px 6px 6px 14px;
+    }
+    .search-row input {
+      flex:1;
+      border:none;
+      outline:none;
+      font-size:16px;
+      padding:12px 10px;
+      background:transparent;
+    }
+    .btn {
+      border:none;
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-primary {
+      background:var(--accent);
+      color:#fff;
+    }
+    .btn-ghost {
+      background:transparent;
+    }
+    .row {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    .links {
+      margin-top:18px;
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .links a {
+      color:var(--accent);
+      font-weight:700;
+      text-decoration:none;
+    }
+    .links a:hover {
+      text-decoration:underline;
+    }
+    footer {
+      position:fixed;
+      bottom:12px;
+      left:0;
+      right:0;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="brand-logo">Ω</div>
-        <div>
-          <div>OMNIMORPHA</div>
-          <small>Intelligence • Design • Future</small>
-        </div>
-      </div>
-      <div class="nav-links">
-        <a href="index.html">Company</a>
-        <a href="ai-dishwasher.html">Internal Services</a>
-        <a href="news.html">News</a>
-        <a href="contact.html">My Page</a>
-        <a href="investors.html">Investor Portal</a>
-      </div>
-      <div class="nav-actions">
-        <button class="icon-btn">🔎</button>
-        <button class="icon-btn">🔔</button>
-        <button class="icon-btn">⚙️</button>
-        <div style="display:flex; align-items:center; gap:8px; padding-left:6px">
-          <div style="width:28px;height:28px;border-radius:999px;background:#ddd"></div>
-          <strong style="font-size:14px">Courtney</strong>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <main class="wrap">
-    <div class="grid">
-      <section class="card">
-        <div class="hero">
-          <div class="hero-img"></div>
-          <div>
-            <span class="pill">Management Board</span>
-            <h2>Integration of Halia AI across the Omnimorpha Ecosystem</h2>
-            <p class="muted">As of <strong>Apr 1, 2026</strong>, Halia AI becomes the unified intelligence layer for vehicles, appliances, and wearables.</p>
-          </div>
-        </div>
-        <div class="card-body" style="border-top:1px solid var(--border)">
-          <h3 class="card-title" style="margin:0 0 12px">More News</h3>
-          <div class="list">
-            <div><div class="muted" style="font-size:12px">19/09/2025</div><a href="news.html">New Omnimorpha Investor Portal deployed</a></div>
-            <div><div class="muted" style="font-size:12px">18/09/2025</div><a href="news.html">Correct handling of E-mail distribution lists</a></div>
-          </div>
-        </div>
-      </section>
+    <div class="logo">Ω</div>
+    <h1>Omnimorpha Portal</h1>
+    <p class="sub">Search Omnimorpha or the web. Toggle site-only to see results from <strong>omnimorpha.tech</strong>.</p>
 
-      <section class="card">
-        <div class="card-header">
-          <div>
-            <h3 class="card-title">Board & Team Posts</h3>
-            <p class="card-sub">Latest updates from leadership and teams</p>
-          </div>
-          <a href="news.html" style="color:var(--accent); font-weight:700">View all →</a>
-        </div>
-        <div class="card-body">
-          <article style="display:flex; gap:12px"><div style="width:40px;height:40px;border-radius:999px;background:#ddd"></div><div><strong>Gerhard</strong> <span class="muted">| 16/09/2025</span><div class="muted">“Fake voice, real risk!”</div></div></article>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div class="card-header">
-          <div>
-            <div class="date">Friday, September 19, 2025</div>
-            <div class="muted">Local time <span id="time">--:--</span></div>
-          </div>
-        </div>
-        <div class="card-body">
-          <h4 style="margin:0 0 10px">Quick Links</h4>
-          <div class="quick-links list">
-            <a class="item" href="ai-washer-dryer.html">🕒 Washer-Dryer</a>
-            <a class="item" href="ai-earbuds.html">🎧 Earbuds</a>
-            <a class="item" href="ai-camera.html">📸 AI Camera</a>
-            <a class="item" href="hypercars.html">🚗 Hypercars</a>
-            <a class="item" href="velocite.html">🏍️ Velocité</a>
-            <a class="item" href="ayrelle-noir.html">👗 AYRÉLLE Noir</a>
-          </div>
-
-          <h4 style="margin:18px 0 10px">My Applications</h4>
-          <div class="apps">
-            <div class="app"><span class="dot"></span> Customer & Market</div>
-            <div class="app"><span class="dot"></span> Engineering Tools</div>
-            <div class="app"><span class="dot"></span> Information Technology</div>
-          </div>
-        </div>
-      </aside>
+    <div class="card">
+      <form id="searchForm" class="search-row" role="search">
+        <input id="q" type="text" name="q" placeholder="Search Omnimorpha..." autocomplete="on" />
+        <button class="btn btn-primary" type="submit" title="Search">🔍</button>
+      </form>
+      <div class="row" style="margin-top:8px">
+        <label style="display:flex; align-items:center; gap:8px; user-select:none">
+          <input id="siteOnly" type="checkbox" checked />
+          See results only from <strong>omnimorpha.tech</strong>
+        </label>
+      </div>
+      <div class="row">
+        <button class="btn btn-ghost" type="button" onclick="quick('ai camera')">ai cameras</button>
+        <button class="btn btn-ghost" type="button" onclick="quick('ai washing machine')">ai washing machine</button>
+        <button class="btn btn-ghost" type="button" onclick="quick('wearable ai devices')">wearable ai devices</button>
+      </div>
     </div>
+
+    <nav class="links" aria-label="Quick links">
+      <a href="index.html">Home</a>
+      <a href="investors.html">Investor Relations</a>
+      <a href="contact.html">Contact</a>
+      <a href="ai-camera.html">AI Camera</a>
+      <a href="ai-dishwasher.html">AI Dishwasher</a>
+      <a href="hypercars.html">Hypercars</a>
+      <a href="velocite.html">Velocité</a>
+      <a href="ayrelle-noir.html">AYRÉLLE Noir</a>
+    </nav>
   </main>
 
-  <footer>
-    © 2025 Omnimorpha • All rights reserved • <a href="investors.html" style="color:var(--accent); font-weight:700; text-decoration:none">Investor Contact</a>
-  </footer>
+  <footer>© 2025 Omnimorpha • All rights reserved</footer>
 
   <script>
-    const el = document.getElementById('time');
-    const fmt = new Intl.DateTimeFormat([], {hour:'numeric', minute:'2-digit'});
-    setInterval(()=>{ el.textContent = fmt.format(new Date()); }, 1000);
+    const form = document.getElementById('searchForm');
+    const q = document.getElementById('q');
+    const siteOnly = document.getElementById('siteOnly');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const term = encodeURIComponent(q.value.trim());
+      if (!term) { q.focus(); return; }
+      const base = 'https://www.google.com/search?q=';
+      const site = siteOnly.checked ? encodeURIComponent('site:omnimorpha.tech ') : '';
+      window.location.href = base + site + term;
+    });
+
+    function quick(text) { q.value = text; q.focus(); }
   </script>
 </body>
 </html>
+

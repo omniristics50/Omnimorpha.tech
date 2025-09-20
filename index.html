@@ -4,20 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Omnimorpha | The Future of AI</title>
-
   <!-- Favicon / Web Icon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-
   <!-- SEO Meta -->
   <meta name="description" content="Welcome to Omnimorpha, where cutting-edge technology meets limitless possibilities. Experience AI-powered vehicles, smart homes, wearable tech, and elegant fashion like never before.">
   <meta property="og:title" content="Omnimorpha | The Future of AI" />
   <meta property="og:description" content="Cutting-edge technology meets limitless possibilities. AI-powered vehicles, smart homes, wearable tech, and elegant fashion." />
   <meta property="og:url" content="https://omnimorpha.tech" />
   <meta property="og:image" content="https://omnimorpha.tech/images/omnimorpha-logo.png" />
-
   <style>
     :root{
       --bg:#f3f5f8; --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e5e7eb;
@@ -27,7 +24,6 @@
     html,body{height:100%}
     body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text)}
     .wrap{max-width:1200px; margin:0 auto; padding:28px 18px 60px}
-
     /* header hero */
     .hero{display:grid; place-items:center; text-align:center; padding:40px 0 10px}
     .logo{display:grid; place-items:center; width:72px; height:72px; border-radius:20px; color:#fff; font-weight:900; font-size:32px; background:linear-gradient(135deg,var(--accent),#60a5fa); box-shadow:var(--shadow); margin-bottom:12px}
@@ -36,12 +32,10 @@
     .links{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:10px 0 0}
     .links a{color:var(--accent); text-decoration:none; font-weight:700}
     .links a:hover{text-decoration:underline}
-
     /* section titles */
     .section{margin-top:26px}
     .section h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
     .section p{margin:0 0 14px; color:var(--muted)}
-
     /* project grid */
     .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
@@ -72,51 +66,69 @@
         <a href="contact.html">Contact</a>
       </nav>
     </header>
-
-    <!-- Vehicles -->
-    <section class="section" id="vehicles">
-      <h2>Vehicles</h2>
-      <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
-      <div class="grid">
-        <a class="card" href="hypercars.html">
-          <div class="thumb" style="background-image:linear-gradient(120deg,#fde68a,#fca5a5)"></div>
-          <div class="content">
-            <h3 class="title">Hypercars</h3>
-            <p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore.</p>
-          </div>
-          <div class="cta">Open → <span>hypercars.html</span></div>
-        </a>
-        <a class="card" href="ai-camera.html">
-          <div class="thumb" style="background-image:linear-gradient(120deg,#bae6fd,#a7f3d0)"></div>
-          <div class="content">
-            <h3 class="title">AI Camera System</h3>
-            <p class="desc">Mirrorless vision, LiDAR + AI, face & body scan.</p>
-          </div>
-          <div class="cta">Open → <span>ai-camera.html</span></div>
-        </a>
-        <a class="card" href="velocite.html">
-          <div class="thumb" style="background-image:linear-gradient(120deg,#ddd6fe,#93c5fd)"></div>
-          <div class="content">
-            <h3 class="title">VELOCIÉ™ Motorcycles</h3>
-            <p class="desc">L-X, L-XR, L-E — HUD visor & helmet system.</p>
-          </div>
-          <div class="cta">Open → <span>velocite.html</span></div>
-        </a>
-        <!-- Motorhome Card -->
-        <a class="card" href="motorhome.html">
-          <div class="thumb" style="background-image:linear-gradient(120deg,#c7d2fe,#a7f3d0)"></div>
-          <div class="content">
-            <h3 class="title">Omnimorpha Motorhome</h3>
-            <p class="desc">AI-powered luxury mobile home — adaptive safety, modular interiors, and executive-class comfort.</p>
-          </div>
-          <div class="cta">Open → <span>motorhome.html</span></div>
-        </a>
+<!-- Vehicles -->
+<section class="section" id="vehicles">
+  <h2>Vehicles</h2>
+  <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
+  <div class="grid">
+    <!-- Motorhome -->
+    <a class="card" href="motorhome.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#dbeafe,#c7d2fe)"></div>
+      <div class="content">
+        <h3 class="title">Omnimorpha Motorhome</h3>
+        <p class="desc">AI-powered luxury mobile home — adaptive safety, modular interiors, executive comfort.</p>
       </div>
-    </section>
-
+      <div class="cta">Open → <span>motorhome.html</span></div>
+    </a>
+    <!-- Hypercars -->
+    <a class="card" href="hypercars.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#fde68a,#fca5a5)"></div>
+      <div class="content">
+        <h3 class="title">Hypercars</h3>
+        <p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore.</p>
+      </div>
+      <div class="cta">Open → <span>hypercars.html</span></div>
+    </a>
+    <!-- AI Camera System -->
+    <a class="card" href="ai-camera.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#bae6fd,#a7f3d0)"></div>
+      <div class="content">
+        <h3 class="title">AI Camera System</h3>
+        <p class="desc">Mirrorless vision, LiDAR + AI, facial & body recognition security.</p>
+      </div>
+      <div class="cta">Open → <span>ai-camera.html</span></div>
+    </a>
+    <!-- VELOCIÉ Motorcycles -->
+    <a class="card" href="velocite.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#ddd6fe,#93c5fd)"></div>
+      <div class="content">
+        <h3 class="title">VELOCIÉ™ Motorcycles</h3>
+        <p class="desc">L-X, L-XR, L-E — smart HUD visor & helmet system.</p>
+      </div>
+      <div class="cta">Open → <span>velocite.html</span></div>
+    </a>
+    <!-- Imperial Limousine -->
+    <a class="card" href="imperial-limousine.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#f5d0fe,#fecaca)"></div>
+      <div class="content">
+        <h3 class="title">Omnimorpha Imperial Limousine™</h3>
+        <p class="desc">Royal Emblem & Presidential variants — climate-adaptive luxury.</p>
+      </div>
+      <div class="cta">Open → <span>imperial-limousine.html</span></div>
+    </a>
+    <!-- Regent X -->
+    <a class="card" href="regent-x.html">
+      <div class="thumb" style="background-image:linear-gradient(120deg,#cffafe,#e9d5ff)"></div>
+      <div class="content">
+        <h3 class="title">Regent X™ SUV Limousine</h3>
+        <p class="desc">SUV-style limousine with tactical armor & elite investor editions.</p>
+      </div>
+      <div class="cta">Open → <span>regent-x.html</span></div>
+    </a>
+  </div>
+</section>
     <!-- You can keep other sections here (Appliances, Wearables, Fashion, etc.) -->
-
-    <footer>© 2025 Omnimorpha • All rights reserved</footer>
+  <footer>© 2025 Omnimorpha • All rights reserved</footer>
   </div>
 </body>
 </html>

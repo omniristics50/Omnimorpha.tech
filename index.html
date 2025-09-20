@@ -4,17 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Omnimorpha | The Future of AI</title>
+
   <!-- Favicon / Web Icon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+
   <!-- SEO Meta -->
   <meta name="description" content="Welcome to Omnimorpha, where cutting-edge technology meets limitless possibilities. Experience AI-powered vehicles, smart homes, wearable tech, and elegant fashion like never before.">
   <meta property="og:title" content="Omnimorpha | The Future of AI" />
   <meta property="og:description" content="Cutting-edge technology meets limitless possibilities. AI-powered vehicles, smart homes, wearable tech, and elegant fashion." />
   <meta property="og:url" content="https://omnimorpha.tech" />
   <meta property="og:image" content="https://omnimorpha.tech/images/omnimorpha-logo.png" />
+
   <style>
     :root{
       --bg:#f3f5f8; --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e5e7eb;
@@ -24,6 +27,7 @@
     html,body{height:100%}
     body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text)}
     .wrap{max-width:1200px; margin:0 auto; padding:28px 18px 60px}
+
     /* header hero */
     .hero{display:grid; place-items:center; text-align:center; padding:40px 0 10px}
     .logo{display:grid; place-items:center; width:72px; height:72px; border-radius:20px; color:#fff; font-weight:900; font-size:32px; background:linear-gradient(135deg,var(--accent),#60a5fa); box-shadow:var(--shadow); margin-bottom:12px}
@@ -32,10 +36,12 @@
     .links{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:10px 0 0}
     .links a{color:var(--accent); text-decoration:none; font-weight:700}
     .links a:hover{text-decoration:underline}
+
     /* section titles */
     .section{margin-top:26px}
     .section h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
     .section p{margin:0 0 14px; color:var(--muted)}
+
     /* project grid */
     .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
     @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
@@ -64,74 +70,231 @@
       <nav class="links" aria-label="Primary links">
         <a href="investors.html">Investor Relations</a>
         <a href="contact.html">Contact</a>
+        <!-- keep the portal hidden for now -->
       </nav>
     </header>
-<!-- Vehicles -->
-<section class="section" id="vehicles">
-  <h2>Vehicles</h2>
-  <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
-  <div class="grid">
-    <!-- Motorhome -->
-    <a class="card" href="motorhome.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#dbeafe,#c7d2fe)"></div>
-      <div class="content">
-        <h3 class="title">Omnimorpha Motorhome</h3>
-        <p class="desc">AI-powered luxury mobile home — adaptive safety, modular interiors, executive comfort.</p>
+
+    <!-- Vehicles -->
+    <section class="section" id="vehicles">
+      <h2>Vehicles</h2>
+      <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
+      <div class="grid">
+
+        <a class="card" href="motorhome.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#facc15,#f97316)"></div>
+          <div class="content">
+            <h3 class="title">Omnimorpha Motorhome</h3>
+            <p class="desc">AI-powered luxury mobile home — adaptive safety, modular interiors, executive comfort.</p>
+          </div>
+          <div class="cta">Open → <span>motorhome.html</span></div>
+        </a>
+
+        <a class="card" href="hypercars.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#f87171,#fbbf24)"></div>
+          <div class="content">
+            <h3 class="title">Hypercars</h3>
+            <p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore.</p>
+          </div>
+          <div class="cta">Open → <span>hypercars.html</span></div>
+        </a>
+
+        <a class="card" href="velocite.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#f59e0b,#f472b6)"></div>
+          <div class="content">
+            <h3 class="title">VELOCIÉ™ Motorcycles</h3>
+            <p class="desc">L-X, L-XR, L-E — smart HUD visor & helmet system.</p>
+          </div>
+          <div class="cta">Open → <span>velocite.html</span></div>
+        </a>
+
+        <a class="card" href="imperial-limousine.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#fbbf24,#ef4444)"></div>
+          <div class="content">
+            <h3 class="title">Omnimorpha Imperial Limousine™</h3>
+            <p class="desc">Royal Emblem & Presidential variants — climate-adaptive luxury.</p>
+          </div>
+          <div class="cta">Open → <span>imperial-limousine.html</span></div>
+        </a>
+
+        <a class="card" href="regent-x.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#f97316,#facc15)"></div>
+          <div class="content">
+            <h3 class="title">Regent X™ SUV Limousine</h3>
+            <p class="desc">SUV-style limousine with tactical armor & elite investor editions.</p>
+          </div>
+          <div class="cta">Open → <span>regent-x.html</span></div>
+        </a>
+
       </div>
-      <div class="cta">Open → <span>motorhome.html</span></div>
-    </a>
-    <!-- Hypercars -->
-    <a class="card" href="hypercars.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#fde68a,#fca5a5)"></div>
-      <div class="content">
-        <h3 class="title">Hypercars</h3>
-        <p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore.</p>
+    </section>
+
+    <!-- Appliances -->
+    <section class="section" id="appliances">
+      <h2>Appliances</h2>
+      <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+      <div class="grid">
+
+        <a class="card" href="ai-dishwasher.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#22d3ee,#06b6d4)"></div>
+          <div class="content">
+            <h3 class="title">AI Dishwasher</h3>
+            <p class="desc">Auto-sense cycles, precision spray, Halia guidance.</p>
+          </div>
+          <div class="cta">Open → <span>ai-dishwasher.html</span></div>
+        </a>
+
+        <a class="card" href="ai-washer-dryer.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#2dd4bf,#14b8a6)"></div>
+          <div class="content">
+            <h3 class="title">AI Washer-Dryer</h3>
+            <p class="desc">Steam clean, fragrance infusion, auto-fold.</p>
+          </div>
+          <div class="cta">Open → <span>ai-washer-dryer.html</span></div>
+        </a>
+
+        <a class="card" href="intellichill-refrigerator.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#10b981,#059669)"></div>
+          <div class="content">
+            <h3 class="title">IntelliChill Refrigerator</h3>
+            <p class="desc">Smart cooling, inventory, adaptive zones.</p>
+          </div>
+          <div class="cta">Open → <span>intellichill-refrigerator.html</span></div>
+        </a>
+
+        <a class="card" href="smart-stove.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#34d399,#059669)"></div>
+          <div class="content">
+            <h3 class="title">AI Smart Stove</h3>
+            <p class="desc">Precision heat, safety vision, Halia cooking modes.</p>
+          </div>
+          <div class="cta">Open → <span>smart-stove.html</span></div>
+        </a>
+
+        <a class="card" href="microwave.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#14b8a6,#0d9488)"></div>
+          <div class="content">
+            <h3 class="title">Smart Microwave</h3>
+            <p class="desc">Scan-to-cook, even heating, steam assist.</p>
+          </div>
+          <div class="cta">Open → <span>microwave.html</span></div>
+        </a>
+
       </div>
-      <div class="cta">Open → <span>hypercars.html</span></div>
-    </a>
-    <!-- AI Camera System -->
-    <a class="card" href="ai-camera.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#bae6fd,#a7f3d0)"></div>
-      <div class="content">
-        <h3 class="title">AI Camera System</h3>
-        <p class="desc">Mirrorless vision, LiDAR + AI, facial & body recognition security.</p>
+    </section>
+
+    <!-- Wearables & AI -->
+    <section class="section" id="wearables">
+      <h2>Wearables & AI</h2>
+      <p>Halia AI at the core — voice, vision, and ambient intelligence.</p>
+      <div class="grid">
+
+        <a class="card" href="halia.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#c084fc,#a855f7)"></div>
+          <div class="content">
+            <h3 class="title">Halia AI</h3>
+            <p class="desc">Omnimorpha’s unified intelligence across products.</p>
+          </div>
+          <div class="cta">Open → <span>halia.html</span></div>
+        </a>
+
+        <a class="card" href="ai-earbuds.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#8b5cf6,#6366f1)"></div>
+          <div class="content">
+            <h3 class="title">AI Earbuds</h3>
+            <p class="desc">HaliaPulse™, voice link, spatial audio.</p>
+          </div>
+          <div class="cta">Open → <span>ai-earbuds.html</span></div>
+        </a>
+
+        <a class="card" href="x-band.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#4f46e5,#3b82f6)"></div>
+          <div class="content">
+            <h3 class="title">X Band</h3>
+            <p class="desc">Wearable control hub for the Omnimorpha ecosystem.</p>
+          </div>
+          <div class="cta">Open → <span>x-band.html</span></div>
+        </a>
+
       </div>
-      <div class="cta">Open → <span>ai-camera.html</span></div>
-    </a>
-    <!-- VELOCIÉ Motorcycles -->
-    <a class="card" href="velocite.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#ddd6fe,#93c5fd)"></div>
-      <div class="content">
-        <h3 class="title">VELOCIÉ™ Motorcycles</h3>
-        <p class="desc">L-X, L-XR, L-E — smart HUD visor & helmet system.</p>
+    </section>
+
+    <!-- Fashion Houses -->
+    <section class="section" id="fashion">
+      <h2>Fashion Houses</h2>
+      <p>Luxury design across apparel, accessories, and lifestyle.</p>
+      <div class="grid">
+
+        <a class="card" href="ayrelle-noir.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#f472b6,#ec4899)"></div>
+          <div class="content">
+            <h3 class="title">AYRÉLLE Noir</h3>
+            <p class="desc">Maison de Désir — couture, fragrance, handbags.</p>
+          </div>
+          <div class="cta">Open → <span>ayrelle-noir.html</span></div>
+        </a>
+
+        <a class="card" href="giordano-vero.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#f87171,#ef4444)"></div>
+          <div class="content">
+            <h3 class="title">GIORDANO VERO™</h3>
+            <p class="desc">Menswear, fragrance, accessories.</p>
+          </div>
+          <div class="cta">Open → <span>giordano-vero.html</span></div>
+        </a>
+
+        <a class="card" href="theverge.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#3b82f6,#0ea5e9)"></div>
+          <div class="content">
+            <h3 class="title">THEVERGE</h3>
+            <p class="desc">Unisex streetwear — brand kit & launch.</p>
+          </div>
+          <div class="cta">Open → <span>theverge.html</span></div>
+        </a>
+
+        <a class="card" href="le-gorge.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#fbbf24,#f59e0b)"></div>
+          <div class="content">
+            <h3 class="title">LE GORGE (Home)</h3>
+            <p class="desc">Luxury bedding, towels, robes, slippers.</p>
+          </div>
+          <div class="cta">Open → <span>le-gorge.html</span></div>
+        </a>
+
       </div>
-      <div class="cta">Open → <span>velocite.html</span></div>
-    </a>
-    <!-- Imperial Limousine -->
-    <a class="card" href="imperial-limousine.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#f5d0fe,#fecaca)"></div>
-      <div class="content">
-        <h3 class="title">Omnimorpha Imperial Limousine™</h3>
-        <p class="desc">Royal Emblem & Presidential variants — climate-adaptive luxury.</p>
+    </section>
+
+    <!-- Investor & Contact -->
+    <section class="section" id="investor">
+      <h2>Investor & Contact</h2>
+      <p>Explore materials, projections, and partnership opportunities.</p>
+      <div class="grid">
+
+        <a class="card" href="investors.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#0ea5e9,#38bdf8)"></div>
+          <div class="content">
+            <h3 class="title">Investor Relations</h3>
+            <p class="desc">Decks, teaser, NDA, and portal access.</p>
+          </div>
+          <div class="cta">Open → <span>investors.html</span></div>
+        </a>
+
+        <a class="card" href="contact.html">
+          <div class="thumb" style="background-image:linear-gradient(120deg,#38bdf8,#22d3ee)"></div>
+          <div class="content">
+            <h3 class="title">Contact</h3>
+            <p class="desc">Founder & CEO, Omnimorpha — direct inquiries.</p>
+          </div>
+          <div class="cta">Open → <span>contact.html</span></div>
+        </a>
+
       </div>
-      <div class="cta">Open → <span>imperial-limousine.html</span></div>
-    </a>
-    <!-- Regent X -->
-    <a class="card" href="regent-x.html">
-      <div class="thumb" style="background-image:linear-gradient(120deg,#cffafe,#e9d5ff)"></div>
-      <div class="content">
-        <h3 class="title">Regent X™ SUV Limousine</h3>
-        <p class="desc">SUV-style limousine with tactical armor & elite investor editions.</p>
-      </div>
-      <div class="cta">Open → <span>regent-x.html</span></div>
-    </a>
-  </div>
-</section>
-    <!-- You can keep other sections here (Appliances, Wearables, Fashion, etc.) -->
-  <footer>© 2025 Omnimorpha • All rights reserved</footer>
+    </section>
+
+    <footer>© 2025 Omnimorpha • All rights reserved</footer>
   </div>
 </body>
 </html>
+
 
 
 

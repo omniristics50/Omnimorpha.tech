@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha Vehicles | The Future of AI</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    :root{
+      --bg:#f3f5f8; --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e5e7eb;
+      --accent:#0ea5e9; --shadow:0 10px 30px rgba(2,6,23,.08); --radius:16px;
+    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1200px;margin:0 auto;padding:28px 18px 60px}
+    h1,h2{margin:0 0 14px}
+    h1{font-size:28px;text-align:center;font-weight:900}
+    h2{font-size:20px;margin-top:32px}
+    p{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+    .thumb{height:120px;border-bottom:1px solid var(--border)}
+    .content{padding:12px 14px}
+    .title{margin:0;font-weight:800;font-size:16px}
+    .desc{margin:6px 0 0;font-size:14px;color:var(--muted)}
+    .cta{margin-top:auto;padding:12px 14px;border-top:1px solid var(--border);color:var(--accent);font-weight:700;text-decoration:none}
+    .cta:hover{background:#f8fafc}
+    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Omnimorpha Vehicles</h1>
+    <p style="text-align:center;max-width:800px;margin:0 auto 32px">
+      From hypercars to city compacts — Omnimorpha redefines mobility with Halia-powered intelligence.
+    </p>
+
+    <!-- Regular Vehicles -->
+    <section>
+      <h2>Regular Vehicles</h2>
+      <p>Daily drivers: sedans, SUVs, and crossovers designed for efficiency and smart living.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#60a5fa,#22d3ee)"></div>
+          <div class="content">
+            <h3 class="title">Omnimorpha Sedan</h3>
+            <p class="desc">AI comfort, adaptive safety, perfect for city and highway drives.</p>
+          </div>
+          <div class="cta">Explore →</div>
+        </div>
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#34d399,#10b981)"></div>
+          <div class="content">
+            <h3 class="title">Omnimorpha Crossover</h3>
+            <p class="desc">Flexible design, family-ready, efficient battery systems.</p>
+          </div>
+          <div class="cta">Explore →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Luxury Vehicles -->
+    <section>
+      <h2>Luxury Vehicles</h2>
+      <p>Executive limousines, premium SUVs, and hypercars delivering prestige and power.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#f59e0b,#ef4444)"></div>
+          <div class="content">
+            <h3 class="title">Imperial Limousine™</h3>
+            <p class="desc">Presidential comfort, climate-adaptive luxury, armored variants.</p>
+          </div>
+          <a href="imperial-limousine.html" class="cta">Open → imperial-limousine.html</a>
+        </div>
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#f87171,#fbbf24)"></div>
+          <div class="content">
+            <h3 class="title">Hypercars</h3>
+            <p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore engine.</p>
+          </div>
+          <a href="hypercars.html" class="cta">Open → hypercars.html</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compact Vehicles -->
+    <section>
+      <h2>Compact Vehicles</h2>
+      <p>Agile, affordable, and efficient cars made for modern urban living.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#818cf8,#6366f1)"></div>
+          <div class="content">
+            <h3 class="title">Omnimorpha Hatchback</h3>
+            <p class="desc">Compact, electric, and city-first with smart interior space.</p>
+          </div>
+          <div class="cta">Explore →</div>
+        </div>
+        <div class="card">
+          <div class="thumb" style="background:linear-gradient(120deg,#a78bfa,#7c3aed)"></div>
+          <div class="content">
+            <h3 class="title">Micro EV</h3>
+            <p class="desc">Affordable urban solution — two-seater agility with Halia assist.</p>
+          </div>
+          <div class="cta">Explore →</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2025 Omnimorpha • All rights reserved</footer>
+  </div>
+</body>
+</html>

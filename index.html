@@ -2,219 +2,347 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Omnimorpha | The Future of AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Omnimorpha is a unified ecosystem of AI-powered vehicles, smart appliances, wearables, and fashion houses, all connected through Halia AI." />
 
-  <!-- Favicon / Web Icon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-
-  <!-- SEO Meta -->
-  <meta name="description" content="Welcome to Omnimorpha, where cutting-edge technology meets limitless possibilities. Experience AI-powered vehicles, smart homes, wearable tech, and elegant fashion like never before.">
-  <meta property="og:title" content="Omnimorpha | The Future of AI" />
-  <meta property="og:description" content="Cutting-edge technology meets limitless possibilities. AI-powered vehicles, smart homes, wearable tech, and elegant fashion." />
-  <meta property="og:url" content="https://omnimorpha.tech" />
-  <meta property="og:image" content="https://omnimorpha.tech/images/omnimorpha-logo.png" />
-
+  <!-- Simple, clean styling so everything is readable and consistent -->
   <style>
-    :root{
-      --bg:#f3f5f8; --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e5e7eb;
-      --accent:#0ea5e9; --shadow:0 10px 30px rgba(2,6,23,.08); --radius:16px;
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #05060a;
+      color: #f5f5f7;
+      line-height: 1.6;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text)}
-    .wrap{max-width:1200px; margin:0 auto; padding:28px 18px 60px}
-
-    /* header hero */
-    .hero{display:grid; place-items:center; text-align:center; padding:40px 0 10px}
-    .logo{display:grid; place-items:center; width:72px; height:72px; border-radius:20px; color:#fff; font-weight:900; font-size:32px; background:linear-gradient(135deg,var(--accent),#60a5fa); box-shadow:var(--shadow); margin-bottom:12px}
-    h1{margin:0; font-size:32px; font-weight:900}
-    .tagline{max-width:800px; margin:10px auto 18px; color:#475569}
-    .links{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin:10px 0 0}
-    .links a{color:var(--accent); text-decoration:none; font-weight:700}
-    .links a:hover{text-decoration:underline}
-
-    /* section titles */
-    .section{margin-top:26px}
-    .section h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
-    .section p{margin:0 0 14px; color:var(--muted)}
-
-    /* project grid */
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-    @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .grid{grid-template-columns:1fr} }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      transition: transform .18s ease, box-shadow .18s ease;
-      opacity:0;
-      transform: translateY(12px);
-      animation: fadeUp .6s ease forwards;
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
     }
-    /* stagger reveal across each section */
-    .card:nth-child(1){animation-delay:.1s}
-    .card:nth-child(2){animation-delay:.2s}
-    .card:nth-child(3){animation-delay:.3s}
-    .card:nth-child(4){animation-delay:.4s}
-    .card:nth-child(5){animation-delay:.5s}
-    .card:nth-child(6){animation-delay:.6s}
-
-    @keyframes fadeUp{
-      to{opacity:1; transform:translateY(0)}
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
     }
-
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow:0 14px 32px rgba(2,6,23,.12);
+    h2 {
+      margin-top: 2.2rem;
+      margin-bottom: 0.3rem;
+      font-size: 1.3rem;
     }
-
-    .thumb{height:120px; background:#eaf3ff; border-bottom:1px solid var(--border)}
-    .content{padding:12px 14px}
-    .title{margin:0; font-weight:800; font-size:16px}
-    .desc{margin:6px 0 0; color:var(--muted); font-size:14px}
-    .cta{margin-top:auto; padding:12px 14px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; color:var(--accent); font-weight:700; text-decoration:none}
-    .cta:hover{background:#f8fafc}
-
-    footer{margin-top:36px; text-align:center; color:var(--muted); font-size:13px}
+    h3 {
+      margin-top: 1.3rem;
+      margin-bottom: 0.2rem;
+      font-size: 1.05rem;
+    }
+    p {
+      margin: 0.15rem 0 0.4rem;
+      font-size: 0.96rem;
+      color: #d5d6de;
+    }
+    a {
+      color: #ffd36a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      margin: 2.5rem 0 1.5rem;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .top-links {
+      margin: 0.75rem 0 1.5rem;
+      font-size: 0.95rem;
+    }
+    .top-links a {
+      margin-right: 1.2rem;
+    }
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: #8f91aa;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <div class="logo">Ω</div>
-      <h1>Omnimorpha | The Future of AI</h1>
-      <p class="tagline">
-        Welcome to Omnimorpha, where cutting-edge technology meets limitless possibilities.
-        Experience AI-powered vehicles, smart homes, wearable tech, and elegant fashion like never before.
-      </p>
-      <nav class="links" aria-label="Primary links">
-        <a href="investors.html">Investor Relations</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </header>
-<h2>Omnimorpha World Headquarters</h2>
-<p>
-  The physical home of the Omnimorpha empire — Halia AI Core, hypercar bays, quantum server cathedral, 
-  innovation museum, robotics wing, appliance labs, and the Founder’s private executive levels.
-</p>
+  <main>
+    <!-- INTRO -->
+    <h1>Omnimorpha | The Future of AI</h1>
+    <p>
+      Welcome to Omnimorpha, where cutting-edge technology meets limitless possibilities.
+      Experience AI-powered vehicles, smart homes, wearable tech, and elegant fashion like never before.
+    </p>
 
-<h3>Omnimorpha Empire Campus</h3>
-<p>
-  Concept master campus that unifies AI labs, product divisions, autonomous systems, robotics, and 
-  investor experiences into one iconic headquarters.
-</p>
+    <!-- QUICK LINKS -->
+    <div class="top-links">
+      <a href="investors.html">Investor Relations</a>
+      <a href="contact.html">Contact</a>
+    </div>
 
-<p><strong>Open →</strong><br>
-  <a href="omnimorpha-empire.html">omnimorpha-empire.html</a>
-</p>
+    <hr class="divider" />
 
-    <!-- Vehicles -->
-    <section class="section" id="vehicles">
-      <h2>Vehicles</h2>
-      <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
-      <div class="grid"> <!-- Regular Vehicles (Category Hub) -->
-<a class="card" href="vehicles-regular.html">
-  <div class="thumb" style="background-image:linear-gradient(120deg,#60a5fa,#22d3ee)"></div>
-  <div class="content">
-    <h3 class="title">Regular Vehicles</h3>
-    <p class="desc">Daily drivers: sedans, SUVs, crossovers — efficient & Halia-smart.</p>
-  </div>
-  <div class="cta">Open → <span>vehicles-regular.html</span></div>
-</a>
+    <!-- OMNIMORPHA WORLD HEADQUARTERS -->
+    <h2>Omnimorpha World Headquarters</h2>
+    <p>
+      The physical home of the Omnimorpha empire — Halia AI Core, hypercar bays, quantum server cathedral,
+      innovation museum, robotics wing, appliance labs, and the Founder’s private executive levels.
+    </p>
 
-<!-- Luxury Vehicles (Category Hub) -->
-<a class="card" href="vehicles-luxury.html">
-  <div class="thumb" style="background-image:linear-gradient(120deg,#f59e0b,#ef4444)"></div>
-  <div class="content">
-    <h3 class="title">Luxury Vehicles</h3>
-    <p class="desc">Executive limos, premium SUVs & hypercars — ultra comfort + power.</p>
-  </div>
-  <div class="cta">Open → <span>vehicles-luxury.html</span></div>
-</a>
+    <h3>Omnimorpha Empire Campus</h3>
+    <p>
+      Concept master campus that unifies AI labs, product divisions, autonomous systems, robotics,
+      and investor experiences into one iconic headquarters.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="omnimorpha-empire.html">omnimorpha-empire.html</a>
+    </p>
 
-<!-- Compact Vehicles (Category Hub) -->
-<a class="card" href="vehicles-compact.html">
-  <div class="thumb" style="background-image:linear-gradient(120deg,#34d399,#10b981)"></div>
-  <div class="content">
-    <h3 class="title">Compact Vehicles</h3>
-    <p class="desc">City-first microcars & hatchbacks — agile, efficient, affordable.</p>
-  </div>
-  <div class="cta">Open → <span>vehicles-compact.html</span></div>
-</a>
+    <hr class="divider" />
 
-        <a class="card" href="motorhome.html"><div class="thumb" style="background-image:linear-gradient(120deg,#facc15,#f97316)"></div><div class="content"><h3 class="title">Omnimorpha Motorhome</h3><p class="desc">AI-powered luxury mobile home — adaptive safety, modular interiors, executive comfort.</p></div><div class="cta">Open → <span>motorhome.html</span></div></a>
-        <a class="card" href="hypercars.html"><div class="thumb" style="background-image:linear-gradient(120deg,#f87171,#fbbf24)"></div><div class="content"><h3 class="title">Hypercars</h3><p class="desc">Hyper-V, Hyper-X — graphene solid-state, DriveCore.</p></div><div class="cta">Open → <span>hypercars.html</span></div></a>
-        <a class="card" href="ai-camera.html"><div class="thumb" style="background-image:linear-gradient(120deg,#bae6fd,#a7f3d0)"></div><div class="content"><h3 class="title">AI Camera System</h3><p class="desc">Mirrorless vision, LiDAR + AI, facial & body recognition security.</p></div><div class="cta">Open → <span>ai-camera.html</span></div></a>
-        <a class="card" href="velocite.html"><div class="thumb" style="background-image:linear-gradient(120deg,#f59e0b,#f472b6)"></div><div class="content"><h3 class="title">VELOCIÉ™ Motorcycles</h3><p class="desc">L-X, L-XR, L-E — smart HUD visor & helmet system.</p></div><div class="cta">Open → <span>velocite.html</span></div></a>
-        <a class="card" href="imperial-limousine.html"><div class="thumb" style="background-image:linear-gradient(120deg,#fbbf24,#ef4444)"></div><div class="content"><h3 class="title">Omnimorpha Imperial Limousine™</h3><p class="desc">Royal Emblem & Presidential variants — climate-adaptive luxury.</p></div><div class="cta">Open → <span>imperial-limousine.html</span></div></a>
-        <a class="card" href="regent-x.html"><div class="thumb" style="background-image:linear-gradient(120deg,#f97316,#facc15)"></div><div class="content"><h3 class="title">Regent X™ SUV Limousine</h3><p class="desc">SUV-style limousine with tactical armor & elite investor editions.</p></div><div class="cta">Open → <span>regent-x.html</span></div></a>
-      </div>
-    </section>
+    <!-- VEHICLES -->
+    <h2>Vehicles</h2>
+    <p>From hypercars to mobile luxury — performance and safety reimagined by Halia.</p>
 
-    <!-- Appliances -->
-    <section class="section" id="appliances">
-      <h2>Appliances</h2>
-      <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
-      <div class="grid">
-        <a class="card" href="ai-dishwasher.html"><div class="thumb" style="background-image:linear-gradient(120deg,#22d3ee,#06b6d4)"></div><div class="content"><h3 class="title">AI Dishwasher</h3><p class="desc">Auto-sense cycles, precision spray, Halia guidance.</p></div><div class="cta">Open → <span>ai-dishwasher.html</span></div></a>
-        <a class="card" href="ai-washer-dryer.html"><div class="thumb" style="background-image:linear-gradient(120deg,#2dd4bf,#14b8a6)"></div><div class="content"><h3 class="title">AI Washer-Dryer</h3><p class="desc">Steam clean, fragrance infusion, auto-fold.</p></div><div class="cta">Open → <span>ai-washer-dryer.html</span></div></a>
-        <a class="card" href="intellichill-refrigerator.html"><div class="thumb" style="background-image:linear-gradient(120deg,#10b981,#059669)"></div><div class="content"><h3 class="title">IntelliChill Refrigerator</h3><p class="desc">Smart cooling, inventory, adaptive zones.</p></div><div class="cta">Open → <span>intellichill-refrigerator.html</span></div></a>
-        <a class="card" href="smart-stove.html"><div class="thumb" style="background-image:linear-gradient(120deg,#34d399,#059669)"></div><div class="content"><h3 class="title">AI Smart Stove</h3><p class="desc">Precision heat, safety vision, Halia cooking modes.</p></div><div class="cta">Open → <span>smart-stove.html</span></div></a>
-        <a class="card" href="microwave.html"><div class="thumb" style="background-image:linear-gradient(120deg,#14b8a6,#0d9488)"></div><div class="content"><h3 class="title">Smart Microwave</h3><p class="desc">Scan-to-cook, even heating, steam assist.</p></div><div class="cta">Open → <span>microwave.html</span></div></a>
-      </div>
-    </section>
+    <h3>Regular Vehicles</h3>
+    <p>
+      Daily drivers: sedans, SUVs, crossovers — efficient and Halia-smart for everyday mobility.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="vehicles-regular.html">vehicles-regular.html</a>
+    </p>
 
-    <!-- Wearables & AI -->
-    <section class="section" id="wearables">
-      <h2>Wearables & AI</h2>
-      <p>Halia AI at the core — voice, vision, and ambient intelligence.</p>
-      <div class="grid">
-        <a class="card" href="halia.html"><div class="thumb" style="background-image:linear-gradient(120deg,#c084fc,#a855f7)"></div><div class="content"><h3 class="title">Halia AI</h3><p class="desc">Omnimorpha’s unified intelligence across products.</p></div><div class="cta">Open → <span>halia.html</span></div></a>
-        <a class="card" href="ai-earbuds.html"><div class="thumb" style="background-image:linear-gradient(120deg,#8b5cf6,#6366f1)"></div><div class="content"><h3 class="title">AI Earbuds</h3><p class="desc">HaliaPulse™, voice link, spatial audio.</p></div><div class="cta">Open → <span>ai-earbuds.html</span></div></a>
-        <a class="card" href="x-band.html"><div class="thumb" style="background-image:linear-gradient(120deg,#4f46e5,#3b82f6)"></div><div class="content"><h3 class="title">X Band</h3><p class="desc">Wearable control hub for the Omnimorpha ecosystem.</p></div><div class="cta">Open → <span>x-band.html</span></div></a>
-      </div>
-    </section>
+    <h3>Luxury Vehicles</h3>
+    <p>
+      Executive limos, premium SUVs and hypercars — ultra comfort, presence, and power.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="vehicles-luxury.html">vehicles-luxury.html</a>
+    </p>
 
-    <!-- Fashion -->
-    <section class="section" id="fashion">
-      <h2>Fashion Houses</h2>
-      <p>Luxury design across apparel, accessories, and lifestyle.</p>
-      <div class="grid">
-        <a class="card" href="ayrelle-noir.html"><div class="thumb" style="background-image:linear-gradient(120deg,#f472b6,#ec4899)"></div><div class="content"><h3 class="title">AYRÉLLE Noir</h3><p class="desc">Maison de Désir — couture, fragrance, handbags.</p></div><div class="cta">Open → <span>ayrelle-noir.html</span></div></a>
-        <a class="card" href="giordano-vero.html"><div class="thumb" style="background-image:linear-gradient(120deg,#f87171,#ef4444)"></div><div class="content"><h3 class="title">GIORDANO VERO™</h3><p class="desc">Menswear, fragrance, accessories.</p></div><div class="cta">Open → <span>giordano-vero.html</span></div></a>
-        <a class="card" href="theverge.html"><div class="thumb" style="background-image:linear-gradient(120deg,#3b82f6,#0ea5e9)"></div><div class="content"><h3 class="title">THEVERGE</h3><p class="desc">Unisex streetwear — brand kit & launch.</p></div><div class="cta">Open → <span>theverge.html</span></div></a>
-        <a class="card" href="le-gorge.html"><div class="thumb" style="background-image:linear-gradient(120deg,#fbbf24,#f59e0b)"></div><div class="content"><h3 class="title">LE GORGE (Home)</h3><p class="desc">Luxury bedding, towels, robes, slippers.</p></div><div class="cta">Open → <span>le-gorge.html</span></div></a>
-      </div>
-    </section>
+    <h3>Compact Vehicles</h3>
+    <p>
+      City-first microcars and hatchbacks — agile, efficient, and accessible for urban living.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="vehicles-compact.html">vehicles-compact.html</a>
+    </p>
 
-    <!-- Investor -->
-    <section class="section" id="investor">
-      <h2>Investor & Contact</h2>
-      <p>Explore materials, projections, and partnership opportunities.</p>
-      <div class="grid">
-        <a class="card" href="investors.html"><div class="thumb" style="background-image:linear-gradient(120deg,#0ea5e9,#38bdf8)"></div><div class="content"><h3 class="title">Investor Relations</h3><p class="desc">Decks, teaser, NDA, and portal access.</p></div><div class="cta">Open → <span>investors.html</span></div></a>
-        <a class="card" href="contact.html"><div class="thumb" style="background-image:linear-gradient(120deg,#38bdf8,#22d3ee)"></div><div class="content"><h3 class="title">Contact</h3><p class="desc">Founder & CEO, Omnimorpha — direct inquiries.</p></div><div class="cta">Open → <span>contact.html</span></div></a>
-      </div>
-    </section>
+    <h3>Omnimorpha Motorhome</h3>
+    <p>
+      AI-powered luxury mobile home with adaptive safety, modular interiors, and executive comfort.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="motorhome.html">motorhome.html</a>
+    </p>
 
-    <footer>© 2025 Omnimorpha • All rights reserved</footer>
-  </div>
+    <h3>Hypercars</h3>
+    <p>
+      Hyper-V, Hyper-X — graphene solid-state energy systems, DriveCore performance, and Omnimorpha-level design.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="hypercars.html">hypercars.html</a>
+    </p>
+
+    <h3>AI Camera System</h3>
+    <p>
+      Mirrorless vehicle vision with LiDAR + AI, 360° awareness, and facial &amp; body recognition security.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="ai-camera.html">ai-camera.html</a>
+    </p>
+
+    <h3>VELOCIÉ™ Motorcycles</h3>
+    <p>
+      L-X, L-XR, L-E — smart HUD visor and helmet system, electric performance, and urban-ready design.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="velocite.html">velocite.html</a>
+    </p>
+
+    <h3>Omnimorpha Imperial Limousine™</h3>
+    <p>
+      Royal Emblem &amp; Presidential variants — climate-adaptive luxury and state-level presence.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="imperial-limousine.html">imperial-limousine.html</a>
+    </p>
+
+    <h3>Regent X™ SUV Limousine</h3>
+    <p>
+      SUV-style limousine with tactical armor, executive comfort, and exclusive investor editions.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="regent-x.html">regent-x.html</a>
+    </p>
+
+    <!-- SNOW VEHICLES -->
+    <h3>Omnimorpha Snow Car</h3>
+    <p>
+      AI-powered snow mobility system with onboard melting, ice compression, and clean-path clearing —
+      designed for extreme winter terrain with no traditional plowing required.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="snow-car.html">snow-car.html</a>
+    </p>
+
+    <h3>Omnimorpha Snow Mobile</h3>
+    <p>
+      High-power snow cruiser with adaptive tracks, AI terrain scanning, thermal melt channels, and
+      integrated Halia-controlled navigation for deep winter environments.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="snow-mobile.html">snow-mobile.html</a>
+    </p>
+
+    <h3>Omnimorpha Snow Truck</h3>
+    <p>
+      Heavy-duty AI snow vehicle with the Omnimorpha Intelligent Snow-Melting System (OISM): melt intake,
+      filtration, compression, and block storage for continuous snow management in cities and critical zones.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="snow-truck.html">snow-truck.html</a>
+    </p>
+
+    <hr class="divider" />
+
+    <!-- APPLIANCES -->
+    <h2>Appliances</h2>
+    <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+
+    <h3>AI Dishwasher</h3>
+    <p>
+      Auto-sense cycles, precision spray and brush systems, and Halia-guided cleaning for spotless results.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="ai-dishwasher.html">ai-dishwasher.html</a>
+    </p>
+
+    <h3>AI Washer-Dryer</h3>
+    <p>
+      Steam cleaning, fragrance infusion, and auto-folding technology for fully finished laundry.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="ai-washer-dryer.html">ai-washer-dryer.html</a>
+    </p>
+
+    <h3>IntelliChill Refrigerator</h3>
+    <p>
+      Smart cooling, inventory awareness, and adaptive temperature zones for every type of food.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="intellichill-refrigerator.html">intellichill-refrigerator.html</a>
+    </p>
+
+    <h3>AI Smart Stove</h3>
+    <p>
+      Precision heating, safety vision, and Halia-assisted cooking modes for flawless meals.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="smart-stove.html">smart-stove.html</a>
+    </p>
+
+    <h3>Smart Microwave</h3>
+    <p>
+      Scan-to-cook, even heating, and steam assist for fast, reliable results.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="microwave.html">microwave.html</a>
+    </p>
+
+    <hr class="divider" />
+
+    <!-- WEARABLES & AI -->
+    <h2>Wearables &amp; AI</h2>
+    <p>Halia AI at the core — voice, vision, and ambient intelligence across devices.</p>
+
+    <h3>Halia AI</h3>
+    <p>
+      Omnimorpha’s unified intelligence across products, experiences, and future services.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="halia.html">halia.html</a>
+    </p>
+
+    <h3>AI Earbuds</h3>
+    <p>
+      HaliaPulse™ audio, voice link, and spatial sound for hands-free control and immersion.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="ai-earbuds.html">ai-earbuds.html</a>
+    </p>
+
+    <h3>X Band</h3>
+    <p>
+      A wearable control hub for the Omnimorpha ecosystem — notifications, control, and presence in one band.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="x-band.html">x-band.html</a>
+    </p>
+
+    <hr class="divider" />
+
+    <!-- FASHION HOUSES -->
+    <h2>Fashion Houses</h2>
+    <p>Luxury design across apparel, accessories, and lifestyle collections.</p>
+
+    <h3>AYRÉLLE Noir</h3>
+    <p>
+      Maison de Désir — couture, fragrance, handbags, and statement pieces for elevated evenings.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="ayrelle-noir.html">ayrelle-noir.html</a>
+    </p>
+
+    <h3>GIORDANO VERO™</h3>
+    <p>
+      Menswear, fragrance, and accessories defining modern tailored luxury.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="giordano-vero.html">giordano-vero.html</a>
+    </p>
+
+    <h3>THEVERGE</h3>
+    <p>
+      Unisex streetwear brand kit and launch collection — bold, graphic, and urban-focused.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="theverge.html">theverge.html</a>
+    </p>
+
+    <h3>LE GORGE (Home)</h3>
+    <p>
+      Luxury bedding, towels, robes, slippers, and home essentials with a refined finish.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="le-gorge.html">le-gorge.html</a>
+    </p>
+
+    <hr class="divider" />
+
+    <!-- INVESTOR & CONTACT -->
+    <h2>Investor &amp; Contact</h2>
+    <p>Explore materials, projections, and partnership opportunities.</p>
+
+    <h3>Investor Relations</h3>
+    <p>
+      Decks, teaser materials, NDA access, and investor portal resources for qualified partners.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="investors.html">investors.html</a>
+    </p>
+
+    <h3>Contact</h3>
+    <p>
+      Founder &amp; CEO, Omnimorpha — direct inquiries for partnerships, media, and investor discussions.
+    </p>
+    <p><strong>Open →</strong><br>
+      <a href="contact.html">contact.html</a>
+    </p>
+
+    <footer>
+      © 2025 Omnimorpha • All rights reserved
+    </footer>
+  </main>
 </body>
 </html>
-
-
-
-
-
-
-
-

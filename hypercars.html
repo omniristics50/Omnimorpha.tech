@@ -2,201 +2,258 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Omnimorpha Hypercars</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Omnimorpha Hypercars | Hyper-V & Hyper-X 2.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Omnimorpha Hypercars unite graphene solid-state energy, DriveCore™ electric performance, Halia AI, and a mirrorless AI camera system in the Hyper-V grand tourer, Hyper-X 2.0 track machine, and Hyper-V Ultima investor edition." />
+
   <style>
-    :root{ --ink:#E9F1F1; }
-
-    /* Dropdown nav */
-    nav { position: relative; display:flex; gap:14px; flex-wrap:wrap; background:rgba(0,0,0,.85); padding:15px; }
-    nav a { font-weight:600; }
-    .nav-group{ position:relative; }
-    .nav-group > .nav-menu{
-      position:absolute; left:0; top:100%; min-width:180px;
-      background:rgba(0,0,0,.9); border:1px solid rgba(255,255,255,.1);
-      border-radius:12px; padding:8px; display:none;
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #05060a;
+      color: #f5f5f7;
+      line-height: 1.6;
     }
-    .nav-group:hover > .nav-menu{ display:block; }
-    .nav-menu a{ display:block; padding:8px 10px; border-radius:8px; }
-    .nav-menu a:hover{ background:rgba(255,255,255,.06); }
-
-    /* Page layout + cards */
-    .hypercars{max-width:1200px;margin:48px auto;padding:0 16px}
-    .hypercars h1{letter-spacing:.15em;text-transform:uppercase;color:var(--ink);text-align:center;margin:0 0 24px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-    .card{position:relative;display:block;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);outline:1px solid rgba(255,255,255,.06);text-decoration:none}
-    .card img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .35s ease}
-    .card:hover img{transform:scale(1.03)}
-    .card .label{position:absolute;left:12px;bottom:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:var(--ink);padding:6px 10px;border-radius:10px;font-weight:600;font-size:.9rem;pointer-events:none}
-    .card .meta{padding:12px 12px 14px;display:block;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.06)}
-    .card .meta h3{margin:0 0 6px;font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:.02em}
-    .card .meta p{margin:0;font-size:.92rem;line-height:1.5;color:var(--ink);opacity:.9}
-    .card .zoom{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.3);color:#fff;font-weight:700;font-size:14px;cursor:pointer;user-select:none}
-    .card .zoom:focus{outline:2px solid #00e6e6;outline-offset:2px}
-
-    /* Lightbox */
-    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:grid;place-items:center;z-index:9999}
-    #lightbox img{max-width:min(92vw,1400px);max-height:88vh;border-radius:10px}
-    #lightbox .close{position:fixed;top:18px;right:18px;font-size:28px;line-height:28px;width:44px;height:44px;border-radius:50%;border:0;color:#111;background:#fff;cursor:pointer}
-    [hidden]{display:none!important}
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 {
+      margin-top: 2.1rem;
+      margin-bottom: 0.3rem;
+      font-size: 1.3rem;
+    }
+    h3 {
+      margin-top: 1.4rem;
+      margin-bottom: 0.2rem;
+      font-size: 1.05rem;
+    }
+    p {
+      margin: 0.15rem 0 0.4rem;
+      font-size: 0.96rem;
+      color: #d5d6de;
+    }
+    a {
+      color: #ffd36a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      margin: 2.3rem 0 1.5rem;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+    ul {
+      margin: 0.2rem 0 0.6rem;
+      padding-left: 1.1rem;
+      font-size: 0.94rem;
+      color: #d5d6de;
+    }
+    li + li {
+      margin-top: 0.15rem;
+    }
+    .top-links {
+      margin: 0.75rem 0 1.4rem;
+      font-size: 0.95rem;
+    }
+    .top-links a {
+      margin-right: 1.2rem;
+    }
+    .spec-line {
+      font-size: 0.92rem;
+      color: #c6c7d6;
+    }
+    footer {
+      margin-top: 2.4rem;
+      font-size: 0.85rem;
+      color: #8f91aa;
+    }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a>
-
-    <div class="nav-group">
-      <a href="velocite.html">Velocité ▾</a>
-      <div class="nav-menu">
-        <a href="velocite-lx.html">L-X</a>
-        <a href="velocite-lxr.html">L-XR</a>
-        <a href="velocite-le.html">L-E</a>
-        <a href="velocite-lxv.html">LXV</a>
-        <a href="velocite-l-night.html">L-NIGHT</a>
-      </div>
-    </div>
-
-    <div class="nav-group">
-      <a href="hypercars.html">Hypercars ▾</a>
-      <div class="nav-menu">
-        <a href="hyper-v.html">Hyper-V</a>
-        <a href="hyper-x.html">Hyper-X</a>
-        <a href="quantum-luxe.html">Quantum Luxe</a>
-        <a href="sovereign.html">Sovereign</a>
-        <a href="grand-empress.html">Grand Empress</a>
-        <a href="hyper-v-ultima.html">Hyper-V Ultima</a>
-      </div>
-    </div>
-
-    <a href="ai-dishwasher.html">AI Dishwasher</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
-  <!-- HYPERCARS Lineup -->
-  <section class="hypercars">
+  <main>
+    <!-- INTRO -->
     <h1>Omnimorpha Hypercars</h1>
+    <p>
+      Omnimorpha Hypercars bring together graphene solid-state energy, DriveCore™
+      electric performance, Halia AI, and a full mirrorless AI camera system.
+      Hyper-V, Hyper-X 2.0, and Hyper-V Ultima are designed as the halo vehicles
+      of the Omnimorpha ecosystem.
+    </p>
 
-    <div class="grid">
-      <!-- Hyper-V -->
-      <a class="card" href="hyper-v.html" aria-label="Open Hyper-V">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-V" data-full="images/hypercars/hyper-v-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/hyper-v-01.webp" type="image/webp">
-          <img src="images/hypercars/hyper-v-01.jpg" alt="Omnimorpha Hyper-V" loading="lazy">
-        </picture>
-        <span class="label">Hyper-V</span>
-        <span class="meta">
-          <h3>Hyper-V — Flagship Hypercar</h3>
-          <p>DriveCore Hyper™ dual-motor, graphene solid-state pack, 0–60 ~2.0 s (target), Halia AI cockpit with buttonless interior.</p>
-        </span>
-      </a>
-
-      <!-- Hyper-X -->
-      <a class="card" href="hyper-x.html" aria-label="Open Hyper-X">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-X" data-full="images/hypercars/hyper-x-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/hyper-x-01.webp" type="image/webp">
-          <img src="images/hypercars/hyper-x-01.jpg" alt="Omnimorpha Hyper-X" loading="lazy">
-        </picture>
-        <span class="label">Hyper-X</span>
-        <span class="meta">
-          <h3>Hyper-X — Track Focus</h3>
-          <p>Aero-first chassis, tri-vector torque control, 0–60 ~1.9 s (target), Halia Coach with live telemetry & race modes.</p>
-        </span>
-      </a>
-
-      <!-- Quantum Luxe -->
-      <a class="card" href="quantum-luxe.html" aria-label="Open Quantum Luxe">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Quantum Luxe" data-full="images/hypercars/quantum-luxe-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/quantum-luxe-01.webp" type="image/webp">
-          <img src="images/hypercars/quantum-luxe-01.jpg" alt="Omnimorpha Quantum Luxe" loading="lazy">
-        </picture>
-        <span class="label">Quantum Luxe</span>
-        <span class="meta">
-          <h3>Quantum Luxe — Grand Touring</h3>
-          <p>Long-range graphene SSB, adaptive climate exterior, whisper cabin, Halia Concierge with route & wellness modes.</p>
-        </span>
-      </a>
-
-      <!-- Sovereign -->
-      <a class="card" href="sovereign.html" aria-label="Open Sovereign">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Sovereign" data-full="images/hypercars/sovereign-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/sovereign-01.webp" type="image/webp">
-          <img src="images/hypercars/sovereign-01.jpg" alt="Omnimorpha Sovereign" loading="lazy">
-        </picture>
-        <span class="label">Sovereign</span>
-        <span class="meta">
-          <h3>Sovereign — Crown Series</h3>
-          <p>Executive grand coupe, AI climate-adaptive skin, Halia VoiceLink Takeover™, ceremonial crest interior detailing.</p>
-        </span>
-      </a>
-
-      <!-- Grand Empress -->
-      <a class="card" href="grand-empress.html" aria-label="Open Grand Empress">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Grand Empress" data-full="images/hypercars/grand-empress-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/grand-empress-01.webp" type="image/webp">
-          <img src="images/hypercars/grand-empress-01.jpg" alt="Omnimorpha Grand Empress" loading="lazy">
-        </picture>
-        <span class="label">Grand Empress</span>
-        <span class="meta">
-          <h3>Grand Empress — Ultimate Luxury</h3>
-          <p>Four-seat salon, graphene SSB extended pack, private lounge cabin, Halia valet & ambient intelligence suite.</p>
-        </span>
-      </a>
-
-      <!-- Hyper-V Ultima (Limited) -->
-      <a class="card" href="hyper-v-ultima.html" aria-label="Open Hyper-V Ultima">
-        <span class="zoom" role="button" tabindex="0" aria-label="Preview Hyper-V Ultima" data-full="images/hypercars/hyper-v-ultima-01-large.jpg">⤢</span>
-        <picture>
-          <source srcset="images/hypercars/hyper-v-ultima-01.webp" type="image/webp">
-          <img src="images/hypercars/hyper-v-ultima-01.jpg" alt="Omnimorpha Hyper-V Ultima" loading="lazy">
-        </picture>
-        <span class="label">Hyper-V Ultima (Ltd.)</span>
-        <span class="meta">
-          <h3>Hyper-V Ultima — Limited Series</h3>
-          <p>Numbered edition, elevated aero & cooling, curated materials, investor slide includes financial opportunity panel.</p>
-        </span>
-      </a>
+    <div class="top-links">
+      <a href="index.html">← Back to Omnimorpha Home</a>
+      <a href="investors.html">Investor Relations</a>
     </div>
 
-    <!-- Modal -->
-    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
-      <button class="close" aria-label="Close">×</button>
-      <img id="lightboxImg" alt="">
-    </div>
-  </section>
+    <hr class="divider" />
 
-  <!-- Lightbox Script (only ⤢ opens; images/cards navigate) -->
-  <script>
-  (function(){
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightboxImg');
+    <!-- LINEUP OVERVIEW -->
+    <h2>Lineup Overview</h2>
+    <p>
+      The Omnimorpha hypercar family is built around a single vision: show what
+      Halia and Omnimorpha can do at the absolute edge of performance and design.
+    </p>
+    <ul>
+      <li><strong>Hyper-V</strong> — Grand tourer flagship.</li>
+      <li><strong>Hyper-X 2.0</strong> — Track-focused hypercar.</li>
+      <li><strong>Hyper-V Ultima</strong> — Investor and limited-series edition.</li>
+    </ul>
 
-    function open(src){ if(!src) return; img.src = src; lb.hidden = false; }
-    function close(){ lb.hidden = true; img.src = ""; }
+    <hr class="divider" />
 
-    document.querySelectorAll('.card .zoom').forEach(z=>{
-      const src = z.getAttribute('data-full');
-      z.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); open(src); });
-      z.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(src);} });
-    });
+    <!-- HYPER-V -->
+    <h2>Omnimorpha Hyper-V — Grand Tourer Flagship</h2>
+    <p>
+      Hyper-V is the grand touring hypercar for long-range, high-speed travel with
+      Halia quietly managing everything in the background — from climate and vision
+      to charging, navigation, and in-cabin experience.
+    </p>
+    <p class="spec-line">
+      <strong>Platform:</strong> 2+2 grand tourer ·
+      <strong>Energy:</strong> Graphene solid-state pack ~120 kWh (target) ·
+      <strong>Range:</strong> ~350 mi mixed (target) ·
+      <strong>Performance:</strong> 0–60 mph ~2.1 s (target), AWD torque vectoring ·
+      <strong>Control:</strong> DriveCore-V™ performance controller.
+    </p>
+    <ul>
+      <li>Mirrorless cabin powered by Omnimorpha AI Camera System™ (no physical mirrors).</li>
+      <li>Full Halia integration for route planning, adaptive suspension profiles, and driver coaching.</li>
+      <li>Graphene-enhanced solid-state pack for long life, fast charging, and thermal stability.</li>
+    </ul>
 
-    lb.addEventListener('click', (e)=>{
-      if(e.target.id==='lightbox' || e.target.classList.contains('close')) close();
-    });
-    document.addEventListener('keydown', (e)=>{
-      if(lb.hidden) return;
-      if(e.key==='Escape') close();
-    }, {passive:true});
-  })();
-  </script>
+    <!-- HYPER-X 2.0 -->
+    <h2>Omnimorpha Hyper-X 2.0 — Track-Focused Hypercar</h2>
+    <p>
+      Hyper-X 2.0 is the sharper, more aggressive sibling — designed around track
+      performance, aero efficiency, and data-heavy analysis through Halia.
+    </p>
+    <p class="spec-line">
+      <strong>Platform:</strong> Two-seat low-slung hypercar ·
+      <strong>Energy:</strong> Graphene solid-state pack ~100 kWh (target) ·
+      <strong>Performance:</strong> 0–60 mph ~1.9 s (target), high-downforce aero package ·
+      <strong>Control:</strong> DriveCore-X™ track controller + AI stability layer.
+    </p>
+    <ul>
+      <li>Live lap timing, sector analysis, and tire/temperature monitoring via Halia.</li>
+      <li>Aero surfaces tuned for both high-speed stability and cornering downforce.</li>
+      <li>AI-assisted modes for “Learning Laps” and “Attack Laps” with driver feedback afterwards.</li>
+    </ul>
+
+    <!-- HYPER-V ULTIMA -->
+    <h2>Omnimorpha Hyper-V Ultima — Investor Edition</h2>
+    <p>
+      Hyper-V Ultima represents a halo configuration of the Hyper-V platform —
+      built as an ultra-limited series concept for investors and top partners.
+    </p>
+    <p class="spec-line">
+      <strong>Edition:</strong> Limited, numbered series (concept positioning) ·
+      <strong>Focus:</strong> Maximum luxury + showcase of Omnimorpha technology ·
+      <strong>Experience:</strong> Halia-curated interior profiles, bespoke materials, and exclusive modes.
+    </p>
+    <ul>
+      <li>Unique interior design themes, trim materials, and lighting not available on standard Hyper-V.</li>
+      <li>Exclusive Halia “Ultima Mode” profile for sound, lighting, and performance feel.</li>
+      <li>Positioned as a collector-grade asset that also acts as a rolling tech demonstrator.</li>
+    </ul>
+
+    <hr class="divider" />
+
+    <!-- CORE TECHNOLOGIES -->
+    <h2>Core Technologies in Omnimorpha Hypercars</h2>
+    <p>
+      All Omnimorpha hypercars are designed as technology showcases — spotlighting
+      systems that will cascade down into the rest of the Omnimorpha vehicle lineup.
+    </p>
+
+    <h3>DriveCore™ Electric Performance Engine</h3>
+    <p>
+      DriveCore™ is Omnimorpha’s central electric performance controller, balancing
+      power delivery, efficiency, and battery health.
+    </p>
+    <ul>
+      <li>Real-time torque vectoring and traction management for each axle.</li>
+      <li>Adaptive power curves for Comfort, Sport, Track, and Custom modes.</li>
+      <li>Continuous monitoring of thermal loads to protect the graphene solid-state pack.</li>
+    </ul>
+
+    <h3>Graphene Solid-State Energy System</h3>
+    <p>
+      Hyper-V and Hyper-X 2.0 are built around a graphene-enhanced solid-state battery vision.
+      This aligns with Omnimorpha’s long-term move from traditional lithium-ion toward
+      more stable, safer, and higher-density energy storage.
+    </p>
+    <ul>
+      <li>Higher energy density vs. conventional packs (target positioning).</li>
+      <li>Improved safety characteristics and thermal stability.</li>
+      <li>Potentially faster charge cycles and longer lifespan per pack.</li>
+    </ul>
+
+    <h3>Omnimorpha AI Camera System™ (Mirrorless Vision)</h3>
+    <p>
+      All hypercars use the Omnimorpha AI Camera System™ to replace traditional mirrors and
+      provide 360° awareness.
+    </p>
+    <ul>
+      <li>Ultra-wide AI cameras replace side and rear mirrors, eliminating blind spots.</li>
+      <li>LiDAR + AI Vision for object detection, lane boundaries, and environmental awareness.</li>
+      <li>Facial and body recognition for secure, keyless and lockless vehicle entry.</li>
+    </ul>
+
+    <h3>Halia Integration &amp; VoiceLink Takeover™</h3>
+    <p>
+      Halia sits at the center of the hypercar experience — not just as an assistant,
+      but as the orchestrator of drive modes, comfort, communication, and safety.
+    </p>
+    <ul>
+      <li>Halia VoiceLink Takeover™ syncs the driver’s phone on entry and routes calls/texts through voice only.</li>
+      <li>Drive summaries after each trip: energy use, performance stats, and safety events.</li>
+      <li>Predictive suggestions: when to charge, when to take a break, and where to push or relax.</li>
+    </ul>
+
+    <h3>Climate Adaptation System</h3>
+    <p>
+      Omnimorpha’s climate adaptation system dynamically manages exterior and interior
+      temperatures for performance, comfort, and safety.
+    </p>
+    <ul>
+      <li>Snow/ice melt functions on critical surfaces during winter conditions.</li>
+      <li>Heat management in extreme sun to protect occupants and batteries.</li>
+      <li>Adaptive visibility control for glass and camera elements in rain or fog.</li>
+    </ul>
+
+    <hr class="divider" />
+
+    <!-- INVESTOR POSITIONING -->
+    <h2>Investor Positioning</h2>
+    <p>
+      Omnimorpha Hypercars are not intended as mass-volume vehicles. They act as:
+    </p>
+    <ul>
+      <li>Halo products that define Omnimorpha’s design, energy, and AI capabilities.</li>
+      <li>Testbeds for technologies that later deploy into regular vehicles and snow platforms.</li>
+      <li>High-impact brand assets for media, partnerships, and flagship investors.</li>
+    </ul>
+    <p>
+      For investors, the hypercar program is a strategic pillar that amplifies the entire
+      ecosystem — from AI cameras and DriveCore™ to graphene solid-state research,
+      Halia, and future Omnimorpha vehicle lines.
+    </p>
+
+    <p><strong>Investor Materials →</strong><br>
+      <a href="investors.html">View Omnimorpha investor decks</a>
+    </p>
+
+    <footer>
+      © 2025 Omnimorpha • Hyper-V &amp; Hyper-X 2.0
+    </footer>
+  </main>
 </body>
 </html>
-
-
-

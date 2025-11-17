@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Omnimorpha World Headquarters™ | Empire Vision</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Explore the Omnimorpha World Headquarters™ — a next-generation innovation campus housing AI labs, quantum servers, hypercar division, and the Halia AI Core." />
+
+  <!-- Use your existing stylesheet if you have one -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fallback styling so it still looks good without external CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #05060a;
+      color: #f5f5f7;
+      line-height: 1.6;
+    }
+    a { color: #ffd36a; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle at top left, #171a2a, #05060a 55%);
+    }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      margin-left: 1.3rem;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.3rem 1.5rem 4rem;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2.4rem;
+      align-items: center;
+      padding: 2.3rem 0 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,211,106,0.45);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+      color: #ffd36a;
+    }
+    h1 {
+      font-size: clamp(2.1rem, 3vw, 3rem);
+      line-height: 1.1;
+      margin: 0 0 0.8rem;
+    }
+    .hero-sub {
+      font-size: 0.98rem;
+      max-width: 32rem;
+      color: #d7d8df;
+    }
+    .hero-cta {
+      margin-top: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: #ffd36a;
+      color: #151726;
+    }
+    .btn-secondary {
+      background: transparent;
+      border-color: rgba(255,255,255,0.35);
+      color: #f5f5f7;
+    }
+
+    .hero-panel {
+      border-radius: 1.3rem;
+      padding: 1.6rem 1.4rem;
+      background: radial-gradient(circle at top, #22263a, #090a10 55%);
+      border: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.86rem;
+    }
+    .hero-panel h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin: 0 0 1rem;
+      color: #a7a9c4;
+    }
+    .hero-panel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem 1.4rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #8f91aa;
+    }
+    .stat-value {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: #fefefe;
+    }
+
+    section {
+      padding: 2.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+    .section-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8f91aa;
+      margin-bottom: 0.4rem;
+    }
+    h2.section-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #d5d6de;
+      font-size: 0.96rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin: 0.4rem 0 0.8rem;
+      color: #d5d6de;
+      font-size: 0.94rem;
+    }
+    li + li {
+      margin-top: 0.25rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.3rem;
+      margin-top: 1rem;
+    }
+    .card {
+      border-radius: 1rem;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: radial-gradient(circle at top, #181a28, #05060c 60%);
+      font-size: 0.9rem;
+    }
+    .card h3 {
+      font-size: 0.98rem;
+      margin: 0 0 0.35rem;
+    }
+    .label-pill {
+      display: inline-block;
+      padding: 0.12rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.4rem;
+      color: #b4b6ce;
+    }
+
+    .stack {
+      display: grid;
+      gap: 1.2rem;
+      margin-top: 0.8rem;
+    }
+
+    .highlight {
+      border-radius: 0.9rem;
+      padding: 0.9rem 1rem;
+      border: 1px dashed rgba(255,255,255,0.18);
+      background: radial-gradient(circle at top left, rgba(255,211,106,0.05), transparent 60%);
+      font-size: 0.9rem;
+    }
+
+    .cta-section {
+      text-align: center;
+      padding-top: 3rem;
+    }
+    .cta-section p {
+      max-width: 36rem;
+      margin: 0.5rem auto 1.6rem;
+    }
+  </style>
+</head>
+
+<body class="empire-page">
+  <header>
+    <div class="nav">
+      <div class="nav-logo">OMNIMORPHA</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="ai-dishwasher.html">AI Dishwasher</a>
+        <a href="investors.html">Investors</a>
+        <a href="#campus">Empire</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" id="campus">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="tag">Omnimorpha World Headquarters™</div>
+        <h1>The Omnimorpha Empire Campus</h1>
+        <p class="hero-sub">
+          A next-generation innovation campus housing AI laboratories, quantum servers,
+          hypercar design bays, robotics divisions, and the Halia AI Core — built as
+          the physical home of the Omnimorpha ecosystem.
+        </p>
+        <div class="hero-cta">
+          <a href="investors.html#contact" class="btn">Request Campus Vision Brief</a>
+          <a href="#zones" class="btn btn-secondary">Explore campus zones</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Vision Snapshot</h2>
+        <div class="hero-panel-grid">
+          <div>
+            <div class="stat-label">Status</div>
+            <div class="stat-value">Concept · Pre-Development</div>
+          </div>
+          <div>
+            <div class="stat-label">Scale</div>
+            <div class="stat-value">Multi-Billion HQ</div>
+          </div>
+          <div>
+            <div class="stat-label">Anchor</div>
+            <div class="stat-value">Halia AI Core</div>
+          </div>
+          <div>
+            <div class="stat-label">Purpose</div>
+            <div class="stat-value">Global Innovation Hub</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <div class="section-kicker">Campus Overview</div>
+      <h2 class="section-title">A single hub for every Omnimorpha frontier</h2>
+      <div class="two-col">
+        <div>
+          <p>
+            The Omnimorpha World Headquarters™ is designed as more than an office
+            complex. It is a living platform for AI, vehicles, appliances, fashion,
+            robotics, and future technologies that share one brain: Halia.
+          </p>
+          <p>
+            Every wing of the campus supports a critical vertical of the Omnimorpha
+            empire, from AI appliances and mobility to quantum computing and
+            experience-driven spaces for investors and partners.
+          </p>
+        </div>
+        <div>
+          <div class="highlight">
+            <strong>Investor Positioning:</strong><br />
+            The campus is a long-term vision asset. Phase 1 capital is focused on
+            flagship products like the Omnimorpha AI Dishwasher™, while the
+            headquarters serves as the long-range blueprint for scaling into a
+            global innovation group.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE ZONES GRID -->
+    <section id="zones">
+      <div class="section-kicker">Core Zones</div>
+      <h2 class="section-title">Inside the Omnimorpha Empire</h2>
+      <div class="card-grid">
+        <div class="card">
+          <span class="label-pill">01 · Halia AI Core Room</span>
+          <h3>The heart of the ecosystem</h3>
+          <p>
+            A dedicated chamber where the Halia AI Core runs Omnimorpha’s intelligence
+            stack — orchestrating vehicles, appliances, devices, and services.
+            This room anchors the campus both architecturally and symbolically.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">02 · Global Boardroom</span>
+          <h3>Strategic command</h3>
+          <p>
+            A circular, glass-framed boardroom with integrated holographic displays,
+            real-time product telemetry, and direct linkage to Halia for live
+            simulations, forecasting, and strategic decision support.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">03 · Founder’s Sky Office</span>
+          <h3>Founder’s command deck</h3>
+          <p>
+            A panoramic sky-level office overlooking the campus and city, designed
+            as the central decision point for major product launches, partnerships,
+            and long-horizon planning.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">04 · Product Labs</span>
+          <h3>Dishwasher, AI Camera & Appliances</h3>
+          <p>
+            Dedicated labs for the Omnimorpha AI Dishwasher™, AI camera systems,
+            and home appliances. Includes prototyping bays, test rigs, and
+            integrated AI simulation tools for rapid iteration.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">05 · Hypercar & Mobility Bay</span>
+          <h3>Vehicle & bike concepts</h3>
+          <p>
+            A gallery-like engineering hall for hypercars, concept vehicles,
+            and electric motorcycles. Combines design studio, test visualization,
+            and investor showcase in a single environment.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">06 · Robotics & Drones</span>
+          <h3>Automation & logistics</h3>
+          <p>
+            Robotics lab and drone bay for internal logistics, future delivery
+            systems, and in-facility automation — built to demonstrate Omnimorpha’s
+            AI in motion.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">07 · Innovation Museum</span>
+          <h3>Omnimorpha legacy walk</h3>
+          <p>
+            A curated route through the origin story and milestones of Omnimorpha,
+            using full-scale displays, prototypes, and holographic storytelling
+            to immerse guests in the brand’s evolution.
+          </p>
+        </div>
+        <div class="card">
+          <span class="label-pill">08 · Quantum Server Cathedral</span>
+          <h3>Compute at the core</h3>
+          <p>
+            Vertical server towers and future quantum modules housed in an
+            architecturally iconic space, powering the Omnimorpha cloud, simulation
+            environments, and Halia’s most advanced workloads.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER EXPERIENCE & ACCESS -->
+    <section id="founder">
+      <div class="section-kicker">Founder Experience</div>
+      <h2 class="section-title">Private access, public impact</h2>
+      <div class="two-col">
+        <div class="stack">
+          <div>
+            <h3>Founder’s Private Elevator & Vault</h3>
+            <p>
+              A secure, biometric-only glass elevator links the Founder’s Sky Office,
+              Halia Core, hypercar bay, and key meeting spaces. A private vault level
+              holds sensitive prototypes, IP documentation, and unreleased concepts.
+            </p>
+          </div>
+          <div>
+            <h3>Sky Lounge & Executive Suites</h3>
+            <p>
+              Above the working levels, a sky lounge, executive suites, and private
+              hospitality areas are reserved for high-stakes negotiations, investor
+              summits, and partner immersion experiences.
+            </p>
+          </div>
+        </div>
+        <div class="highlight">
+          <strong>Why this matters for investors:</strong><br />
+          The campus is designed to host global partners at a level normally reserved
+          for the largest tech companies. The experience around the products becomes
+          a strategic tool for closing enterprise and high-value deals.
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPLOYEE & CAMPUS LIFE -->
+    <section id="campus-life">
+      <div class="section-kicker">Campus Life</div>
+      <h2 class="section-title">Built for teams that invent the future</h2>
+      <div class="two-col">
+        <div>
+          <p>
+            The employee innovation campus is designed with collaborative studios,
+            focused R&amp;D zones, and recharge spaces that support deep work as well as
+            rapid collaboration. The architecture flows around natural light, greenery,
+            and open visibility into the work being done.
+          </p>
+          <ul>
+            <li>Innovation studios next to engineering bays and demo spaces.</li>
+            <li>Cross-functional collaboration areas connecting hardware, AI, and design.</li>
+            <li>Training hubs for new hires and partner teams integrating with Omnimorpha.</li>
+          </ul>
+        </div>
+        <div>
+          <p>
+            Surrounding the core buildings are walkways, lounges, and informal
+            meetup spaces where ideas can move freely — a physical reflection of
+            how Omnimorpha products connect across categories.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVESTOR POSITIONING -->
+    <section id="investor-positioning">
+      <div class="section-kicker">Investor Positioning</div>
+      <h2 class="section-title">From flagship product to full empire</h2>
+      <div class="two-col">
+        <div>
+          <h3>Phase 1: Product-First</h3>
+          <p>
+            Initial capital is focused on revenue-generating products such as
+            the Omnimorpha AI Dishwasher™ and other core appliances. These serve
+            as the entry points into the brand and fund the long-term physical build.
+          </p>
+          <ul>
+            <li>Lower initial capital vs. immediate campus construction.</li>
+            <li>De-risks the vision by anchoring it in real product traction.</li>
+            <li>Allows campus plans to be staged by demand and growth.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Phase 2+: Campus Build-Out</h3>
+          <p>
+            As Omnimorpha scales, the World Headquarters™ evolves from concept
+            into a staged reality — starting with key labs, a smaller innovation
+            hub, and gradually expanding toward the full empire campus.
+          </p>
+          <ul>
+            <li>Campus becomes a strategic asset for partnerships and brand power.</li>
+            <li>Physical space reflects the scope of Omnimorpha’s ecosystem.</li>
+            <li>Built to signal longevity, ambition, and category leadership.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+      <div class="section-kicker">Partner With Omnimorpha</div>
+      <h2 class="section-title">A campus designed for a global technology empire</h2>
+      <p>
+        The Omnimorpha World Headquarters™ is a long-horizon vision for where this
+        ecosystem is heading. Today, investors can participate at the product level,
+        with a clear roadmap toward an iconic physical home for AI, mobility,
+        appliances, and beyond.
+      </p>
+      <a href="investors.html#contact" class="btn">Request vision deck &amp; roadmap</a>
+    </section>
+  </main>
+</body>
+</html>

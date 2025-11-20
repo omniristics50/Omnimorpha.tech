@@ -1,272 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>VELOCIÉ™ Electric Motorcycles | Omnimorpha</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="VELOCIÉ™ is Omnimorpha’s performance electric motorcycle lineup, featuring the L-X flagship, L-XR racing edition, L-E commuter, LXV touring bike, L-NIGHT stealth model, and Halia-linked smart helmet system." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOCIÉ™ | Omnimorpha</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #05060a;
-      color: #f5f5f7;
-      line-height: 1.6;
-    }
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 3rem;
-    }
-    h1 {
-      font-size: 1.9rem;
-      margin-bottom: 0.4rem;
-    }
-    h2 {
-      margin-top: 2.1rem;
-      margin-bottom: 0.3rem;
-      font-size: 1.3rem;
-    }
-    h3 {
-      margin-top: 1.4rem;
-      margin-bottom: 0.2rem;
-      font-size: 1.05rem;
-    }
-    p {
-      margin: 0.15rem 0 0.4rem;
-      font-size: 0.96rem;
-      color: #d5d6de;
-    }
-    a {
-      color: #ffd36a;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .divider {
-      margin: 2.3rem 0 1.5rem;
-      border: 0;
-      border-top: 1px solid rgba(255,255,255,0.14);
-    }
-    ul {
-      margin: 0.2rem 0 0.6rem;
-      padding-left: 1.1rem;
-      font-size: 0.94rem;
-      color: #d5d6de;
-    }
-    li + li {
-      margin-top: 0.15rem;
-    }
-    .top-links {
-      margin: 0.75rem 0 1.4rem;
-      font-size: 0.95rem;
-    }
-    .top-links a {
-      margin-right: 1.2rem;
-    }
-    .spec-line {
-      font-size: 0.92rem;
-      color: #c6c7d6;
-    }
-    footer {
-      margin-top: 2.4rem;
-      font-size: 0.85rem;
-      color: #8f91aa;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css?v=20250908a">
 </head>
 <body>
-  <main>
-    <!-- INTRO -->
-    <h1>VELOCIÉ™ Electric Motorcycles</h1>
-    <p>
-      VELOCIÉ™ is Omnimorpha’s electric motorcycle division — a lineup built around
-      Halia-linked intelligence, DriveCore™ electric powertrains, and a smart helmet
-      HUD system designed for riders who live between performance and precision.
-    </p>
 
-    <div class="top-links">
-      <a href="index.html">← Back to Omnimorpha Home</a>
-      <a href="investors.html">Investor Relations</a>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="velocite.html">Velocité</a>
+    <a href="hypercars.html">Hypercars</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Velocité Showcase -->
+  <section class="velocite">
+    <h1>VELOCITÉ Lineup</h1>
+
+    <div class="grid">
+
+      <a class="card" href="images/velocite/lx-01-large.jpg" data-full="images/velocite/lx-01-large.jpg">
+        <img src="images/velocite/lx-01.jpg" alt="VELOCIÉ L-X">
+        <span class="label">L-X (Flagship)</span>
+      </a>
+
+      <a class="card" href="images/velocite/lxr-01-large.jpg" data-full="images/velocite/lxr-01-large.jpg">
+        <img src="images/velocite/lxr-01.jpg" alt="VELOCIÉ L-XR">
+        <span class="label">L-XR (Racing)</span>
+      </a>
+
+      <a class="card" href="images/velocite/le-01-large.jpg" data-full="images/velocite/le-01-large.jpg">
+        <img src="images/velocite/le-01.jpg" alt="VELOCIÉ L-E">
+        <span class="label">L-E (Commuter)</span>
+      </a>
+
+      <a class="card" href="images/velocite/lxv-01-large.jpg" data-full="images/velocite/lxv-01-large.jpg">
+        <img src="images/velocite/lxv-01.jpg" alt="VELOCIÉ LXV">
+        <span class="label">LXV (Touring)</span>
+      </a>
+
+      <a class="card" href="images/velocite/lnight-01-large.jpg" data-full="images/velocite/lnight-01-large.jpg">
+        <img src="images/velocite/lnight-01.jpg" alt="VELOCIÉ L-NIGHT">
+        <span class="label">L-NIGHT (Stealth)</span>
+      </a>
+
     </div>
 
-    <hr class="divider" />
+    <div id="lightbox" hidden>
+      <button class="close" aria-label="Close">×</button>
+      <img id="lightboxImg" alt="">
+    </div>
 
-    <!-- LINEUP OVERVIEW -->
-    <h2>Lineup Overview</h2>
-    <p>
-      The VELOCIÉ™ range covers flagship street performance, track-only racing, daily
-      commuting, long-distance touring, and stealth night riding — all connected to
-      Halia through the VELOCIÉ Smart Helmet system.
-    </p>
-    <ul>
-      <li><strong>L-X</strong> — Flagship street model</li>
-      <li><strong>L-XR</strong> — Track-focused racing edition</li>
-      <li><strong>L-E</strong> — Compact city commuter</li>
-      <li><strong>LXV</strong> — Two-seat touring</li>
-      <li><strong>L-NIGHT</strong> — Stealth night-riding model</li>
-      <li><strong>Smart Helmet</strong> — Halia-linked HUD &amp; telemetry</li>
-    </ul>
+  </section>
 
-    <hr class="divider" />
+  <script>
+    document.querySelectorAll('.card[data-full]').forEach(card => {
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('lightboxImg').src = card.dataset.full;
+        document.getElementById('lightbox').hidden = false;
+      });
+    });
 
-    <!-- L-X FLAGSHIP -->
-    <h2>VELOCIÉ L-X — Flagship</h2>
-    <p>
-      The VELOCIÉ L-X is the flagship street motorcycle for riders who want
-      instant torque, clean design, and Halia in their visor on every ride.
-    </p>
-    <p class="spec-line">
-      <strong>Powertrain:</strong> DriveCore™ ~180 hp equivalent ·
-      <strong>Battery:</strong> Graphene solid-state ~16 kWh ·
-      <strong>Range:</strong> ~180 mi mixed (target) ·
-      <strong>Interface:</strong> HaliaLink™ helmet HUD + live telemetry.
-    </p>
-    <ul>
-      <li>Balanced for daily performance and weekend canyon runs.</li>
-      <li>Instant torque delivery with precise traction control.</li>
-      <li>Halia provides route suggestions, safety alerts, and ride summaries.</li>
-    </ul>
+    const lb = document.getElementById('lightbox');
+    lb.addEventListener('click', e => {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
+        lb.hidden = true;
+        document.getElementById('lightboxImg').src = "";
+      }
+    });
 
-    <!-- L-XR RACING -->
-    <h2>VELOCIÉ L-XR — Racing Edition</h2>
-    <p>
-      The VELOCIÉ L-XR takes the L-X platform and pushes it into track territory,
-      tuned for lap times, consistency, and coaching feedback through Halia.
-    </p>
-    <p class="spec-line">
-      <strong>Powertrain:</strong> DriveCore-R™ ~200 hp equivalent (track tune) ·
-      <strong>Battery:</strong> High-discharge performance pack ·
-      <strong>0–60 mph:</strong> ~2.5 s (target) ·
-      <strong>Interface:</strong> HaliaLink™ lap timing &amp; coach mode.
-    </p>
-    <ul>
-      <li>Track-tuned power curve and high-grip chassis setup.</li>
-      <li>Halia records lap times, braking zones, and corner speeds.</li>
-      <li>Coach mode provides post-session feedback and suggested improvements.</li>
-    </ul>
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !lb.hidden) {
+        lb.hidden = true;
+      }
+    });
+  </script>
 
-    <!-- L-E COMMUTER -->
-    <h2>VELOCIÉ L-E — Commuter</h2>
-    <p>
-      The VELOCIÉ L-E is built for the city — agile, efficient, and easy to park,
-      with enough range for a full week of urban commuting on a single charge.
-    </p>
-    <p class="spec-line">
-      <strong>Powertrain:</strong> DriveCore-E™ ~95 hp equivalent ·
-      <strong>Battery:</strong> ~12 kWh ·
-      <strong>Range:</strong> ~150 mi city (target) ·
-      <strong>Charging:</strong> DC fast charge 20–80% in ~22 minutes.
-    </p>
-    <ul>
-      <li>Compact footprint for tight streets and dense parking.</li>
-      <li>Halia Vision Assist for blind-spot and traffic awareness.</li>
-      <li>Optimized for low running costs and daily reliability.</li>
-    </ul>
-
-    <!-- LXV TOURING -->
-    <h2>VELOCIÉ LXV — Two-Seat Touring</h2>
-    <p>
-      The VELOCIÉ LXV is designed for long-distance travel, comfort, and
-      two-up riding — pairing electric performance with touring practicality.
-    </p>
-    <p class="spec-line">
-      <strong>Powertrain:</strong> DriveCore-T™ ~150 hp equivalent ·
-      <strong>Battery:</strong> ~20 kWh ·
-      <strong>Range:</strong> ~240 mi highway (target) ·
-      <strong>Chassis:</strong> Adaptive suspension + integrated storage.
-    </p>
-    <ul>
-      <li>Comfort-focused ergonomics for rider and passenger.</li>
-      <li>Dynamic suspension adapts to load, road quality, and speed.</li>
-      <li>Side and rear storage integrated cleanly into the bodywork.</li>
-    </ul>
-
-    <!-- L-NIGHT STEALTH -->
-    <h2>VELOCIÉ L-NIGHT — Stealth</h2>
-    <p>
-      The VELOCIÉ L-NIGHT is the stealth-focused model, built for night
-      rides, low-visibility conditions, and riders who want a more subtle presence.
-    </p>
-    <p class="spec-line">
-      <strong>Powertrain:</strong> DriveCore-N™ ~170 hp equivalent ·
-      <strong>Lighting:</strong> Adaptive low-glare lighting ·
-      <strong>Vision:</strong> NightSense™ (IR + low-light AI) ·
-      <strong>Range:</strong> ~170 mi mixed (target).
-    </p>
-    <ul>
-      <li>Infrared and low-light cameras support NightSense™ visibility.</li>
-      <li>Lighting profile reduces glare for oncoming traffic.</li>
-      <li>Halia overlays navigation and hazard alerts onto the HUD at night.</li>
-    </ul>
-
-    <hr class="divider" />
-
-    <!-- SPECIAL VARIANTS -->
-    <h2>Special Variants &amp; Alt Editions</h2>
-    <p>
-      VELOCIÉ Alt editions are special trims of the L-X and L-XR platforms,
-      designed for limited runs, collaborations, or investor-exclusive series.
-    </p>
-
-    <h3>VELOCIÉ L-X Alt — Flagship Special</h3>
-    <p>
-      Cosmetic and tuning upgrades based on the L-X street model. May include
-      unique colorways, limited interior/seat materials, and special Halia themes.
-    </p>
-
-    <h3>VELOCIÉ L-XR Alt — Track Special</h3>
-    <p>
-      Limited-run L-XR variant with track-focused aero, unique liveries, and
-      additional telemetry views for advanced riders and racing partners.
-    </p>
-
-    <hr class="divider" />
-
-    <!-- SMART HELMET -->
-    <h2>VELOCIÉ Smart Helmet &amp; HaliaLink™</h2>
-    <p>
-      At the center of the VELOCIÉ experience is the Smart Helmet, which connects
-      each motorcycle to Halia through a head-up display and live data link.
-    </p>
-    <ul>
-      <li><strong>HUD:</strong> Speed, range, navigation, and key alerts projected in the rider’s view.</li>
-      <li><strong>Telemetry:</strong> Real-time data from the bike: lean angles, power usage, temps, and more.</li>
-      <li><strong>Voice:</strong> Hands-free communication with Halia for routes, calls, and quick commands.</li>
-      <li><strong>Safety:</strong> Crash detection, emergency contact alerts, and ride logging.</li>
-    </ul>
-    <p>
-      For investors, the Smart Helmet represents not just safety and UX, but also a
-      recurring revenue opportunity via hardware upgrades, in-app services, and data-aware features.
-    </p>
-
-    <hr class="divider" />
-
-    <!-- INVESTOR NOTE -->
-    <h2>Investor Positioning</h2>
-    <p>
-      VELOCIÉ™ is more than a motorcycle lineup — it is a mobility platform linked
-      directly to Halia and the wider Omnimorpha ecosystem. It can connect into:
-    </p>
-    <ul>
-      <li>Omnimorpha charging infrastructure and future energy services.</li>
-      <li>Shared data with Omnimorpha vehicles and smart city initiatives.</li>
-      <li>Cross-brand collaborations with fashion, lifestyle, and sports entities.</li>
-    </ul>
-    <p>
-      As Omnimorpha expands, VELOCIÉ™ stands as the high-visibility, high-emotion
-      mobility brand that showcases what the ecosystem can do on two wheels.
-    </p>
-
-    <p><strong>Investor Materials →</strong><br>
-      <a href="investors.html">View Omnimorpha investor decks</a>
-    </p>
-
-    <footer>
-      © 2025 Omnimorpha • VELOCIÉ™ Electric Motorcycles
-    </footer>
-  </main>
 </body>
 </html>

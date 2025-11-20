@@ -1,91 +1,226 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VELOCIÉ™ | Omnimorpha</title>
+/* ===========================
+   BASE SITE STYLES 
+=========================== */
 
-  <!-- Link to the updated stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=20250908a">
-</head>
-<body>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="velocite.html">Velocité</a>
-    <a href="hypercars.html">Hypercars</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+nav {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+}
 
-  <!-- Velocité Showcase -->
-  <section class="velocite">
-    <h1>VELOCITÉ Lineup</h1>
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.9;
+}
 
-    <div class="grid">
-      <!-- L-X -->
-      <a class="card" href="images/velocite/lx-01-large.jpg" data-full="images/velocite/lx-01-large.jpg">
-        <img src="images/velocite/lx-01.jpg" alt="VELOCITÉ L-X">
-        <span class="label">L-X (Flagship)</span>
-      </a>
+nav a:hover {
+  opacity: 1;
+}
 
-      <!-- L-XR -->
-      <a class="card" href="images/velocite/lxr-01-large.jpg" data-full="images/velocite/lxr-01-large.jpg">
-        <img src="images/velocite/lxr-01.jpg" alt="VELOCITÉ L-XR">
-        <span class="label">L-XR (Racing)</span>
-      </a>
+/* ===========================
+   VELOCITÉ GRID 
+=========================== */
 
-      <!-- L-E -->
-      <a class="card" href="images/velocite/le-01-large.jpg" data-full="images/velocite/le-01-large.jpg">
-        <img src="images/velocite/le-01.jpg" alt="VELOCITÉ L-E">
-        <span class="label">L-E (Commuter)</span>
-      </a>
+.velocite {
+  padding: 2rem;
+}
 
-      <!-- LXV -->
-      <a class="card" href="images/velocite/lxv-01-large.jpg" data-full="images/velocite/lxv-01-large.jpg">
-        <img src="images/velocite/lxv-01.jpg" alt="VELOCITÉ LXV">
-        <span class="label">LXV (Touring)</span>
-      </a>
+.velocite h1 {
+  margin-bottom: 1.5rem;
+}
 
-      <!-- L-NIGHT -->
-      <a class="card" href="images/velocite/lnight-01-large.jpg" data-full="images/velocite/lnight-01-large.jpg">
-        <img src="images/velocite/lnight-01.jpg" alt="VELOCITÉ L-NIGHT">
-        <span class="label">L-NIGHT (Stealth)</span>
-      </a>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
 
-      <!-- Add more bikes or helmet renders here -->
-    </div>
+.card {
+  position: relative;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+}
 
-    <!-- Modal Lightbox -->
-    <div id="lightbox" hidden>
-      <button class="close" aria-label="Close">×</button>
-      <img id="lightboxImg" alt="">
-    </div>
-  </section>
+.card img {
+  width: 100%;
+  display: block;
+}
 
-  <!-- Lightbox Script -->
-  <script>
-    document.querySelectorAll('.card[data-full]').forEach(card => {
-      card.addEventListener('click', e => {
-        e.preventDefault();
-        document.getElementById('lightboxImg').src = card.dataset.full || card.href;
-        document.getElementById('lightbox').hidden = false;
-      });
-    });
+.label {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0,0,0,0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
 
-    const lb = document.getElementById('lightbox');
-    lb.addEventListener('click', e => {
-      if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
-        lb.hidden = true;
-        document.getElementById('lightboxImg').src = "";
-      }
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !lb.hidden) {
-        lb.hidden = true;
-      }
-    });
-  </script>
-</body>
-</html>
+/* ===========================
+   LIGHTBOX 
+=========================== */
 
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightbox img {
+  width: 80%;
+  max-width: 900px;
+  border-radius: 10px;
+}
+
+#lightbox .close {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ===========================
+   OMNIMORPHA ENGINE EVOLUTION
+=========================== */
+
+.engine-evolution {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 3rem;
+}
+
+.engine-evolution h2 {
+  margin-bottom: 0.75rem;
+}
+
+.engine-intro {
+  max-width: 720px;
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+/* Engine Grid Layout */
+.engine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Engine Card */
+.engine-card {
+  background: radial-gradient(circle at top left, rgba(255, 215, 128, 0.08), rgba(0, 0, 0, 0.85));
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+.engine-card h3 {
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Badges */
+.engine-card .badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  opacity: 0.9;
+}
+
+.engine-card .badge-upgrade {
+  border-color: rgba(0, 255, 180, 0.6);
+  color: #7fffd4;
+}
+
+.engine-card .badge-investor {
+  border-color: rgba(255, 215, 0, 0.75);
+  color: #ffd87c;
+}
+
+/* Engine Image Wrapper */
+.engine-image-wrap {
+  background: radial-gradient(circle at center, rgba(0, 255, 200, 0.04), rgba(0, 0, 0, 0.9));
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.engine-image-wrap img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Engine Points */
+.engine-points {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.engine-points li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.35rem;
+  opacity: 0.9;
+}
+
+.engine-points li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #19e0ff;
+}
+
+/* Footer layout */
+.engine-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.poster-image {
+  max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .engine-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .engine-footer {
+    grid-template-columns: 1fr;
+  }
+}

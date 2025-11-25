@@ -1,226 +1,237 @@
-/* ===========================
-   BASE SITE STYLES 
-=========================== */
+/* ============================================================
+   OMNIMORPHA GLOBAL STYLESHEET — PREMIUM BLACK & GOLD THEME
+   Rebuilt From Scratch For All Product & Technology Pages
+   ------------------------------------------------------------
+   Author: Courtney S. Linton (Founder & CEO)
+   ============================================================ */
 
-body {
+
+/* ===========================
+   GLOBAL RESET
+=========================== */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+
+/* ===========================
+   GLOBAL TYPOGRAPHY
+=========================== */
+h1, h2, h3, h4 {
+  color: #f5d27d;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+p {
+  font-size: 1.05rem;
+  opacity: 0.95;
+  margin-bottom: 1.2rem;
+}
+
+ul {
+  list-style: none;
+  margin-left: 1rem;
+}
+
+ul li {
+  margin-bottom: 0.7rem;
+}
+
+
+/* ===========================
+   NAVIGATION BAR
+=========================== */
 nav {
   display: flex;
   gap: 1.5rem;
   padding: 1.2rem;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
+  border-bottom: 1px solid #222;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  opacity: 0.9;
+  opacity: 0.85;
+  transition: 0.2s ease;
 }
 
 nav a:hover {
   opacity: 1;
+  color: #f5d27d;
 }
+
 
 /* ===========================
-   VELOCITÉ GRID 
+   HERO SECTIONS
 =========================== */
-
-.velocite {
-  padding: 2rem;
-}
-
-.velocite h1 {
-  margin-bottom: 1.5rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.card {
+.hero {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: url('images/galaxy-bg.webp') center/cover no-repeat;
+  background-attachment: fixed;
   position: relative;
-  display: block;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.03);
 }
 
-.card img {
-  width: 100%;
-  display: block;
+.hero h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
 }
 
-.label {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  background: rgba(0,0,0,0.6);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.85rem;
+.hero p {
+  font-size: 1.3rem;
+  opacity: 0.9;
 }
+
 
 /* ===========================
-   LIGHTBOX 
+   GENERIC CONTENT SECTIONS
 =========================== */
-
-#lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.section {
+  padding: 3rem 2rem;
+  max-width: 1050px;
+  margin: auto;
 }
 
-#lightbox img {
-  width: 80%;
-  max-width: 900px;
-  border-radius: 10px;
+.section-dark {
+  background: #0a0a0a;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  padding: 3rem 2rem;
 }
 
-#lightbox .close {
-  position: absolute;
-  top: 25px;
-  right: 25px;
+.section h2 {
   font-size: 2rem;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
+  margin-bottom: 1rem;
 }
+
 
 /* ===========================
-   OMNIMORPHA ENGINE EVOLUTION
+   PRODUCT HIGHLIGHT PANELS
 =========================== */
-
-.engine-evolution {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 3rem;
+.section-highlight {
+  background: linear-gradient(145deg, #1a1a1a, #000);
+  border: 1px solid #333;
+  padding: 3rem 2rem;
+  box-shadow: 0 0 25px rgba(255, 215, 100, 0.18);
+  max-width: 1050px;
+  margin: 3rem auto;
 }
 
-.engine-evolution h2 {
-  margin-bottom: 0.75rem;
+
+/* ===========================
+   SPECIFICATION TABLES
+=========================== */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
 }
 
-.engine-intro {
-  max-width: 720px;
-  opacity: 0.85;
-  margin-bottom: 2.5rem;
+.spec-table td {
+  border: 1px solid #444;
+  padding: 14px;
+  font-size: 1rem;
 }
 
-/* Engine Grid Layout */
-.engine-grid {
+.spec-table tr:nth-child(even) {
+  background: #111;
+}
+
+
+/* ===========================
+   BUTTONS (Preorder, Learn More, etc.)
+=========================== */
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #f5d27d;
+  background: transparent;
+  color: #f5d27d;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  background: #f5d27d;
+  color: #000;
+}
+
+
+/* ===========================
+   IMAGE GALLERY (Lifestyle + Product)
+=========================== */
+.image-gallery {
+  margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-/* Engine Card */
-.engine-card {
-  background: radial-gradient(circle at top left, rgba(255, 215, 128, 0.08), rgba(0, 0, 0, 0.85));
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.5rem;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-}
-
-.engine-card h3 {
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-/* Badges */
-.engine-card .badge {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  opacity: 0.9;
-}
-
-.engine-card .badge-upgrade {
-  border-color: rgba(0, 255, 180, 0.6);
-  color: #7fffd4;
-}
-
-.engine-card .badge-investor {
-  border-color: rgba(255, 215, 0, 0.75);
-  color: #ffd87c;
-}
-
-/* Engine Image Wrapper */
-.engine-image-wrap {
-  background: radial-gradient(circle at center, rgba(0, 255, 200, 0.04), rgba(0, 0, 0, 0.9));
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0.75rem;
-  margin-bottom: 0.9rem;
-}
-
-.engine-image-wrap img {
+.image-gallery img {
   width: 100%;
   border-radius: 10px;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(255, 215, 100, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Engine Points */
-.engine-points {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+.image-gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(255, 215, 100, 0.3);
+}
+
+
+/* ===========================
+   FOOTER — OMNIMORPHA SIGNATURE STYLE
+=========================== */
+footer {
+  background: #000;
+  border-top: 1px solid #222;
+  padding: 2rem 2rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+footer p {
   font-size: 0.9rem;
+  opacity: 0.8;
 }
 
-.engine-points li {
-  position: relative;
-  padding-left: 1.1rem;
-  margin-bottom: 0.35rem;
-  opacity: 0.9;
+footer a {
+  color: #f5d27d;
+  text-decoration: none;
+  transition: 0.25s;
 }
 
-.engine-points li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #19e0ff;
+footer a:hover {
+  opacity: 1;
 }
 
-/* Footer layout */
-.engine-footer {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-  gap: 2rem;
-  align-items: flex-start;
-}
 
-.poster-image {
-  max-width: 100%;
-}
-
-/* Responsive */
-@media (max-width: 960px) {
-  .engine-grid {
-    grid-template-columns: 1fr;
+/* ===========================
+   RESPONSIVE SUPPORT
+=========================== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
   }
-
-  .engine-footer {
-    grid-template-columns: 1fr;
+  .hero p {
+    font-size: 1.1rem;
   }
 }

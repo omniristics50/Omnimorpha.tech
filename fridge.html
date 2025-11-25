@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Omnimorpha IntelliFridge™ | Halia-Powered Smart Refrigeration</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The Omnimorpha IntelliFridge™ features AR food tracking, auto-reorder, AquaSense filtration, HaliaSync intelligence and a luxury AI-integrated refrigeration core." />
+  <meta charset="UTF-8">
+  <title>Omnimorpha IntelliFridge™ | AI Smart Refrigerator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- GLOBAL STYLE -->
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
       background: #000;
       color: #fff;
+      font-family: Arial, sans-serif;
       line-height: 1.6;
     }
 
@@ -19,8 +19,11 @@
       display: flex;
       gap: 20px;
       padding: 20px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     nav a {
@@ -30,54 +33,65 @@
       opacity: 0.85;
     }
 
-    nav a:hover {
-      opacity: 1;
-    }
+    nav a:hover { opacity: 1; }
 
     .section {
-      padding: 60px 8%;
+      padding: 70px 8%;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .section-dark {
+      background: #0b0b0b;
     }
 
     h1, h2 {
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
-    }
+    h1 { font-size: 3rem; margin-bottom: 10px; }
+    h2 { font-size: 2rem; margin-bottom: 25px; }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 25px;
-    }
-
+    /* HERO */
     .hero {
+      padding: 120px 5%;
       text-align: center;
-      padding: 80px 5%;
       background: radial-gradient(circle at center, #111 0%, #000 100%);
     }
 
     .hero img {
-      max-width: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 30px #000;
+      width: 90%;
+      border-radius: 16px;
+      margin-top: 40px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
     }
 
+    /* IMAGES */
     .image-block {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
     .image-block img {
-      width: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #000;
-      margin-bottom: 10px;
+      width: 88%;
+      border-radius: 14px;
+      box-shadow: 0 0 24px #000;
     }
 
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 0 20px #000;
+    }
+
+    /* SPEC TABLE */
     .spec-table {
       width: 100%;
       border-collapse: collapse;
@@ -85,31 +99,16 @@
     }
 
     .spec-table td, .spec-table th {
-      border: 1px solid rgba(255,255,255,0.1);
       padding: 14px;
-      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-top: 20px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #000;
-    }
-
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 30px;
-      background: #000;
       font-size: 0.9rem;
-      opacity: 0.7;
-      margin-top: 40px;
+      opacity: 0.6;
     }
   </style>
 </head>
@@ -124,106 +123,103 @@
   <a href="ai-camera.html">AI Camera</a>
 </nav>
 
-<!-- HERO BANNER -->
+<!-- HERO -->
 <section class="hero">
   <h1>Omnimorpha IntelliFridge™</h1>
-  <p>The world’s first luxury AI-powered refrigerator — designed with HaliaSync™ intelligence.</p>
-  <img src="images/fridge/fridge-02-omnimorpha-hero.png" alt="IntelliFridge Hero Image">
+  <p>The AI-powered smart refrigerator engineered for intelligent modern living.</p>
+
+  <img src="images/fridge/fridge-02-omnimorpha-hero.png" alt="IntelliFridge Hero">
 </section>
 
-<!-- OPEN INTERIOR -->
+<!-- CRYOCORE COOLING ENGINE -->
 <section class="section">
-  <h2>Premium Interior — Intelligent Design</h2>
-  <p>Illuminated with balanced blue + gold OmniGlow lighting for clarity, freshness visualization, and emotional ambience.</p>
-  <div class="image-block">
-    <img src="images/fridge/fridge-03-open-interior.png" alt="IntelliFridge Interior">
-  </div>
-</section>
+  <h2>CryoCore™ AI Cooling Engine</h2>
+  <p>The IntelliFridge™ uses the CryoCore™ engine built with graphene thermal plates and dual-stage AI compressors.</p>
 
-<!-- AR OVERLAY -->
-<section class="section">
-  <h2>AR Inventory Tracking System</h2>
-  <p>Halia overlays AR indicators for expiration, quantity, freshness, and AI-recommended use.</p>
-  <div class="image-block">
-    <img src="images/fridge/fridge-05-ar-overlay.png" alt="AR Tracking">
-  </div>
-</section>
+  <ul>
+    <li><strong>Graphene Thermal Plate:</strong> Ultra-fast cooling with 30% lower energy use.</li>
+    <li><strong>Dual-Stage Compressors:</strong> Whisper-quiet and AI regulated.</li>
+    <li><strong>OmniFlow Air Channels:</strong> Hidden airflow systems.</li>
+    <li><strong>Frost Prediction Logic:</strong> Prevents frost before it forms.</li>
+  </ul>
 
-<!-- INTELLIGENT DISPLAY -->
-<section class="section">
-  <h2>Halia Intelligent Display</h2>
-  <p>Smart nutrient panels, estimated food age, freshness color codes, and personalized dietary mapping.</p>
-  <div class="image-block">
-    <img src="images/fridge/fridge-06-intelligent-display.png" alt="Intelligent Display">
-  </div>
-</section>
-
-<!-- EXPLODED VIEW -->
-<section class="section">
-  <h2>Exploded Engineering View</h2>
-  <p>The full internal architecture of the IntelliFridge™ — DiamondCore cooling engine, filtration stack, and AI control junction.</p>
   <div class="image-block">
     <img src="images/fridge/fridge-04-exploded-view.png" alt="Exploded View">
   </div>
 </section>
 
-<!-- BALANCED LIGHTING -->
-<section class="section">
-  <h2>Balanced Blue+Gold Lighting</h2>
-  <p>The signature Omnimorpha interior lighting blend — elegance meets intelligence.</p>
-  <div class="image-block">
-    <img src="images/fridge/fridge-07-balance-lighting.png" alt="Balanced Lighting">
-  </div>
-</section>
+<!-- AI CAMERAS -->
+<section class="section section-dark">
+  <h2>Halia Vision Cameras & Sensors</h2>
+  <p>The IntelliFridge™ tracks freshness, inventory, and spoilage using advanced vision hardware.</p>
 
-<!-- MAIN INTERIOR PHOTO -->
-<section class="section">
-  <h2>Realistic Interior View</h2>
-  <div class="image-block">
-    <img src="images/fridge/fridge-01-main-interior.png" alt="Main Interior Photo">
-  </div>
-</section>
-
-<!-- HALIASYNC FEATURES -->
-<section class="section">
-  <h2>HaliaSync™ Home Integration</h2>
   <ul>
-    <li>Automatic Inventory Tracking</li>
-    <li>AI Shopping Lists synced to all devices</li>
-    <li>Meal Recommendations based on available food</li>
-    <li>Expiration Alerts</li>
-    <li>Omnimorpha Appliance Sync</li>
-    <li>Auto-Reorder System</li>
+    <li><strong>Top Vision Camera:</strong> Recognizes items & freshness.</li>
+    <li><strong>Shelf Cameras:</strong> Detect added or removed items.</li>
+    <li><strong>Infrared Sensors:</strong> Food temperature monitoring.</li>
+    <li><strong>Air Quality Sensors:</strong> Ethylene ripeness detection.</li>
   </ul>
+
+  <div class="image-block">
+    <img src="images/fridge/fridge-06-intelligent-display.png" alt="Intelligent Display">
+  </div>
+</section>
+
+<!-- ADAPTIVE INTERIOR -->
+<section class="section">
+  <h2>AI-Adaptive Shelving</h2>
+  <ul>
+    <li><strong>Self-Adjusting Shelves</strong> on motorized rails.</li>
+    <li><strong>Multi-Zone Climate Control</strong> per shelf.</li>
+    <li><strong>Produce Preservation Drawers</strong> using AI humidity logic.</li>
+    <li><strong>Gold Ambient Illumination</strong> for premium clarity.</li>
+  </ul>
+
+  <div class="image-block">
+    <img src="images/fridge/fridge-03-open-interior.png" alt="Open Interior">
+  </div>
+</section>
+
+<!-- AR GLASS -->
+<section class="section section-dark">
+  <h2>Halia Vision Glass™ — AR Smart Door Display</h2>
+  <p>Transparent mode, AR mode, recipe overlays, and gesture control.</p>
+
+  <div class="image-block">
+    <img src="images/fridge/fridge-05-ar-overlay.png" alt="AR Overlay">
+  </div>
 </section>
 
 <!-- SPECIFICATIONS -->
 <section class="section">
   <h2>Technical Specifications</h2>
+
   <table class="spec-table">
-    <tr><th>Category</th><th>Details</th></tr>
-    <tr><td>Finish</td><td>Matte Black, Graphite Steel, Obsidian Gold Edition</td></tr>
-    <tr><td>Capacity</td><td>20 cu.ft Refrigerator, 9 cu.ft Freezer</td></tr>
-    <tr><td>Cooling</td><td>DiamondCore Cooling Engine™, Multi-Zone Climate System</td></tr>
-    <tr><td>Filtration</td><td>AquaSense Mineral Filter™, AI-controlled purity levels</td></tr>
-    <tr><td>AI Systems</td><td>AR Visualization, MealSync™, Auto-Reorder, Voice & App Control</td></tr>
-    <tr><td>Connectivity</td><td>Wi-Fi 6, BLE, OTA Updates</td></tr>
-    <tr><td>Energy</td><td>590 kWh/year</td></tr>
+    <tr><td><strong>Dimensions</strong></td><td>36” W × 70” H × 30” D</td></tr>
+    <tr><td><strong>Cooling Engine</strong></td><td>CryoCore™ Graphene Dual-Stage</td></tr>
+    <tr><td><strong>Capacity</strong></td><td>29 cu. ft. Total</td></tr>
+    <tr><td><strong>Power</strong></td><td>EnergyStar Ultra+</td></tr>
+    <tr><td><strong>Sensors</strong></td><td>Halia Vision + IR + Weight + Air</td></tr>
+    <tr><td><strong>Connectivity</strong></td><td>Wi-Fi 6 | HaliaSync Cloud</td></tr>
+    <tr><td><strong>Door Panel</strong></td><td>Halia Vision Glass™ AR Display</td></tr>
   </table>
 </section>
 
-<!-- LIFESTYLE GALLERY -->
+<!-- NEW LIFESTYLE GALLERY -->
 <section class="section">
-  <h2>Lifestyle & Branding</h2>
+  <h2>Lifestyle & Product Gallery</h2>
+
   <div class="gallery">
-    <img src="images/fridge/fridge-01-main-interior.png" alt="">
-    <img src="images/fridge/fridge-03-open-interior.png" alt="">
-    <img src="images/fridge/fridge-06-intelligent-display.png" alt="">
+    <img src="images/fridge/fridge-01-main-interior.png">
+    <img src="images/fridge/fridge-03-open-interior.png">
+    <img src="images/fridge/fridge-06-intelligent-display.png">
+    <img src="images/fridge/fridge-07-balance-lighting.png">
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  © Omnimorpha | IntelliFridge™ | Powered by Halia AI
+  © 2025 Omnimorpha — IntelliFridge™ | www.omnimorpha.tech
 </footer>
 
 </body>

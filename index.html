@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #F4F9FF; /* Light premium blue */
-      color: #000;
-    }
+ body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #F4F9FF;
+  color: #000; /* sleek black text */
+}
+
 
     /* Gold particle overlay */
     .gold-particles {
@@ -80,13 +80,18 @@
     }
 
     .link-list a {
-      color: #0A3D62;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
 
-    .btn {
+.link-list a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+ .btn {
       display: inline-block;
       text-decoration: none;
       padding: 12px 22px;
@@ -130,9 +135,8 @@
   </section>
 
   <!-- APPLIANCES -->
-  <section class="section">
-    <h2>AI Appliances</h2>
-    <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+ <h2><span class="section-icon">⚡</span> AI Appliances</h2>
+ <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
 
     <ul class="link-list">
   <li><a href="ai-dishwasher.html">AI Dishwasher</a></li>
@@ -207,11 +211,13 @@
     <a href="investor-portal.html" class="btn">Explore Investor Materials</a>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <p>© 2025 Omnimorpha — Designed by Courtney S. Linton</p>
-    <p><a href="https://www.omnimorpha.tech">www.omnimorpha.tech</a></p>
-  </footer>
+  <p>© 2025 Omnimorpha — Designed by Courtney S. Linton</p>
+  <p><a href="https://www.omnimorpha.tech">www.omnimorpha.tech</a></p>
+  <p><a href="investor-portal.html">Investor Portal</a> • 
+     <a href="ecosystem-index.html">New Ecosystem Homepage</a></p>
+</footer>
+
 
 </body>
 </html>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Omnimorpha | Investor Relations</title>
+
   <style>
     body {
       margin: 0;
@@ -11,44 +12,75 @@
       background-color: #0b0c10;
       color: #ffffff;
     }
+
     header {
       background-color: #1f2833;
       padding: 20px;
       text-align: center;
     }
+
     header h1 {
       margin: 0;
       font-size: 2.2rem;
       color: #66fcf1;
     }
+
     main {
       padding: 60px 20px;
       text-align: center;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
     }
-    main h2 {
+
+    h2 {
       font-size: 1.8rem;
       color: #66fcf1;
+      margin-top: 60px;
     }
-    main p {
+
+    p {
       font-size: 1.1rem;
       line-height: 1.6;
       color: #c5c6c7;
-      margin-bottom: 20px;
     }
-    a {
-      color: #00e0ff;
-      text-decoration: none;
-      font-weight: bold;
+
+    .category-box {
+      border: 1px solid #45a29e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background-color: #1f2833;
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      color: #66fcf1;
+      margin-bottom: 10px;
+    }
+
+    .cat-btn {
       display: inline-block;
-      margin-top: 30px;
+      margin: 10px 15px;
+      padding: 10px 20px;
+      background-color: #0b0c10;
+      border: 1px solid #45a29e;
+      color: #66fcf1;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
     }
+
+    .cat-btn:hover {
+      background-color: #45a29e;
+      color: black;
+    }
+
     .email-link {
       color: #66fcf1;
       text-decoration: underline;
       font-weight: bold;
     }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -57,35 +89,151 @@
       background-color: #1f2833;
       margin-top: 60px;
     }
+
+    /* NDA Gate */
+    .nda-box {
+      border: 1px solid #66fcf1;
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 8px;
+      background-color: #1f2833;
+    }
+
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      background: #0b0c10;
+      color: #ffffff;
+      border: 1px solid #45a29e;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background-color: #45a29e;
+      border: none;
+      color: black;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #66fcf1;
+    }
+
   </style>
+
 </head>
 <body>
+
   <header>
     <h1>Investor Relations</h1>
   </header>
 
   <main>
-    <h2>📈 Omnimorpha Investor Materials</h2>
+
+    <h2>📈 Omnimorpha Investor Portal</h2>
     <p>
-      Explore our detailed investor pitch decks, financial strategies, and growth projections designed specifically to attract visionary investors ready to shape the future of technology.
+      Access our complete range of investor materials, financial strategies, and product innovations.
+      This portal provides a structured overview of Omnimorpha’s technology, fashion empire, and AI-driven ecosystems.
     </p>
 
-    <h2>🚀 Investment Opportunities</h2>
-    <p>
-      Invest in cutting-edge innovations across AI technology, advanced automotive ecosystems, premium consumer products, and revolutionary sports training solutions powered by Halia AI.
-    </p>
+    <!-- ========================= -->
+    <!--       CORE TECHNOLOGY     -->
+    <!-- ========================= -->
+    <h2>⚙️ Core Omnimorpha Technology</h2>
 
-    <h2>📥 Get in Touch</h2>
+    <div class="category-box">
+      <div class="category-title">AI Systems & Engineering</div>
+      <a class="cat-btn" href="ai-camera.html">AI Camera System</a>
+      <a class="cat-btn" href="circuit-engine.html">Circuit Board Engine</a>
+      <a class="cat-btn" href="power-motion.html">PowerMotion Arena</a>
+      <a class="cat-btn" href="ai-pod.html">AI Pod System</a>
+      <a class="cat-btn" href="halia-ai.html">Halia AI Engine</a>
+    </div>
+
+    <!-- ========================= -->
+    <!--     VEHICLES & MOBILITY   -->
+    <!-- ========================= -->
+    <h2>🚗 Vehicles & Mobility</h2>
+
+    <div class="category-box">
+      <div class="category-title">Advanced Automotive Ecosystem</div>
+      <a class="cat-btn" href="hypercars.html">Omnimorpha Hypercars</a>
+      <a class="cat-btn" href="regent-x.html">Regent X SUV Limo</a>
+      <a class="cat-btn" href="imperial-limousine.html">Imperial Limousine</a>
+      <a class="cat-btn" href="snow-car.html">Snow Car</a>
+      <a class="cat-btn" href="velocite.html">Velocité Motorcycles</a>
+    </div>
+
+    <!-- ========================= -->
+    <!--       SMART APPLIANCES    -->
+    <!-- ========================= -->
+    <h2>🏡 Smart Appliances</h2>
+
+    <div class="category-box">
+      <div class="category-title">Intelligent Home Systems</div>
+      <a class="cat-btn" href="ai-dishwasher.html">AI Dishwasher</a>
+      <a class="cat-btn" href="intellifridge.html">IntelliFridge</a>
+      <a class="cat-btn" href="ai-stove.html">AI Stove</a>
+      <a class="cat-btn" href="ai-microwave.html">AI Microwave</a>
+      <a class="cat-btn" href="washer-dryer.html">Washer–Dryer Combo</a>
+    </div>
+
+    <!-- ========================= -->
+    <!--       FASHION EMPIRE      -->
+    <!-- ========================= -->
+    <h2>👑 Fashion Empire</h2>
+
+    <div class="category-box">
+      <div class="category-title">Omnimorpha Fashion Group</div>
+      <a class="cat-btn" href="treva.html">TREVA</a>
+      <a class="cat-btn" href="ayrelle-noir.html">AYRÉLLE Noir</a>
+      <a class="cat-btn" href="theverge.html">THEVERGE</a>
+      <a class="cat-btn" href="le-gorge.html">LE GORGE</a>
+      <a class="cat-btn" href="giordano-vero.html">GIORDANO VERO</a>
+    </div>
+
+    <!-- ========================= -->
+    <!--         NDA GATE          -->
+    <!-- ========================= -->
+    <h2>🔐 NDA-Protected Access</h2>
+
+    <div class="nda-box">
+      <p>
+        Some investor materials require NDA approval for access.  
+        Submit this form to request secure viewing permissions.
+      </p>
+
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email Address">
+      <textarea rows="4" placeholder="Message (optional)"></textarea>
+      <button>Request Access</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--        CONTACT PANEL      -->
+    <!-- ========================= -->
+    <h2>📥 Contact the Founder</h2>
     <p>
-      Contact our team directly to discuss investment opportunities and partnership inquiries.<br />
-      📧 <a class="email-link" href="mailto:clintons38@gmail.com">clintons38@gmail.com</a>
+      For investment inquiries:<br>
+      📧 <a class="email-link" href="mailto:clintons38@gmail.com">clintons38@gmail.com</a><br><br>
+      Courtney S. Linton<br>
+      Founder & CEO, Omnimorpha
     </p>
 
     <a href="index.html">← Back to Home</a>
+
   </main>
 
   <footer>
     &copy; 2025 Omnimorpha. All rights reserved.
   </footer>
+
 </body>
 </html>

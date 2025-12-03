@@ -1,279 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Omnimorpha | Intelligent Living Ecosystem</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | Investor Relations</title>
 
   <style>
-    /* GLOBAL */
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #F4F9FF;
-      color: #000; /* sleek black text */
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0c10;
+      color: #ffffff;
     }
 
-    /* FIX HEADER COLORS (so body black does NOT override it) */
-    header.header,
-    header.header * {
-      color: white !important;
-    }
-
-    /* GOLD PARTICLES */
-    .gold-particles {
-      position: fixed;
-      inset: 0;
-      background: url('images/gold-particles.webp');
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* HEADER */
-    header.header {
+    header {
+      background-color: #1f2833;
+      padding: 20px;
       text-align: center;
-      padding: 2rem 1rem;
-      background: #0A3D62;
     }
 
-    .logo {
-      font-size: 2.5rem;
-      letter-spacing: 2px;
+    header h1 {
       margin: 0;
-      font-weight: bold;
+      font-size: 2.2rem;
+      color: #66fcf1;
     }
 
-    .subtitle {
-      margin-top: 0.5rem;
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-
-    /* NAVIGATION */
-    .main-nav {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .main-nav a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      opacity: 0.9;
-    }
-
-    .main-nav a:hover {
-      opacity: 1;
-      text-decoration: underline;
-    }
-
-    .nav-btn {
-      background: white;
-      color: #0A3D62 !important;
-      padding: 6px 14px;
-      border-radius: 4px;
-    }
-
-    /* HERO */
-    .hero {
+    main {
+      padding: 60px 20px;
       text-align: center;
-      padding: 4rem 1rem;
-      background: linear-gradient(to bottom, #F4F9FF, #E9F3FF);
+      max-width: 900px;
+      margin: auto;
     }
 
     h2 {
-      color: #0A3D62;
+      font-size: 1.8rem;
+      color: #66fcf1;
+      margin-top: 60px;
     }
 
-    /* SECTIONS */
-    .section {
-      padding: 3rem 1.5rem;
-      max-width: 1100px;
-      margin: auto;
-      color: #000;
-    }
-
-    .section-dark {
-      background: #E9F3FF;
-    }
-
-    .section-highlight {
-      background: #DDEBFF;
-      border-left: 6px solid #0A3D62;
-    }
-
-    /* LISTS */
-    .link-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 1rem;
-    }
-
-    .link-list li {
-      padding: 0.4rem 0;
-    }
-
-    .link-list a {
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
+    p {
       font-size: 1.1rem;
+      line-height: 1.6;
+      color: #c5c6c7;
     }
 
-    .link-list a:hover {
-      color: #333;
-      text-decoration: underline;
+    .category-box {
+      border: 1px solid #45a29e;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background-color: #1f2833;
     }
 
-    /* BUTTON */
-    .btn {
+    .category-title {
+      font-size: 1.4rem;
+      color: #66fcf1;
+      margin-bottom: 10px;
+    }
+
+    .cat-btn {
       display: inline-block;
-      text-decoration: none;
-      padding: 12px 22px;
-      margin-top: 1.5rem;
-      background: #0A3D62;
-      color: white;
+      margin: 10px 15px;
+      padding: 10px 20px;
+      background-color: #0b0c10;
+      border: 1px solid #45a29e;
+      color: #66fcf1;
       border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cat-btn:hover {
+      background-color: #45a29e;
+      color: black;
+    }
+
+    .email-link {
+      color: #66fcf1;
+      text-decoration: underline;
       font-weight: bold;
     }
 
-    /* FOOTER */
     footer {
-      background: #0A3D62;
-      color: white;
-      padding: 2rem;
       text-align: center;
-      margin-top: 4rem;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+      background-color: #1f2833;
+      margin-top: 60px;
     }
 
-    footer a {
-      color: white;
-      text-decoration: underline;
+    /* NDA Gate */
+    .nda-box {
+      border: 1px solid #66fcf1;
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 8px;
+      background-color: #1f2833;
     }
 
-    /* ICONS FOR SECTIONS */
-    .section-icon {
-      margin-right: 8px;
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      background: #0b0c10;
+      color: #ffffff;
+      border: 1px solid #45a29e;
     }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background-color: #45a29e;
+      border: none;
+      color: black;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #66fcf1;
+    }
+
   </style>
-</head>
 
+</head>
 <body>
 
-  <!-- BACKGROUND EFFECT -->
-  <div class="gold-particles"></div>
-
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">OMNIMORPHA</h1>
-    <p class="subtitle">Intelligent Technology • AI Appliances • Future Mobility • Luxury Design</p>
-
-    <nav class="main-nav">
-      <a href="#appliances">Appliances</a>
-      <a href="#technology">Technology</a>
-      <a href="#vehicles">Vehicles</a>
-      <a href="#fashion">Fashion</a>
-      <a href="#ecosystem">Ecosystem</a>
-      <a href="investors.html" class="nav-btn">Investor Portal</a>
-    </nav>
+  <header>
+    <h1>Investor Relations</h1>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Welcome to the Omnimorpha Ecosystem</h2>
-    <p>Where artificial intelligence meets premium engineering for the next evolution of human lifestyle.</p>
-  </section>
+  <main>
 
-  <!-- NEW ECOSYSTEM HOMEPAGE BOX -->
-  <section class="section section-highlight" id="new-ecosystem">
-    <h2><span class="section-icon">🆕</span> New Omnimorpha Homepage</h2>
-    <p>Explore the cinematic black–gold version of our ecosystem experience.</p>
-    <a href="ecosystem.html" class="btn">Open New Ecosystem Homepage</a>
-  </section>
+    <h2>📈 Omnimorpha Investor Portal</h2>
+    <p>
+      Access our complete range of investor materials, financial strategies, and product innovations.
+      This portal provides a structured overview of Omnimorpha’s technology, fashion empire, and AI-driven ecosystems.
+    </p>
 
-  <!-- APPLIANCES -->
-  <section class="section" id="appliances">
-    <h2><span class="section-icon">⚡</span> AI Appliances</h2>
-    <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+    <!-- ========================= -->
+    <!--       CORE TECHNOLOGY     -->
+    <!-- ========================= -->
+    <h2>⚙️ Core Omnimorpha Technology</h2>
 
-    <ul class="link-list">
-      <li><a href="ai-dishwasher.html">AI Dishwasher</a></li>
-      <li><a href="fridge.html">IntelliFridge™</a></li>
-      <li><a href="intellifridge-brochure.html">📘 IntelliFridge™ Brochure</a></li>
-      <li><a href="smart-stove.html">AI Smart Stove</a></li>
-      <li><a href="microwave.html">AI Microwave</a></li>
-      <li><a href="washer-dryer.html">Washer–Dryer Combo</a></li>
-    </ul>
-  </section>
+    <div class="category-box">
+      <div class="category-title">AI Systems & Engineering</div>
+      <a class="cat-btn" href="ai-camera.html">AI Camera System</a>
+      <a class="cat-btn" href="circuit-engine.html">Circuit Board Engine</a>
+      <a class="cat-btn" href="power-motion.html">PowerMotion Arena</a>
+      <a class="cat-btn" href="ai-pod.html">AI Pod System</a>
+      <a class="cat-btn" href="halia-ai.html">Halia AI Engine</a>
+    </div>
 
-  <!-- TECHNOLOGY -->
-  <section class="section section-dark" id="technology">
-    <h2><span class="section-icon">🔧</span> Technology</h2>
-    <ul class="link-list">
-      <li><a href="ai-camera.html">AI Camera System (HALIAVISION™ V2)</a></li>
-      <li><a href="ecosystem.html">New Ecosystem Homepage</a></li>
-      <li><a href="circuit-engine.html">Circuit Board Engine</a></li>
-      <li><a href="power-motion.html">PowerMotion Arena</a></li>
-      <li><a href="halia-ai.html">Halia AI System</a></li>
-    </ul>
-  </section>
+    <!-- ========================= -->
+    <!--     VEHICLES & MOBILITY   -->
+    <!-- ========================= -->
+    <h2>🚗 Vehicles & Mobility</h2>
 
-  <!-- VEHICLES -->
-  <section class="section" id="vehicles">
-    <h2><span class="section-icon">🚘</span> Vehicles & Mobility</h2>
-    <ul class="link-list">
-      <li><a href="hypercars.html">Hypercar Lineup</a></li>
-      <li><a href="regent-x.html">Regent X™ SUV Limousine</a></li>
-      <li><a href="velocite.html">Velocité™ Electric Motorcycles</a></li>
-      <li><a href="snow-mobile.html">Snow Mobile</a></li>
-      <li><a href="snow-car.html">Snow Car</a></li>
-      <li><a href="snow-truck.html">Snow Truck</a></li>
-    </ul>
-  </section>
+    <div class="category-box">
+      <div class="category-title">Advanced Automotive Ecosystem</div>
+      <a class="cat-btn" href="hypercars.html">Omnimorpha Hypercars</a>
+      <a class="cat-btn" href="regent-x.html">Regent X SUV Limo</a>
+      <a class="cat-btn" href="imperial-limousine.html">Imperial Limousine</a>
+      <a class="cat-btn" href="snow-car.html">Snow Car</a>
+      <a class="cat-btn" href="velocite.html">Velocité Motorcycles</a>
+    </div>
 
-  <!-- FASHION -->
-  <section class="section section-dark" id="fashion">
-    <h2><span class="section-icon">👗</span> Fashion & Luxury</h2>
-    <ul class="link-list">
-      <li><a href="treva.html">TREVA™</a></li>
-      <li><a href="ayrelle.html">AYRÉLLE Noir™</a></li>
-      <li><a href="theverge.html">THEVERGE™</a></li>
-      <li><a href="le-gorge.html">LE GORGE™</a></li>
-      <li><a href="giordano-vero.html">GIORDANO VERO™</a></li>
-    </ul>
-  </section>
+    <!-- ========================= -->
+    <!--       SMART APPLIANCES    -->
+    <!-- ========================= -->
+    <h2>🏡 Smart Appliances</h2>
 
-  <!-- ECOSYSTEM -->
-  <section class="section" id="ecosystem">
-    <h2><span class="section-icon">🌐</span> Omnimorpha Ecosystem</h2>
-    <p>Every product connects through the Halia AI Core — powering the entire Omnimorpha world.</p>
+    <div class="category-box">
+      <div class="category-title">Intelligent Home Systems</div>
+      <a class="cat-btn" href="ai-dishwasher.html">AI Dishwasher</a>
+      <a class="cat-btn" href="intellifridge.html">IntelliFridge</a>
+      <a class="cat-btn" href="ai-stove.html">AI Stove</a>
+      <a class="cat-btn" href="ai-microwave.html">AI Microwave</a>
+      <a class="cat-btn" href="washer-dryer.html">Washer–Dryer Combo</a>
+    </div>
 
-    <ul class="link-list">
-      <li><a href="ecosystem.html">Full Ecosystem Overview</a></li>
-      <li><a href="ecosystem.html">New Ecosystem Homepage</a></li>
-      <li><a href="investors.html">Investor Portal</a></li>
-    </ul>
-  </section>
+    <!-- ========================= -->
+    <!--       FASHION EMPIRE      -->
+    <!-- ========================= -->
+    <h2>👑 Fashion Empire</h2>
 
-  <!-- CTA -->
-  <section class="section section-highlight">
-    <h2>Building the Future Together</h2>
-    <p>Omnimorpha is more than a brand — it is a new technological era shaped by intelligence and vision.</p>
+    <div class="category-box">
+      <div class="category-title">Omnimorpha Fashion Group</div>
+      <a class="cat-btn" href="treva.html">TREVA</a>
+      <a class="cat-btn" href="ayrelle-noir.html">AYRÉLLE Noir</a>
+      <a class="cat-btn" href="theverge.html">THEVERGE</a>
+      <a class="cat-btn" href="le-gorge.html">LE GORGE</a>
+      <a class="cat-btn" href="giordano-vero.html">GIORDANO VERO</a>
+    </div>
 
-    <a href="investors.html" class="btn">Explore Investor Materials</a>
-  </section>
+    <!-- ========================= -->
+    <!--         NDA GATE          -->
+    <!-- ========================= -->
+    <h2>🔐 NDA-Protected Access</h2>
 
-  <!-- FOOTER -->
+    <div class="nda-box">
+      <p>
+        Some investor materials require NDA approval for access.  
+        Submit this form to request secure viewing permissions.
+      </p>
+
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email Address">
+      <textarea rows="4" placeholder="Message (optional)"></textarea>
+      <button>Request Access</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--        CONTACT PANEL      -->
+    <!-- ========================= -->
+    <h2>📥 Contact the Founder</h2>
+    <p>
+      For investment inquiries:<br>
+      📧 <a class="email-link" href="mailto:clintons38@gmail.com">clintons38@gmail.com</a><br><br>
+      Courtney S. Linton<br>
+      Founder & CEO, Omnimorpha
+    </p>
+
+    <a href="index.html">← Back to Home</a>
+
+  </main>
+
   <footer>
-    <p>© 2025 Omnimorpha — Designed by Courtney S. Linton</p>
-    <p><a href="https://www.omnimorpha.tech">www.omnimorpha.tech</a></p>
-    <p><a href="investors.html">Investor Portal</a> • 
-       <a href="ecosystem.html">New Ecosystem Homepage</a></p>
+    &copy; 2025 Omnimorpha. All rights reserved.
   </footer>
 
 </body>

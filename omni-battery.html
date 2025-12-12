@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Omni Battery™ | Omnimorpha Circuit Engine Power System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Omni Battery™ is the graphene-enhanced solid-state power system for Omnimorpha vehicles, designed for ultra-long range, safety, and AI-optimized performance.">
+
+  <!-- If you already use styles.css for global styles, you can keep this line.
+       It won't break anything even if some classes are duplicated below. -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --bg-main: #05060a;
+      --bg-panel: #0b0d14;
+      --accent: #f5c96b;
+      --accent-soft: rgba(245, 201, 107, 0.16);
+      --text-main: #ffffff;
+      --text-muted: #b3b7c4;
+      --border-soft: #252938;
+      --danger: #ff4b6a;
+      --ok: #67ffb3;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.7);
+      --radius-xl: 18px;
+      --radius-2xl: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #151727 0, #05060a 52%, #000000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* GOLD PARTICLE GLOW */
+    .gold-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(245, 201, 107, 0.08) 0, transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(245, 201, 107, 0.05) 0, transparent 55%),
+        radial-gradient(circle at 50% 90%, rgba(245, 201, 107, 0.06) 0, transparent 60%);
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+
+    /* HERO */
+    .hero {
+      background: radial-gradient(circle at top left, rgba(245,201,107,0.16), transparent 60%),
+                  linear-gradient(145deg, #070814, #05060a 55%, #05060a 100%);
+      border-radius: 32px;
+      padding: 32px 24px 28px;
+      border: 1px solid rgba(245, 201, 107, 0.2);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 26px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,201,107,0.45);
+      background: rgba(5, 6, 10, 0.8);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(245,201,107,0.9);
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 38px);
+      margin: 0 0 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      font-size: 14px;
+      max-width: 420px;
+    }
+
+    .hero-highlight {
+      font-size: 13px;
+      color: var(--accent);
+      margin: 0 0 18px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid rgba(245,201,107,0.4);
+      background: rgba(11,13,20,0.85);
+      color: var(--text-main);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    /* HERO RIGHT – BATTERY VISUAL */
+    .hero-visual {
+      position: relative;
+      border-radius: 26px;
+      background: radial-gradient(circle at top, rgba(245,201,107,0.28), transparent 60%),
+                  linear-gradient(145deg, #05070f, #020308);
+      padding: 18px 18px 18px;
+      border: 1px solid rgba(245,201,107,0.4);
+      overflow: hidden;
+    }
+
+    .hero-visual-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-visual-core {
+      border-radius: 18px;
+      border: 1px solid rgba(245,201,107,0.4);
+      padding: 12px;
+      background: radial-gradient(circle at center, rgba(245,201,107,0.18), transparent 55%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .core-bars {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .core-bar {
+      height: 64px;
+      border-radius: 999px;
+      background: linear-gradient(
+        to top,
+        rgba(10, 14, 20, 1),
+        rgba(10, 14, 20, 1) 15%,
+        rgba(245,201,107,0.1) 45%,
+        rgba(245,201,107,0.65) 100%
+      );
+      box-shadow:
+        0 0 8px rgba(245,201,107,0.5),
+        inset 0 0 12px rgba(0,0,0,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .core-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.4), transparent 60%);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+    }
+
+    .core-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .core-label-row span strong {
+      color: var(--accent);
+    }
+
+    .core-status {
+      font-size: 10px;
+      color: var(--ok);
+    }
+
+    /* GRID LAYOUT FOR SECTIONS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: radial-gradient(circle at top left, rgba(245,201,107,0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(10,14,25,0.9), #05060a);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      padding: 18px 18px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    }
+
+    .panel h2 {
+      font-size: 16px;
+      margin: 0 0 8px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .panel p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,201,107,0.4);
+      background: rgba(7,8,14,0.9);
+      color: var(--text-main);
+    }
+
+    ul.feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    ul.feature-list li {
+      margin-bottom: 6px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    ul.feature-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+    }
+
+    .badge-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .badge-strip .badge {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(5,6,10,0.9);
+      border: 1px solid rgba(245,201,107,0.35);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    /* SPECS PANEL */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .spec-card {
+      background: rgba(5,6,10,0.95);
+      border-radius: 14px;
+      padding: 10px 10px 9px;
+      border: 1px solid rgba(245,201,107,0.25);
+    }
+
+    .spec-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .spec-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .spec-note {
+      margin-top: 2px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .spec-value span {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+
+    /* RANGE CALCULATOR */
+    .calculator {
+      background: linear-gradient(145deg, #05070f, #070918);
+      border-radius: var(--radius-2xl);
+      border: 1px solid rgba(245,201,107,0.4);
+      padding: 18px 18px 16px;
+      margin-top: 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .calculator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .calculator-header h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .calculator-header small {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 16px;
+    }
+
+    .calc-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .calc-field label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .calc-field label span {
+      color: var(--accent);
+    }
+
+    .calc-field input[type="range"],
+    .calc-field input[type="number"],
+    .calc-field select {
+      width: 100%;
+      background: rgba(5,6,10,0.95);
+      border-radius: 999px;
+      border: 1px solid rgba(245,201,107,0.4);
+      padding: 6px 10px;
+      color: var(--text-main);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .calc-field input[type="range"] {
+      -webkit-appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      padding: 0;
+    }
+
+    .calc-field input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(245,201,107,0.9);
+      cursor: pointer;
+      border: none;
+    }
+
+    .calc-field input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+    }
+
+    .calc-note {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .calc-result-panel {
+      background: radial-gradient(circle at top, rgba(245,201,107,0.28), transparent 60%);
+      border-radius: 18px;
+      border: 1px solid rgba(245,201,107,0.5);
+      padding: 12px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .calc-range-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .calc-range-main span.label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .calc-range-main span.value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .calc-range-main span.value small {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .calc-compare {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .calc-compare span strong {
+      color: var(--accent);
+    }
+
+    .calc-bar {
+      position: relative;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(21,23,35,0.95);
+      overflow: hidden;
+    }
+
+    .calc-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 60%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffaf2a, #f5c96b, #fff2c1);
+      box-shadow: 0 0 12px rgba(245,201,107,0.9);
+      transform-origin: left center;
+      transform: scaleX(0.6);
+    }
+
+    .calc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* INVESTOR STRIP */
+    .investor-strip {
+      margin-top: 26px;
+      border-radius: 20px;
+      border: 1px dashed rgba(245,201,107,0.45);
+      padding: 14px 14px 12px;
+      background: rgba(5,6,10,0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .investor-strip strong {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+    }
+
+    .investor-strip span.label {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,201,107,0.4);
+      background: rgba(10,11,16,0.9);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    @media (max-width: 840px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .calc-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-visual {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gold-particles"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-tag">
+          <div class="hero-tag-dot"></div>
+          <span>Omnimorpha Vehicle Power System</span>
+        </div>
+        <h1>Omni Battery™</h1>
+        <p class="hero-subtitle">
+          Graphene-enhanced solid-state battery architecture engineered for the Omnimorpha Circuit Engine —
+          longer range, safer packs, and AI-optimized performance for every drive.
+        </p>
+        <p class="hero-highlight">
+          Designed as the core energy system for all Omnimorpha vehicles: hypercars, limousines, SUVs, and concept fleets.
+        </p>
+
+        <div class="hero-badges">
+          <div class="hero-badge">Graphene Solid-State Cells</div>
+          <div class="hero-badge">AI Thermal & Range Management</div>
+          <div class="hero-badge">Vehicle-to-Everything Ready</div>
+        </div>
+
+        <div class="hero-meta">
+          <div>
+            <strong>Pack Capacity Range</strong>
+            80 kWh – 240 kWh scalable modules
+          </div>
+          <div>
+            <strong>Target Real-World Range</strong>
+            480–720+ miles per charge (vehicle dependent)
+          </div>
+          <div>
+            <strong>Launch Platform</strong>
+            Omnimorpha Circuit Engine™ vehicle ecosystem
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL -->
+      <div class="hero-visual">
+        <div class="hero-visual-title">Omni Battery™ Core Cell Cluster</div>
+        <div class="hero-visual-core">
+          <div class="core-bars">
+            <div class="core-bar"></div>
+            <div class="core-bar"></div>
+            <div class="core-bar"></div>
+            <div class="core-bar"></div>
+          </div>
+          <div class="core-label-row">
+            <span><strong>Graphene Plate Stack</strong><br>Thermal diffusion & energy density</span>
+            <span class="core-status">AI Balance: <strong>ACTIVE</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE + SAFETY -->
+    <section class="grid-2">
+      <article class="panel">
+        <h2>Architecture | Circuit Engine Integration</h2>
+        <p>
+          Omni Battery™ is built as a modular energy spine that locks into the Omnimorpha Circuit Engine™ platform.
+          Each pack is composed of graphene-enhanced solid-state cells arranged in intelligent zones for
+          performance, longevity, and safety.
+        </p>
+        <ul class="feature-list">
+          <li>Multi-layer graphene plates for higher energy density and rapid charge dispersion.</li>
+          <li>Dedicated power zones for acceleration, cruising, and reserve capacity.</li>
+          <li>AI-managed cell balancing tied directly into the Circuit Engine power controller.</li>
+          <li>Scalable pack design — from performance coupes to luxury limousines and utility fleets.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Energy Spine Design</span>
+          <span class="pill">Solid-State Cell Matrix</span>
+          <span class="pill">Circuit Engine Native</span>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Safety | Thermal & Structural Protection</h2>
+        <p>
+          The Omni Battery™ enclosure is built to be crash-integrated, thermally shielded, and AI-supervised at all times.
+          Safety is layered into every level — from nano-coating on cells to structural rails in the vehicle floor.
+        </p>
+        <ul class="feature-list">
+          <li>AI thermal map detects hotspots before they escalate, triggering cooling or power re-routing.</li>
+          <li>Multi-channel liquid cooling running alongside graphene plates for rapid heat extraction.</li>
+          <li>Fire-retardant, impact-dissipating casing integrated into the chassis structure.</li>
+          <li>Cell-level isolation — if a module is compromised, surrounding cells are electrically isolated.</li>
+        </ul>
+        <div class="badge-strip">
+          <span class="badge">Cell-Level Diagnostics</span>
+          <span class="badge">Crash-Integrated Housing</span>
+          <span class="badge">Thermal Fault Containment</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- SPECS + RANGE CALCULATOR -->
+    <section class="grid-2">
+      <!-- SPECS -->
+      <article class="panel">
+        <h2>Technical Snapshot</h2>
+        <p>
+          Omni Battery™ is designed as an investor-ready, production-forward power system — not just a concept slide.
+          Specs can be tuned per vehicle line while maintaining a unified Omnimorpha architecture.
+        </p>
+
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="spec-label">Pack Capacity</div>
+            <div class="spec-value">80–240 <span>kWh</span></div>
+            <div class="spec-note">Modular architecture for entry, luxury, and ultra-range platforms.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Chemistry</div>
+            <div class="spec-value">Solid-State<span> + Graphene</span></div>
+            <div class="spec-note">High energy density, reduced thermal runaway risk.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Target Lifecycle</div>
+            <div class="spec-value">3,000+ <span>cycles</span></div>
+            <div class="spec-note">Designed for 15+ years of real-world use.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Fast Charge</div>
+            <div class="spec-value">10–80% &lt; 20m</div>
+            <div class="spec-note">When paired with Omnimorpha high-rate DC infrastructure.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">V2X Ready</div>
+            <div class="spec-value">Bi-Directional</div>
+            <div class="spec-note">Vehicle-to-home, grid, and dedicated Omnimorpha hubs.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Thermal System</div>
+            <div class="spec-value">AI-Cooled</div>
+            <div class="spec-note">Dynamic coolant routing + graphene plate diffusion.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- RANGE CALCULATOR -->
+      <article class="panel">
+        <div class="calculator">
+          <div class="calculator-header">
+            <h3>Range Intelligence</h3>
+            <small>Simulated range based on pack size, efficiency, and driving style.</small>
+          </div>
+
+          <div class="calc-grid">
+            <!-- CONTROLS -->
+            <div class="calc-control-group">
+              <div class="calc-field">
+                <label>
+                  <span>Pack Size</span>
+                  <span id="packSizeLabel">120 kWh</span>
+                </label>
+                <input type="range" id="packSize" min="80" max="240" step="10" value="120">
+                <div class="calc-note">Omnimorpha platforms can scale from 80 kWh (compact) to 240 kWh+ (flagship).</div>
+              </div>
+
+              <div class="calc-field">
+                <label>
+                  <span>Energy Use</span>
+                  <span id="efficiencyLabel">260 Wh/mi</span>
+                </label>
+                <input type="range" id="efficiency" min="180" max="400" step="10" value="260">
+                <div class="calc-note">Lower Wh/mi = higher efficiency. Hypercars may run higher; sedans and SUVs lower.</div>
+              </div>
+
+              <div class="calc-field">
+                <label>
+                  <span>Driving Profile</span>
+                  <span id="profileLabel">Balanced</span>
+                </label>
+                <select id="profile">
+                  <option value="1">Balanced (city + highway)</option>
+                  <option value="1.08">Aggressive / Performance</option>
+                  <option value="0.92">Eco / Gentle</option>
+                  <option value="1.15">Cold Climate Penalty</option>
+                </select>
+                <div class="calc-note">Profile adjusts for climate, acceleration style, and real-world conditions.</div>
+              </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="calc-result-panel">
+              <div class="calc-range-main">
+                <div>
+                  <span class="label">Estimated Real-World Range</span>
+                </div>
+                <div>
+                  <span class="value" id="rangeValue">~462<span> mi</span></span>
+                </div>
+              </div>
+
+              <div class="calc-compare">
+                <span>Reference EV baseline: <strong>~300 mi</strong> mixed driving.</span>
+                <span>Omni Battery™ delta: <strong id="deltaValue">+162 mi</strong></span>
+              </div>
+
+              <div class="calc-bar">
+                <div class="calc-bar-fill" id="rangeBar"></div>
+              </div>
+
+              <div class="calc-tags">
+                <span>AI adjusts live range via Halia based on route, weather, and driver patterns.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- INVESTOR LANGUAGE -->
+    <section class="investor-strip">
+      <span class="label">Investor-Focused Positioning</span>
+      <span>
+        <strong>Investment Thesis:</strong> Omni Battery™ is the protected, central IP behind Omnimorpha’s vehicle ecosystem —
+        enabling higher range, safer packs, and a branded power system that can be licensed, partnered, or kept exclusive.
+      </span>
+      <span>
+        Patent coverage to include: graphene-enhanced pack architecture, AI thermal management, and Omni Battery™ + Circuit Engine
+        integration for unified control.
+      </span>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const packSize = document.getElementById('packSize');
+      const efficiency = document.getElementById('efficiency');
+      const profile = document.getElementById('profile');
+
+      const packSizeLabel = document.getElementById('packSizeLabel');
+      const efficiencyLabel = document.getElementById('efficiencyLabel');
+      const profileLabel = document.getElementById('profileLabel');
+
+      const rangeValue = document.getElementById('rangeValue');
+      const deltaValue = document.getElementById('deltaValue');
+      const rangeBar = document.getElementById('rangeBar');
+
+      function updateProfileLabel(multiplier) {
+        if (multiplier >= 1.14) {
+          profileLabel.textContent = 'Cold Climate';
+        } else if (multiplier >= 1.07) {
+          profileLabel.textContent = 'Aggressive';
+        } else if (multiplier <= 0.93) {
+          profileLabel.textContent = 'Eco';
+        } else {
+          profileLabel.textContent = 'Balanced';
+        }
+      }
+
+      function update() {
+        const kWh = Number(packSize.value);
+        const whPerMile = Number(efficiency.value);
+        const profileMultiplier = Number(profile.value);
+
+        packSizeLabel.textContent = kWh + ' kWh';
+        efficiencyLabel.textContent = whPerMile + ' Wh/mi';
+        updateProfileLabel(profileMultiplier);
+
+        if (!kWh || !whPerMile) return;
+
+        const rawRangeMiles = (kWh * 1000) / whPerMile;
+        const adjustedRange = rawRangeMiles / profileMultiplier;
+
+        const roundedRange = Math.round(adjustedRange);
+        rangeValue.innerHTML = '~' + roundedRange + '<span> mi</span>';
+
+        // Compare vs 300 mi baseline
+        const baseline = 300;
+        const delta = roundedRange - baseline;
+        const sign = delta >= 0 ? '+' : '';
+        deltaValue.textContent = sign + delta + ' mi';
+
+        // Visual bar — clamp between 0 and 2x baseline for display
+        let ratio = roundedRange / baseline;
+        if (ratio < 0.3) ratio = 0.3;
+        if (ratio > 2.0) ratio = 2.0;
+        rangeBar.style.transform = 'scaleX(' + ratio + ')';
+      }
+
+      packSize.addEventListener('input', update);
+      efficiency.addEventListener('input', update);
+      profile.addEventListener('change', update);
+
+      // Initial paint
+      update();
+    })();
+  </script>
+</body>
+</html>

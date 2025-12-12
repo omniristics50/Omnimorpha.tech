@@ -1,551 +1,100 @@
-/* ---------------------------------------------------------
-   OMNIMORPHA MASTER STYLESHEET
-   Black + Gold Premium System
-   Supports:
-   - index.html (homepage)
-   - omni-battery.html
-   - circuit engine page
-   - AI dishwasher / fridge / stove / microwave
-   - AI camera, PowerMotion, etc.
-----------------------------------------------------------*/
-
-/* ROOT TOKENS */
-:root {
-  --bg-main: #05060a;
-  --bg-panel: #0b0d14;
-  --bg-soft: rgba(255, 255, 255, 0.03);
-  --bg-hero: #070814;
-
-  --accent: #f5c96b;
-  --accent-soft: rgba(245, 201, 107, 0.16);
-
-  --text-main: #ffffff;
-  --text-muted: #b3b7c4;
-
-  --border-soft: #252938;
-
-  --radius-xs: 6px;
-  --radius-s: 8px;
-  --radius-m: 12px;
-  --radius-l: 18px;
-  --radius-xl: 26px;
-  --radius-2xl: 32px;
-
-  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.7);
-}
-
-/* RESET */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* BODY BASE */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #151727 0%, #05060a 60%, #000000 100%);
-  color: var(--text-main);
-  line-height: 1.5;
-  min-height: 100vh;
-}
-
-/* Page-level variants (optional) */
-body.ai-camera-page {
-  background: radial-gradient(circle at top, #121421 0%, #05060a 55%, #020308 100%);
-}
-
-/* GOLD PARTICLES BACKGROUND */
-.gold-particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(245, 201, 107, 0.08) 0, transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(245, 201, 107, 0.05) 0, transparent 55%),
-    radial-gradient(circle at 50% 90%, rgba(245, 201, 107, 0.06) 0, transparent 60%);
-  opacity: 0.8;
-  z-index: 0;
-}
-
-/* MAIN WRAPPER (product pages, general layout) */
-main {
-  position: relative;
-  z-index: 1;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 40px 16px 80px;
-}
-
-/* ---------------------------------------------------------
-   HEADER / NAVBAR (for index.html & global)
-----------------------------------------------------------*/
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(18px);
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 6, 10, 0.94),
-    rgba(5, 6, 10, 0.82),
-    transparent
-  );
-  border-bottom: 1px solid rgba(245, 201, 107, 0.16);
-}
-
-.header-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.logo {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.logo-title {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.logo-sub {
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-nav {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-nav a {
-  font-size: 13px;
-  color: var(--text-muted);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-nav a:hover {
-  color: var(--accent);
-  border-color: rgba(245, 201, 107, 0.7);
-}
-
-.nav-cta {
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(245, 201, 107, 0.7);
-  color: var(--accent);
-}
-
-/* MOBILE NAV */
-@media (max-width: 768px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* ---------------------------------------------------------
-   SECTIONS & HOMEPAGE CONTENT
-----------------------------------------------------------*/
-
-.section {
-  margin-bottom: 50px;
-}
-
-.section h2 {
-  font-size: 22px;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  margin-bottom: 10px;
-}
-
-.section h3 {
-  font-size: 17px;
-  margin-bottom: 6px;
-}
-
-.section p {
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  font-size: 15px;
-}
-
-/* Homepage lists */
-.section ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 8px 0 0;
-}
-
-.section ul li {
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.section ul li a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.section ul li a:hover {
-  color: #ffe3a2;
-}
-
-/* “Open →” style */
-.open-link {
-  font-size: 13px;
-  color: var(--accent);
-}
-
-/* ---------------------------------------------------------
-   HERO SECTIONS (shared for all product pages)
-----------------------------------------------------------*/
-
-.hero {
-  background: radial-gradient(circle at top left, rgba(245,201,107,0.16), transparent 60%),
-              linear-gradient(145deg, #070814, #05060a 55%, #05060a 100%);
-  border-radius: var(--radius-2xl);
-  padding: 32px 24px;
-  border: 1px solid rgba(245, 201, 107, 0.25);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 32px;
-}
-
-.hero-dark {
-  background: radial-gradient(circle at top, rgba(245,201,107,0.12), transparent 60%),
-              linear-gradient(145deg, #05070f, #020308);
-}
-
-.hero-heading {
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 4vw, 42px);
-  margin-bottom: 10px;
-}
-
-.hero .subtitle,
-.hero-subtitle {
-  color: var(--text-muted);
-  font-size: 14px;
-  max-width: 520px;
-  margin-bottom: 10px;
-}
-
-.hero-highlight {
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 16px;
-}
-
-/* Hero split layout (text + visual) */
-.hero-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
-  gap: 26px;
-  align-items: center;
-}
-
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 14px;
-  font-size: 13px;
-}
-
-.hero-meta div {
-  max-width: 260px;
-}
-
-.hero-meta strong {
-  color: var(--accent);
-  display: block;
-  margin-bottom: 2px;
-}
-
-/* Hero badges (used on Omni Battery, etc.) */
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.hero-badge {
-  font-size: 11px;
-  border-radius: 999px;
-  padding: 6px 10px;
-  border: 1px solid rgba(245,201,107,0.4);
-  background: rgba(11,13,20,0.85);
-  color: var(--text-main);
-}
-
-/* Omni Battery small tag */
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(245,201,107,0.45);
-  background: rgba(5, 6, 10, 0.8);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.hero-tag-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(245,201,107,0.9);
-}
-
-/* Responsive hero split */
-@media (max-width: 840px) {
-  .hero-split {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* ---------------------------------------------------------
-   PANELS / CARDS / GRID LAYOUTS
-----------------------------------------------------------*/
-
-.panel {
-  background: linear-gradient(145deg, #070814, #05060a 55%);
-  border-radius: var(--radius-xl);
-  padding: 18px 18px 16px;
-  border: 1px solid rgba(245, 201, 107, 0.25);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 24px;
-}
-
-.panel h2 {
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.panel p,
-.panel li {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* Simple card (used for comparisons, etc.) */
-.card {
-  background: rgba(5, 6, 10, 0.9);
-  border-radius: var(--radius-l);
-  border: 1px solid rgba(245, 201, 107, 0.2);
-  padding: 14px 14px 12px;
-  box-shadow: 0 14px 40px rgba(
-/* ---------------------------------------------------------
-   BROCHURE / PORTFOLIO LAYOUT
-   Used for investor one-pagers, portfolio, PDF-style pages
-----------------------------------------------------------*/
-
-/* Use this on pages that should look like a brochure */
-body.brochure-page {
-  background: radial-gradient(circle at top, #11121e 0%, #05060a 55%, #020308 100%);
-}
-
-/* Brochure main wrapper (tighter like a PDF page) */
-.brochure-main {
-  max-width: 960px;
-  margin: 40px auto 80px;
-  padding: 32px 24px;
-  background: linear-gradient(145deg, #070814, #05060a 60%);
-  border-radius: 24px;
-  border: 1px solid rgba(245, 201, 107, 0.22);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
-}
-
-/* Top brochure hero band */
-.brochure-hero {
-  border-bottom: 1px solid rgba(245, 201, 107, 0.2);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
-}
-
-.brochure-tagline {
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-
-.brochure-title {
-  font-size: 26px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-
-.brochure-subtitle {
-  font-size: 13px;
-  color: var(--text-muted);
-  max-width: 540px;
-}
-
-/* General brochure sections */
-.brochure-section {
-  margin-bottom: 22px;
-}
-
-.brochure-section h2 {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.brochure-section p {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-/* Two-column brochure layout */
-.brochure-columns {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
-  gap: 18px;
-}
-
-@media (max-width: 840px) {
-  .brochure-columns {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* Brochure bullet list */
-.brochure-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 4px 0 0;
-}
-
-.brochure-list li {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  padding-left: 14px;
-  position: relative;
-}
-
-.brochure-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--accent);
-}
-
-/* Highlight strip (key metrics, USP, etc.) */
-.brochure-highlight {
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(245, 201, 107, 0.35);
-  background: rgba(5, 6, 10, 0.9);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.brochure-highlight strong {
-  color: var(--accent);
-}
-
-/* Metric row for brochure (3 cols) */
-.brochure-stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 10px;
-}
-
-@media (max-width: 640px) {
-  .brochure-stat-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.brochure-stat {
-  padding: 10px 10px 8px;
-  border-radius: 14px;
-  border: 1px solid rgba(245, 201, 107, 0.28);
-  background: rgba(5, 6, 10, 0.95);
-}
-
-.brochure-stat-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-muted);
-  margin-bottom: 2px;
-}
-
-.brochure-stat-value {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.brochure-stat-note {
-  font-size: 10px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-/* Brochure footer bar */
-.brochure-footer {
-  margin-top: 20px;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(245, 201, 107, 0.4);
-  font-size: 11px;
-  color: var(--text-muted);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-}
-
-.brochure-footer strong {
-  color: var(--accent);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | Official Technology & Innovation Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- GOLD PARTICLES -->
+  <div class="gold-particles"></div>
+
+  <!-- HEADER / NAV -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-title">OMNIMORPHA</span>
+        <span class="logo-sub">INTELLIGENT DESIGN SYSTEM</span>
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="ai-camera.html">AI Camera</a>
+        <a href="circuit-engine.html">Circuit Engine</a>
+        <a href="omni-battery.html">Omni Battery</a>
+        <a href="power-motion.html">PowerMotion Arena</a>
+        <a href="ai-dishwasher.html">AI Dishwasher</a>
+        <a href="velocite.html">Velocité</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-heading">Welcome to Omnimorpha</div>
+      <h1>The Unified Future of Intelligent Technology</h1>
+      <p class="subtitle">
+        A complete ecosystem of AI-powered transportation, appliances, mobility systems, wearables,
+        and smart environments — all built on the Halia Intelligence Core.
+      </p>
+
+      <div class="hero-badges">
+        <span class="hero-badge">AI Vehicles</span>
+        <span class="hero-badge">Smart Appliances</span>
+        <span class="hero-badge">Immersive Sports Tech</span>
+        <span class="hero-badge">Omni Battery™ Power</span>
+      </div>
+    </section>
+
+    <!-- VEHICLES -->
+    <section class="section">
+      <h2>Vehicles</h2>
+      <p>Advanced electric powertrains, AI vision, and climate-adaptive designs across the entire lineup.</p>
+
+      <ul>
+        <li><a href="circuit-engine.html">Circuit Engine™ — Solid-State Power Spine</a></li>
+        <li><a href="ai-camera.html">AI Camera System™ — Full Vehicle Vision Platform</a></li>
+        <li><a href="omni-battery.html">Omni Battery™ — Graphene Power System</a></li>
+        <li><a href="imperial-limousine.html">Imperial Limousine™</a></li>
+        <li><a href="regent-x.html">Regent X™ SUV Limousine</a></li>
+        <li><a href="velocite.html">Velocité Electric Motorcycle Series</a></li>
+      </ul>
+    </section>
+
+    <!-- APPLIANCES -->
+    <section class="section">
+      <h2>Appliances</h2>
+      <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+
+      <ul>
+        <li><a href="ai-dishwasher.html">AI Dishwasher™</a></li>
+        <li><a href="intellifridge.html">IntelliFridge™</a></li>
+        <li><a href="smart-stove.html">AI Smart Stove™</a></li>
+        <li><a href="microwave.html">AI Microwave™</a></li>
+      </ul>
+    </section>
+
+    <!-- TECHNOLOGY -->
+    <section class="section">
+      <h2>Technology</h2>
+      <p>The core innovations that power the Omnimorpha ecosystem.</p>
+
+      <ul>
+        <li><a href="ai-camera.html">AI Camera System</a></li>
+        <li><a href="circuit-engine.html">Circuit Engine™</a></li>
+        <li><a href="omni-battery.html">Omni Battery™ Power Platform</a></li>
+        <li><a href="power-motion.html">PowerMotion Arena</a></li>
+      </ul>
+    </section>
+
+    <!-- BRANDS -->
+    <section class="section">
+      <h2>Fashion & Lifestyle Brands</h2>
+      <p>Through TREVA, AYRÉLLE Noir, THEVERGE, and GIORDANO VERO — Omnimorpha extends design into lifestyle.</p>
+
+      <ul>

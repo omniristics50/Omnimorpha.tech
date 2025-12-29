@@ -1,100 +1,319 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omnimorpha | Official Technology & Innovation Platform</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+ OMNIMORPHA GLOBAL STYLESHEET — PREMIUM BLACK & GOLD THEME
+   Rebuilt From Scratch For All Product & Technology Pages
+   ------------------------------------------------------------
+   Author: Courtney S. Linton (Founder & CEO)
+   ============================================================ */
 
-<body>
-  <!-- GOLD PARTICLES -->
-  <div class="gold-particles"></div>
 
-  <!-- HEADER / NAV -->
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-title">OMNIMORPHA</span>
-        <span class="logo-sub">INTELLIGENT DESIGN SYSTEM</span>
-      </div>
+/* ===========================
+   GLOBAL RESET
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="ai-camera.html">AI Camera</a>
-        <a href="circuit-engine.html">Circuit Engine</a>
-        <a href="omni-battery.html">Omni Battery</a>
-        <a href="power-motion.html">PowerMotion Arena</a>
-        <a href="ai-dishwasher.html">AI Dishwasher</a>
-        <a href="velocite.html">Velocité</a>
-      </nav>
-    </div>
-  </header>
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
 
-  <!-- MAIN CONTENT -->
-  <main>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-heading">Welcome to Omnimorpha</div>
-      <h1>The Unified Future of Intelligent Technology</h1>
-      <p class="subtitle">
-        A complete ecosystem of AI-powered transportation, appliances, mobility systems, wearables,
-        and smart environments — all built on the Halia Intelligence Core.
-      </p>
+/* ===========================
+   GLOBAL TYPOGRAPHY
+=========================== */
+h1, h2, h3, h4 {
+  color: #f5d27d;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
 
-      <div class="hero-badges">
-        <span class="hero-badge">AI Vehicles</span>
-        <span class="hero-badge">Smart Appliances</span>
-        <span class="hero-badge">Immersive Sports Tech</span>
-        <span class="hero-badge">Omni Battery™ Power</span>
-      </div>
-    </section>
+p {
+  font-size: 1.05rem;
+  opacity: 0.95;
+  margin-bottom: 1.2rem;
+}
 
-    <!-- VEHICLES -->
-    <section class="section">
-      <h2>Vehicles</h2>
-      <p>Advanced electric powertrains, AI vision, and climate-adaptive designs across the entire lineup.</p>
+ul {
+  list-style: none;
+  margin-left: 1rem;
+}
 
-      <ul>
-        <li><a href="circuit-engine.html">Circuit Engine™ — Solid-State Power Spine</a></li>
-        <li><a href="ai-camera.html">AI Camera System™ — Full Vehicle Vision Platform</a></li>
-        <li><a href="omni-battery.html">Omni Battery™ — Graphene Power System</a></li>
-        <li><a href="imperial-limousine.html">Imperial Limousine™</a></li>
-        <li><a href="regent-x.html">Regent X™ SUV Limousine</a></li>
-        <li><a href="velocite.html">Velocité Electric Motorcycle Series</a></li>
-      </ul>
-    </section>
+ul li {
+  margin-bottom: 0.7rem;
+}
 
-    <!-- APPLIANCES -->
-    <section class="section">
-      <h2>Appliances</h2>
-      <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
 
-      <ul>
-        <li><a href="ai-dishwasher.html">AI Dishwasher™</a></li>
-        <li><a href="intellifridge.html">IntelliFridge™</a></li>
-        <li><a href="smart-stove.html">AI Smart Stove™</a></li>
-        <li><a href="microwave.html">AI Microwave™</a></li>
-      </ul>
-    </section>
+/* ===========================
+   NAVIGATION BAR
+=========================== */
+nav {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #222;
+}
 
-    <!-- TECHNOLOGY -->
-    <section class="section">
-      <h2>Technology</h2>
-      <p>The core innovations that power the Omnimorpha ecosystem.</p>
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.85;
+  transition: 0.2s ease;
+}
 
-      <ul>
-        <li><a href="ai-camera.html">AI Camera System</a></li>
-        <li><a href="circuit-engine.html">Circuit Engine™</a></li>
-        <li><a href="omni-battery.html">Omni Battery™ Power Platform</a></li>
-        <li><a href="power-motion.html">PowerMotion Arena</a></li>
-      </ul>
-    </section>
+nav a:hover {
+  opacity: 1;
+  color: #f5d27d;
+}
 
-    <!-- BRANDS -->
-    <section class="section">
-      <h2>Fashion & Lifestyle Brands</h2>
-      <p>Through TREVA, AYRÉLLE Noir, THEVERGE, and GIORDANO VERO — Omnimorpha extends design into lifestyle.</p>
 
-      <ul>
+/* ===========================
+   HERO SECTIONS
+=========================== */
+.hero {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: url('images/galaxy-bg.webp') center/cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+
+/* ===========================
+   GENERIC CONTENT SECTIONS
+=========================== */
+.section {
+  padding: 3rem 2rem;
+  max-width: 1050px;
+  margin: auto;
+}
+
+.section-dark {
+  background: #0a0a0a;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  padding: 3rem 2rem;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+
+/* ===========================
+   PRODUCT HIGHLIGHT PANELS
+=========================== */
+.section-highlight {
+  background: linear-gradient(145deg, #1a1a1a, #000);
+  border: 1px solid #333;
+  padding: 3rem 2rem;
+  box-shadow: 0 0 25px rgba(255, 215, 100, 0.18);
+  max-width: 1050px;
+  margin: 3rem auto;
+}
+
+
+/* ===========================
+   SPECIFICATION TABLES
+=========================== */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.spec-table td {
+  border: 1px solid #444;
+  padding: 14px;
+  font-size: 1rem;
+}
+
+.spec-table tr:nth-child(even) {
+  background: #111;
+}
+
+
+/* ===========================
+   BUTTONS (Preorder, Learn More, etc.)
+=========================== */
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #f5d27d;
+  background: transparent;
+  color: #f5d27d;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  background: #f5d27d;
+  color: #000;
+}
+
+
+/* ===========================
+   IMAGE GALLERY (Lifestyle + Product)
+=========================== */
+.image-gallery {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.image-gallery img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(255, 215, 100, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(255, 215, 100, 0.3);
+}
+
+/* ===========================
+   FOOTER — OMNIMORPHA SIGNATURE STYLE
+=========================== */
+footer {
+  background: #000;
+  border-top: 1px solid #222;
+  padding: 2rem 2rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+footer a {
+  color: #f5d27d;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+footer a:hover {
+  opacity: 1;
+}
+
+
+/* ===========================
+   RESPONSIVE SUPPORT
+=========================== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+}
+/* ============================================================
+   BROCHURE PAGE SUPPORT — ADD-ON EXTENSION
+   (Safe to paste at the bottom of your existing style.css)
+   ============================================================ */
+
+/* Brochure Wrapper */
+.brochure-page {
+  max-width: 1100px;
+  margin: 4rem auto;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(245, 210, 125, 0.12);
+}
+
+/* Brochure title */
+.brochure-page h1,
+.brochure-page h2 {
+  color: #f5d27d;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Brochure paragraph */
+.brochure-page p {
+  color: #ddd;
+  opacity: 0.92;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* Brochure images */
+.brochure-image {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.brochure-image img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #333;
+  box-shadow: 0 0 25px rgba(245, 210, 125, 0.15);
+}
+
+/* Link list adjustments */
+.link-list li a {
+  color: #f5d27d;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.link-list li a:hover {
+  opacity: 1;
+  color: #fff;
+}
+
+/* Brochure divider */
+.brochure-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #444, transparent);
+  margin: 3rem 0;
+}
+
+/* Button option for brochure */
+.brochure-btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background: transparent;
+  color: #f5d27d;
+  border: 1px solid #f5d27d;
+  border-radius: 6px;
+  margin-top: 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.brochure-btn:hover {
+  background: #f5d27d;
+  color: #000;
+}

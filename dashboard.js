@@ -1,13 +1,27 @@
 console.log("✅ dashboard.js loaded");
 
-// ✅ MUST be your Render URL (not localhost)
+// =====================================================
+// CONFIG
+// =====================================================
 const API_BASE = "https://omnimorpha-tech.onrender.com";
+const POLL_INTERVAL_MS = 2500;
 
+// =====================================================
+// DOM HELPERS
+// =====================================================
 const setText = (id, value) => {
   const el = document.getElementById(id);
   if (el) el.textContent = value ?? "—";
 };
 
+const setConn = (text) => {
+  const el = document.getElementById("connectionText");
+  if (el) el.textContent = text;
+};
+
+// =====================================================
+// NETWORK
+// =====================================================
 async function fetchJSON(path) {
   const url = `${API_BASE}${path}`;
   console.log("📡 Fetching:", url);
@@ -17,30 +31,48 @@ async function fetchJSON(path) {
   return res.json();
 }
 
+// =====================================================
+// MAIN LOOP
+// =====================================================
 async function tick() {
   try {
     const state = await fetchJSON("/v1/state");
 
-    // Map to your backend schema
+    // -------------------------------
+    // CORE KPIs
+    // -------------------------------
     setText("health", state?.health?.index != null ? `${state.health.index}%` : "—");
     setText("risk", state?.risk?.score != null ? `${state.risk.score}/100` : "—");
     setText("fleet", state?.fleet?.status ?? "SINGLE INSTANCE");
 
-    const top = state?.strategies?.[0];
-    setText("topStrategy", top?.title ?? "—");
+    // -------------------------------
+    // STRATEGY + REASONING
+    // -------------------------------
+    const topStrategy = state?.strategies?.[0];
+    setText("topStrategy", topStrategy?.title ?? "—");
     setText("reasoning", state?.explain?.narrative ?? "—");
 
+    // -------------------------------
+    // CONNECTION STATE
+    // -------------------------------
+    setConn("LIVE");
     document.body.classList.add("nexus-live");
     document.body.classList.remove("nexus-offline");
+
   } catch (err) {
-    console.warn("NEXUS offline:", err);
+    console.warn("❌ NEXUS backend unreachable:", err);
+
+    setConn("OFFLINE");
+    setText("fleet", "OFFLINE / DEMO");
+    setText("reasoning", "Backend not reachable.");
+
     document.body.classList.add("nexus-offline");
     document.body.classList.remove("nexus-live");
-
-    setText("fleet", "OFFLINE / DEMO");
-    setText("reasoning", `Backend not reachable. (${err?.message ?? "unknown error"})`);
   }
 }
 
+// =====================================================
+// START
+// =====================================================
 tick();
-setInterval(tick, 2500);
+setInterval(tick, POLL_INTERVAL_MS);

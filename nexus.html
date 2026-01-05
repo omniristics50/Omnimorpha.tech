@@ -1,67 +1,73 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Omnimorpha — NEXUS Live</title>
-  <style>
-    body{background:#000;color:gold;font-family:system-ui;margin:0;padding:24px}
-    .grid{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
-    .card{border:1px solid rgba(255,215,0,.35);border-radius:14px;padding:14px;background:rgba(20,20,20,.6)}
-    .big{font-size:44px;font-weight:700}
-    .muted{color:rgba(255,215,0,.75)}
-  </style>
+  <meta charset="UTF-8">
+  <title>NEXUS AI Battery — Live Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Load global + nexus styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="nexus.css">
 </head>
+
 <body>
-  <h1>🖤 NEXUS AI BATTERY — LIVE INTELLIGENCE</h1>
-  <p class="muted">Real-time system cognition streamed from the NEXUS core.</p>
 
-  <div class="grid">
-    <div class="card">
-      <div class="muted">Health</div>
-      <div class="big" id="health">—</div>
+  <nav>
+    <div class="nexus-nav-left">
+      <a href="index.html">← Back to Omnimorpha</a>
     </div>
-    <div class="card">
-      <div class="muted">Risk Index</div>
-      <div class="big" id="risk">—</div>
+
+    <div class="nexus-nav-right">
+      <div class="nexus-pill">
+        <span class="nexus-dot"></span>
+        <span id="connectionText">CONNECTING</span>
+      </div>
     </div>
-    <div class="card">
-      <div class="muted">Fleet Status</div>
-      <div class="big" id="fleet">—</div>
+  </nav>
+
+  <!-- ✅ THIS IS WHERE YOUR LIVE INTELLIGENCE HTML GOES -->
+  <section class="section section-highlight" id="live">
+
+    <h2>NEXUS AI BATTERY — LIVE INTELLIGENCE</h2>
+    <p>Real-time system cognition streamed from the NEXUS core.</p>
+
+    <div class="nexus-kpis">
+      <div class="nexus-kpi">
+        <div class="nexus-kpi-label">Health</div>
+        <div class="nexus-kpi-value" id="health">—</div>
+      </div>
+
+      <div class="nexus-kpi">
+        <div class="nexus-kpi-label">Risk Index</div>
+        <div class="nexus-kpi-value" id="risk">—</div>
+      </div>
+
+      <div class="nexus-kpi">
+        <div class="nexus-kpi-label">Fleet Status</div>
+        <div class="nexus-kpi-value" id="fleet">—</div>
+      </div>
+
+      <div class="nexus-kpi">
+        <div class="nexus-kpi-label">Top Strategy</div>
+        <div class="nexus-kpi-value" id="topStrategy">—</div>
+      </div>
     </div>
-    <div class="card">
-      <div class="muted">Top Strategy</div>
-      <div id="strategy">—</div>
+
+    <div class="nexus-panel" style="margin-top:1.5rem;">
+      <div class="nexus-kpi-label">Reasoning</div>
+      <div id="reasoning" class="nexus-muted" style="margin-top:.5rem;">
+        —
+      </div>
     </div>
-    <div class="card" style="grid-column:1 / -1">
-      <div class="muted">Reasoning</div>
-      <ul id="explain"></ul>
-    </div>
-  </div>
 
-  <script>
-    const API_BASE = "https://api.omnimorpha.tech"; // <- we’ll set this up next
-    const SYSTEM_ID = "NEXUS-001";
+  </section>
 
-    async function tick(){
-      const r = await fetch(`${API_BASE}/public/system/${SYSTEM_ID}`);
-      const s = await r.json();
+  <footer>
+    <p>© 2025 Omnimorpha — NEXUS (software-only • read-only)</p>
+  </footer>
 
-      document.getElementById("health").innerText = `${s.health}%`;
-      document.getElementById("risk").innerText = `${s.risk_index}%`;
-      document.getElementById("fleet").innerText = s.fleet_status;
-      document.getElementById("strategy").innerText = s.top_strategy || "—";
+  <!-- JS that fills in the values -->
+  <script src="dashboard.js"></script>
 
-      const ul = document.getElementById("explain");
-      ul.innerHTML = "";
-      (s.explain || []).forEach(line=>{
-        const li = document.createElement("li");
-        li.innerText = line;
-        ul.appendChild(li);
-      });
-    }
-
-    tick();
-    setInterval(tick, 1200);
-  </script>
 </body>
 </html>

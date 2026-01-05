@@ -1,0 +1,272 @@
+/* ============================================================
+   NEXUS PAGE EXTENSION — BLACK & GOLD LIVE INTELLIGENCE UI
+   Safe add-on: keep styles.css unchanged. Load this AFTER it.
+   ============================================================ */
+
+:root{
+  --nexus-gold: #f5d27d;
+  --nexus-gold-dim: rgba(245, 210, 125, 0.18);
+  --nexus-gold-soft: rgba(245, 210, 125, 0.10);
+  --nexus-border: #222;
+  --nexus-panel: #0a0a0a;
+  --nexus-panel-2: #0f0f0f;
+  --nexus-text-dim: rgba(255,255,255,0.80);
+  --nexus-text-soft: rgba(255,255,255,0.65);
+
+  --nexus-good: #37d07f;
+  --nexus-warn: #ffcc66;
+  --nexus-bad:  #ff5a76;
+
+  --nexus-radius: 12px;
+  --nexus-radius-lg: 16px;
+  --nexus-shadow: 0 0 28px rgba(245, 210, 125, 0.10);
+}
+
+/* Use Inter if loaded; otherwise fall back to existing */
+body{
+  font-family: Inter, Arial, sans-serif;
+}
+
+/* ---------------------------
+   NAV: add a status pill area
+--------------------------- */
+nav{
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.nexus-nav-left{
+  display:flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nexus-nav-right{
+  display:flex;
+  gap: .75rem;
+  align-items: center;
+}
+
+.nexus-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  padding: .55rem .85rem;
+  border-radius: 999px;
+  border: 1px solid var(--nexus-border);
+  background: rgba(0,0,0,0.35);
+  color: var(--nexus-text-dim);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .78rem;
+}
+
+.nexus-dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--nexus-warn);
+  box-shadow: 0 0 0 5px rgba(255, 204, 102, 0.10);
+}
+
+/* Optional: JS can toggle these classes on <body> */
+body.nexus-live .nexus-dot{
+  background: var(--nexus-good);
+  box-shadow: 0 0 0 5px rgba(55, 208, 127, 0.10);
+}
+body.nexus-offline .nexus-dot{
+  background: var(--nexus-bad);
+  box-shadow: 0 0 0 5px rgba(255, 90, 118, 0.10);
+}
+
+/* ---------------------------
+   HERO: add a subtle overlay for readability
+--------------------------- */
+.hero{
+  position: relative;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(900px 600px at 50% 15%, rgba(245,210,125,0.10), transparent 55%),
+              linear-gradient(to bottom, rgba(0,0,0,0.30), rgba(0,0,0,0.75));
+  pointer-events:none;
+}
+
+.hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1{
+  text-shadow: 0 0 22px rgba(245,210,125,0.14);
+}
+
+.hero p{
+  max-width: 75ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------------------------
+   SECTIONS: tighter spacing on Nexus page
+--------------------------- */
+.section{
+  padding: 3.2rem 1.4rem;
+}
+
+.section-highlight{
+  border-radius: var(--nexus-radius-lg);
+}
+
+.section-dark{
+  border-top: 1px solid var(--nexus-border);
+  border-bottom: 1px solid var(--nexus-border);
+}
+
+/* ---------------------------
+   PANELS: utility wrapper if you want it
+--------------------------- */
+.nexus-panel{
+  background: linear-gradient(145deg, #111, #060606);
+  border: 1px solid #2a2a2a;
+  box-shadow: var(--nexus-shadow);
+  border-radius: var(--nexus-radius-lg);
+  padding: 1.6rem;
+}
+
+/* ---------------------------
+   TABLES: upgrade spec-table for live dashboards
+--------------------------- */
+.spec-table{
+  overflow: hidden;
+  border-radius: var(--nexus-radius);
+  border: 1px solid #333;
+  box-shadow: 0 0 22px rgba(245, 210, 125, 0.08);
+}
+
+.spec-table td{
+  border: 1px solid #2c2c2c;
+  vertical-align: top;
+}
+
+.spec-table tr:nth-child(even){
+  background: #0d0d0d;
+}
+
+.spec-table tr:hover td{
+  background: rgba(245, 210, 125, 0.05);
+}
+
+/* Make table headers (first row) pop when you use bold text */
+.spec-table tr:first-child td{
+  background: rgba(245, 210, 125, 0.06);
+  border-color: rgba(245, 210, 125, 0.18);
+}
+
+/* ---------------------------
+   LIVE VALUES: subtle glow
+--------------------------- */
+.nexus-value{
+  color: var(--nexus-gold);
+  font-weight: 800;
+  text-shadow: 0 0 16px rgba(245, 210, 125, 0.10);
+}
+
+.nexus-muted{
+  color: var(--nexus-text-soft);
+}
+
+.nexus-mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------
+   CALLOUT / DISCLAIMER BOX
+--------------------------- */
+.nexus-callout{
+  margin-top: 1.3rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: var(--nexus-radius);
+  border: 1px solid rgba(245, 210, 125, 0.18);
+  background: rgba(245, 210, 125, 0.06);
+  box-shadow: 0 0 22px rgba(245, 210, 125, 0.06);
+}
+
+.nexus-callout strong{
+  color: var(--nexus-gold);
+}
+
+/* ---------------------------
+   BUTTONS: keep your .btn, add optional variants
+--------------------------- */
+.btn.btn-solid{
+  background: var(--nexus-gold);
+  color: #000;
+}
+.btn.btn-solid:hover{
+  filter: brightness(1.05);
+}
+
+.btn.btn-ghost{
+  border-color: rgba(245, 210, 125, 0.55);
+  color: rgba(255,255,255,0.92);
+}
+
+/* ---------------------------
+   FOOTER: tighten and glow line
+--------------------------- */
+footer{
+  border-top: 1px solid rgba(245, 210, 125, 0.14);
+}
+
+footer p{
+  color: rgba(255,255,255,0.75);
+}
+
+/* ---------------------------
+   SMALL UTILITIES
+--------------------------- */
+.nexus-row{
+  display:flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items:center;
+}
+
+.nexus-kbd{
+  display:inline-block;
+  padding: .18rem .45rem;
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+  background: rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.82);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: .88rem;
+}
+
+/* ---------------------------
+   RESPONSIVE: reduce hero padding + nav wrap
+--------------------------- */
+@media (max-width: 768px){
+  nav{
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .hero{
+    padding: 3.2rem 1.4rem;
+    background-attachment: scroll;
+  }
+  .hero h1{
+    font-size: 2.2rem;
+  }
+  .section{
+    padding: 2.4rem 1.1rem;
+  }
+}

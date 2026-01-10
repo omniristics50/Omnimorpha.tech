@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-/* INDEX — PRODUCT CARD (UI DEMOS) */
-.product-card {
-  display: block;
-  margin: 0.5rem 0 1.5rem;
-  padding: 1.2rem 1.4rem;
-  border-radius: 18px;
-  text-decoration: none;
-
-  border: 1px solid rgba(245, 210, 122, 0.35);
-  background: radial-gradient(circle at top left, #111827, #020308 65%);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.65);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 26px 60px rgba(0,0,0,0.8);
-}
-
-.product-card h3 {
-  margin: 0 0 0.3rem;
-  font-size: 1.15rem;
-  color: #f5d27a;
-  letter-spacing: 0.03em;
-}
-
-.product-card p {
-  margin: 0;
-  font-size: 0.95rem;
-  opacity: 0.85;
-}
-
-.product-meta {
-  display: inline-block;
-  margin-top: 0.6rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(245, 210, 122, 0.85);
-}
-
-/* INDEX — INTERACTIVE DEMOS LABEL */
-#appliances .dw-muted {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(245, 210, 122, 0.75);
-}
-</style>
-
   <meta charset="UTF-8">
-  <title>Omnimorpha | Intelligent Living Ecosystem</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+  <title>Omnimorpha</title>
 
   <style>
-    /* FIX HEADER COLORS (so sleek black text does NOT override it) */
-    header.header,
-    header.header * {
-      color: white !important;
+    /* INDEX — PRODUCT CARD (UI DEMOS) */
+    .product-card {
+      display: block;
+      margin: 0.5rem 0 1.5rem;
+      padding: 1.2rem 1.4rem;
+      border-radius: 18px;
+      text-decoration: none;
+
+      border: 1px solid rgba(245, 210, 122, 0.35);
+      background: radial-gradient(circle at top left, #111827, #020308 65%);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.65);
+
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.8);
+    }
+
+    .product-card h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1.15rem;
+      color: #f5d27a;
+      letter-spacing: 0.03em;
+    }
+
+    .product-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .product-meta {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245, 210, 122, 0.85);
+    }
+
+    /* INDEX — INTERACTIVE DEMOS LABEL */
+    #appliances .dw-muted {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245, 210, 122, 0.75);
     }
   </style>
 </head>
@@ -110,14 +100,29 @@
 
 
     <ul class="link-list">
-      <li><a href="ai-dishwasher.html">AI Dishwasher</a></li>
-      <li><a href="fridge.html">IntelliFridge™</a></li>
-      <li><a href="intellifridge-brochure.html">📘 IntelliFridge™ Brochure</a></li>
-      <li><a href="smart-stove.html">AI Smart Stove</a></li>
-      <li><a href="microwave.html">AI Microwave</a></li>
-      <li><a href="washer-dryer.html">Washer–Dryer Combo</a></li>
-    </ul>
-  </section>
+     <!-- APPLIANCES -->
+<section class="section" id="appliances">
+  <h2><span class="section-icon">⚡</span> AI Appliances</h2>
+  <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
+
+  <p class="dw-muted">Interactive demos</p>
+
+  <!-- ✅ DISHWASHER UI CARD (this is what you were missing) -->
+  <a class="product-card" href="dishwasher-ui.html">
+    <h3>AI Dishwasher UI</h3>
+    <p>Explanatory interface demo: Scan → Decide → Stabilize → Execute → Report.</p>
+    <span class="product-meta">Live UI Prototype</span>
+  </a>
+
+  <ul class="link-list">
+    <li><a href="ai-dishwasher.html">AI Dishwasher</a></li>
+    <li><a href="fridge.html">IntelliFridge™</a></li>
+    <li><a href="intellifridge-brochure.html">📘 IntelliFridge™ Brochure</a></li>
+    <li><a href="smart-stove.html">AI Smart Stove</a></li>
+    <li><a href="microwave.html">AI Microwave</a></li>
+    <li><a href="washer-dryer.html">Washer–Dryer Combo</a></li>
+  </ul>
+</section>
 
   <!-- TECHNOLOGY -->
   <section class="section section-dark" id="technology">

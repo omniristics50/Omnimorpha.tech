@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Omnimorpha AI Dishwasher — Explanatory UI</title>
+  <style>
+    :root{
+      --bg:#050607;
+      --panel:#0b0d10;
+      --panel2:#0f1318;
+      --line:rgba(255,255,255,.10);
+      --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.65);
+      --gold:#d7b35a;
+      --gold2:#ffdd88;
+      --bad:#ff5b5b;
+      --ok:#69f0ae;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(215,179,90,.14), transparent 55%),
+                  radial-gradient(900px 600px at 80% 30%, rgba(255,221,136,.10), transparent 60%),
+                  var(--bg);
+      color:var(--txt);
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px;
+      display:grid;
+      gap:16px;
+      grid-template-columns: 1.1fr .9fr;
+    }
+    .hero{
+      grid-column:1 / -1;
+      padding:18px 18px 8px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,19,24,.9), rgba(8,10,12,.92));
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    .heroTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px;}
+    .brand .kicker{letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:var(--muted);}
+    .brand .title{font-size:20px; font-weight:650;}
+    .statusPill{
+      display:flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--gold);
+      box-shadow:0 0 0 4px rgba(215,179,90,.12);
+    }
+    .statusText{display:flex; flex-direction:column; line-height:1.1}
+    .statusText .s{font-size:12px; color:var(--muted)}
+    .statusText .v{font-size:14px; font-weight:600}
+
+    .grid{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-top:10px;}
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(12,14,16,.75), rgba(10,12,14,.75));
+      border-radius: var(--radius);
+      padding:14px;
+      min-height:160px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:13px; color:var(--muted);
+      letter-spacing:.08em; text-transform:uppercase;
+    }
+    .big{font-size:16px; font-weight:700; margin-bottom:6px;}
+    .sub{font-size:13px; color:var(--muted); margin-bottom:8px}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+    }
+    .tag.gold{border-color: rgba(215,179,90,.45); color: rgba(255,221,136,.92)}
+    .tag.bad{border-color: rgba(255,91,91,.55); color: rgba(255,91,91,.92)}
+    .tag.ok{border-color: rgba(105,240,174,.40); color: rgba(105,240,174,.92)}
+
+    .barRow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:8px}
+    .meter{
+      height:10px; border-radius:999px; background: rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      overflow:hidden; flex:1;
+    }
+    .fill{height:100%; width:0%; background: linear-gradient(90deg, rgba(215,179,90,.75), rgba(255,221,136,.95));}
+    .val{font-size:12px; color:var(--muted); min-width:84px; text-align:right}
+
+    .rightCol{display:grid; gap:16px; grid-template-rows: auto auto 1fr;}
+    .controls, .log, .kpis{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,19,24,.82), rgba(8,10,12,.82));
+      border-radius: var(--radius);
+      padding:14px;
+    }
+    .controls h2, .log h2, .kpis h2{
+      margin:0 0 10px;
+      font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+    }
+    .btnRow{display:flex; flex-wrap:wrap; gap:10px}
+    button{
+      appearance:none;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.26);
+      color:var(--txt);
+      border-radius: 14px;
+      padding:10px 12px;
+      font-weight:600;
+      cursor:pointer;
+    }
+    button.primary{
+      border-color: rgba(215,179,90,.55);
+      box-shadow: 0 0 0 4px rgba(215,179,90,.10) inset;
+    }
+    button:active{transform: translateY(1px)}
+    .hint{margin-top:10px; font-size:12px; color:var(--muted); line-height:1.35}
+
+    .logList{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; max-height:270px; overflow:auto;}
+    .logItem{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:10px 10px;
+      background: rgba(0,0,0,.18);
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .time{font-size:11px; color:var(--muted); min-width:68px;}
+    .msg{font-size:12px; color:rgba(255,255,255,.84); line-height:1.3;}
+
+    .kpiGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    .kpi{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:10px;
+      background: rgba(0,0,0,.18);
+    }
+    .kpi .k{font-size:11px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+    .kpi .v{margin-top:4px; font-size:16px; font-weight:750}
+    .kpi .s{margin-top:2px; font-size:12px; color:var(--muted)}
+
+    @media (max-width: 920px){
+      .wrap{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="heroTop">
+        <div class="brand">
+          <div class="kicker">Omnimorpha • AI Dishwasher</div>
+          <div class="title">Explanatory Interface — Scan → Lock → Wash → Report</div>
+        </div>
+        <div class="statusPill">
+          <div class="dot" id="statusDot"></div>
+          <div class="statusText">
+            <div class="s">State</div>
+            <div class="v" id="stateLabel">Idle</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>What the AI saw</h3>
+          <div class="big" id="sawTitle">Waiting for load</div>
+          <div class="sub" id="sawSub">Close door to begin Scan.</div>
+          <div class="tags" id="sawTags"></div>
+        </div>
+
+        <div class="card">
+          <h3>Why it decided</h3>
+          <div class="big" id="decideTitle">No plan yet</div>
+          <div class="sub" id="decideSub">Auto-plan appears after Classify.</div>
+          <div class="tags" id="decideTags"></div>
+        </div>
+
+        <div class="card">
+          <h3>Live execution</h3>
+          <div class="barRow">
+            <div class="meter"><div class="fill" id="progressFill"></div></div>
+            <div class="val" id="timeLeft">--:--</div>
+          </div>
+          <div class="tags" id="liveTags" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rightCol">
+      <div class="controls">
+        <h2>Controls</h2>
+        <div class="btnRow">
+          <button class="primary" id="btnStart">Load &amp; Scan</button>
+          <button id="btnNudgeSpeed">Nudge: Speed</button>
+          <button id="btnNudgeSilence">Nudge: Silence</button>
+          <button id="btnNudgeDeep">Nudge: Deep Clean</button>
+          <button id="btnAbort">Abort</button>
+        </div>
+        <div class="hint">
+          Nudges apply before Execute. During Execute, only Silence is allowed (safe adjustment).
+        </div>
+      </div>
+
+      <div class="kpis">
+        <h2>KPIs</h2>
+        <div class="kpiGrid">
+          <div class="kpi">
+            <div class="k">Cleanliness Confidence</div>
+            <div class="v" id="kpiClean">--%</div>
+            <div class="s" id="kpiCleanSub">Not available</div>
+          </div>
+          <div class="kpi">
+            <div class="k">Water Targeting</div>
+            <div class="v" id="kpiWater">--%</div>
+            <div class="s" id="kpiWaterSub">Zone plan inactive</div>
+          </div>
+          <div class="kpi">
+            <div class="k">Energy Optimization</div>
+            <div class="v" id="kpiEnergy">--%</div>
+            <div class="s" id="kpiEnergySub">Orchestration idle</div>
+          </div>
+          <div class="kpi">
+            <div class="k">Breakage Protection</div>
+            <div class="v" id="kpiProtect">OFF</div>
+            <div class="s" id="kpiProtectSub">Locks not engaged</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="log">
+        <h2>Decision log</h2>
+        <ul class="logList" id="logList"></ul>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  let state = "IDLE";
+  let nudge = null;       // SPEED | SILENCE | DEEP
+  let progress = 0;       // 0..100
+  let minutesLeft = null;
+  let interval = null;
+
+  const perception = {
+    items: ["Plates x6","Bowls x3","Glassware x4","Cookware x1"],
+    tags: ["Mixed Materials","High Grease Detected","Crowding: Medium"],
+    materials: ["Ceramic","Glass","Steel"]
+  };
+
+  const planBase = {
+    cycle: "DeepClean Adaptive™",
+    why: ["High grease detected","Mixed materials","Glass protection enabled"],
+    live: ["Zones: Upper+Lower","Brush: Inverted Focus","Thermal: Ramp → Hold"],
+    kpis: { clean: 92, water: 34, energy: 28 }
+  };
+
+  const $ = (id) => document.getElementById(id);
+
+  const stateLabel = $("stateLabel");
+  const statusDot  = $("statusDot");
+
+  const sawTitle = $("sawTitle");
+  const sawSub   = $("sawSub");
+  const sawTags  = $("sawTags");
+
+  const decideTitle = $("decideTitle");
+  const decideSub   = $("decideSub");
+  const decideTags  = $("decideTags");
+
+  const liveTags     = $("liveTags");
+  const progressFill = $("progressFill");
+  const timeLeft     = $("timeLeft");
+
+  const kpiClean = $("kpiClean");
+  const kpiCleanSub = $("kpiCleanSub");
+  const kpiWater = $("kpiWater");
+  const kpiWaterSub = $("kpiWaterSub");
+  const kpiEnergy = $("kpiEnergy");
+  const kpiEnergySub = $("kpiEnergySub");
+  const kpiProtect = $("kpiProtect");
+  const kpiProtectSub = $("kpiProtectSub");
+
+  const logList = $("logList");
+
+  $("btnStart").addEventListener("click", startCycle);
+  $("btnAbort").addEventListener("click", () => toError("Aborted by user"));
+  $("btnNudgeSpeed").addEventListener("click", () => setNudge("SPEED"));
+  $("btnNudgeSilence").addEventListener("click", () => setNudge("SILENCE"));
+  $("btnNudgeDeep").addEventListener("click", () => setNudge("DEEP"));
+
+  function tagEl(text, cls){
+    const d = document.createElement("div");
+    d.className = "tag" + (cls ? (" " + cls) : "");
+    d.textContent = text;
+    return d;
+  }
+  function clearTags(node){ while(node.firstChild) node.removeChild(node.firstChild); }
+
+  function log(msg){
+    const t = new Date();
+    const hh = String(t.getHours()).padStart(2,"0");
+    const mm = String(t.getMinutes()).padStart(2,"0");
+    const li = document.createElement("li");
+    li.className = "logItem";
+    li.innerHTML = `<div class="time">${hh}:${mm}</div><div class="msg">${escapeHtml(msg)}</div>`;
+    logList.prepend(li);
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  }
+
+  function setState(next){
+    state = next;
+    stateLabel.textContent = prettyState(next);
+    const isErr = next === "ERROR";
+    statusDot.style.background = isErr ? "var(--bad)" : "var(--gold)";
+    statusDot.style.boxShadow = isErr ? "0 0 0 4px rgba(255,91,91,.12)"
+                                      : "0 0 0 4px rgba(215,179,90,.12)";
+  }
+
+  function prettyState(s){
+    return ({
+      IDLE:"Idle", SCAN:"Scanning", CLASSIFY:"Classifying", DECIDE:"Deciding",
+      LOCK:"Locking Load", EXECUTE:"Washing", ADJUST:"Adjusting",
+      COMPLETE:"Complete", REPORT:"Report", ERROR:"Error"
+    }[s] || s);
+  }
+
+  function setNudge(type){
+    if (state === "EXECUTE" && type !== "SILENCE"){
+      log(`Nudge ignored during Execute: ${type} (policy)`);
+      return;
+    }
+    nudge = type;
+    log(`User nudge set: ${type}`);
+    render();
+  }
+
+  function startCycle(){
+    stopTimer();
+    nudge = null;
+    progress = 0;
+    minutesLeft = 78;
+
+    log("Door closed. Starting Scan.");
+    setState("SCAN"); render();
+
+    setTimeout(() => { if(state!=="SCAN") return; setState("CLASSIFY"); log("Scan acquired. Classifying load."); render(); }, 900);
+    setTimeout(() => { if(state!=="CLASSIFY") return; setState("DECIDE"); log("Classification complete. Generating plan."); render(); }, 1700);
+    setTimeout(() => { if(state!=="DECIDE") return; setState("LOCK"); log("Plan locked. Stabilizing dishes before high-torque wash."); render(); }, 2500);
+    setTimeout(() => {
+      if(state!=="LOCK") return;
+      setState("EXECUTE"); log("Locks engaged. Execute started."); render();
+      startTimer();
+    }, 3400);
+  }
+
+  function startTimer(){
+    stopTimer();
+    interval = setInterval(() => {
+      if(state !== "EXECUTE" && state !== "ADJUST") return;
+
+      progress = Math.min(100, progress + 1.35);
+      minutesLeft = Math.max(0, Math.round((100 - progress) * 0.78));
+
+      if (Math.random() < 0.10){
+        setState("ADJUST");
+        log("Micro-adjust: zone pressure redistributed (clarity feedback).");
+        setTimeout(() => { if(state==="ADJUST") setState("EXECUTE"); render(); }, 700);
+      }
+
+      if(progress >= 100){
+        stopTimer();
+        setState("COMPLETE");
+        log("Cycle complete. Cooldown and safe-unload check.");
+        render();
+
+        setTimeout(() => {
+          if(state!=="COMPLETE") return;
+          setState("REPORT");
+          log("Report generated: efficiency + health checks.");
+          render();
+
+          setTimeout(() => {
+            if(state!=="REPORT") return;
+            setState("IDLE");
+            log("Returned to Idle.");
+            render();
+          }, 2600);
+        }, 1600);
+      }
+
+      render();
+    }, 700);
+  }
+
+  function stopTimer(){
+    if(interval){ clearInterval(interval); interval = null; }
+  }
+
+  function toError(reason){
+    stopTimer();
+    setState("ERROR");
+    log(`ERROR: ${reason}`);
+    render();
+  }
+
+  function computePlan(){
+    let cycle = planBase.cycle;
+    let why = [...planBase.why];
+    let live = [...planBase.live];
+    let k = {...planBase.kpis};
+
+    if(nudge === "SPEED"){
+      cycle = "QuickClean Adaptive™";
+      why.unshift("Speed priority selected");
+      live = live.map(s => s.includes("Thermal") ? "Thermal: Fast Ramp" : s);
+      k.clean = Math.max(86, k.clean - 6);
+      k.water = Math.max(22, k.water - 6);
+      k.energy = Math.max(18, k.energy - 4);
+    }
+    if(nudge === "SILENCE"){
+      why.unshift("Silence priority selected");
+      live = live.map(s => s.includes("Brush") ? "Brush: Low Noise Profile" : s);
+      k.energy = Math.max(20, k.energy - 2);
+    }
+    if(nudge === "DEEP"){
+      why.unshift("Deep clean priority selected");
+      live = live.map(s => s.includes("Zones") ? "Zones: Multi-Pass Targeting" : s);
+      k.clean = Math.min(97, k.clean + 3);
+      k.water = Math.min(42, k.water + 6);
+      k.energy = Math.min(36, k.energy + 5);
+    }
+
+    return {
+      cycle,
+      whyLine: why.slice(0,3).join(" • "),
+      whyTags: why.slice(0,3),
+      live,
+      kpis: k
+    };
+  }
+
+  function formatTime(mins){
+    if(mins == null) return "--:--";
+    const m = Math.max(0, mins);
+    const hh = Math.floor(m / 60);
+    const mm = m % 60;
+    return (hh <= 0) ? `0:${String(mm).padStart(2,"0")}` : `${hh}:${String(mm).padStart(2,"0")}`;
+  }
+
+  function render(){
+    // What the AI saw
+    if(state === "IDLE"){
+      sawTitle.textContent = "Waiting for load";
+      sawSub.textContent = "Close door to begin Scan.";
+      clearTags(sawTags);
+      sawTags.appendChild(tagEl("AI Vision Ready","gold"));
+      sawTags.appendChild(tagEl("Sensors Idle"));
+    } else if(state !== "ERROR"){
+      sawTitle.textContent = "Load detected";
+      sawSub.textContent = perception.items.join(" • ");
+      clearTags(sawTags);
+      perception.tags.forEach(t => sawTags.appendChild(tagEl(t, t.includes("High") ? "gold" : "")));
+      perception.materials.forEach(m => sawTags.appendChild(tagEl("Material: " + m)));
+    } else {
+      sawTitle.textContent = "Attention required";
+      sawSub.textContent = "Resolve the error to retry.";
+      clearTags(sawTags);
+      sawTags.appendChild(tagEl("Fault state","bad"));
+    }
+
+    // Why it decided
+    if(["IDLE","SCAN","CLASSIFY"].includes(state)){
+      decideTitle.textContent = "No plan yet";
+      decideSub.textContent = "Planning begins after Classify.";
+      clearTags(decideTags);
+      decideTags.appendChild(tagEl("Autonomy: Pending"));
+    } else if(state !== "ERROR"){
+      const plan = computePlan();
+      decideTitle.textContent = plan.cycle;
+      decideSub.textContent = plan.whyLine;
+      clearTags(decideTags);
+      plan.whyTags.forEach(t => decideTags.appendChild(tagEl(t,"gold")));
+      decideTags.appendChild(tagEl("Nudge: " + (nudge || "None")));
+    } else {
+      decideTitle.textContent = "Plan halted";
+      decideSub.textContent = "Safety stop engaged.";
+      clearTags(decideTags);
+      decideTags.appendChild(tagEl("Safety stop","bad"));
+    }
+
+    // Live execution
+    if(["EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      progressFill.style.width = progress.toFixed(0) + "%";
+      timeLeft.textContent = formatTime(minutesLeft);
+      clearTags(liveTags);
+      const plan = computePlan();
+      plan.live.forEach(x => liveTags.appendChild(tagEl(x, "gold")));
+      liveTags.appendChild(tagEl("Progress: " + progress.toFixed(0) + "%"));
+      if(state === "ADJUST") liveTags.appendChild(tagEl("Adaptive correction active","gold"));
+      if(state === "COMPLETE") liveTags.appendChild(tagEl("Unload Safe Check","ok"));
+      if(state === "REPORT") liveTags.appendChild(tagEl("Report Ready","ok"));
+    } else {
+      progressFill.style.width = "0%";
+      timeLeft.textContent = "--:--";
+      clearTags(liveTags);
+      liveTags.appendChild(tagEl("Zones: Inactive"));
+      liveTags.appendChild(tagEl("Brush: Standby"));
+      liveTags.appendChild(tagEl("Thermal: Standby"));
+    }
+
+    // KPIs
+    if(["LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      const plan = computePlan();
+      kpiClean.textContent = plan.kpis.clean + "%";
+      kpiCleanSub.textContent = (plan.kpis.clean >= 90) ? "High confidence" : "Moderate confidence";
+
+      kpiWater.textContent = plan.kpis.water + "%";
+      kpiWaterSub.textContent = "Reduction via zone targeting";
+
+      kpiEnergy.textContent = plan.kpis.energy + "%";
+      kpiEnergySub.textContent = "Reduction via orchestration";
+
+      kpiProtect.textContent = "ON";
+      kpiProtectSub.textContent = "Load stabilized + glass rules active";
+    } else {
+      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
+      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Zone plan inactive";
+      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Orchestration idle";
+      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Locks not engaged";
+    }
+  }
+
+  log("UI loaded. Ready.");
+  render();
+})();
+</script>
+</body>
+</html>

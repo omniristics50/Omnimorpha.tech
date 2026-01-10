@@ -50,9 +50,15 @@
       gap:12px;
       margin-bottom:10px;
     }
-    .brand{display:flex; flex-direction:column; gap:2px;}
-    .brand .kicker{letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:var(--muted);}
-    .brand .title{font-size:20px; font-weight:650;}
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .brand .kicker{
+      letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:var(--muted);
+    }
+    .brand .title{
+      font-size:20px; font-weight:650;
+    }
     .statusPill{
       display:flex; gap:10px; align-items:center;
       padding:10px 12px;
@@ -69,7 +75,12 @@
     .statusText .s{font-size:12px; color:var(--muted)}
     .statusText .v{font-size:14px; font-weight:600}
 
-    .grid{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-top:10px;}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
     .card{
       border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(12,14,16,.75), rgba(10,12,14,.75));
@@ -82,7 +93,9 @@
       font-size:13px; color:var(--muted);
       letter-spacing:.08em; text-transform:uppercase;
     }
-    .big{font-size:16px; font-weight:700; margin-bottom:6px;}
+    .big{
+      font-size:16px; font-weight:700; margin-bottom:6px;
+    }
     .sub{font-size:13px; color:var(--muted); margin-bottom:8px}
     .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
     .tag{
@@ -102,10 +115,18 @@
       border:1px solid var(--line);
       overflow:hidden; flex:1;
     }
-    .fill{height:100%; width:0%; background: linear-gradient(90deg, rgba(215,179,90,.75), rgba(255,221,136,.95));}
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(215,179,90,.75), rgba(255,221,136,.95));
+    }
     .val{font-size:12px; color:var(--muted); min-width:84px; text-align:right}
 
-    .rightCol{display:grid; gap:16px; grid-template-rows: auto auto 1fr;}
+    .rightCol{
+      display:grid;
+      gap:16px;
+      grid-template-rows: auto auto 1fr;
+    }
     .controls, .log, .kpis{
       border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(15,19,24,.82), rgba(8,10,12,.82));
@@ -134,7 +155,11 @@
     button:active{transform: translateY(1px)}
     .hint{margin-top:10px; font-size:12px; color:var(--muted); line-height:1.35}
 
-    .logList{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; max-height:270px; overflow:auto;}
+    .logList{
+      margin:0; padding:0; list-style:none;
+      display:flex; flex-direction:column; gap:8px;
+      max-height:270px; overflow:auto;
+    }
     .logItem{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -142,10 +167,17 @@
       background: rgba(0,0,0,.18);
       display:flex; gap:10px; align-items:flex-start;
     }
-    .time{font-size:11px; color:var(--muted); min-width:68px;}
-    .msg{font-size:12px; color:rgba(255,255,255,.84); line-height:1.3;}
+    .time{
+      font-size:11px; color:var(--muted); min-width:68px;
+    }
+    .msg{
+      font-size:12px; color:rgba(255,255,255,.84);
+      line-height:1.3;
+    }
 
-    .kpiGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    .kpiGrid{
+      display:grid; grid-template-columns: 1fr 1fr; gap:10px;
+    }
     .kpi{
       border:1px solid var(--line);
       border-radius: 14px;
@@ -164,7 +196,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="hero">
+    <div class="hero" id="panel">
       <div class="heroTop">
         <div class="brand">
           <div class="kicker">Omnimorpha • AI Dishwasher</div>
@@ -196,10 +228,12 @@
 
         <div class="card">
           <h3>Live execution</h3>
+
           <div class="barRow">
             <div class="meter"><div class="fill" id="progressFill"></div></div>
             <div class="val" id="timeLeft">--:--</div>
           </div>
+
           <div class="tags" id="liveTags" style="margin-top:12px"></div>
         </div>
       </div>
@@ -209,14 +243,14 @@
       <div class="controls">
         <h2>Controls</h2>
         <div class="btnRow">
-          <button class="primary" id="btnStart">Load &amp; Scan</button>
+          <button class="primary" id="btnStart">Load & Scan</button>
           <button id="btnNudgeSpeed">Nudge: Speed</button>
           <button id="btnNudgeSilence">Nudge: Silence</button>
           <button id="btnNudgeDeep">Nudge: Deep Clean</button>
           <button id="btnAbort">Abort</button>
         </div>
         <div class="hint">
-          Nudges apply before Execute. During Execute, only Silence is allowed (safe adjustment).
+          The UI is state-driven. Nudges apply only before Execute, or as safe adjustments during Execute (Silence only).
         </div>
       </div>
 
@@ -254,19 +288,21 @@
   </div>
 
 <script>
-(() => {
+(function(){
+  // --------- State machine ----------
+  const STATES = ["IDLE","SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT","ERROR"];
   let state = "IDLE";
-  let nudge = null;       // SPEED | SILENCE | DEEP
-  let progress = 0;       // 0..100
+  let nudge = null; // "SPEED" | "SILENCE" | "DEEP"
+  let progress = 0; // 0..100
   let minutesLeft = null;
   let interval = null;
 
+  // Simulated perception + plan results (replace later with real data)
   const perception = {
     items: ["Plates x6","Bowls x3","Glassware x4","Cookware x1"],
     tags: ["Mixed Materials","High Grease Detected","Crowding: Medium"],
     materials: ["Ceramic","Glass","Steel"]
   };
-
   const planBase = {
     cycle: "DeepClean Adaptive™",
     why: ["High grease detected","Mixed materials","Glass protection enabled"],
@@ -274,39 +310,39 @@
     kpis: { clean: 92, water: 34, energy: 28 }
   };
 
-  const $ = (id) => document.getElementById(id);
+  // --------- DOM ----------
+  const stateLabel = document.getElementById("stateLabel");
+  const statusDot  = document.getElementById("statusDot");
 
-  const stateLabel = $("stateLabel");
-  const statusDot  = $("statusDot");
+  const sawTitle = document.getElementById("sawTitle");
+  const sawSub   = document.getElementById("sawSub");
+  const sawTags  = document.getElementById("sawTags");
 
-  const sawTitle = $("sawTitle");
-  const sawSub   = $("sawSub");
-  const sawTags  = $("sawTags");
+  const decideTitle = document.getElementById("decideTitle");
+  const decideSub   = document.getElementById("decideSub");
+  const decideTags  = document.getElementById("decideTags");
 
-  const decideTitle = $("decideTitle");
-  const decideSub   = $("decideSub");
-  const decideTags  = $("decideTags");
+  const liveTags     = document.getElementById("liveTags");
+  const progressFill = document.getElementById("progressFill");
+  const timeLeft     = document.getElementById("timeLeft");
 
-  const liveTags     = $("liveTags");
-  const progressFill = $("progressFill");
-  const timeLeft     = $("timeLeft");
+  const kpiClean = document.getElementById("kpiClean");
+  const kpiCleanSub = document.getElementById("kpiCleanSub");
+  const kpiWater = document.getElementById("kpiWater");
+  const kpiWaterSub = document.getElementById("kpiWaterSub");
+  const kpiEnergy = document.getElementById("kpiEnergy");
+  const kpiEnergySub = document.getElementById("kpiEnergySub");
+  const kpiProtect = document.getElementById("kpiProtect");
+  const kpiProtectSub = document.getElementById("kpiProtectSub");
 
-  const kpiClean = $("kpiClean");
-  const kpiCleanSub = $("kpiCleanSub");
-  const kpiWater = $("kpiWater");
-  const kpiWaterSub = $("kpiWaterSub");
-  const kpiEnergy = $("kpiEnergy");
-  const kpiEnergySub = $("kpiEnergySub");
-  const kpiProtect = $("kpiProtect");
-  const kpiProtectSub = $("kpiProtectSub");
+  const logList = document.getElementById("logList");
 
-  const logList = $("logList");
-
-  $("btnStart").addEventListener("click", startCycle);
-  $("btnAbort").addEventListener("click", () => toError("Aborted by user"));
-  $("btnNudgeSpeed").addEventListener("click", () => setNudge("SPEED"));
-  $("btnNudgeSilence").addEventListener("click", () => setNudge("SILENCE"));
-  $("btnNudgeDeep").addEventListener("click", () => setNudge("DEEP"));
+  // Buttons
+  document.getElementById("btnStart").addEventListener("click", () => startCycle());
+  document.getElementById("btnAbort").addEventListener("click", () => toError("Aborted by user"));
+  document.getElementById("btnNudgeSpeed").addEventListener("click", () => setNudge("SPEED"));
+  document.getElementById("btnNudgeSilence").addEventListener("click", () => setNudge("SILENCE"));
+  document.getElementById("btnNudgeDeep").addEventListener("click", () => setNudge("DEEP"));
 
   function tagEl(text, cls){
     const d = document.createElement("div");
@@ -314,8 +350,6 @@
     d.textContent = text;
     return d;
   }
-  function clearTags(node){ while(node.firstChild) node.removeChild(node.firstChild); }
-
   function log(msg){
     const t = new Date();
     const hh = String(t.getHours()).padStart(2,"0");
@@ -332,23 +366,33 @@
   function setState(next){
     state = next;
     stateLabel.textContent = prettyState(next);
-    const isErr = next === "ERROR";
-    statusDot.style.background = isErr ? "var(--bad)" : "var(--gold)";
-    statusDot.style.boxShadow = isErr ? "0 0 0 4px rgba(255,91,91,.12)"
-                                      : "0 0 0 4px rgba(215,179,90,.12)";
+    statusDot.style.background = (next === "ERROR") ? "var(--bad)" : "var(--gold)";
+    statusDot.style.boxShadow = (next === "ERROR")
+      ? "0 0 0 4px rgba(255,91,91,.12)"
+      : "0 0 0 4px rgba(215,179,90,.12)";
+  }
+  function prettyState(s){
+    switch(s){
+      case "IDLE": return "Idle";
+      case "SCAN": return "Scanning";
+      case "CLASSIFY": return "Classifying";
+      case "DECIDE": return "Deciding";
+      case "LOCK": return "Locking Load";
+      case "EXECUTE": return "Washing";
+      case "ADJUST": return "Adjusting";
+      case "COMPLETE": return "Complete";
+      case "REPORT": return "Report";
+      case "ERROR": return "Error";
+      default: return s;
+    }
   }
 
-  function prettyState(s){
-    return ({
-      IDLE:"Idle", SCAN:"Scanning", CLASSIFY:"Classifying", DECIDE:"Deciding",
-      LOCK:"Locking Load", EXECUTE:"Washing", ADJUST:"Adjusting",
-      COMPLETE:"Complete", REPORT:"Report", ERROR:"Error"
-    }[s] || s);
-  }
+  function clearTags(node){ while(node.firstChild) node.removeChild(node.firstChild); }
 
   function setNudge(type){
+    // Policy: nudges apply pre-EXECUTE; during EXECUTE only SILENCE allowed.
     if (state === "EXECUTE" && type !== "SILENCE"){
-      log(`Nudge ignored during Execute: ${type} (policy)`);
+      log(`Nudge ignored during Execute: ${type} (safety policy)`);
       return;
     }
     nudge = type;
@@ -361,15 +405,17 @@
     nudge = null;
     progress = 0;
     minutesLeft = 78;
-
     log("Door closed. Starting Scan.");
-    setState("SCAN"); render();
+    setState("SCAN");
+    render();
 
+    // Simulated pipeline timing
     setTimeout(() => { if(state!=="SCAN") return; setState("CLASSIFY"); log("Scan acquired. Classifying load."); render(); }, 900);
     setTimeout(() => { if(state!=="CLASSIFY") return; setState("DECIDE"); log("Classification complete. Generating plan."); render(); }, 1700);
     setTimeout(() => { if(state!=="DECIDE") return; setState("LOCK"); log("Plan locked. Stabilizing dishes before high-torque wash."); render(); }, 2500);
     setTimeout(() => {
       if(state!=="LOCK") return;
+      // Simulate lock success
       setState("EXECUTE"); log("Locks engaged. Execute started."); render();
       startTimer();
     }, 3400);
@@ -380,9 +426,11 @@
     interval = setInterval(() => {
       if(state !== "EXECUTE" && state !== "ADJUST") return;
 
+      // Progress model
       progress = Math.min(100, progress + 1.35);
       minutesLeft = Math.max(0, Math.round((100 - progress) * 0.78));
 
+      // Occasional adjustment events
       if (Math.random() < 0.10){
         setState("ADJUST");
         log("Micro-adjust: zone pressure redistributed (clarity feedback).");
@@ -394,13 +442,11 @@
         setState("COMPLETE");
         log("Cycle complete. Cooldown and safe-unload check.");
         render();
-
         setTimeout(() => {
           if(state!=="COMPLETE") return;
           setState("REPORT");
           log("Report generated: efficiency + health checks.");
           render();
-
           setTimeout(() => {
             if(state!=="REPORT") return;
             setState("IDLE");
@@ -413,7 +459,6 @@
       render();
     }, 700);
   }
-
   function stopTimer(){
     if(interval){ clearInterval(interval); interval = null; }
   }
@@ -425,7 +470,100 @@
     render();
   }
 
+  function render(){
+    // WHAT THE AI SAW
+    if(state === "IDLE"){
+      sawTitle.textContent = "Waiting for load";
+      sawSub.textContent = "Close door to begin Scan.";
+      clearTags(sawTags);
+      sawTags.appendChild(tagEl("AI Vision Ready","gold"));
+      sawTags.appendChild(tagEl("Sensors Idle"));
+    } else if(["SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      sawTitle.textContent = "Load detected";
+      sawSub.textContent = perception.items.join(" • ");
+      clearTags(sawTags);
+      perception.tags.forEach(t => sawTags.appendChild(tagEl(t, t.includes("High") ? "gold" : "")));
+      perception.materials.forEach(m => sawTags.appendChild(tagEl("Material: " + m)));
+    } else if(state === "ERROR"){
+      sawTitle.textContent = "Attention required";
+      sawSub.textContent = "Resolve the error to retry.";
+      clearTags(sawTags);
+      sawTags.appendChild(tagEl("Fault state","bad"));
+    }
+
+    // WHY IT DECIDED
+    if(["IDLE","SCAN","CLASSIFY"].includes(state)){
+      decideTitle.textContent = "No plan yet";
+      decideSub.textContent = "Planning begins after Classify.";
+      clearTags(decideTags);
+      decideTags.appendChild(tagEl("Autonomy: Pending"));
+    } else if(["DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      const plan = computePlan();
+      decideTitle.textContent = plan.cycle;
+      decideSub.textContent = plan.whyLine;
+      clearTags(decideTags);
+      plan.whyTags.forEach(t => decideTags.appendChild(tagEl(t,"gold")));
+      decideTags.appendChild(tagEl("Nudge: " + (nudge || "None")));
+    } else if(state === "ERROR"){
+      decideTitle.textContent = "Plan halted";
+      decideSub.textContent = "Safety stop engaged.";
+      clearTags(decideTags);
+      decideTags.appendChild(tagEl("Safety stop","bad"));
+    }
+
+    // LIVE EXECUTION
+    if(["EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      progressFill.style.width = progress.toFixed(0) + "%";
+      timeLeft.textContent = formatTime(minutesLeft);
+      clearTags(liveTags);
+      const plan = computePlan();
+      plan.live.forEach(x => liveTags.appendChild(tagEl(x, "gold")));
+      liveTags.appendChild(tagEl("Progress: " + progress.toFixed(0) + "%"));
+      if(state === "ADJUST") liveTags.appendChild(tagEl("Adaptive correction active","gold"));
+      if(state === "COMPLETE") liveTags.appendChild(tagEl("Unload Safe Check","ok"));
+      if(state === "REPORT") liveTags.appendChild(tagEl("Report Ready","ok"));
+    } else {
+      progressFill.style.width = "0%";
+      timeLeft.textContent = "--:--";
+      clearTags(liveTags);
+      liveTags.appendChild(tagEl("Zones: Inactive"));
+      liveTags.appendChild(tagEl("Brush: Standby"));
+      liveTags.appendChild(tagEl("Thermal: Standby"));
+    }
+
+    // KPIs (simple demonstration model)
+    if(["LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+      const plan = computePlan();
+      const clean = plan.kpis.clean;
+      const water = plan.kpis.water;
+      const energy = plan.kpis.energy;
+
+      kpiClean.textContent = clean + "%";
+      kpiCleanSub.textContent = (clean >= 90) ? "High confidence" : "Moderate confidence";
+
+      kpiWater.textContent = water + "%";
+      kpiWaterSub.textContent = "Reduction via zone targeting";
+
+      kpiEnergy.textContent = energy + "%";
+      kpiEnergySub.textContent = "Reduction via orchestration";
+
+      kpiProtect.textContent = "ON";
+      kpiProtectSub.textContent = "Load stabilized + glass rules active";
+    } else if(state === "ERROR"){
+      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
+      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Not available";
+      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Not available";
+      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Not available";
+    } else {
+      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
+      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Zone plan inactive";
+      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Orchestration idle";
+      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Locks not engaged";
+    }
+  }
+
   function computePlan(){
+    // Apply nudges to base plan for demonstration
     let cycle = planBase.cycle;
     let why = [...planBase.why];
     let live = [...planBase.live];
@@ -466,92 +604,11 @@
     const m = Math.max(0, mins);
     const hh = Math.floor(m / 60);
     const mm = m % 60;
-    return (hh <= 0) ? `0:${String(mm).padStart(2,"0")}` : `${hh}:${String(mm).padStart(2,"0")}`;
+    if(hh <= 0) return `0:${String(mm).padStart(2,"0")}`;
+    return `${hh}:${String(mm).padStart(2,"0")}`;
   }
 
-  function render(){
-    // What the AI saw
-    if(state === "IDLE"){
-      sawTitle.textContent = "Waiting for load";
-      sawSub.textContent = "Close door to begin Scan.";
-      clearTags(sawTags);
-      sawTags.appendChild(tagEl("AI Vision Ready","gold"));
-      sawTags.appendChild(tagEl("Sensors Idle"));
-    } else if(state !== "ERROR"){
-      sawTitle.textContent = "Load detected";
-      sawSub.textContent = perception.items.join(" • ");
-      clearTags(sawTags);
-      perception.tags.forEach(t => sawTags.appendChild(tagEl(t, t.includes("High") ? "gold" : "")));
-      perception.materials.forEach(m => sawTags.appendChild(tagEl("Material: " + m)));
-    } else {
-      sawTitle.textContent = "Attention required";
-      sawSub.textContent = "Resolve the error to retry.";
-      clearTags(sawTags);
-      sawTags.appendChild(tagEl("Fault state","bad"));
-    }
-
-    // Why it decided
-    if(["IDLE","SCAN","CLASSIFY"].includes(state)){
-      decideTitle.textContent = "No plan yet";
-      decideSub.textContent = "Planning begins after Classify.";
-      clearTags(decideTags);
-      decideTags.appendChild(tagEl("Autonomy: Pending"));
-    } else if(state !== "ERROR"){
-      const plan = computePlan();
-      decideTitle.textContent = plan.cycle;
-      decideSub.textContent = plan.whyLine;
-      clearTags(decideTags);
-      plan.whyTags.forEach(t => decideTags.appendChild(tagEl(t,"gold")));
-      decideTags.appendChild(tagEl("Nudge: " + (nudge || "None")));
-    } else {
-      decideTitle.textContent = "Plan halted";
-      decideSub.textContent = "Safety stop engaged.";
-      clearTags(decideTags);
-      decideTags.appendChild(tagEl("Safety stop","bad"));
-    }
-
-    // Live execution
-    if(["EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      progressFill.style.width = progress.toFixed(0) + "%";
-      timeLeft.textContent = formatTime(minutesLeft);
-      clearTags(liveTags);
-      const plan = computePlan();
-      plan.live.forEach(x => liveTags.appendChild(tagEl(x, "gold")));
-      liveTags.appendChild(tagEl("Progress: " + progress.toFixed(0) + "%"));
-      if(state === "ADJUST") liveTags.appendChild(tagEl("Adaptive correction active","gold"));
-      if(state === "COMPLETE") liveTags.appendChild(tagEl("Unload Safe Check","ok"));
-      if(state === "REPORT") liveTags.appendChild(tagEl("Report Ready","ok"));
-    } else {
-      progressFill.style.width = "0%";
-      timeLeft.textContent = "--:--";
-      clearTags(liveTags);
-      liveTags.appendChild(tagEl("Zones: Inactive"));
-      liveTags.appendChild(tagEl("Brush: Standby"));
-      liveTags.appendChild(tagEl("Thermal: Standby"));
-    }
-
-    // KPIs
-    if(["LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      const plan = computePlan();
-      kpiClean.textContent = plan.kpis.clean + "%";
-      kpiCleanSub.textContent = (plan.kpis.clean >= 90) ? "High confidence" : "Moderate confidence";
-
-      kpiWater.textContent = plan.kpis.water + "%";
-      kpiWaterSub.textContent = "Reduction via zone targeting";
-
-      kpiEnergy.textContent = plan.kpis.energy + "%";
-      kpiEnergySub.textContent = "Reduction via orchestration";
-
-      kpiProtect.textContent = "ON";
-      kpiProtectSub.textContent = "Load stabilized + glass rules active";
-    } else {
-      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
-      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Zone plan inactive";
-      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Orchestration idle";
-      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Locks not engaged";
-    }
-  }
-
+  // Initial render
   log("UI loaded. Ready.");
   render();
 })();

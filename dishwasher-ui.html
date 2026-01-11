@@ -1,11 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Omnimorpha AI Dishwasher — Explanatory UI</title>
+
+  <!-- Global site styles (kept) -->
+  <link rel="stylesheet" href="styles.css">
+
   <style>
+    /* --- UI page isolation (prevents styles.css from making it "blank") --- */
+    html, body { height: 100%; }
+    body { margin: 0; }
+
+    /* ===== YOUR ORIGINAL UI CSS (unchanged, just guaranteed to apply) ===== */
     :root{
       --bg:#050607;
       --panel:#0b0d10;
@@ -21,13 +29,70 @@
     }
     *{box-sizing:border-box}
     body{
-      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* force your theme even if styles.css overrides body */
       background: radial-gradient(1200px 700px at 20% 10%, rgba(215,179,90,.14), transparent 55%),
                   radial-gradient(900px 600px at 80% 30%, rgba(255,221,136,.10), transparent 60%),
-                  var(--bg);
-      color:var(--txt);
+                  var(--bg) !important;
+      color:var(--txt) !important;
     }
+
+    /* ===== Site header (lightweight; won’t break your global header) ===== */
+    .uiTopbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(3,7,18,.78);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .uiTopbarInner{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 14px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .uiBrand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .uiBrand .logo{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.14em;
+      color: var(--gold2);
+      font-weight: 800;
+    }
+    .uiBrand .sub{
+      margin:0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .uiNav{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .uiNav a{
+      text-decoration:none;
+      font-size: 12px;
+      letter-spacing:.06em;
+      color: rgba(255,221,136,.90);
+      opacity:.9;
+      border:1px solid rgba(215,179,90,.25);
+      padding:8px 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .uiNav a:hover{ opacity: 1; border-color: rgba(215,179,90,.45); }
+
+    /* ===== Your original UI layout ===== */
     .wrap{
       max-width:1100px;
       margin:0 auto;
@@ -192,10 +257,30 @@
     @media (max-width: 920px){
       .wrap{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
+      .uiTopbarInner{padding: 12px 16px;}
+      .wrap{padding:16px}
     }
   </style>
 </head>
+
 <body>
+
+  <!-- Minimal Omnimorpha header so the page doesn't feel "blank" -->
+  <div class="uiTopbar">
+    <div class="uiTopbarInner">
+      <div class="uiBrand">
+        <div class="logo">OMNIMORPHA</div>
+        <div class="sub">AI Dishwasher — Explanatory UI</div>
+      </div>
+      <nav class="uiNav">
+        <a href="index.html">Home</a>
+        <a href="ai-dishwasher.html">Dishwasher</a>
+        <a href="#panel">UI Panel</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Your original UI markup (unchanged) -->
   <div class="wrap">
     <div class="hero" id="panel">
       <div class="heroTop">
@@ -244,7 +329,7 @@
       <div class="controls">
         <h2>Controls</h2>
         <div class="btnRow">
-          <button class="primary" id="btnStart">Load & Scan</button>
+          <button class="primary" id="btnStart">Load &amp; Scan</button>
           <button id="btnNudgeSpeed">Nudge: Speed</button>
           <button id="btnNudgeSilence">Nudge: Silence</button>
           <button id="btnNudgeDeep">Nudge: Deep Clean</button>
@@ -288,331 +373,324 @@
     </div>
   </div>
 
-<script>
-(function(){
-  // --------- State machine ----------
-  const STATES = ["IDLE","SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT","ERROR"];
-  let state = "IDLE";
-  let nudge = null; // "SPEED" | "SILENCE" | "DEEP"
-  let progress = 0; // 0..100
-  let minutesLeft = null;
-  let interval = null;
+  <!-- Your original script (unchanged) -->
+  <script>
+  (function(){
+    // --------- State machine ----------
+    const STATES = ["IDLE","SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT","ERROR"];
+    let state = "IDLE";
+    let nudge = null; // "SPEED" | "SILENCE" | "DEEP"
+    let progress = 0; // 0..100
+    let minutesLeft = null;
+    let interval = null;
 
-  // Simulated perception + plan results (replace later with real data)
-  const perception = {
-    items: ["Plates x6","Bowls x3","Glassware x4","Cookware x1"],
-    tags: ["Mixed Materials","High Grease Detected","Crowding: Medium"],
-    materials: ["Ceramic","Glass","Steel"]
-  };
-  const planBase = {
-    cycle: "DeepClean Adaptive™",
-    why: ["High grease detected","Mixed materials","Glass protection enabled"],
-    live: ["Zones: Upper+Lower","Brush: Inverted Focus","Thermal: Ramp → Hold"],
-    kpis: { clean: 92, water: 34, energy: 28 }
-  };
+    // Simulated perception + plan results (replace later with real data)
+    const perception = {
+      items: ["Plates x6","Bowls x3","Glassware x4","Cookware x1"],
+      tags: ["Mixed Materials","High Grease Detected","Crowding: Medium"],
+      materials: ["Ceramic","Glass","Steel"]
+    };
+    const planBase = {
+      cycle: "DeepClean Adaptive™",
+      why: ["High grease detected","Mixed materials","Glass protection enabled"],
+      live: ["Zones: Upper+Lower","Brush: Inverted Focus","Thermal: Ramp → Hold"],
+      kpis: { clean: 92, water: 34, energy: 28 }
+    };
 
-  // --------- DOM ----------
-  const stateLabel = document.getElementById("stateLabel");
-  const statusDot  = document.getElementById("statusDot");
+    // --------- DOM ----------
+    const stateLabel = document.getElementById("stateLabel");
+    const statusDot  = document.getElementById("statusDot");
 
-  const sawTitle = document.getElementById("sawTitle");
-  const sawSub   = document.getElementById("sawSub");
-  const sawTags  = document.getElementById("sawTags");
+    const sawTitle = document.getElementById("sawTitle");
+    const sawSub   = document.getElementById("sawSub");
+    const sawTags  = document.getElementById("sawTags");
 
-  const decideTitle = document.getElementById("decideTitle");
-  const decideSub   = document.getElementById("decideSub");
-  const decideTags  = document.getElementById("decideTags");
+    const decideTitle = document.getElementById("decideTitle");
+    const decideSub   = document.getElementById("decideSub");
+    const decideTags  = document.getElementById("decideTags");
 
-  const liveTags     = document.getElementById("liveTags");
-  const progressFill = document.getElementById("progressFill");
-  const timeLeft     = document.getElementById("timeLeft");
+    const liveTags     = document.getElementById("liveTags");
+    const progressFill = document.getElementById("progressFill");
+    const timeLeft     = document.getElementById("timeLeft");
 
-  const kpiClean = document.getElementById("kpiClean");
-  const kpiCleanSub = document.getElementById("kpiCleanSub");
-  const kpiWater = document.getElementById("kpiWater");
-  const kpiWaterSub = document.getElementById("kpiWaterSub");
-  const kpiEnergy = document.getElementById("kpiEnergy");
-  const kpiEnergySub = document.getElementById("kpiEnergySub");
-  const kpiProtect = document.getElementById("kpiProtect");
-  const kpiProtectSub = document.getElementById("kpiProtectSub");
+    const kpiClean = document.getElementById("kpiClean");
+    const kpiCleanSub = document.getElementById("kpiCleanSub");
+    const kpiWater = document.getElementById("kpiWater");
+    const kpiWaterSub = document.getElementById("kpiWaterSub");
+    const kpiEnergy = document.getElementById("kpiEnergy");
+    const kpiEnergySub = document.getElementById("kpiEnergySub");
+    const kpiProtect = document.getElementById("kpiProtect");
+    const kpiProtectSub = document.getElementById("kpiProtectSub");
 
-  const logList = document.getElementById("logList");
+    const logList = document.getElementById("logList");
 
-  // Buttons
-  document.getElementById("btnStart").addEventListener("click", () => startCycle());
-  document.getElementById("btnAbort").addEventListener("click", () => toError("Aborted by user"));
-  document.getElementById("btnNudgeSpeed").addEventListener("click", () => setNudge("SPEED"));
-  document.getElementById("btnNudgeSilence").addEventListener("click", () => setNudge("SILENCE"));
-  document.getElementById("btnNudgeDeep").addEventListener("click", () => setNudge("DEEP"));
+    // Buttons
+    document.getElementById("btnStart").addEventListener("click", () => startCycle());
+    document.getElementById("btnAbort").addEventListener("click", () => toError("Aborted by user"));
+    document.getElementById("btnNudgeSpeed").addEventListener("click", () => setNudge("SPEED"));
+    document.getElementById("btnNudgeSilence").addEventListener("click", () => setNudge("SILENCE"));
+    document.getElementById("btnNudgeDeep").addEventListener("click", () => setNudge("DEEP"));
 
-  function tagEl(text, cls){
-    const d = document.createElement("div");
-    d.className = "tag" + (cls ? (" " + cls) : "");
-    d.textContent = text;
-    return d;
-  }
-  function log(msg){
-    const t = new Date();
-    const hh = String(t.getHours()).padStart(2,"0");
-    const mm = String(t.getMinutes()).padStart(2,"0");
-    const li = document.createElement("li");
-    li.className = "logItem";
-    li.innerHTML = `<div class="time">${hh}:${mm}</div><div class="msg">${escapeHtml(msg)}</div>`;
-    logList.prepend(li);
-  }
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-  }
-
-  function setState(next){
-    state = next;
-    stateLabel.textContent = prettyState(next);
-    statusDot.style.background = (next === "ERROR") ? "var(--bad)" : "var(--gold)";
-    statusDot.style.boxShadow = (next === "ERROR")
-      ? "0 0 0 4px rgba(255,91,91,.12)"
-      : "0 0 0 4px rgba(215,179,90,.12)";
-  }
-  function prettyState(s){
-    switch(s){
-      case "IDLE": return "Idle";
-      case "SCAN": return "Scanning";
-      case "CLASSIFY": return "Classifying";
-      case "DECIDE": return "Deciding";
-      case "LOCK": return "Locking Load";
-      case "EXECUTE": return "Washing";
-      case "ADJUST": return "Adjusting";
-      case "COMPLETE": return "Complete";
-      case "REPORT": return "Report";
-      case "ERROR": return "Error";
-      default: return s;
+    function tagEl(text, cls){
+      const d = document.createElement("div");
+      d.className = "tag" + (cls ? (" " + cls) : "");
+      d.textContent = text;
+      return d;
     }
-  }
-
-  function clearTags(node){ while(node.firstChild) node.removeChild(node.firstChild); }
-
-  function setNudge(type){
-    // Policy: nudges apply pre-EXECUTE; during EXECUTE only SILENCE allowed.
-    if (state === "EXECUTE" && type !== "SILENCE"){
-      log(`Nudge ignored during Execute: ${type} (safety policy)`);
-      return;
+    function log(msg){
+      const t = new Date();
+      const hh = String(t.getHours()).padStart(2,"0");
+      const mm = String(t.getMinutes()).padStart(2,"0");
+      const li = document.createElement("li");
+      li.className = "logItem";
+      li.innerHTML = `<div class="time">${hh}:${mm}</div><div class="msg">${escapeHtml(msg)}</div>`;
+      logList.prepend(li);
     }
-    nudge = type;
-    log(`User nudge set: ${type}`);
-    render();
-  }
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+    }
 
-  function startCycle(){
-    stopTimer();
-    nudge = null;
-    progress = 0;
-    minutesLeft = 78;
-    log("Door closed. Starting Scan.");
-    setState("SCAN");
-    render();
-
-    // Simulated pipeline timing
-    setTimeout(() => { if(state!=="SCAN") return; setState("CLASSIFY"); log("Scan acquired. Classifying load."); render(); }, 900);
-    setTimeout(() => { if(state!=="CLASSIFY") return; setState("DECIDE"); log("Classification complete. Generating plan."); render(); }, 1700);
-    setTimeout(() => { if(state!=="DECIDE") return; setState("LOCK"); log("Plan locked. Stabilizing dishes before high-torque wash."); render(); }, 2500);
-    setTimeout(() => {
-      if(state!=="LOCK") return;
-      // Simulate lock success
-      setState("EXECUTE"); log("Locks engaged. Execute started."); render();
-      startTimer();
-    }, 3400);
-  }
-
-  function startTimer(){
-    stopTimer();
-    interval = setInterval(() => {
-      if(state !== "EXECUTE" && state !== "ADJUST") return;
-
-      // Progress model
-      progress = Math.min(100, progress + 1.35);
-      minutesLeft = Math.max(0, Math.round((100 - progress) * 0.78));
-
-      // Occasional adjustment events
-      if (Math.random() < 0.10){
-        setState("ADJUST");
-        log("Micro-adjust: zone pressure redistributed (clarity feedback).");
-        setTimeout(() => { if(state==="ADJUST") setState("EXECUTE"); render(); }, 700);
+    function setState(next){
+      state = next;
+      stateLabel.textContent = prettyState(next);
+      statusDot.style.background = (next === "ERROR") ? "var(--bad)" : "var(--gold)";
+      statusDot.style.boxShadow = (next === "ERROR")
+        ? "0 0 0 4px rgba(255,91,91,.12)"
+        : "0 0 0 4px rgba(215,179,90,.12)";
+    }
+    function prettyState(s){
+      switch(s){
+        case "IDLE": return "Idle";
+        case "SCAN": return "Scanning";
+        case "CLASSIFY": return "Classifying";
+        case "DECIDE": return "Deciding";
+        case "LOCK": return "Locking Load";
+        case "EXECUTE": return "Washing";
+        case "ADJUST": return "Adjusting";
+        case "COMPLETE": return "Complete";
+        case "REPORT": return "Report";
+        case "ERROR": return "Error";
+        default: return s;
       }
+    }
 
-      if(progress >= 100){
-        stopTimer();
-        setState("COMPLETE");
-        log("Cycle complete. Cooldown and safe-unload check.");
-        render();
-        setTimeout(() => {
-          if(state!=="COMPLETE") return;
-          setState("REPORT");
-          log("Report generated: efficiency + health checks.");
+    function clearTags(node){ while(node.firstChild) node.removeChild(node.firstChild); }
+
+    function setNudge(type){
+      // Policy: nudges apply pre-EXECUTE; during EXECUTE only SILENCE allowed.
+      if (state === "EXECUTE" && type !== "SILENCE"){
+        log(`Nudge ignored during Execute: ${type} (safety policy)`);
+        return;
+      }
+      nudge = type;
+      log(`User nudge set: ${type}`);
+      render();
+    }
+
+    function startCycle(){
+      stopTimer();
+      nudge = null;
+      progress = 0;
+      minutesLeft = 78;
+      log("Door closed. Starting Scan.");
+      setState("SCAN");
+      render();
+
+      // Simulated pipeline timing
+      setTimeout(() => { if(state!=="SCAN") return; setState("CLASSIFY"); log("Scan acquired. Classifying load."); render(); }, 900);
+      setTimeout(() => { if(state!=="CLASSIFY") return; setState("DECIDE"); log("Classification complete. Generating plan."); render(); }, 1700);
+      setTimeout(() => { if(state!=="DECIDE") return; setState("LOCK"); log("Plan locked. Stabilizing dishes before high-torque wash."); render(); }, 2500);
+      setTimeout(() => {
+        if(state!=="LOCK") return;
+        setState("EXECUTE"); log("Locks engaged. Execute started."); render();
+        startTimer();
+      }, 3400);
+    }
+
+    function startTimer(){
+      stopTimer();
+      interval = setInterval(() => {
+        if(state !== "EXECUTE" && state !== "ADJUST") return;
+
+        progress = Math.min(100, progress + 1.35);
+        minutesLeft = Math.max(0, Math.round((100 - progress) * 0.78));
+
+        if (Math.random() < 0.10){
+          setState("ADJUST");
+          log("Micro-adjust: zone pressure redistributed (clarity feedback).");
+          setTimeout(() => { if(state==="ADJUST") setState("EXECUTE"); render(); }, 700);
+        }
+
+        if(progress >= 100){
+          stopTimer();
+          setState("COMPLETE");
+          log("Cycle complete. Cooldown and safe-unload check.");
           render();
           setTimeout(() => {
-            if(state!=="REPORT") return;
-            setState("IDLE");
-            log("Returned to Idle.");
+            if(state!=="COMPLETE") return;
+            setState("REPORT");
+            log("Report generated: efficiency + health checks.");
             render();
-          }, 2600);
-        }, 1600);
+            setTimeout(() => {
+              if(state!=="REPORT") return;
+              setState("IDLE");
+              log("Returned to Idle.");
+              render();
+            }, 2600);
+          }, 1600);
+        }
+
+        render();
+      }, 700);
+    }
+    function stopTimer(){
+      if(interval){ clearInterval(interval); interval = null; }
+    }
+
+    function toError(reason){
+      stopTimer();
+      setState("ERROR");
+      log(`ERROR: ${reason}`);
+      render();
+    }
+
+    function render(){
+      if(state === "IDLE"){
+        sawTitle.textContent = "Waiting for load";
+        sawSub.textContent = "Close door to begin Scan.";
+        clearTags(sawTags);
+        sawTags.appendChild(tagEl("AI Vision Ready","gold"));
+        sawTags.appendChild(tagEl("Sensors Idle"));
+      } else if(["SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+        sawTitle.textContent = "Load detected";
+        sawSub.textContent = perception.items.join(" • ");
+        clearTags(sawTags);
+        perception.tags.forEach(t => sawTags.appendChild(tagEl(t, t.includes("High") ? "gold" : "")));
+        perception.materials.forEach(m => sawTags.appendChild(tagEl("Material: " + m)));
+      } else if(state === "ERROR"){
+        sawTitle.textContent = "Attention required";
+        sawSub.textContent = "Resolve the error to retry.";
+        clearTags(sawTags);
+        sawTags.appendChild(tagEl("Fault state","bad"));
       }
 
-      render();
-    }, 700);
-  }
-  function stopTimer(){
-    if(interval){ clearInterval(interval); interval = null; }
-  }
+      if(["IDLE","SCAN","CLASSIFY"].includes(state)){
+        decideTitle.textContent = "No plan yet";
+        decideSub.textContent = "Planning begins after Classify.";
+        clearTags(decideTags);
+        decideTags.appendChild(tagEl("Autonomy: Pending"));
+      } else if(["DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+        const plan = computePlan();
+        decideTitle.textContent = plan.cycle;
+        decideSub.textContent = plan.whyLine;
+        clearTags(decideTags);
+        plan.whyTags.forEach(t => decideTags.appendChild(tagEl(t,"gold")));
+        decideTags.appendChild(tagEl("Nudge: " + (nudge || "None")));
+      } else if(state === "ERROR"){
+        decideTitle.textContent = "Plan halted";
+        decideSub.textContent = "Safety stop engaged.";
+        clearTags(decideTags);
+        decideTags.appendChild(tagEl("Safety stop","bad"));
+      }
 
-  function toError(reason){
-    stopTimer();
-    setState("ERROR");
-    log(`ERROR: ${reason}`);
+      if(["EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+        progressFill.style.width = progress.toFixed(0) + "%";
+        timeLeft.textContent = formatTime(minutesLeft);
+        clearTags(liveTags);
+        const plan = computePlan();
+        plan.live.forEach(x => liveTags.appendChild(tagEl(x, "gold")));
+        liveTags.appendChild(tagEl("Progress: " + progress.toFixed(0) + "%"));
+        if(state === "ADJUST") liveTags.appendChild(tagEl("Adaptive correction active","gold"));
+        if(state === "COMPLETE") liveTags.appendChild(tagEl("Unload Safe Check","ok"));
+        if(state === "REPORT") liveTags.appendChild(tagEl("Report Ready","ok"));
+      } else {
+        progressFill.style.width = "0%";
+        timeLeft.textContent = "--:--";
+        clearTags(liveTags);
+        liveTags.appendChild(tagEl("Zones: Inactive"));
+        liveTags.appendChild(tagEl("Brush: Standby"));
+        liveTags.appendChild(tagEl("Thermal: Standby"));
+      }
+
+      if(["LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
+        const plan = computePlan();
+        const clean = plan.kpis.clean;
+        const water = plan.kpis.water;
+        const energy = plan.kpis.energy;
+
+        kpiClean.textContent = clean + "%";
+        kpiCleanSub.textContent = (clean >= 90) ? "High confidence" : "Moderate confidence";
+
+        kpiWater.textContent = water + "%";
+        kpiWaterSub.textContent = "Reduction via zone targeting";
+
+        kpiEnergy.textContent = energy + "%";
+        kpiEnergySub.textContent = "Reduction via orchestration";
+
+        kpiProtect.textContent = "ON";
+        kpiProtectSub.textContent = "Load stabilized + glass rules active";
+      } else if(state === "ERROR"){
+        kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
+        kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Not available";
+        kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Not available";
+        kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Not available";
+      } else {
+        kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
+        kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Zone plan inactive";
+        kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Orchestration idle";
+        kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Locks not engaged";
+      }
+    }
+
+    function computePlan(){
+      let cycle = planBase.cycle;
+      let why = [...planBase.why];
+      let live = [...planBase.live];
+      let k = {...planBase.kpis};
+
+      if(nudge === "SPEED"){
+        cycle = "QuickClean Adaptive™";
+        why.unshift("Speed priority selected");
+        live = live.map(s => s.includes("Thermal") ? "Thermal: Fast Ramp" : s);
+        k.clean = Math.max(86, k.clean - 6);
+        k.water = Math.max(22, k.water - 6);
+        k.energy = Math.max(18, k.energy - 4);
+      }
+      if(nudge === "SILENCE"){
+        why.unshift("Silence priority selected");
+        live = live.map(s => s.includes("Brush") ? "Brush: Low Noise Profile" : s);
+        k.energy = Math.max(20, k.energy - 2);
+      }
+      if(nudge === "DEEP"){
+        why.unshift("Deep clean priority selected");
+        live = live.map(s => s.includes("Zones") ? "Zones: Multi-Pass Targeting" : s);
+        k.clean = Math.min(97, k.clean + 3);
+        k.water = Math.min(42, k.water + 6);
+        k.energy = Math.min(36, k.energy + 5);
+      }
+
+      return {
+        cycle,
+        whyLine: why.slice(0,3).join(" • "),
+        whyTags: why.slice(0,3),
+        live,
+        kpis: k
+      };
+    }
+
+    function formatTime(mins){
+      if(mins == null) return "--:--";
+      const m = Math.max(0, mins);
+      const hh = Math.floor(m / 60);
+      const mm = m % 60;
+      if(hh <= 0) return `0:${String(mm).padStart(2,"0")}`;
+      return `${hh}:${String(mm).padStart(2,"0")}`;
+    }
+
+    log("UI loaded. Ready.");
     render();
-  }
+  })();
+  </script>
 
-  function render(){
-    // WHAT THE AI SAW
-    if(state === "IDLE"){
-      sawTitle.textContent = "Waiting for load";
-      sawSub.textContent = "Close door to begin Scan.";
-      clearTags(sawTags);
-      sawTags.appendChild(tagEl("AI Vision Ready","gold"));
-      sawTags.appendChild(tagEl("Sensors Idle"));
-    } else if(["SCAN","CLASSIFY","DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      sawTitle.textContent = "Load detected";
-      sawSub.textContent = perception.items.join(" • ");
-      clearTags(sawTags);
-      perception.tags.forEach(t => sawTags.appendChild(tagEl(t, t.includes("High") ? "gold" : "")));
-      perception.materials.forEach(m => sawTags.appendChild(tagEl("Material: " + m)));
-    } else if(state === "ERROR"){
-      sawTitle.textContent = "Attention required";
-      sawSub.textContent = "Resolve the error to retry.";
-      clearTags(sawTags);
-      sawTags.appendChild(tagEl("Fault state","bad"));
-    }
-
-    // WHY IT DECIDED
-    if(["IDLE","SCAN","CLASSIFY"].includes(state)){
-      decideTitle.textContent = "No plan yet";
-      decideSub.textContent = "Planning begins after Classify.";
-      clearTags(decideTags);
-      decideTags.appendChild(tagEl("Autonomy: Pending"));
-    } else if(["DECIDE","LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      const plan = computePlan();
-      decideTitle.textContent = plan.cycle;
-      decideSub.textContent = plan.whyLine;
-      clearTags(decideTags);
-      plan.whyTags.forEach(t => decideTags.appendChild(tagEl(t,"gold")));
-      decideTags.appendChild(tagEl("Nudge: " + (nudge || "None")));
-    } else if(state === "ERROR"){
-      decideTitle.textContent = "Plan halted";
-      decideSub.textContent = "Safety stop engaged.";
-      clearTags(decideTags);
-      decideTags.appendChild(tagEl("Safety stop","bad"));
-    }
-
-    // LIVE EXECUTION
-    if(["EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      progressFill.style.width = progress.toFixed(0) + "%";
-      timeLeft.textContent = formatTime(minutesLeft);
-      clearTags(liveTags);
-      const plan = computePlan();
-      plan.live.forEach(x => liveTags.appendChild(tagEl(x, "gold")));
-      liveTags.appendChild(tagEl("Progress: " + progress.toFixed(0) + "%"));
-      if(state === "ADJUST") liveTags.appendChild(tagEl("Adaptive correction active","gold"));
-      if(state === "COMPLETE") liveTags.appendChild(tagEl("Unload Safe Check","ok"));
-      if(state === "REPORT") liveTags.appendChild(tagEl("Report Ready","ok"));
-    } else {
-      progressFill.style.width = "0%";
-      timeLeft.textContent = "--:--";
-      clearTags(liveTags);
-      liveTags.appendChild(tagEl("Zones: Inactive"));
-      liveTags.appendChild(tagEl("Brush: Standby"));
-      liveTags.appendChild(tagEl("Thermal: Standby"));
-    }
-
-    // KPIs (simple demonstration model)
-    if(["LOCK","EXECUTE","ADJUST","COMPLETE","REPORT"].includes(state)){
-      const plan = computePlan();
-      const clean = plan.kpis.clean;
-      const water = plan.kpis.water;
-      const energy = plan.kpis.energy;
-
-      kpiClean.textContent = clean + "%";
-      kpiCleanSub.textContent = (clean >= 90) ? "High confidence" : "Moderate confidence";
-
-      kpiWater.textContent = water + "%";
-      kpiWaterSub.textContent = "Reduction via zone targeting";
-
-      kpiEnergy.textContent = energy + "%";
-      kpiEnergySub.textContent = "Reduction via orchestration";
-
-      kpiProtect.textContent = "ON";
-      kpiProtectSub.textContent = "Load stabilized + glass rules active";
-    } else if(state === "ERROR"){
-      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
-      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Not available";
-      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Not available";
-      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Not available";
-    } else {
-      kpiClean.textContent = "--%"; kpiCleanSub.textContent = "Not available";
-      kpiWater.textContent = "--%"; kpiWaterSub.textContent = "Zone plan inactive";
-      kpiEnergy.textContent = "--%"; kpiEnergySub.textContent = "Orchestration idle";
-      kpiProtect.textContent = "OFF"; kpiProtectSub.textContent = "Locks not engaged";
-    }
-  }
-
-  function computePlan(){
-    // Apply nudges to base plan for demonstration
-    let cycle = planBase.cycle;
-    let why = [...planBase.why];
-    let live = [...planBase.live];
-    let k = {...planBase.kpis};
-
-    if(nudge === "SPEED"){
-      cycle = "QuickClean Adaptive™";
-      why.unshift("Speed priority selected");
-      live = live.map(s => s.includes("Thermal") ? "Thermal: Fast Ramp" : s);
-      k.clean = Math.max(86, k.clean - 6);
-      k.water = Math.max(22, k.water - 6);
-      k.energy = Math.max(18, k.energy - 4);
-    }
-    if(nudge === "SILENCE"){
-      why.unshift("Silence priority selected");
-      live = live.map(s => s.includes("Brush") ? "Brush: Low Noise Profile" : s);
-      k.energy = Math.max(20, k.energy - 2);
-    }
-    if(nudge === "DEEP"){
-      why.unshift("Deep clean priority selected");
-      live = live.map(s => s.includes("Zones") ? "Zones: Multi-Pass Targeting" : s);
-      k.clean = Math.min(97, k.clean + 3);
-      k.water = Math.min(42, k.water + 6);
-      k.energy = Math.min(36, k.energy + 5);
-    }
-
-    return {
-      cycle,
-      whyLine: why.slice(0,3).join(" • "),
-      whyTags: why.slice(0,3),
-      live,
-      kpis: k
-    };
-  }
-
-  function formatTime(mins){
-    if(mins == null) return "--:--";
-    const m = Math.max(0, mins);
-    const hh = Math.floor(m / 60);
-    const mm = m % 60;
-    if(hh <= 0) return `0:${String(mm).padStart(2,"0")}`;
-    return `${hh}:${String(mm).padStart(2,"0")}`;
-  }
-
-  // Initial render
-  log("UI loaded. Ready.");
-  render();
-})();
-</script>
 </body>
 </html>

@@ -551,6 +551,7 @@
       stopTimer();
       setState("ERROR");
       log(`ERROR: ${reason}`);
+      
       render();
     }
 
@@ -689,6 +690,7 @@
 
     log("UI loaded. Ready.");
     render();
+    startCycle();
   })();
   </script>
 

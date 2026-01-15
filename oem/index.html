@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Omnimorpha Kitchen AI — OEM Access</title>
+  <style>
+    :root{
+      --bg:#050607;
+      --panel:#0b0d10;
+      --panel2:#0f1318;
+      --line:rgba(255,255,255,.10);
+      --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.65);
+      --gold:#d7b35a;
+      --gold2:#ffdd88;
+      --ok:#69f0ae;
+      --bad:#ff5b5b;
+      --radius:18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--txt);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(215,179,90,.14), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,221,136,.10), transparent 60%),
+        linear-gradient(180deg, #040506 0%, #07090b 100%);
+    }
+    a{color:inherit}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    .top{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(15,19,24,.92), rgba(11,13,16,.92));
+      box-shadow:var(--shadow);
+    }
+    .brand{display:flex;flex-direction:column;gap:4px}
+    .brand b{font-size:18px;letter-spacing:.2px}
+    .brand span{color:var(--muted);font-size:12px}
+    .pillrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+    .pill{
+      padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;
+      cursor:pointer;user-select:none;
+    }
+    .pill.active{border-color:rgba(215,179,90,.45);color:var(--txt);background:rgba(215,179,90,.10)}
+    .hero{margin-top:18px;padding:22px 18px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(11,13,16,.78)}
+    h1{margin:0 0 8px;font-size:28px;line-height:1.15}
+    .sub{color:var(--muted);max-width:820px}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
+    @media (max-width: 860px){.grid{grid-template-columns:1fr}}
+    .card{
+      border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(15,19,24,.82), rgba(11,13,16,.82));
+      padding:16px 16px 14px;
+    }
+    .card h2{margin:0 0 10px;font-size:14px;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+    .list{margin:0;padding-left:18px;color:rgba(255,255,255,.86)}
+    .list li{margin:6px 0}
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      border:1px solid rgba(215,179,90,.40);
+      background:rgba(215,179,90,.10);
+      padding:10px 12px;border-radius:12px;
+      font-weight:600;font-size:13px;cursor:pointer;
+    }
+    .btn.secondary{
+      border-color:var(--line);background:rgba(255,255,255,.04);color:var(--txt);
+    }
+    .note{margin-top:10px;color:var(--muted);font-size:12px}
+    .divider{height:1px;background:var(--line);margin:14px 0}
+    .gate{
+      margin-top:14px;padding:14px 16px;border-radius:var(--radius);
+      border:1px dashed rgba(215,179,90,.45);background:rgba(215,179,90,.06);
+    }
+    .gatehead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .status{font-family:var(--mono);font-size:12px;color:var(--muted)}
+    .status.ok{color:var(--ok)}
+    .status.bad{color:var(--bad)}
+    .foot{margin-top:18px;color:var(--muted);font-size:12px}
+    .small{font-size:12px;color:var(--muted)}
+    .dl a{
+      display:block;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+      text-decoration:none;
+      margin:8px 0;
+    }
+    .dl a:hover{border-color:rgba(215,179,90,.35)}
+    .lockline{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center}
+    input[type="password"]{
+      flex:1;min-width:220px;
+      padding:10px 12px;border-radius:12px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03);
+      color:var(--txt);outline:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <b>Omnimorpha Kitchen AI</b>
+        <span>Private OEM Access • NDA-gated materials</span>
+      </div>
+      <div class="pillrow" id="regionPills">
+        <div class="pill" data-region="global">Global</div>
+        <div class="pill" data-region="asia">Asia</div>
+        <div class="pill" data-region="europe">Europe</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>OEM Integration Hub</h1>
+      <div class="sub">
+        Secure, certified AI integration for next-generation kitchen appliances — with strict IP boundaries.
+        Downloads unlock after NDA password entry.
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>What OEMs Get</h2>
+          <ul class="list">
+            <li>Clean, versioned APIs (no access to AI models or orchestration logic)</li>
+            <li>Tenant isolation, roles/scopes, audit logging, device attestation</li>
+            <li>Appliance certification: dishwasher, fridge, stove/oven, microwave</li>
+            <li>Standard onboarding: NDA → sandbox → certification → production</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <h2>Onboarding Flow</h2>
+          <ol class="list">
+            <li>NDA execution</li>
+            <li>OEM data room access</li>
+            <li>Sandbox evaluation</li>
+            <li>Appliance certification</li>
+            <li>Production enablement</li>
+          </ol>
+
+          <div class="btnrow">
+            <button class="btn secondary" id="copyLinkBtn">Copy regional link</button>
+            <button class="btn secondary" id="switchRegionBtn">Switch region</button>
+          </div>
+          <div class="note" id="regionNote"></div>
+        </div>
+
+        <div class="card">
+          <h2>Access Gate</h2>
+          <div class="small">Enter the NDA password to unlock downloads.</div>
+
+          <div class="gate">
+            <div class="gatehead">
+              <div><b>Locked Downloads</b></div>
+              <div class="status bad" id="gateStatus">LOCKED</div>
+            </div>
+
+            <div class="lockline">
+              <input id="pw" type="password" placeholder="Enter NDA password" autocomplete="off" />
+              <button class="btn" id="unlockBtn">Unlock</button>
+              <button class="btn secondary" id="lockBtn">Lock</button>
+            </div>
+
+            <div class="note">
+              Password is validated locally in the browser. For higher security, migrate to a server-side gate.
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h2>Downloads (Unlocked)</h2>
+          <div class="dl" id="downloads"></div>
+
+          <div class="foot">
+            Contact: <b>Courtney S. Linton</b> • Founder & Owner, Omnimorpha • <span class="small">www.omnimorpha.tech</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // ---------- CONFIG ----------
+  // Change this value before publishing:
+  // Tip: use a long passphrase rather than a short password.
+  const NDA_PASSWORD = "CHANGE_THIS_TO_YOUR_NDA_PASSWORD";
+
+  // PDF paths (relative to /oem/)
+  const ASSET = "./assets/";
+  const FILES = {
+    overview: "Omnimorpha_Investor_Overview_with_OEM_Appendix_A_B_C.pdf",
+    global:  "Omnimorpha_Kitchen_AI_OEM_One_Page.pdf",
+    asia:    "Omnimorpha_Kitchen_AI_OEM_One_Page_ASIA.pdf",
+    europe:  "Omnimorpha_Kitchen_AI_OEM_One_Page_EUROPE.pdf",
+  };
+
+  // ---------- REGION DETECTION ----------
+  function getQueryRegion(){
+    const p = new URLSearchParams(location.search);
+    const r = (p.get("region") || "").toLowerCase();
+    return ["asia","europe","global"].includes(r) ? r : null;
+  }
+
+  function detectRegion(){
+    const qr = getQueryRegion();
+    if (qr) return qr;
+
+    // Browser locale fallback: very simple mapping (safe & predictable)
+    const lang = (navigator.language || "").toLowerCase();
+
+    // Asia-ish locales (expand as needed)
+    const asia = ["zh","ja","ko","th","vi","id","ms","hi"];
+    if (asia.some(x => lang.startsWith(x))) return "asia";
+
+    // Europe-ish locales
+    const europe = ["de","fr","it","es","nl","sv","no","da","fi","pl","pt","cs","hu","ro","el"];
+    if (europe.some(x => lang.startsWith(x))) return "europe";
+
+    return "global";
+  }
+
+  // ---------- STATE ----------
+  const pills = document.querySelectorAll("#regionPills .pill");
+  const regionNote = document.getElementById("regionNote");
+  const downloads = document.getElementById("downloads");
+  const gateStatus = document.getElementById("gateStatus");
+  const pw = document.getElementById("pw");
+
+  let region = detectRegion();
+  let unlocked = false;
+
+  function setActivePill(){
+    pills.forEach(p => p.classList.toggle("active", p.dataset.region === region));
+  }
+
+  function regionLabel(r){
+    if (r === "asia") return "Asia";
+    if (r === "europe") return "Europe";
+    return "Global";
+  }
+
+  function buildDownloads(){
+    downloads.innerHTML = "";
+    if (!unlocked){
+      downloads.innerHTML = `<div class="small">Locked. Enter NDA password to view downloads.</div>`;
+      return;
+    }
+
+    const onePager = region === "asia" ? FILES.asia : (region === "europe" ? FILES.europe : FILES.global);
+
+    const items = [
+      { name: `Kitchen AI One-Pager (${regionLabel(region)})`, file: onePager },
+      { name: "Investor Overview + OEM Appendices (A–C)", file: FILES.overview },
+      { name: "Kitchen AI One-Pager (Global)", file: FILES.global },
+    ];
+
+    items.forEach(it => {
+      const a = document.createElement("a");
+      a.href = ASSET + it.file;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = it.name;
+      downloads.appendChild(a);
+    });
+  }
+
+  function setGateStatus(){
+    gateStatus.textContent = unlocked ? "UNLOCKED" : "LOCKED";
+    gateStatus.className = "status " + (unlocked ? "ok" : "bad");
+  }
+
+  function setRegionNote(){
+    const base = location.origin + location.pathname;
+    const link = `${base}?region=${region}`;
+    regionNote.textContent = `Region set to ${regionLabel(region)} • Link: ${link}`;
+  }
+
+  function setRegion(r){
+    region = r;
+    setActivePill();
+    setRegionNote();
+    buildDownloads();
+    // keep URL consistent
+    const url = new URL(location.href);
+    url.searchParams.set("region", region);
+    history.replaceState({}, "", url.toString());
+  }
+
+  // ---------- ACTIONS ----------
+  document.getElementById("unlockBtn").addEventListener("click", () => {
+    if ((pw.value || "") === NDA_PASSWORD){
+      unlocked = true;
+      setGateStatus();
+      buildDownloads();
+      pw.value = "";
+    } else {
+      unlocked = false;
+      setGateStatus();
+      buildDownloads();
+      alert("Incorrect password.");
+    }
+  });
+
+  document.getElementById("lockBtn").addEventListener("click", () => {
+    unlocked = false;
+    setGateStatus();
+    buildDownloads();
+  });
+
+  pills.forEach(p => p.addEventListener("click", () => setRegion(p.dataset.region)));
+
+  document.getElementById("copyLinkBtn").addEventListener("click", async () => {
+    const link = `${location.origin}${location.pathname}?region=${region}`;
+    try{
+      await navigator.clipboard.writeText(link);
+      alert("Regional link copied.");
+    } catch(e){
+      prompt("Copy this link:", link);
+    }
+  });
+
+  document.getElementById("switchRegionBtn").addEventListener("click", () => {
+    const next = region === "global" ? "asia" : (region === "asia" ? "europe" : "global");
+    setRegion(next);
+  });
+
+  // ---------- INIT ----------
+  setRegion(region);
+  setGateStatus();
+  buildDownloads();
+})();
+</script>
+</body>
+</html>

@@ -1,72 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>NEXUS AI Battery — Live Intelligence</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Load global + nexus styles -->
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="nexus.css">
+  <!-- Your global styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Minimal NEXUS-specific styling */
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .nexus-wrapper {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 2rem;
+      border: 1px solid #333;
+      background: linear-gradient(145deg, #0a0a0a, #000);
+      box-shadow: 0 0 30px rgba(245, 210, 125, 0.15);
+    }
+
+    .nexus-title {
+      color: #f5d27d;
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nexus-subtitle {
+      opacity: 0.85;
+      margin-bottom: 2rem;
+    }
+
+    .nexus-status {
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .nexus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .nexus-panel {
+      border: 1px solid #333;
+      padding: 1.25rem;
+      background: #0b0b0b;
+    }
+
+    .nexus-label {
+      color: #f5d27d;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    .nexus-value {
+      font-size: 1.4rem;
+    }
+
+    .nexus-reasoning {
+      margin-top: 2rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 
 <body>
 
-  <nav>
-    <div class="nexus-nav-left">
-      <a href="index.html">← Back to Omnimorpha</a>
+  <div class="nexus-wrapper">
+
+    <div class="nexus-status">
+      STATUS: <span id="connectionText">CONNECTING</span>
     </div>
 
-    <div class="nexus-nav-right">
-      <div class="nexus-pill">
-        <span class="nexus-dot"></span>
-        <span id="connectionText">CONNECTING</span>
-      </div>
-    </div>
-  </nav>
+    <h1 class="nexus-title">NEXUS AI BATTERY — LIVE INTELLIGENCE</h1>
+    <p class="nexus-subtitle">
+      Real-time system cognition streamed from the NEXUS core.
+    </p>
 
-  <!-- ✅ THIS IS WHERE YOUR LIVE INTELLIGENCE HTML GOES -->
-  <section class="section section-highlight" id="live">
-
-    <h2>NEXUS AI BATTERY — LIVE INTELLIGENCE</h2>
-    <p>Real-time system cognition streamed from the NEXUS core.</p>
-
-    <div class="nexus-kpis">
-      <div class="nexus-kpi">
-        <div class="nexus-kpi-label">Health</div>
-        <div class="nexus-kpi-value" id="health">—</div>
+    <div class="nexus-grid">
+      <div class="nexus-panel">
+        <div class="nexus-label">Health</div>
+        <div class="nexus-value" id="health">—</div>
       </div>
 
-      <div class="nexus-kpi">
-        <div class="nexus-kpi-label">Risk Index</div>
-        <div class="nexus-kpi-value" id="risk">—</div>
+      <div class="nexus-panel">
+        <div class="nexus-label">Risk Index</div>
+        <div class="nexus-value" id="risk">—</div>
       </div>
 
-      <div class="nexus-kpi">
-        <div class="nexus-kpi-label">Fleet Status</div>
-        <div class="nexus-kpi-value" id="fleet">—</div>
+      <div class="nexus-panel">
+        <div class="nexus-label">Fleet Status</div>
+        <div class="nexus-value" id="fleet">—</div>
       </div>
 
-      <div class="nexus-kpi">
-        <div class="nexus-kpi-label">Top Strategy</div>
-        <div class="nexus-kpi-value" id="topStrategy">—</div>
+      <div class="nexus-panel">
+        <div class="nexus-label">Top Strategy</div>
+        <div class="nexus-value" id="topStrategy">—</div>
       </div>
     </div>
 
-    <div class="nexus-panel" style="margin-top:1.5rem;">
-      <div class="nexus-kpi-label">Reasoning</div>
-      <div id="reasoning" class="nexus-muted" style="margin-top:.5rem;">
-        —
-      </div>
+    <div class="nexus-panel nexus-reasoning">
+      <div class="nexus-label">Reasoning</div>
+      <div id="reasoning">—</div>
     </div>
 
-  </section>
+  </div>
 
   <footer>
-    <p>© 2025 Omnimorpha — NEXUS (software-only • read-only)</p>
+    © 2025 Omnimorpha — NEXUS (software-only • read-only)
   </footer>
 
-  <!-- JS that fills in the values -->
+  <!-- THIS is what connects HTML → API -->
   <script src="dashboard.js"></script>
 
 </body>

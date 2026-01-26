@@ -1,16 +1,21 @@
 console.log("✅ dashboard.js loaded");
 
-const API_BASE = "https://api.omnimorpha.tech"; // if SSL ever hiccups, temporarily use: https://omnimorpha-tech.onrender.com
+// =====================================================
+// CONFIG
+// =====================================================
+const API_BASE = "https://api.omnimorpha.tech";
 const POLL_INTERVAL_MS = 2500;
 
+// 👉 ADD THESE TWO LINES RIGHT HERE
+const params = new URLSearchParams(window.location.search);
+const MODE = (params.get("mode") || "live").toLowerCase();
+
+// =====================================================
+// DOM HELPERS
+// =====================================================
 const setText = (id, value) => {
   const el = document.getElementById(id);
   if (el) el.textContent = value ?? "—";
-};
-
-const setConn = (text) => {
-  const el = document.getElementById("connectionText");
-  if (el) el.textContent = text;
 };
 
 const setTimeline = (items) => {

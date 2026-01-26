@@ -65,9 +65,6 @@ async function tick() {
     // ✅ STATUS SET HERE (correct)
     setConn(MODE === "investor" ? "INVESTOR" : "LIVE");
 
-  } catch (err) {
-    // ❌ OFFLINE STATE
-    setConn("OFFLINE");
   }
 }
 

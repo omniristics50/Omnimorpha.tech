@@ -62,6 +62,15 @@ async function tick() {
     setText("topStrategy", top?.title ?? "—");
     setText("reasoning", state?.explain?.narrative ?? "—");
 
+    // ✅ STATUS SET HERE (correct)
+    setConn(MODE === "investor" ? "INVESTOR" : "LIVE");
+
+  } catch (err) {
+    // ❌ OFFLINE STATE
+    setConn("OFFLINE");
+  }
+}
+
     // AI Summary (short, readable)
     const tier = state?.risk?.tier ?? "";
     const score = state?.risk?.score != null ? `${state.risk.score}/100` : "";
@@ -94,5 +103,5 @@ async function tick() {
   }
 }
 
-tick();
+tick(); 
 setInterval(tick, POLL_INTERVAL_MS);

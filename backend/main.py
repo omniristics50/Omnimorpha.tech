@@ -244,14 +244,20 @@ def healthz() -> Dict[str, str]:
 # -----------------------------------------------------------------------------
 
 @app.get("/v1/state")
-def v1_state() -> Dict[str, Any]:
+def v1_state(mode: str = Query("live")) -> Dict[str, Any]:
     telemetry = step_simulation()
+
+    # Investor Mode: calm the demo (still live, just smoother)
+    if mode.lower() == "investor":
+        telemetry["temp_c"] = round(clamp(telemetry["temp_c"], 28.0, 42.0), 1)
+        telemetry["impedance_proxy"] = round(clamp(telemetry["impedance_proxy"], 0.018, 0.028), 3)
+
     risk = compute_risk(telemetry)
     strategies = generate_strategies(risk, telemetry)
     timeline = build_timeline(risk, strategies)
 
     return {
-        "meta": {"timestamp": utc_now_iso(), "version": APP_VERSION},
+        "meta": {"timestamp": utc_now_iso(), "version": APP_VERSION, "mode": mode.lower()},
         "telemetry": {
             "soc": telemetry["soc"],
             "temp_c": telemetry["temp_c"],

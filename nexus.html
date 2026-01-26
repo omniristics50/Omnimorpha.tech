@@ -84,43 +84,63 @@
 
   <div class="nexus-wrapper">
 
-    <div class="nexus-status">
-      STATUS: <span id="connectionText">CONNECTING</span>
+  <!-- STATUS -->
+  <div class="nexus-status">
+    STATUS: <span id="connectionText">CONNECTING</span>
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="nexus-title">NEXUS AI BATTERY — LIVE INTELLIGENCE</h1>
+  <p class="nexus-subtitle">
+    Real-time system cognition streamed from the NEXUS core.
+  </p>
+
+  <!-- AI SUMMARY -->
+  <div class="nexus-panel nexus-summary">
+    <div class="nexus-label">AI Summary</div>
+    <div id="summary">—</div>
+  </div>
+
+  <!-- KPI GRID (THIS WAS MISSING / MISPLACED) -->
+  <div class="nexus-grid">
+
+    <div class="nexus-panel">
+      <div class="nexus-label">Health</div>
+      <div class="nexus-value" id="health">—</div>
     </div>
 
-    <h1 class="nexus-title">NEXUS AI BATTERY — LIVE INTELLIGENCE</h1>
-    <p class="nexus-subtitle">
-      Real-time system cognition streamed from the NEXUS core.
-    </p>
-
-    <div class="nexus-grid">
-      <div class="nexus-panel">
-        <div class="nexus-label">Health</div>
-        <div class="nexus-value" id="health">—</div>
-      </div>
-
-      <div class="nexus-panel">
-        <div class="nexus-label">Risk Index</div>
-        <div class="nexus-value" id="risk">—</div>
-      </div>
-
-      <div class="nexus-panel">
-        <div class="nexus-label">Fleet Status</div>
-        <div class="nexus-value" id="fleet">—</div>
-      </div>
-
-      <div class="nexus-panel">
-        <div class="nexus-label">Top Strategy</div>
-        <div class="nexus-value" id="topStrategy">—</div>
-      </div>
+    <div class="nexus-panel">
+      <div class="nexus-label">Risk Index</div>
+      <div class="nexus-value" id="risk">—</div>
     </div>
 
-    <div class="nexus-panel nexus-reasoning" style="margin-top:1.25rem;">
-  <div class="nexus-label">Reasoning</div>
-  <div id="reasoning" style="margin-top:.5rem;">—</div>
-</div>
+    <div class="nexus-panel">
+      <div class="nexus-label">Fleet Status</div>
+      <div class="nexus-value" id="fleet">—</div>
+    </div>
+
+    <div class="nexus-panel">
+      <div class="nexus-label">Top Strategy</div>
+      <div class="nexus-value" id="topStrategy">—</div>
+    </div>
 
   </div>
+
+  <!-- REASONING -->
+  <div class="nexus-panel nexus-reasoning" style="margin-top:1.25rem;">
+    <div class="nexus-label">Reasoning</div>
+    <div id="reasoning">—</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="nexus-panel nexus-timeline" style="margin-top:1.25rem;">
+    <div class="nexus-label">Cognition Timeline</div>
+    <ul id="timeline" class="timeline-list">
+      <li>—</li>
+    </ul>
+  </div>
+
+</div>
 
   <footer>
     © 2025 Omnimorpha — NEXUS (software-only • read-only)

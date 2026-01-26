@@ -324,3 +324,24 @@ footer a:hover {
   margin-top: 0.6rem;
   line-height: 1.65;
 }
+/* ===========================
+   NEXUS — Summary + Timeline
+=========================== */
+
+.nexus-summary #summary {
+  margin-top: 0.6rem;
+  line-height: 1.65;
+  color: #ddd;
+  opacity: 0.95;
+}
+
+.nexus-timeline .timeline-list {
+  margin-top: 0.75rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.nexus-timeline .timeline-list li {
+  margin-bottom: 0.6rem;
+  opacity: 0.92;
+}

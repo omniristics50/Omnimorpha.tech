@@ -317,3 +317,10 @@ footer a:hover {
   background: #f5d27d;
   color: #000;
 }
+/* ===========================
+   NEXUS — Live Intelligence
+=========================== */
+.nexus-reasoning #reasoning {
+  margin-top: 0.6rem;
+  line-height: 1.65;
+}

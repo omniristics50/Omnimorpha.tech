@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Omnimorpha | NEXUS Investor Architecture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .arch-wrap { max-width: 1050px; margin: 4rem auto; padding: 2.5rem; }
+    .arch-hero {
+      background: linear-gradient(145deg, #111, #000);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 0 25px rgba(245, 210, 125, 0.12);
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .arch-hero h1 { margin-bottom: .75rem; }
+    .arch-hero p { max-width: 900px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      background: #0b0b0b;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 0 18px rgba(245, 210, 125, 0.08);
+    }
+    .card h3 { margin-bottom: .5rem; font-size: 1.15rem; }
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.55rem;
+      border: 1px solid #f5d27d;
+      border-radius: 999px;
+      color: #f5d27d;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: .5px;
+      margin-bottom: .75rem;
+      opacity: .95;
+    }
+    .note {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border: 1px solid #222;
+      background: #0a0a0a;
+      border-radius: 12px;
+      opacity: .95;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.25rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="investors.html">Investor Portal</a>
+    <a href="nexus.html?mode=investor">NEXUS Live</a>
+  </nav>
+
+  <div class="arch-wrap">
+    <section class="arch-hero">
+      <h1>NEXUS — Investor Architecture</h1>
+      <p>
+        NEXUS is a software-only, read-only intelligence layer. It simulates a battery digital twin, predicts risk with validation,
+        generates explainable strategy recommendations, and streams live state to the web dashboard.
+      </p>
+
+      <div class="links">
+        <a class="btn" href="nexus.html?mode=investor">Open NEXUS Investor Mode</a>
+        <a class="btn" href="nexus.html?mode=live">Open NEXUS Live Mode</a>
+        <a class="btn" href="index.html">← Back to Home</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <div class="pill">1) Signal</div>
+        <h3>Digital Twin Telemetry</h3>
+        <p>Simulated SOC, temperature, trend, impedance proxy, voltage/current, cycle count.</p>
+      </div>
+
+      <div class="card">
+        <div class="pill">2) Interpret</div>
+        <h3>Risk Model + Validation</h3>
+        <p>Risk score + tier with confidence. Validation dampens transient spikes to reduce false alarms.</p>
+      </div>
+
+      <div class="card">
+        <div class="pill">3) Explain</div>
+        <h3>Narrative Reasoning</h3>
+        <p>Human-readable explanation: what changed, why risk shifted, and what drivers mattered.</p>
+      </div>
+
+      <div class="card">
+        <div class="pill">4) Recommend</div>
+        <h3>Strategy Engine</h3>
+        <p>Ranked mitigation strategies. Read-only recommendations; no execution layer.</p>
+      </div>
+
+      <div class="card">
+        <div class="pill">5) Remember</div>
+        <h3>Timeline + Memory</h3>
+        <p>Event stream: state transitions, strategy updates, and narrative snapshots over time.</p>
+      </div>
+
+      <div class="card">
+        <div class="pill">6) Govern</div>
+        <h3>Audit + Safety</h3>
+        <p>Read-only mode, versioning, traceable outputs. Designed to be investor-safe and demo-safe.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <h3>Read-only guarantee</h3>
+      <p>
+        The NEXUS demo does not control hardware or execute actions. It simulates state, predicts risk, and recommends strategies for interpretation.
+        This reduces operational risk and keeps the demo investor-safe.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Omnimorpha — NEXUS (software-only • read-only)</p>
+  </footer>
+
+</body>
+</html>

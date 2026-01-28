@@ -195,6 +195,32 @@ nav a:hover {
   box-shadow: 0 0 35px rgba(255, 215, 100, 0.3);
 }
 
+/* Investor Architecture Panel */
+.architecture-panel {
+  display: none;
+  margin-top: 60px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #111820;
+  border: 1px solid #66fcf1;
+}
+
+.architecture-panel h2 {
+  margin-top: 0;
+}
+
+.architecture-list {
+  margin-top: 20px;
+  padding-left: 20px;
+  text-align: left;
+}
+
+.architecture-list li {
+  margin-bottom: 10px;
+  color: #c5c6c7;
+  line-height: 1.6;
+}
+
 /* ===========================
    FOOTER — OMNIMORPHA SIGNATURE STYLE
 =========================== */

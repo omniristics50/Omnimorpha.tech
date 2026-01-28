@@ -345,3 +345,44 @@ footer a:hover {
   margin-bottom: 0.6rem;
   opacity: 0.92;
 }
+
+/* ===========================
+   NEXUS — Status Pulse
+=========================== */
+.nexus-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #888;
+}
+
+/* CONNECTING */
+body:not(.nexus-live):not(.nexus-offline) .status-dot {
+  background: #f5d27d;
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+/* LIVE */
+body.nexus-live .status-dot {
+  background: #4caf50;
+  animation: none;
+}
+
+/* OFFLINE */
+body.nexus-offline .status-dot {
+  background: #666;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}

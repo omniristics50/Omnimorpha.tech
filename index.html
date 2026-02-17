@@ -80,6 +80,89 @@
 </nav>
 
   </header>
+<section class="regent-pulse-section" id="regent-pulse">
+  <div class="regent-pulse-card">
+    <div class="regent-pulse-header">
+      <div class="regent-pulse-title">🧠 REGENT Pulse</div>
+      <div class="regent-pulse-sub">Live runtime snapshot</div>
+    </div>
+
+    <div class="regent-pulse-grid">
+      <div class="regent-kv">
+        <div class="k">Risk</div>
+        <div class="v" id="rp-risk">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Band</div>
+        <div class="v" id="rp-band">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Safe Mode</div>
+        <div class="v" id="rp-safe">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Tick</div>
+        <div class="v" id="rp-tick">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Voltage</div>
+        <div class="v" id="rp-v">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Temp</div>
+        <div class="v" id="rp-t">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Health</div>
+        <div class="v" id="rp-h">—</div>
+      </div>
+
+      <div class="regent-kv">
+        <div class="k">Last Event</div>
+        <div class="v small" id="rp-event">—</div>
+      </div>
+    </div>
+
+    <div class="regent-pulse-foot" id="rp-status">Connecting…</div>
+  </div>
+</section>
+
+<script>
+  async function regentPoll() {
+    try {
+      // IMPORTANT: this only works when index.html is served from the SAME server
+      // that can also serve /logs/latest.json (your local http.server).
+      const res = await fetch('/logs/latest.json?cache=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+
+      const d = await res.json();
+
+      document.getElementById('rp-risk').textContent = d.risk ?? '—';
+      document.getElementById('rp-band').textContent = d.band ?? '—';
+      document.getElementById('rp-safe').textContent = String(d.safe_mode ?? '—');
+      document.getElementById('rp-tick').textContent = d.tick ?? '—';
+
+      document.getElementById('rp-v').textContent = (d.frame?.voltage_v != null) ? d.frame.voltage_v.toFixed(2) + ' V' : '—';
+      document.getElementById('rp-t').textContent = (d.frame?.temp_c != null) ? d.frame.temp_c.toFixed(2) + ' °C' : '—';
+      document.getElementById('rp-h').textContent = (d.frame?.health != null) ? d.frame.health.toFixed(4) : '—';
+
+      document.getElementById('rp-event').textContent = d.last_event ?? '(none)';
+      document.getElementById('rp-status').textContent = 'Live ✅';
+
+    } catch (e) {
+      document.getElementById('rp-status').textContent = 'REGENT offline ❌ (is latest.json reachable?)';
+    }
+
+    setTimeout(regentPoll, 500);
+  }
+  regentPoll();
+</script>
 
   <!-- HERO -->
   <section class="hero">

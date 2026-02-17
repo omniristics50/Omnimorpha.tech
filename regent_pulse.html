@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>REGENT Pulse</title>
+  <style>
+    body {
+      background: #0b0c10;
+      color: #f5d27d;
+      font-family: Segoe UI, sans-serif;
+      text-align: center;
+      padding-top: 80px;
+    }
+    .card {
+      border: 1px solid #f5d27d;
+      padding: 30px;
+      display: inline-block;
+      border-radius: 12px;
+      min-width: 320px;
+    }
+    .big { font-size: 32px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🧠 REGENT Pulse</h1>
+    <div id="status">Connecting...</div>
+  </div>
+
+<script>
+async function poll(){
+  try{
+    const res = await fetch('/logs/latest.json?cache=' + Date.now());
+    const d = await res.json();
+
+    document.getElementById('status').innerHTML =
+      `<div class="big">Risk: ${d.risk}</div>
+       Band: ${d.band}<br>
+       Safe Mode: ${d.safe_mode}<br>
+       Tick: ${d.tick}`;
+  }
+  catch{
+    document.getElementById('status').innerText = "REGENT offline";
+  }
+
+  setTimeout(poll, 500);
+}
+poll();
+</script>
+
+</body>
+</html>

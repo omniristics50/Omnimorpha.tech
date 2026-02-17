@@ -137,8 +137,9 @@
   async function regentPoll() {
     try {
       // IMPORTANT: this only works when index.html is served from the SAME server
-      // that can also serve /logs/latest.json (your local http.server).
-      const res = await fetch('logs/latest.json?cache=' + Date.now())
+      // that can also serve https://YOUR-ENDPOINT/latest.json (your local http.server).
+      const res = await fetch('https://YOUR-ENDPOINT-HERE/latest.json?cache=' + Date.now(), { cache: 'no-store' })
+
 
       if (!res.ok) throw new Error('HTTP ' + res.status);
 

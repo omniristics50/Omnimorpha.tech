@@ -138,7 +138,8 @@
     try {
       // IMPORTANT: this only works when index.html is served from the SAME server
       // that can also serve /logs/latest.json (your local http.server).
-      const res = await fetch('/logs/latest.json?cache=' + Date.now(), { cache: 'no-store' });
+      const res = await fetch('logs/latest.json?cache=' + Date.now())
+
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
       const d = await res.json();

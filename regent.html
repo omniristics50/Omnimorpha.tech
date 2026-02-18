@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | REGENT Pulse</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Keep your normal navbar here if you have one -->
+  <section class="regent-pulse-section" style="min-height: 100vh; align-items: center;">
+    <div class="regent-pulse-card" style="max-width: 980px;">
+      <div class="regent-pulse-header">
+        <div class="regent-pulse-title">🧠 REGENT Pulse Console</div>
+        <div class="regent-pulse-sub">Live feed from Railway endpoint</div>
+      </div>
+
+      <div class="regent-pulse-grid">
+        <div class="regent-kv"><div class="k">Risk</div><div class="v" id="rp-risk">—</div></div>
+        <div class="regent-kv"><div class="k">Band</div><div class="v" id="rp-band">—</div></div>
+        <div class="regent-kv"><div class="k">Safe Mode</div><div class="v" id="rp-safe">—</div></div>
+        <div class="regent-kv"><div class="k">Tick</div><div class="v" id="rp-tick">—</div></div>
+
+        <div class="regent-kv"><div class="k">Voltage</div><div class="v" id="rp-v">—</div></div>
+        <div class="regent-kv"><div class="k">Temp</div><div class="v" id="rp-t">—</div></div>
+        <div class="regent-kv"><div class="k">Health</div><div class="v" id="rp-h">—</div></div>
+        <div class="regent-kv"><div class="k">Last Event</div><div class="v small" id="rp-event">—</div></div>
+      </div>
+
+      <div class="regent-pulse-foot" id="rp-status">Connecting…</div>
+
+      <div style="margin-top: 16px;">
+        <a href="index.html" style="color:#f5d27d; text-decoration:none;">← Back to Omnimorpha</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const URL = "https://regent-pulse-production.up.railway.app/latest.json";
+  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  async function poll() {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 1500);
+
+      const res = await fetch(URL + "?cache=" + Date.now(), { cache: "no-store", signal: controller.signal });
+      clearTimeout(timeout);
+
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const d = await res.json();
+
+      setText("rp-risk", d.risk ?? "—");
+      setText("rp-band", d.band ?? "—");
+      setText("rp-safe", String(d.safe_mode ?? "—"));
+      setText("rp-tick", d.tick ?? "—");
+
+      const v = d.frame?.voltage_v, t = d.frame?.temp_c, h = d.frame?.health;
+      setText("rp-v", (typeof v === "number") ? (v.toFixed(2) + " V") : "—");
+      setText("rp-t", (typeof t === "number") ? (t.toFixed(2) + " °C") : "—");
+      setText("rp-h", (typeof h === "number") ? h.toFixed(4) : "—");
+
+      setText("rp-event", d.last_event ?? "—");
+      setText("rp-status", "Live ✅");
+    } catch (e) {
+      setText("rp-status", "REGENT offline ❌");
+    }
+    setTimeout(poll, 1000);
+  }
+
+  poll();
+});
+</script>
+
+</body>
+</html>

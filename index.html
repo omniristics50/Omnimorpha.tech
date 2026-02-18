@@ -1,102 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Omnimorpha</title>
-
-  <style>
-    /* INDEX — PRODUCT CARD (UI DEMOS) */
-    .product-card {
-      display: block;
-      margin: 0.5rem 0 1.5rem;
-      padding: 1.2rem 1.4rem;
-      border-radius: 18px;
-      text-decoration: none;
-
-      border: 1px solid rgba(245, 210, 122, 0.35);
-      background: radial-gradient(circle at top left, #111827, #020308 65%);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.65);
-
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 26px 60px rgba(0,0,0,0.8);
-    }
-
-    .product-card h3 {
-      margin: 0 0 0.3rem;
-      font-size: 1.15rem;
-      color: #f5d27a;
-      letter-spacing: 0.03em;
-    }
-
-    .product-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      opacity: 0.85;
-    }
-
-    .product-meta {
-      display: inline-block;
-      margin-top: 0.6rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(245, 210, 122, 0.85);
-    }
-
-    /* INDEX — INTERACTIVE DEMOS LABEL */
-    #appliances .dw-muted {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(245, 210, 122, 0.75);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | REGENT</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-  <!-- BACKGROUND EFFECT -->
-  <div class="gold-particles"></div>
+  <!-- Optional: keep your existing navbar block here if you already have one in your site -->
+  <!-- If your site uses a shared nav in each page, paste it above this hero exactly as in index.html -->
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">OMNIMORPHA</h1>
-    <p class="subtitle">Intelligent Technology • AI Appliances • Future Mobility • Luxury Design</p>
+  <header class="regent-hero">
+    <div class="regent-hero-overlay"></div>
 
-    <nav class="main-nav">
-  <a href="#appliances">Appliances</a>
-  <a href="#technology">Technology</a>
-  <a href="#vehicles">Vehicles</a>
-  <a href="#fashion">Fashion</a>
-  <a href="#ecosystem">Ecosystem</a>
-  <a href="nexus.html">NEXUS AI Battery</a>
- <nav>
-  <a href="appliances.html">Appliances</a>
-  <a href="technology.html">Technology</a>
-  <a href="vehicles.html">Vehicles</a>
-  <a href="fashion.html">Fashion</a>
-  <a href="ecosystem.html">Ecosystem</a>
-  <a href="nexus.html">NEXUS AI Battery</a>
-  <a href="regent.html">REGENT</a>
-  <a href="investor.html">Investor Portal</a>
-</nav>
+    <div class="regent-hero-inner">
+      <div class="regent-badge">LIVE SYSTEM</div>
+      <h1 class="regent-hero-title">REGENT</h1>
+      <p class="regent-hero-sub">
+        A governed intelligence runtime — risk bands, veto guardrails, and operator acknowledgement.
+      </p>
 
-      <a href="investors.html" class="nav-btn">Investor Portal</a>
-</nav>
-
+      <div class="regent-hero-cta">
+        <a class="regent-btn" href="#regent-console">Open Live Console</a>
+        <a class="regent-btn ghost" href="index.html">Back to Omnimorpha</a>
+      </div>
+    </div>
   </header>
-<section class="regent-pulse-section" id="regent-pulse">
-  <a class="regent-pulse-link" href="regent.html" aria-label="Open REGENT Pulse">
-    <div class="regent-pulse-card">
-      <div class="regent-pulse-header">
-        <div class="regent-pulse-title">🧠 REGENT Pulse</div>
-        <div class="regent-pulse-sub">Live runtime snapshot</div>
+
+  <section class="regent-console-wrap" id="regent-console">
+    <div class="regent-console-card">
+      <div class="regent-console-head">
+        <div>
+          <div class="regent-console-title">🧠 REGENT Pulse Console</div>
+          <div class="regent-console-sub">Live feed from Railway endpoint</div>
+        </div>
+        <div class="regent-console-status" id="rp-status">Connecting…</div>
       </div>
 
       <div class="regent-pulse-grid">
@@ -111,193 +51,26 @@
         <div class="regent-kv"><div class="k">Last Event</div><div class="v small" id="rp-event">—</div></div>
       </div>
 
-      <div class="regent-pulse-foot" id="rp-status">Connecting…</div>
+      <div class="regent-console-foot">
+        Endpoint: <span class="mono">regent-pulse-production.up.railway.app</span>
+      </div>
     </div>
-  </a>
-</section>
-
-
-
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Welcome to the Omnimorpha Ecosystem</h2>
-    <p>Where artificial intelligence meets premium engineering for the next evolution of human lifestyle.</p>
   </section>
-
-  <!-- NEW ECOSYSTEM HOMEPAGE BOX -->
-  <section class="section section-highlight" id="new-ecosystem">
-    <h2><span class="section-icon">🆕</span> New Omnimorpha Homepage</h2>
-    <p>Explore the cinematic black–gold version of our ecosystem experience.</p>
-    <a href="ecosystem.html" class="btn">Open New Ecosystem Homepage</a>
-  </section>
-
-<p class="dw-muted" style="margin-top:1rem;">
-  Interactive demos
-</p>
-
-
-    <ul class="link-list">
-     <!-- APPLIANCES -->
-<section class="section" id="appliances">
-  <h2><span class="section-icon">⚡</span> AI Appliances</h2>
-  <p>Intelligent home systems designed for real life — efficient, elegant, and Halia-powered.</p>
-
-  <p class="dw-muted">Interactive demos</p>
-
-  <!-- ✅ DISHWASHER UI CARD (this is what you were missing) -->
-  <a class="product-card" href="dishwasher-ui.html">
-    <h3>AI Dishwasher UI</h3>
-    <p>Explanatory interface demo: Scan → Decide → Stabilize → Execute → Report.</p>
-    <span class="product-meta">Live UI Prototype</span>
-  </a>
-
-  <ul class="link-list">
-    <li><a href="ai-dishwasher.html">AI Dishwasher</a></li>
-    <li><a href="fridge.html">IntelliFridge™</a></li>
-    <li><a href="intellifridge-brochure.html">📘 IntelliFridge™ Brochure</a></li>
-    <li><a href="smart-stove.html">AI Smart Stove</a></li>
-    <li><a href="microwave.html">AI Microwave</a></li>
-    <li><a href="washer-dryer.html">Washer–Dryer Combo</a></li>
-  </ul>
-</section>
-
-  <!-- TECHNOLOGY -->
-  <section class="section section-dark" id="technology">
-    <h2><span class="section-icon">🔧</span> Technology</h2>
-    <ul class="link-list">
-      <li><a href="ai-camera.html">AI Camera System (HALIAVISION™ V2)</a></li>
-      <li><a href="ecosystem.html">New Ecosystem Homepage</a></li>
-      <a href="circuit-engine.html">Circuit Engine™</a>
-       <li><a href="omni-battery.html">Omni Battery™ Power System</a></li>
-      <li><a href="power-motion.html">PowerMotion Arena</a></li>
-      <li><a href="halia-ai.html">Halia AI System</a></li>
-    </ul>
-  </section>
-
-  <!-- VEHICLES -->
-  <section class="section" id="vehicles">
-    <h2><span class="section-icon">🚘</span> Vehicles & Mobility</h2>
-    <ul class="link-list">
-      <li><a href="hypercars.html">Hypercar Lineup</a></li>
-      <li><a href="regent-x.html">Regent X™ SUV Limousine</a></li>
-      <li><a href="velocite.html">Velocité™ Electric Motorcycles</a></li>
-      <li><a href="snow-mobile.html">Snow Mobile</a></li>
-      <li><a href="snow-car.html">Snow Car</a></li>
-      <li><a href="snow-truck.html">Snow Truck</a></li>
-    </ul>
-  </section>
-
-  <!-- FASHION -->
-  <section class="section section-dark" id="fashion">
-    <h2><span class="section-icon">👗</span> Fashion & Luxury</h2>
-    <ul class="link-list">
-      <li><a href="treva.html">TREVA™</a></li>
-      <li><a href="ayrelle.html">AYRÉLLE Noir™</a></li>
-      <li><a href="theverge.html">THEVERGE™</a></li>
-      <li><a href="le-gorge.html">LE GORGE™</a></li>
-      <li><a href="giordano-vero.html">GIORDANO VERO™</a></li>
-    </ul>
-  </section>
-
-  <!-- ECOSYSTEM -->
-  <section class="section" id="ecosystem">
-    <h2><span class="section-icon">🌐</span> Omnimorpha Ecosystem</h2>
-    <p>Every product connects through the Halia AI Core — powering the entire Omnimorpha world.</p>
-
-    <ul class="link-list">
-      <li><a href="ecosystem.html">Full Ecosystem Overview</a></li>
-      <li><a href="ecosystem.html">New Ecosystem Homepage</a></li>
-      <li><a href="investors.html">Investor Portal</a></li>
-    </ul>
-  </section>
-
-  <!-- CTA -->
-  <section class="section section-highlight">
-    <h2>Building the Future Together</h2>
-    <p>Omnimorpha is more than a brand — it is a new technological era shaped by intelligence and vision.</p>
-
-    <a href="investors.html" class="btn">Explore Investor Materials</a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Omnimorpha — Designed by Courtney S. Linton</p>
-    <p><a href="https://www.omnimorpha.tech">www.omnimorpha.tech</a></p>
-    <p><a href="investors.html">Investor Portal</a> • 
-       <a href="ecosystem.html">New Ecosystem Homepage</a></p>
-  </footer>
-
-  <!-- REGENT section HTML above... -->
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const url = "https://regent-pulse-production.up.railway.app/latest.json";
-
-      async function regentPoll() {
-        const status = document.getElementById("rp-status");
-        const riskEl = document.getElementById("rp-risk");
-        const bandEl = document.getElementById("rp-band");
-        const safeEl = document.getElementById("rp-safe");
-        const tickEl = document.getElementById("rp-tick");
-
-        // If elements aren't found, don't spam errors
-        if (!status || !riskEl || !bandEl || !safeEl || !tickEl) return;
-
-        try {
-          // Add a real timeout so the page never “hangs”
-          const controller = new AbortController();
-          const t = setTimeout(() => controller.abort(), 1500);
-
-          const res = await fetch(url + "?cache=" + Date.now(), {
-            cache: "no-store",
-            signal: controller.signal
-          });
-
-          clearTimeout(t);
-
-          if (!res.ok) throw new Error("HTTP " + res.status);
-
-          const d = await res.json();
-          riskEl.textContent = d.risk ?? "—";
-          bandEl.textContent = d.band ?? "—";
-          safeEl.textContent = String(d.safe_mode ?? "—");
-          tickEl.textContent = d.tick ?? "—";
-          status.textContent = "Live ✅";
-
-        } catch (e) {
-          status.textContent = "REGENT offline ❌";
-        }
-
-        setTimeout(regentPoll, 1000);
-      }
-
-      regentPoll();
-    });
-  </script>
-</body>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const URL = "https://regent-pulse-production.up.railway.app/latest.json";
+  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
-  function setText(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
-  }
-
-  async function regentPoll() {
+  async function poll() {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 1500);
 
-      const res = await fetch(URL + "?cache=" + Date.now(), {
-        cache: "no-store",
-        signal: controller.signal
-      });
-
+      const res = await fetch(URL + "?cache=" + Date.now(), { cache: "no-store", signal: controller.signal });
       clearTimeout(timeout);
-      if (!res.ok) throw new Error("HTTP " + res.status);
 
+      if (!res.ok) throw new Error("HTTP " + res.status);
       const d = await res.json();
 
       setText("rp-risk", d.risk ?? "—");
@@ -305,28 +78,22 @@ document.addEventListener("DOMContentLoaded", () => {
       setText("rp-safe", String(d.safe_mode ?? "—"));
       setText("rp-tick", d.tick ?? "—");
 
-      const v = d.frame?.voltage_v;
-      const t = d.frame?.temp_c;
-      const h = d.frame?.health;
-
+      const v = d.frame?.voltage_v, t = d.frame?.temp_c, h = d.frame?.health;
       setText("rp-v", (typeof v === "number") ? (v.toFixed(2) + " V") : "—");
       setText("rp-t", (typeof t === "number") ? (t.toFixed(2) + " °C") : "—");
       setText("rp-h", (typeof h === "number") ? h.toFixed(4) : "—");
 
       setText("rp-event", d.last_event ?? "—");
       setText("rp-status", "Live ✅");
-
     } catch (e) {
-      setText("rp-status", "REGENT offline ❌");
+      setText("rp-status", "Offline ❌");
     }
-
-    setTimeout(regentPoll, 1000);
+    setTimeout(poll, 1000);
   }
 
-  regentPoll();
+  poll();
 });
 </script>
 
-  
 </body>
 </html>

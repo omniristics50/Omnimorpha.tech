@@ -265,6 +265,57 @@
   </script>
 </body>
 
-      
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const URL = "https://regent-pulse-production.up.railway.app/latest.json";
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  async function regentPoll() {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 1500);
+
+      const res = await fetch(URL + "?cache=" + Date.now(), {
+        cache: "no-store",
+        signal: controller.signal
+      });
+
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+
+      const d = await res.json();
+
+      setText("rp-risk", d.risk ?? "—");
+      setText("rp-band", d.band ?? "—");
+      setText("rp-safe", String(d.safe_mode ?? "—"));
+      setText("rp-tick", d.tick ?? "—");
+
+      const v = d.frame?.voltage_v;
+      const t = d.frame?.temp_c;
+      const h = d.frame?.health;
+
+      setText("rp-v", (typeof v === "number") ? (v.toFixed(2) + " V") : "—");
+      setText("rp-t", (typeof t === "number") ? (t.toFixed(2) + " °C") : "—");
+      setText("rp-h", (typeof h === "number") ? h.toFixed(4) : "—");
+
+      setText("rp-event", d.last_event ?? "—");
+      setText("rp-status", "Live ✅");
+
+    } catch (e) {
+      setText("rp-status", "REGENT offline ❌");
+    }
+
+    setTimeout(regentPoll, 1000);
+  }
+
+  regentPoll();
+});
+</script>
+
+  
 </body>
 </html>

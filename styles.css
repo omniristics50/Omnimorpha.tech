@@ -520,3 +520,153 @@ body.nexus-offline .status-dot {
   transform: translateY(-1px);
 }
 
+/* ===========================
+   REGENT Page Hero + Console
+=========================== */
+.regent-hero {
+  position: relative;
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: 80px 20px 60px;
+  background: radial-gradient(1200px 700px at 30% 10%, rgba(245,210,125,0.20), transparent 55%),
+              radial-gradient(900px 600px at 80% 20%, rgba(245,210,125,0.10), transparent 60%),
+              linear-gradient(180deg, #07070a 0%, #0b0c10 60%, #0b0c10 100%);
+  overflow: hidden;
+}
+
+.regent-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("images/galaxy-bg.webp") center/cover no-repeat;
+  opacity: 0.18;
+  filter: saturate(0.9) contrast(1.05);
+}
+
+.regent-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(980px, 94vw);
+  text-align: left;
+}
+
+.regent-badge {
+  display: inline-block;
+  border: 1px solid rgba(245, 210, 125, 0.45);
+  color: #f5d27d;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  background: rgba(0,0,0,0.25);
+}
+
+.regent-hero-title {
+  margin: 14px 0 8px;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.02;
+  color: #f5d27d;
+  letter-spacing: 0.02em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.regent-hero-sub {
+  margin: 0 0 22px;
+  max-width: 64ch;
+  color: #e8e8e8;
+  opacity: 0.92;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.regent-hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.regent-btn {
+  display: inline-block;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 210, 125, 0.55);
+  background: rgba(245, 210, 125, 0.12);
+  color: #f5d27d;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.regent-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 210, 125, 0.85);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+.regent-btn.ghost {
+  background: rgba(0,0,0,0.25);
+}
+
+.regent-console-wrap {
+  padding: 40px 20px 80px;
+  display: flex;
+  justify-content: center;
+  background: #0b0c10;
+}
+
+.regent-console-card {
+  width: min(980px, 96vw);
+  border: 1px solid rgba(245, 210, 125, 0.45);
+  border-radius: 18px;
+  padding: 22px;
+  background: rgba(11, 12, 16, 0.86);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+.regent-console-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.regent-console-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #f5d27d;
+}
+
+.regent-console-sub {
+  font-size: 13px;
+  color: #ddd;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+.regent-console-status {
+  font-size: 12px;
+  color: #ddd;
+  opacity: 0.95;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 210, 125, 0.25);
+  background: rgba(0,0,0,0.25);
+  white-space: nowrap;
+}
+
+.regent-console-foot {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #cfcfcf;
+  opacity: 0.9;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+

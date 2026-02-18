@@ -495,3 +495,28 @@ body.nexus-offline .status-dot {
   opacity: 0.9;
   color: #ddd;
 }
+
+/* Clickable wrapper */
+.regent-pulse-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: min(980px, 96vw);
+  margin: 0 auto;
+}
+
+.regent-pulse-link .regent-pulse-card {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.regent-pulse-link:hover .regent-pulse-card {
+  transform: translateY(-3px);
+  border-color: rgba(245, 210, 125, 0.75);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.45);
+}
+
+.regent-pulse-link:active .regent-pulse-card {
+  transform: translateY(-1px);
+}
+

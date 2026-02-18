@@ -133,41 +133,7 @@
   </div>
 </section>
 
-<script>
-  async function regentPoll() {
-    try {
-      // IMPORTANT: this only works when index.html is served from the SAME server
-      // that can also serve https://YOUR-ENDPOINT/latest.json (your local http.server).
-      const res = await fetch(
-  "https://regent-pulse-production.up.railway.app/latest.json?cache=" + Date.now(),
-  { cache: "no-store" }
-);
 
-
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-
-      const d = await res.json();
-
-      document.getElementById('rp-risk').textContent = d.risk ?? '—';
-      document.getElementById('rp-band').textContent = d.band ?? '—';
-      document.getElementById('rp-safe').textContent = String(d.safe_mode ?? '—');
-      document.getElementById('rp-tick').textContent = d.tick ?? '—';
-
-      document.getElementById('rp-v').textContent = (d.frame?.voltage_v != null) ? d.frame.voltage_v.toFixed(2) + ' V' : '—';
-      document.getElementById('rp-t').textContent = (d.frame?.temp_c != null) ? d.frame.temp_c.toFixed(2) + ' °C' : '—';
-      document.getElementById('rp-h').textContent = (d.frame?.health != null) ? d.frame.health.toFixed(4) : '—';
-
-      document.getElementById('rp-event').textContent = d.last_event ?? '(none)';
-      document.getElementById('rp-status').textContent = 'Live ✅';
-
-    } catch (e) {
-      document.getElementById('rp-status').textContent = 'REGENT offline ❌ (is latest.json reachable?)';
-    }
-
-    setTimeout(regentPoll, 500);
-  }
-  regentPoll();
-</script>
 
   <!-- HERO -->
   <section class="hero">
@@ -278,5 +244,55 @@
        <a href="ecosystem.html">New Ecosystem Homepage</a></p>
   </footer>
 
+  <!-- REGENT section HTML above... -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const url = "https://regent-pulse-production.up.railway.app/latest.json";
+
+      async function regentPoll() {
+        const status = document.getElementById("rp-status");
+        const riskEl = document.getElementById("rp-risk");
+        const bandEl = document.getElementById("rp-band");
+        const safeEl = document.getElementById("rp-safe");
+        const tickEl = document.getElementById("rp-tick");
+
+        // If elements aren't found, don't spam errors
+        if (!status || !riskEl || !bandEl || !safeEl || !tickEl) return;
+
+        try {
+          // Add a real timeout so the page never “hangs”
+          const controller = new AbortController();
+          const t = setTimeout(() => controller.abort(), 1500);
+
+          const res = await fetch(url + "?cache=" + Date.now(), {
+            cache: "no-store",
+            signal: controller.signal
+          });
+
+          clearTimeout(t);
+
+          if (!res.ok) throw new Error("HTTP " + res.status);
+
+          const d = await res.json();
+          riskEl.textContent = d.risk ?? "—";
+          bandEl.textContent = d.band ?? "—";
+          safeEl.textContent = String(d.safe_mode ?? "—");
+          tickEl.textContent = d.tick ?? "—";
+          status.textContent = "Live ✅";
+
+        } catch (e) {
+          status.textContent = "REGENT offline ❌";
+        }
+
+        setTimeout(regentPoll, 1000);
+      }
+
+      regentPoll();
+    });
+  </script>
+</body>
+
+      
 </body>
 </html>

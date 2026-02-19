@@ -3,100 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omnimorpha | REGENT</title>
+  <title>Omnimorpha</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-  <!-- Optional: keep your existing navbar block here if you already have one in your site -->
-  <!-- If your site uses a shared nav in each page, paste it above this hero exactly as in index.html -->
-
-  <header class="regent-hero">
-    <div class="regent-hero-overlay"></div>
-
-    <div class="regent-hero-inner">
-      <div class="regent-badge">LIVE SYSTEM</div>
-      <h1 class="regent-hero-title">REGENT</h1>
-      <p class="regent-hero-sub">
-        A governed intelligence runtime — risk bands, veto guardrails, and operator acknowledgement.
-      </p>
-
-     <div class="regent-hero-cta">
-  <a class="regent-btn" href="#regent-console">Open Live Console</a>
- <a class="regent-btn ghost" href="https://omnimorpha.tech/index.html#projects">Back to Omnimorpha</a>
-
-</div>
-
-      </div>
-    </div>
+  <header class="home-hero">
+    <h1 class="home-title">OMNIMORPHA</h1>
+    <p class="home-sub">
+      Intelligent Technology • AI Appliances • Future Mobility • Luxury Design
+    </p>
   </header>
 
-  <section class="regent-console-wrap" id="regent-console">
-    <div class="regent-console-card">
-      <div class="regent-console-head">
-        <div>
-          <div class="regent-console-title">🧠 REGENT Pulse Console</div>
-          <div class="regent-console-sub">Live feed from Railway endpoint</div>
-        </div>
-        <div class="regent-console-status" id="rp-status">Connecting…</div>
-      </div>
-
-      <div class="regent-pulse-grid">
-        <div class="regent-kv"><div class="k">Risk</div><div class="v" id="rp-risk">—</div></div>
-        <div class="regent-kv"><div class="k">Band</div><div class="v" id="rp-band">—</div></div>
-        <div class="regent-kv"><div class="k">Safe Mode</div><div class="v" id="rp-safe">—</div></div>
-        <div class="regent-kv"><div class="k">Tick</div><div class="v" id="rp-tick">—</div></div>
-
-        <div class="regent-kv"><div class="k">Voltage</div><div class="v" id="rp-v">—</div></div>
-        <div class="regent-kv"><div class="k">Temp</div><div class="v" id="rp-t">—</div></div>
-        <div class="regent-kv"><div class="k">Health</div><div class="v" id="rp-h">—</div></div>
-        <div class="regent-kv"><div class="k">Last Event</div><div class="v small" id="rp-event">—</div></div>
-      </div>
-
-      <div class="regent-console-foot">
-        Endpoint: <span class="mono">regent-pulse-production.up.railway.app</span>
-      </div>
-    </div>
+  <section id="projects" class="projects-bar">
+    <a class="proj-link" href="appliances.html">Appliances</a>
+    <a class="proj-link" href="technology.html">Technology</a>
+    <a class="proj-link" href="vehicles.html">Vehicles</a>
+    <a class="proj-link" href="fashion.html">Fashion</a>
+    <a class="proj-link" href="ecosystem.html">Ecosystem</a>
+    <a class="proj-link" href="nexus.html">NEXUS AI Battery</a>
+    <a class="proj-link" href="regent.html">REGENT</a>
+    <a class="proj-link" href="investor.html">Investor Portal</a>
   </section>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const URL = "https://regent-pulse-production.up.railway.app/latest.json";
-  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-
-  async function poll() {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 1500);
-
-      const res = await fetch(URL + "?cache=" + Date.now(), { cache: "no-store", signal: controller.signal });
-      clearTimeout(timeout);
-
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const d = await res.json();
-
-      setText("rp-risk", d.risk ?? "—");
-      setText("rp-band", d.band ?? "—");
-      setText("rp-safe", String(d.safe_mode ?? "—"));
-      setText("rp-tick", d.tick ?? "—");
-
-      const v = d.frame?.voltage_v, t = d.frame?.temp_c, h = d.frame?.health;
-      setText("rp-v", (typeof v === "number") ? (v.toFixed(2) + " V") : "—");
-      setText("rp-t", (typeof t === "number") ? (t.toFixed(2) + " °C") : "—");
-      setText("rp-h", (typeof h === "number") ? h.toFixed(4) : "—");
-
-      setText("rp-event", d.last_event ?? "—");
-      setText("rp-status", "Live ✅");
-    } catch (e) {
-      setText("rp-status", "Offline ❌");
-    }
-    setTimeout(poll, 1000);
-  }
-
-  poll();
-});
-</script>
+  <section class="home-footer">
+    Welcome to the Omnimorpha Ecosystem
+  </section>
 
 </body>
 </html>

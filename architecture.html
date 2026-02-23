@@ -1,97 +1,247 @@
-/* Cinematic hero card (matches index style) */
-.hero{
-  padding:22px 0 18px;
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap:14px;
-  align-items:stretch;
-  margin-top: 10px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07080b" />
+<title>Omnimorpha™ | Architecture Library</title>
 
-.hero-card{
-  border-radius: var(--radius2);
-  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 18px;
-  position: relative;
-  overflow: hidden;
+<style>
+:root{
+  --bg:#07080b;
+  --panel:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.12);
+  --text:rgba(255,255,255,0.92);
+  --muted:rgba(255,255,255,0.70);
+  --gold:#f5d27d;
+  --shadow:0 18px 60px rgba(0,0,0,0.55);
+  --radius:18px;
+  --radius2:22px;
 }
-
-.hero-card::before{
-  content:"";
-  position:absolute;
-  inset:-120px -140px auto auto;
-  width:420px;
-  height:420px;
-  border-radius:999px;
-  background: radial-gradient(circle at 30% 30%, rgba(245,210,125,0.20), transparent 65%);
-  pointer-events:none;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(1000px 700px at 70% 0%, rgba(245,210,125,0.10), transparent 60%),
+    linear-gradient(180deg, #05060a, #07080b 35%, #06060a);
+  color:var(--text);
+  overflow-x:hidden;
 }
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px, calc(100% - 48px));margin:0 auto}
 
-.kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid rgba(245,210,125,0.22);
-  background: rgba(245,210,125,0.08);
-  color: rgba(245,210,125,0.95);
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(14px);
+  background:rgba(7,8,11,0.55);
+  border-bottom:1px solid var(--border);
+}
+.top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;gap:16px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{
+  width:38px;height:38px;border-radius:12px;
+  background:linear-gradient(135deg, rgba(245,210,125,0.25), rgba(245,210,125,0.06));
+  border:1px solid rgba(245,210,125,0.35);
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  display:grid;place-items:center;color:var(--gold);
   font-weight:900;
-  letter-spacing:.4px;
-  font-size:12px;
-  margin-bottom: 10px;
+}
+.brand .name{font-weight:900;letter-spacing:.6px}
+.brand .tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:14px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.92);
+  font-weight:800;font-size:13px;
+  cursor:pointer;
+}
+.btn.gold{
+  background:linear-gradient(135deg, rgba(245,210,125,0.24), rgba(245,210,125,0.10));
+  border-color:rgba(245,210,125,0.32);
 }
 
-.hero-card h1{
-  margin: 0 0 8px 0;
-  font-size: clamp(22px, 2.3vw, 30px);
-  line-height: 1.15;
+.hero{padding:22px 0 12px}
+.hero h1{margin:0 0 8px;font-size:24px}
+.hero p{margin:0;color:var(--muted)}
+
+.layout{
+  display:grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap:14px;
+  padding:14px 0 28px;
 }
 
-.sub{
-  margin: 0 0 12px 0;
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 14px;
-  max-width: 70ch;
+.panel{
+  border:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+  border-radius:var(--radius2);
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-.hero-actions{
+.filters{
+  padding:14px;
   display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+.input{
+  flex:1;
+  min-width:200px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(0,0,0,0.25);
+  color:var(--text);
+}
+
+.list{padding:14px;display:grid;gap:12px}
+
+.card{
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,0.05);
+  padding:14px;
+  cursor:pointer;
+  transition:0.2s;
+}
+.card:hover{
+  border-color:rgba(245,210,125,0.25);
+  transform:translateY(-2px);
+}
+.card h3{margin:0 0 6px;font-size:14px}
+.card p{margin:0;color:var(--muted);font-size:13px}
+
+.viewerTop{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
   flex-wrap:wrap;
   gap:10px;
-  align-items:center;
-  margin-top: 8px;
 }
 
-.hero-side{
-  display:grid;
-  gap:14px;
+.frameWrap{height:70vh;background:rgba(0,0,0,0.3)}
+iframe{width:100%;height:100%;border:0}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .frameWrap{height:60vh}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="top">
+      <a class="brand" href="index.html">
+        <div class="mark">O</div>
+        <div>
+          <div class="name">OMNIMORPHA™</div>
+          <div class="tag">Architecture Library</div>
+        </div>
+      </a>
+
+      <div>
+        <a class="btn gold" href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+  <h1>Architecture Library</h1>
+  <p>Click any document to open it in the reader.</p>
+</section>
+
+<section class="layout">
+
+  <!-- LEFT PANEL -->
+  <div class="panel">
+    <div class="filters">
+      <input class="input" id="search" placeholder="Search architectures..." />
+    </div>
+    <div class="list" id="docList"></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel">
+    <div class="viewerTop">
+      <strong id="docTitle">Select a document</strong>
+      <div>
+        <a class="btn" id="openTab" target="_blank">Open Tab</a>
+        <a class="btn gold" id="download" download>Download</a>
+      </div>
+    </div>
+    <div class="frameWrap">
+      <iframe id="viewer"></iframe>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<script>
+const DOCS = [
+  {
+    title: "OmniClean™ Active Wash Architecture",
+    desc: "Brush-based wash system and verification loop.",
+    file: "docs/architecture/omniclean-active-wash-v1.4.pdf"
+  },
+  {
+    title: "Nexus AI Battery — Internal Diagram",
+    desc: "Battery architecture and BMS logic.",
+    file: "docs/architecture/nexus-battery-internal-v1.3.pdf"
+  },
+  {
+    title: "Circuit Engine™ V8 Architecture",
+    desc: "Powertrain internal system layout.",
+    file: "docs/architecture/circuit-engine-v8-v2.pdf"
+  }
+];
+
+const list = document.getElementById("docList");
+const search = document.getElementById("search");
+const viewer = document.getElementById("viewer");
+const docTitle = document.getElementById("docTitle");
+const openTab = document.getElementById("openTab");
+const download = document.getElementById("download");
+
+function render(){
+  const q = search.value.toLowerCase();
+  list.innerHTML = "";
+  DOCS.filter(d => d.title.toLowerCase().includes(q))
+      .forEach(doc => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h3>${doc.title}</h3><p>${doc.desc}</p>`;
+        card.onclick = () => openDoc(doc);
+        list.appendChild(card);
+      });
 }
 
-.mini{
-  border-radius: var(--radius);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--border);
-  padding: 16px;
-  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
-}
-.mini h3{
-  margin:0 0 6px 0;
-  font-size: 14px;
-  letter-spacing: .3px;
-}
-.mini p{
-  margin:0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
+function openDoc(doc){
+  docTitle.textContent = doc.title;
+  viewer.src = doc.file;
+  openTab.href = doc.file;
+  download.href = doc.file;
 }
 
-@media (max-width: 980px){
-  .hero-grid{ grid-template-columns: 1fr; }
-}
+search.addEventListener("input", render);
+render();
+</script>
+
+</body>
+</html>

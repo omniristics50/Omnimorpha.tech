@@ -1,431 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#07080b" />
-  <title>Omnimorpha™ | Architecture Library</title>
+/* Cinematic hero card (matches index style) */
+.hero{
+  padding:22px 0 18px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap:14px;
+  align-items:stretch;
+  margin-top: 10px;
+}
 
-  <style>
-    :root{
-      --bg:#07080b;
-      --panel:rgba(255,255,255,0.06);
-      --border:rgba(255,255,255,0.12);
-      --text:rgba(255,255,255,0.92);
-      --muted:rgba(255,255,255,0.70);
-      --gold:#f5d27d;
-      --shadow:0 18px 60px rgba(0,0,0,0.55);
-      --radius:18px;
-      --radius2:22px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(1000px 700px at 70% 0%, rgba(245,210,125,0.10), transparent 60%),
-        linear-gradient(180deg, #05060a, #07080b 35%, #06060a);
-      color:var(--text);
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(1180px, calc(100% - 48px));margin:0 auto}
+.hero-card{
+  border-radius: var(--radius2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
 
-    header{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter:blur(14px);
-      background:rgba(7,8,11,0.55);
-      border-bottom:1px solid var(--border);
-    }
-    .top{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 0;gap:16px;flex-wrap:wrap;
-    }
-    .brand{display:flex;align-items:center;gap:12px}
-    .mark{
-      width:38px;height:38px;border-radius:12px;
-      background:linear-gradient(135deg, rgba(245,210,125,0.25), rgba(245,210,125,0.06));
-      border:1px solid rgba(245,210,125,0.35);
-      box-shadow:0 10px 30px rgba(0,0,0,0.35);
-      display:grid;place-items:center;color:var(--gold);
-      font-weight:900;
-    }
-    .brand .name{font-weight:900;letter-spacing:.6px}
-    .brand .tag{font-size:12px;color:var(--muted);margin-top:2px}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:-120px -140px auto auto;
+  width:420px;
+  height:420px;
+  border-radius:999px;
+  background: radial-gradient(circle at 30% 30%, rgba(245,210,125,0.20), transparent 65%);
+  pointer-events:none;
+}
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 14px;border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.06);
-      color:rgba(255,255,255,0.92);
-      font-weight:800;font-size:13px;
-      cursor:pointer;user-select:none;white-space:nowrap;
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.16)}
-    .btn.gold{
-      background:linear-gradient(135deg, rgba(245,210,125,0.24), rgba(245,210,125,0.10));
-      border-color:rgba(245,210,125,0.32);
-    }
-    .btn.ghost{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.10);color:rgba(255,255,255,0.85)}
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(245,210,125,0.22);
+  background: rgba(245,210,125,0.08);
+  color: rgba(245,210,125,0.95);
+  font-weight:900;
+  letter-spacing:.4px;
+  font-size:12px;
+  margin-bottom: 10px;
+}
 
-    .hero{padding:22px 0 12px}
-    .hero h1{margin:0 0 8px;font-size:24px}
-    .hero p{margin:0;color:var(--muted);line-height:1.6}
+.hero-card h1{
+  margin: 0 0 8px 0;
+  font-size: clamp(22px, 2.3vw, 30px);
+  line-height: 1.15;
+}
 
-    .layout{
-      display:grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap:14px;
-      padding:14px 0 28px;
-      align-items:start;
-    }
+.sub{
+  margin: 0 0 12px 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+  max-width: 70ch;
+}
 
-    .panel{
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-      border-radius:var(--radius2);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top: 8px;
+}
 
-    .filters{
-      padding:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      border-bottom:1px solid var(--border);
-      align-items:center;
-    }
-    .input{
-      flex:1;
-      min-width: 220px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.25);
-      color:var(--text);
-      outline:none;
-      font-weight:700;
-    }
-    .select{
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.25);
-      color:var(--text);
-      outline:none;
-      font-weight:800;
-    }
-    .hint{
-      color:rgba(255,255,255,0.62);
-      font-size:12px;
-      margin-left:auto;
-      white-space:nowrap;
-    }
+.hero-side{
+  display:grid;
+  gap:14px;
+}
 
-    .list{
-      padding:14px;
-      display:grid;
-      gap:12px;
-    }
-    .card{
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,0.05);
-      padding:14px;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-    }
-    .card:hover{
-      transform: translateY(-1px);
-      border-color: rgba(245,210,125,0.22);
-      background: rgba(255,255,255,0.07);
-    }
-    .meta{
-      display:flex;gap:8px;flex-wrap:wrap;
-      color:rgba(255,255,255,0.70);
-      font-size:12px;
-      margin-bottom:8px;
-      align-items:center;
-    }
-    .pill{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.22);
-    }
-    .status{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(0,0,0,0.22);
-      margin-left:auto;
-      font-weight:800;
-    }
-    .status.ok{color:rgba(196,255,214,0.95); border-color:rgba(196,255,214,0.22)}
-    .status.miss{color:rgba(255,196,196,0.95); border-color:rgba(255,196,196,0.22)}
+.mini{
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  padding: 16px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+}
+.mini h3{
+  margin:0 0 6px 0;
+  font-size: 14px;
+  letter-spacing: .3px;
+}
+.mini p{
+  margin:0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
 
-    .title{margin:0 0 6px;font-size:14px;font-weight:900}
-    .desc{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
-
-    .viewerTop{
-      padding:14px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      border-bottom:1px solid var(--border);
-    }
-    .viewerTitle{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-    }
-    .viewerTitle strong{font-size:14px}
-    .viewerTitle span{font-size:12px;color:var(--muted)}
-    .viewerActions{display:flex;gap:10px;flex-wrap:wrap}
-
-    .frameWrap{height: 74vh; background: rgba(0,0,0,0.28);}
-    iframe{
-      width:100%;
-      height:100%;
-      border:0;
-      background: rgba(0,0,0,0.25);
-    }
-
-    @media (max-width: 980px){
-      .layout{grid-template-columns: 1fr;}
-      .frameWrap{height: 66vh;}
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="container">
-      <div class="top">
-        <a class="brand" href="index.html" aria-label="Back to Home">
-          <div class="mark">O</div>
-          <div>
-            <div class="name">OMNIMORPHA™</div>
-            <div class="tag">Architecture Library • Readable • Clickable</div>
-          </div>
-        </a>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn ghost" href="investor.html">Investor Portal</a>
-          <a class="btn gold" href="index.html">Home</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <h1>Architecture Library</h1>
-      <p>Click any document to open it in the reader. Search by name, system, or version. 📄</p>
-    </section>
-
-    <section class="layout">
-      <!-- Left: Library -->
-      <div class="panel" id="library">
-        <div class="filters">
-          <input class="input" id="q" placeholder="Search (e.g., OmniClean, Nexus, v1.4)..." />
-          <select class="select" id="category">
-            <option value="all">All Categories</option>
-            <option value="appliances">Appliances</option>
-            <option value="energy">Energy</option>
-            <option value="powertrain">Powertrain</option>
-            <option value="safety">Safety</option>
-            <option value="thermal">Thermal</option>
-          </select>
-          <button class="btn ghost" id="checkLinks" type="button" title="Check which PDFs are present">
-            Check Links
-          </button>
-          <span class="hint" id="countHint">—</span>
-        </div>
-
-        <div class="list" id="list"></div>
-      </div>
-
-      <!-- Right: Reader -->
-      <div class="panel" id="viewer">
-        <div class="viewerTop">
-          <div class="viewerTitle">
-            <strong id="vTitle">Select an architecture</strong>
-            <span id="vMeta">Choose a document from the left.</span>
-          </div>
-          <div class="viewerActions">
-            <a class="btn ghost" id="openTab" href="#" target="_blank" rel="noopener">Open Tab</a>
-            <a class="btn gold" id="download" href="#" download>Download</a>
-          </div>
-        </div>
-
-        <div class="frameWrap">
-          <iframe id="frame" title="Architecture Reader" src=""></iframe>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    // ✅ EDIT THIS LIST ONLY. Add your PDFs here (paths must match EXACT filenames).
-    const DOCS = [
-      {
-        id: "omniclean",
-        title: "OmniClean™ Active Wash Architecture",
-        desc: "Brush-based wash architecture + verification loop + sub-assembly layout.",
-        category: "appliances",
-        system: "OmniClean",
-        version: "v1.4",
-        file: "docs/architecture/omniclean-active-wash-v1.4.pdf"
-      },
-      {
-        id: "nexus",
-        title: "Nexus AI Battery — Internal Block Diagram",
-        desc: "BMS + safety logic, contactors, fault logic, service mapping.",
-        category: "energy",
-        system: "Nexus Battery",
-        version: "v1.3",
-        file: "docs/architecture/nexus-battery-internal-v1.3.pdf"
-      },
-      {
-        id: "engine",
-        title: "Circuit Engine™ V8 — Internal Architecture",
-        desc: "Power + cooling + performance architecture, serviceability blocks.",
-        category: "powertrain",
-        system: "Circuit Engine",
-        version: "v2.0",
-        file: "docs/architecture/circuit-engine-v8-v2.pdf"
-      }
-    ];
-
-    const listEl = document.getElementById("list");
-    const qEl = document.getElementById("q");
-    const catEl = document.getElementById("category");
-    const countHint = document.getElementById("countHint");
-
-    const vTitle = document.getElementById("vTitle");
-    const vMeta = document.getElementById("vMeta");
-    const frame = document.getElementById("frame");
-    const openTab = document.getElementById("openTab");
-    const download = document.getElementById("download");
-
-    const checkBtn = document.getElementById("checkLinks");
-
-    const state = {
-      availability: new Map() // file -> true/false/undefined
-    };
-
-    function matches(doc, q, cat){
-      const hay = (doc.title + " " + doc.desc + " " + doc.system + " " + doc.version).toLowerCase();
-      const okQ = !q || hay.includes(q.toLowerCase());
-      const okC = (cat === "all") || (doc.category === cat);
-      return okQ && okC;
-    }
-
-    function setCount(visibleCount){
-      countHint.textContent = `${visibleCount} document${visibleCount === 1 ? "" : "s"} shown • ${DOCS.length} total`;
-    }
-
-    function statusBadge(doc){
-      const v = state.availability.get(doc.file);
-      if (v === true) return `<span class="status ok">AVAILABLE</span>`;
-      if (v === false) return `<span class="status miss">MISSING</span>`;
-      return `<span class="status">—</span>`;
-    }
-
-    function render(){
-      const q = qEl.value.trim();
-      const cat = catEl.value;
-
-      const visible = DOCS.filter(d => matches(d, q, cat));
-      setCount(visible.length);
-
-      listEl.innerHTML = "";
-      if (!visible.length){
-        listEl.innerHTML = `<div style="color: rgba(255,255,255,0.75); padding: 8px;">
-          No matches. Try a different search term.
-        </div>`;
-        return;
-      }
-
-      visible.forEach(doc => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.id = doc.id;
-        card.tabIndex = 0;
-        card.setAttribute("role","button");
-        card.setAttribute("aria-label", "Open " + doc.title);
-
-        card.innerHTML = `
-          <div class="meta">
-            <span class="pill">${doc.system}</span>
-            <span class="pill">${doc.version}</span>
-            <span class="pill">${doc.category}</span>
-            ${statusBadge(doc)}
-          </div>
-          <div class="title">${doc.title}</div>
-          <p class="desc">${doc.desc}</p>
-        `;
-
-        function open(){
-          openDoc(doc);
-          history.replaceState(null, "", "#" + doc.id);
-        }
-
-        card.addEventListener("click", open);
-        card.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
-        });
-
-        listEl.appendChild(card);
-      });
-    }
-
-    function openDoc(doc){
-      vTitle.textContent = doc.title;
-      vMeta.textContent = `${doc.system} • ${doc.version} • ${doc.category}`;
-      frame.src = doc.file;
-      openTab.href = doc.file;
-      download.href = doc.file;
-      download.setAttribute("download", doc.file.split("/").pop());
-    }
-
-    async function checkLinks(){
-      // marks each doc as AVAILABLE/MISSING using fetch HEAD/GET.
-      // GitHub Pages sometimes blocks HEAD; fallback to GET.
-      for (const d of DOCS){
-        try{
-          const res = await fetch(d.file, { method: "HEAD" });
-          if (res.ok) { state.availability.set(d.file, true); continue; }
-          // fallback
-          const res2 = await fetch(d.file, { method: "GET" });
-          state.availability.set(d.file, !!res2.ok);
-        }catch(err){
-          state.availability.set(d.file, false);
-        }
-      }
-      render();
-    }
-
-    function openFromHash(){
-      const id = (location.hash || "").replace("#","").trim();
-      if (!id) return;
-      const found = DOCS.find(d => d.id === id);
-      if (found) openDoc(found);
-    }
-
-    qEl.addEventListener("input", render);
-    catEl.addEventListener("change", render);
-    checkBtn.addEventListener("click", checkLinks);
-
-    render();
-    openFromHash();
-  </script>
-</body>
-</html>
+@media (max-width: 980px){
+  .hero-grid{ grid-template-columns: 1fr; }
+}

@@ -860,6 +860,273 @@
         logLine("Feed cleared");
       });
     }
+ 
+  <script>
+  // ===== CPI + Historical Memory (localStorage) =====
+  const LS_KEY = "omniclean_cpi_history_v1";
+  const MAX_CYCLES = 20;
+
+  const cpiNow = document.getElementById("cpiNow");
+  const cpiBand = document.getElementById("cpiBand");
+  const soilNow = document.getElementById("soilNow");
+  const soilBar = document.getElementById("soilBar");
+  const optGain = document.getElementById("optGain");
+  const optNote = document.getElementById("optNote");
+  const overwashNow = document.getElementById("overwashNow");
+  const overwashNote = document.getElementById("overwashNote");
+  const cpiAvg = document.getElementById("cpiAvg");
+  const cpiTrend = document.getElementById("cpiTrend");
+  const effDelta = document.getElementById("effDelta");
+  const effNote = document.getElementById("effNote");
+  const perfLog = document.getElementById("perfLog");
+
+  const cycleStartBtn = document.getElementById("cycleStart");
+  const cycleStopBtn = document.getElementById("cycleStop");
+  const memResetBtn = document.getElementById("memReset");
+
+  let cycleActive = false;
+  let cycleBaseline = null; // first cycle snapshot
+  let cycleStartTs = null;
+
+  function safeParse(json, fallback){
+    try { return JSON.parse(json); } catch { return fallback; }
+  }
+
+  function loadHistory(){
+    const raw = localStorage.getItem(LS_KEY);
+    const data = raw ? safeParse(raw, []) : [];
+    return Array.isArray(data) ? data : [];
+  }
+
+  function saveHistory(arr){
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));
+  }
+
+  function stamp(){
+    const d = new Date();
+    return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  }
+
+  function perfLine(msg){
+    if(!perfLog) return;
+    const div = document.createElement("div");
+    div.className = "perf-line";
+    div.innerHTML = `<span style="color: rgba(245,210,125,0.90); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
+    perfLog.prepend(div);
+    while(perfLog.children.length > 50) perfLog.removeChild(perfLog.lastChild);
+  }
+
+  // CPI components (0-100)
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function computeCPI(metrics){
+    // metrics: turbidity(0-100), pressure(0-100), torque(0-100), tempStability(0-100), adaptAccuracy(0-100)
+    const SRE = clamp(100 - metrics.turbidity, 0, 100);     // clearer water => higher score
+    const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
+    const TO  = clamp(metrics.tempStability, 0, 100);
+    const AA  = clamp(metrics.adaptAccuracy, 0, 100);
+
+    const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
+    return clamp(cpi, 0, 100);
+  }
+
+  function bandLabel(cpi){
+    if(cpi >= 90) return "Exceptional Cycle";
+    if(cpi >= 80) return "High Performance";
+    if(cpi >= 70) return "Standard";
+    return "Adaptive Boost Triggered";
+  }
+
+  // Simulated “learning”: as history grows, we bias efficiency up slightly
+  function learningFactor(historyLen){
+    // 0 to ~0.12
+    return clamp(historyLen * 0.006, 0, 0.12);
+  }
+
+  function avg(arr, key){
+    if(arr.length === 0) return null;
+    const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
+    return s / arr.length;
+  }
+
+  function pctFmt(x){
+    const sign = x >= 0 ? "+" : "";
+    return `${sign}${x.toFixed(1)}%`;
+  }
+
+  function updateSummaryUI(history){
+    const avgC = avg(history, "cpi");
+    if(avgC !== null){
+      cpiAvg.textContent = avgC.toFixed(1);
+      const last = history[0];
+      const prev = history[1];
+      if(prev){
+        const delta = last.cpi - prev.cpi;
+        cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
+      } else {
+        cpiTrend.textContent = "Trend: —";
+      }
+    } else {
+      cpiAvg.textContent = "—";
+      cpiTrend.textContent = "Trend: —";
+    }
+
+    // Baseline = last element (oldest) OR first stored snapshot
+    const baseline = history.length ? history[history.length - 1] : null;
+    if(baseline && history.length >= 2){
+      const latest = history[0];
+
+      // Efficiency composite: lower is better (water, energy, time)
+      const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
+      const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
+
+      const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
+      effDelta.textContent = pctFmt(gain);
+      effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
+    } else {
+      effDelta.textContent = "—";
+      effNote.textContent = "Water + energy + time";
+    }
+  }
+
+  // One cycle snapshot generator (believable numbers)
+  function generateCycleSnapshot(history){
+    const lf = learningFactor(history.length);
+
+    // Soil starts higher early; learning reduces “overwashing”
+    const soil = clamp(65 + (Math.random()*25) - (lf*40), 20, 95);          // 20–95
+    const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
+
+    const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
+    const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
+
+    const tempStability = clamp(80 + (Math.random()*14 - 7), 55, 96);
+    const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
+
+    const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
+
+    // Water/Energy/Time reduce slightly with learning while keeping performance high
+    const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3), 70, 110);
+    const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4), 10.5, 16.5);
+    const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04), 0.95, 1.45);
+
+    // Overwash prevention triggers when CPI is high and soil already drops (simulated)
+    const overwashPrevented = (cpi >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
+
+    // Adaptive boost when CPI low-ish
+    const boost = (cpi < 70);
+
+    return {
+      ts: Date.now(),
+      cpi,
+      soil,
+      timeMin,
+      waterL,
+      energyKwh,
+      overwashPrevented,
+      boost
+    };
+  }
+
+  function renderCurrent(snapshot, history){
+    cpiNow.textContent = snapshot.cpi.toFixed(1);
+    cpiBand.textContent = bandLabel(snapshot.cpi);
+
+    soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
+    soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
+
+    // optimization gain vs baseline (first cycle)
+    const baseline = history.length ? history[history.length - 1] : snapshot;
+    const baseC = baseline.cpi || snapshot.cpi;
+    const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
+    optGain.textContent = pctFmt(gain);
+    optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
+
+    overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
+    overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
+
+    if(snapshot.boost){
+      perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
+    } else {
+      perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
+    }
+
+    updateSummaryUI(history);
+  }
+
+  function completeCycle(){
+    const history = loadHistory();
+    const snap = generateCycleSnapshot(history);
+
+    // Save newest first
+    history.unshift(snap);
+    if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
+    saveHistory(history);
+
+    renderCurrent(snap, history);
+
+    // Also write to your existing feed log if present
+    if(typeof logLine === "function"){
+      logLine(`CPI=${snap.cpi.toFixed(1)} | Soil=${snap.soil.toFixed(0)} | Water=${snap.waterL.toFixed(1)}L | Energy=${snap.energyKwh.toFixed(2)}kWh | Time=${snap.timeMin.toFixed(0)}m | Overwash=${snap.overwashPrevented ? "Prevented" : "—"}`);
+    }
+  }
+
+  function startCycle(){
+    if(cycleActive) return;
+    cycleActive = true;
+    cycleStartTs = Date.now();
+    perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
+    if(typeof setStatus === "function") setStatus("Cycle Running", "55%");
+    if(tCycle) tCycle.textContent = "Active Wash";
+  }
+
+  function stopCycle(){
+    if(!cycleActive) return;
+    cycleActive = false;
+    perfLine("Cycle completed — computing CPI + updating memory.");
+    if(typeof setStatus === "function") setStatus("Verification", "92%");
+    if(tCycle) tCycle.textContent = "Verification";
+    // finalize
+    completeCycle();
+    if(typeof setStatus === "function") setStatus("Idle", "0%");
+    if(tCycle) tCycle.textContent = "Idle";
+  }
+
+  function resetMemory(){
+    localStorage.removeItem(LS_KEY);
+    if(perfLog) perfLog.innerHTML = "";
+    cpiNow.textContent = "—";
+    cpiBand.textContent = "Idle";
+    soilNow.textContent = "—";
+    soilBar.style.width = "0%";
+    optGain.textContent = "—";
+    optNote.textContent = "Learning model warming up";
+    overwashNow.textContent = "—";
+    overwashNote.textContent = "Adaptive control";
+    cpiAvg.textContent = "—";
+    cpiTrend.textContent = "Trend: —";
+    effDelta.textContent = "—";
+    effNote.textContent = "Water + energy + time";
+    perfLine("Memory reset — performance model restarted.");
+  }
+
+  // Wire buttons
+  if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
+  if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
+  if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
+
+  // On load: show history summary
+  (function initPerf(){
+    const history = loadHistory();
+    if(history.length){
+      perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
+      renderCurrent(history[0], history);
+    } else {
+      perfLine("Memory initialized — run a cycle to generate CPI history.");
+      updateSummaryUI([]);
+    }
+  })();
+
   </script>
 </body>
 </html>

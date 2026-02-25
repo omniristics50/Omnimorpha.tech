@@ -718,3 +718,40 @@ body.nexus-offline .status-dot {
   border-color:rgba(245,210,125,0.8);
 }
 
+/* Clickable system cards */
+.clickable{
+  cursor:pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.clickable:hover{
+  transform: translateY(-3px);
+  border-color: rgba(245,210,125,0.40);
+  box-shadow: 0 0 20px rgba(245,210,125,0.15);
+}
+
+/* System status bar */
+.system-status{ margin: 22px 0 0; }
+.status-inner{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 14px;
+}
+#status-label{
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: rgba(245,210,125,0.95);
+  letter-spacing: 0.2px;
+}
+.status-bar{
+  height: 8px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 999px;
+  overflow: hidden;
+}
+#status-progress{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f5d27d, #caa24e);
+  transition: width 0.6s ease;
+}

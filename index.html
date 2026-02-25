@@ -366,18 +366,30 @@
         </div>
 
         <div class="hero-side">
-          <div class="mini">
-            <h3>🧠 NEXUS</h3>
-            <p>Live risk intelligence, simulation logic, and strategy recommendations—designed to be embedded into the web experience.</p>
-          </div>
-          <div class="mini">
-            <h3>⚙️ REGENT</h3>
-            <p>Circuit-engine concept UI: deliberate controls, refusal rituals, auditability, and calm authority interfaces.</p>
-          </div>
-        </div>
+  <a href="nexus.html" class="mini clickable" data-system="nexus" aria-label="Open NEXUS">
+    <h3>🧠 NEXUS</h3>
+    <p>Live risk intelligence, simulation logic, and strategy recommendations—designed to be embedded into the web experience.</p>
+  </a>
+
+  <a href="regent.html" class="mini clickable" data-system="regent" aria-label="Open REGENT">
+    <h3>⚙️ REGENT</h3>
+    <p>Circuit-engine concept UI: deliberate controls, refusal rituals, auditability, and calm authority interfaces.</p>
+  </a>
+</div>
+
+     </div>
       </div>
     </section>
 
+<div class="system-status">
+  <div class="status-inner">
+    <div id="status-label">System Status: Idle</div>
+    <div class="status-bar">
+      <div id="status-progress"></div>
+    </div>
+  </div>
+</div>
+    
     <!-- FEATURED -->
     <section class="section">
       <div class="section-title">
@@ -534,9 +546,33 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script>
+  // Footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Status bar behavior
+  const cards = document.querySelectorAll(".clickable");
+  const progress = document.getElementById("status-progress");
+  const label = document.getElementById("status-label");
+
+  function setStatus(text, pct){
+    if (!progress || !label) return;
+    label.textContent = text;
+    progress.style.width = pct;
+  }
+
+  cards.forEach(card => {
+    card.addEventListener("mouseenter", () => {
+      const system = card.dataset.system;
+      if(system === "nexus") setStatus("System Status: NEXUS Intelligence Online", "85%");
+      if(system === "regent") setStatus("System Status: REGENT Circuit Engine Active", "92%");
+    });
+
+    card.addEventListener("mouseleave", () => {
+      setStatus("System Status: Idle", "0%");
+    });
+  });
+</script>>
 
 </body>
 </html>

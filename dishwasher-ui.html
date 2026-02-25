@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omnimorpha | Dishwasher UI</title>
+  <title>Omnimorpha | OmniClean™ Dishwasher UI</title>
 
   <link rel="stylesheet" href="styles.css" />
 
   <style>
     :root{
       --bg:#07080b;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.09);
       --border: rgba(255,255,255,0.12);
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
@@ -19,6 +21,7 @@
       --radius: 18px;
       --radius2: 22px;
     }
+
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -29,203 +32,53 @@
       color: var(--text);
       overflow-x:hidden;
     }
+
     a{ color:inherit; text-decoration:none; }
-    .container{ width:min(1180px, calc(100% - 48px)); margin:0 auto; }
+    .container{
+      width:min(1180px, calc(100% - 48px));
+      margin: 26px auto 60px;
+    }
 
-    /* Topbar */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,8,11,0.55);
-      border-bottom: 1px solid var(--border);
+    .top{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+      margin-bottom: 14px;
     }
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-    .brand{ display:flex; align-items:center; gap:12px; min-width: 220px; }
-    .brand-mark{
-      width:38px; height:38px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(245,210,125,0.25), rgba(245,210,125,0.06));
-      border: 1px solid rgba(245,210,125,0.35);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-      display:grid; place-items:center;
-      color: var(--gold);
-      font-weight: 900;
-      letter-spacing: 0.5px;
-    }
-    .brand-title .name{ font-weight: 900; letter-spacing: 0.6px; }
-    .brand-title .tag{ font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .nav{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
-    .nav a{
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      color: rgba(255,255,255,0.86);
-      font-weight: 800;
+    .title{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .title h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: 0.4px;
+    }
+    .title p{
+      margin:0;
+      color: var(--muted);
       font-size: 13px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      background: transparent;
-    }
-    .nav a:hover{
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.12);
-      transform: translateY(-1px);
-    }
-    .nav a.primary{
-      background: linear-gradient(135deg, rgba(245,210,125,0.22), rgba(245,210,125,0.08));
-      border-color: rgba(245,210,125,0.30);
-      color: rgba(255,255,255,0.94);
+      line-height: 1.5;
+      max-width: 70ch;
     }
 
-    /* Hero */
-    .hero{ padding: 34px 0 14px; }
-    .hero-card{
-      border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-card::before{
-      content:"";
-      position:absolute;
-      inset:-120px -140px auto auto;
-      width:420px; height:420px;
-      border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, rgba(245,210,125,0.20), transparent 65%);
-      pointer-events:none;
-    }
-    h1{ margin:0 0 8px 0; font-size: clamp(26px, 3vw, 40px); line-height: 1.08; }
-    .sub{ margin:0; color: var(--muted); line-height: 1.6; font-size: 14px; max-width: 78ch; }
-
-    /* Status Bar */
-    .system-status{ margin-top: 14px; }
-    .status-inner{
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 16px;
-      padding: 14px;
-    }
-    #status-label{
-      font-weight: 900;
-      margin-bottom: 8px;
-      color: rgba(245,210,125,0.95);
-      letter-spacing: 0.2px;
-    }
-    .status-bar{
-      height: 8px;
-      background: rgba(255,255,255,0.10);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    #status-progress{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-      transition: width 0.6s ease;
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
 
-    /* Sections */
-    .section{ padding: 18px 0 46px; }
-    .section-title{
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      align-items:baseline; margin: 18px 0 12px;
-    }
-    .section-title h2{ margin:0; font-size: 18px; letter-spacing: 0.5px; }
-    .section-title span{ color: var(--muted); font-size: 13px; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .card{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-      border: 1px solid var(--border);
-      padding: 18px;
-      box-shadow: 0 14px 46px rgba(0,0,0,0.30);
-      transition: transform .12s ease, border-color .12s ease, background .12s ease, box-shadow .12s ease;
-      min-height: 168px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(245,210,125,0.22);
-      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
-      box-shadow: 0 18px 54px rgba(0,0,0,0.38);
-    }
-    .icon{ font-size: 18px; opacity: 0.95; }
-    .card h3{ margin: 10px 0 8px; font-size: 15px; letter-spacing: 0.4px; }
-    .card p{ margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.55; }
-    .link{
-      display:inline-flex; align-items:center; gap:8px;
-      color: rgba(245,210,125,0.95);
-      font-weight: 900; font-size: 13px;
-    }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px; }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px; border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      font-size: 12px; font-weight: 900;
-      color: rgba(255,255,255,0.84);
-      white-space: nowrap;
-    }
-    .chip.gold{
-      background: rgba(245,210,125,0.10);
-      border-color: rgba(245,210,125,0.25);
-      color: rgba(245,210,125,0.95);
-    }
-
-    /* Reader panel */
-    .reader{
-      margin-top: 14px;
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
-      overflow: hidden;
-    }
-    .reader-head{
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.18);
-    }
-    .reader-head .title{
-      font-weight: 900;
-      letter-spacing: 0.3px;
-      color: rgba(245,210,125,0.95);
-    }
-    .reader-head .actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
       color: rgba(255,255,255,0.92);
       font-weight: 900;
       font-size: 13px;
+      cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      cursor: pointer;
-      white-space: nowrap;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -236,622 +89,304 @@
       background: linear-gradient(135deg, rgba(245,210,125,0.24), rgba(245,210,125,0.10));
       border-color: rgba(245,210,125,0.32);
     }
-    .reader-body{
-      padding: 18px 16px;
-      color: rgba(255,255,255,0.86);
-      line-height: 1.65;
-      font-size: 14px;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 180px 1fr;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .kv div{
-      padding: 10px 12px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      border-radius: 12px;
-    }
-    .kv .k{ color: rgba(255,255,255,0.70); font-weight: 800; }
-    .kv .v{ font-weight: 800; }
 
-    /* Live Prototype Feed */
-    .feed{
-      margin-top: 16px;
+    /* Status bar */
+    .system-status{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
+      padding: 14px 16px;
+      margin: 12px 0 16px;
+    }
+    .status-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+    }
+    #status-label{
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      color: rgba(245,210,125,0.92);
+    }
+    .status-bar{
+      flex: 1;
+      min-width: 260px;
+      height: 10px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    #status-progress{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transition: width .5s ease;
+    }
+
+    /* Performance (CPI + Memory) */
+    .perf{
       border-radius: var(--radius2);
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 16px 50px rgba(0,0,0,0.32);
       overflow: hidden;
+      margin-top: 10px;
     }
-    .feed-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
+    .perf-head{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:12px; flex-wrap:wrap;
       padding: 14px 16px;
       border-bottom: 1px solid rgba(255,255,255,0.10);
       background: rgba(0,0,0,0.18);
     }
-    .feed-title{
+    .perf-title{
       font-weight: 900;
       letter-spacing: 0.3px;
       color: rgba(245,210,125,0.95);
     }
-    .feed-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .feed-pill{
+    .perf-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .perf-pill{
       display:inline-flex;
       align-items:center;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(245,210,125,0.10);
+      border: 1px solid rgba(245,210,125,0.25);
       font-size: 12px;
       font-weight: 900;
-      color: rgba(255,255,255,0.84);
+      color: rgba(245,210,125,0.95);
     }
-    .feed-body{ padding: 14px 16px 16px; }
-    .telemetry{
+    .perf-body{ padding: 14px 16px 16px; }
+
+    .perf-grid{
       display:grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 10px;
       margin-bottom: 12px;
     }
-    .telemetry-card{
+    .perf-card{
       padding: 10px 12px;
       border-radius: 14px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.10);
     }
-    .telemetry-k{
+    .perf-k{
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 900;
       color: rgba(255,255,255,0.70);
       margin-bottom: 6px;
     }
-    .telemetry-v{
-      font-size: 13px;
+    .perf-v{
+      font-size: 15px;
       font-weight: 900;
-      color: rgba(255,255,255,0.90);
+      color: rgba(255,255,255,0.92);
     }
-    .log{
-      height: 220px;
-      overflow: auto;
-      padding: 12px;
+    .perf-s{
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.70);
+    }
+    .meter{
+      height: 8px;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .meter-fill{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transition: width 0.6s ease;
+    }
+
+    .perf-log-wrap{
+      margin-top: 10px;
       border-radius: 14px;
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.10);
+      overflow:hidden;
+    }
+    .perf-log-title{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      font-weight: 900;
+      color: rgba(245,210,125,0.92);
+      background: rgba(0,0,0,0.15);
+    }
+    .perf-log{
+      height: 160px;
+      overflow:auto;
+      padding: 10px 12px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
       line-height: 1.5;
     }
-    .log-line{ padding: 6px 8px; border-bottom: 1px dashed rgba(255,255,255,0.10); }
-    .log-line:last-child{ border-bottom: 0; }
-    .ts{ color: rgba(245,210,125,0.90); font-weight: 900; margin-right: 8px; }
+    .perf-line{ padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); }
+    .perf-line:last-child{ border-bottom: 0; }
+    .badge{
+      display:inline-flex;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid rgba(245,210,125,0.25);
+      background: rgba(245,210,125,0.08);
+      color: rgba(245,210,125,0.95);
+      margin-left: 8px;
+    }
 
-    footer{
-      border-top: 1px solid var(--border);
-      background: rgba(0,0,0,0.25);
-      padding: 18px 0 26px;
-      color: rgba(255,255,255,0.70);
+    /* Live feed */
+    .panel{
+      margin-top: 14px;
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
+      overflow:hidden;
+    }
+    .panel-head{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:12px; flex-wrap:wrap;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.18);
+    }
+    .panel-title{
+      font-weight: 900;
+      color: rgba(245,210,125,0.92);
+    }
+    .feed{
+      height: 200px;
+      overflow:auto;
+      padding: 10px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
+      line-height: 1.55;
+      background: rgba(0,0,0,0.25);
     }
-    .footer-inner{
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    }
+    .line{ padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); }
+    .line:last-child{ border-bottom:0; }
 
     @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .kv{ grid-template-columns: 1fr; }
-      .telemetry{ grid-template-columns: repeat(2, 1fr); }
+      .perf-grid{ grid-template-columns: repeat(2, 1fr); }
+      .status-bar{ min-width: 200px; }
     }
- 
-  /* Performance (CPI + Memory) */
-.perf{
-  margin-top: 16px;
-  border-radius: var(--radius2);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 16px 50px rgba(0,0,0,0.32);
-  overflow: hidden;
-}
-.perf-head{
-  display:flex; justify-content:space-between; align-items:center;
-  gap:12px; flex-wrap:wrap;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.18);
-}
-.perf-title{
-  font-weight: 900;
-  letter-spacing: 0.3px;
-  color: rgba(245,210,125,0.95);
-}
-.perf-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-.perf-pill{
-  display:inline-flex;
-  align-items:center;
-  padding: 8px 10px;
-  border-radius: 999px;
-  background: rgba(245,210,125,0.10);
-  border: 1px solid rgba(245,210,125,0.25);
-  font-size: 12px;
-  font-weight: 900;
-  color: rgba(245,210,125,0.95);
-}
-.perf-body{ padding: 14px 16px 16px; }
-
-.perf-grid{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.perf-card{
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-.perf-k{
-  font-size: 12px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.70);
-  margin-bottom: 6px;
-}
-.perf-v{
-  font-size: 15px;
-  font-weight: 900;
-  color: rgba(255,255,255,0.92);
-}
-.perf-s{
-  margin-top: 6px;
-  font-size: 12px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.70);
-}
-
-.meter{
-  height: 8px;
-  margin-top: 10px;
-  background: rgba(255,255,255,0.10);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.meter-fill{
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--gold), var(--gold2));
-  transition: width 0.6s ease;
-}
-
-.perf-log-wrap{
-  margin-top: 10px;
-  border-radius: 14px;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.10);
-  overflow:hidden;
-}
-.perf-log-title{
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-  font-weight: 900;
-  color: rgba(245,210,125,0.92);
-  background: rgba(0,0,0,0.15);
-}
-.perf-log{
-  height: 160px;
-  overflow:auto;
-  padding: 10px 12px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 12px;
-  line-height: 1.5;
-}
-.perf-line{ padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); }
-.perf-line:last-child{ border-bottom: 0; }
-.badge{
-  display:inline-flex;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 900;
-  border: 1px solid rgba(245,210,125,0.25);
-  background: rgba(245,210,125,0.08);
-  color: rgba(245,210,125,0.95);
-  margin-left: 8px;
-}
-
-@media (max-width: 980px){
-  .perf-grid{ grid-template-columns: repeat(2, 1fr); }
-}
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="container">
-      <div class="topbar-inner">
-        <a class="brand" href="index.html" aria-label="Omnimorpha Home">
-          <div class="brand-mark">O</div>
-          <div class="brand-title">
-            <div class="name">OMNIMORPHA</div>
-            <div class="tag">OmniClean™ Dishwasher UI • Live Modules</div>
-          </div>
-        </a>
-
-        <nav class="nav" aria-label="Primary">
-          <a href="index.html">Home</a>
-          <a href="ai-dishwasher.html">AI Dishwasher</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="portal.html">Investor Portal</a>
-          <a class="primary" href="dishwasher-ui.html">Dishwasher UI</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
   <main class="container">
-    <section class="hero">
-      <div class="hero-card">
+
+    <div class="top">
+      <div class="title">
         <h1>OmniClean™ Dishwasher UI</h1>
-        <p class="sub">
-          Hover modules to update status. Click a module to load its preview and keep the UI “live”.
-        </p>
-
-        <div class="system-status">
-          <div class="status-inner">
-            <div id="status-label">System Status: Idle</div>
-            <div class="status-bar"><div id="status-progress"></div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <h2>Control Modules</h2>
-        <span>Click any module to load the preview panel.</span>
+        <p>Adaptive Cleaning Engine (ACE) demo — CPI scoring, learning memory, and real-time optimization events.</p>
       </div>
 
-      <div class="grid">
-        <a class="card clickable"
-           href="ai-dishwasher.html"
-           data-title="Active Wash Controller"
-           data-status="Active Wash Online"
-           data-pct="88%"
-           data-desc="Manages brush-arm sequencing, pressure profiles, detergent dosing, and verification loop per rack zone.">
-          <div class="icon">🍽️</div>
-          <h3>Active Wash</h3>
-          <p>Brush sequencing + verification loop.</p>
-          <div class="chips">
-            <span class="chip gold">Core</span>
-            <span class="chip">Zones</span>
-            <span class="chip">Verification</span>
-          </div>
-          <div class="link">Open Page →</div>
-        </a>
-
-        <a class="card clickable"
-           href="architecture.html"
-           data-title="Brush Arm System"
-           data-status="Brush System Calibrated"
-           data-pct="84%"
-           data-desc="Brush-arm kinematics, torque monitoring, and clog detection. Includes self-clean cycle logic and maintenance prompts.">
-          <div class="icon">🧽</div>
-          <h3>Brush Arms</h3>
-          <p>Motion + torque + clog detection.</p>
-          <div class="chips">
-            <span class="chip gold">Mechanics</span>
-            <span class="chip">Torque</span>
-            <span class="chip">Self-clean</span>
-          </div>
-          <div class="link">Open Architecture →</div>
-        </a>
-
-        <a class="card clickable"
-           href="ai-camera.html"
-           data-title="Vision / Sensor Validation"
-           data-status="Sensor Verification Active"
-           data-pct="80%"
-           data-desc="Optical + sensor fusion checks for placement validation, cycle confirmation, and anomaly detection.">
-          <div class="icon">📷</div>
-          <h3>Verification</h3>
-          <p>Sensor checks + anomaly detection.</p>
-          <div class="chips">
-            <span class="chip gold">Sensors</span>
-            <span class="chip">Fusion</span>
-            <span class="chip">Alerts</span>
-          </div>
-          <div class="link">Open Sensors →</div>
-        </a>
-
-        <a class="card clickable"
-           href="portal.html"
-           data-title="Cycle Profiles"
-           data-status="Profiles Loaded"
-           data-pct="76%"
-           data-desc="Wash profiles: Quick, Standard, Heavy, Glass, Sanitize, Eco. Includes adaptive timing, heat curve, and water logic.">
-          <div class="icon">🧭</div>
-          <h3>Cycle Profiles</h3>
-          <p>Adaptive timing + heat curve.</p>
-          <div class="chips">
-            <span class="chip gold">Profiles</span>
-            <span class="chip">Adaptive</span>
-            <span class="chip">Eco</span>
-          </div>
-          <div class="link">Open Portal →</div>
-        </a>
-
-        <a class="card clickable"
-           href="investor-architecture.html"
-           data-title="Telemetry & Quality"
-           data-status="Telemetry Streaming"
-           data-pct="79%"
-           data-desc="Cycle telemetry, quality scoring, and predictive maintenance prompts. Intended for investor-facing reliability proof.">
-          <div class="icon">📈</div>
-          <h3>Telemetry</h3>
-          <p>Quality score + predictive maintenance.</p>
-          <div class="chips">
-            <span class="chip gold">Analytics</span>
-            <span class="chip">Quality</span>
-            <span class="chip">Maintenance</span>
-          </div>
-          <div class="link">Open Investor Arch →</div>
-        </a>
-
-        <a class="card clickable"
-           href="contact.html"
-           data-title="Service & Support"
-           data-status="Service Layer Ready"
-           data-pct="72%"
-           data-desc="Service flow, troubleshooting steps, and support escalation routing for engineering + investor inquiries.">
-          <div class="icon">🛠️</div>
-          <h3>Service</h3>
-          <p>Support workflows + escalation.</p>
-          <div class="chips">
-            <span class="chip gold">Support</span>
-            <span class="chip">Service</span>
-            <span class="chip">Escalation</span>
-          </div>
-          <div class="link">Open Contact →</div>
-        </a>
-      </div>
-
-      <!-- ✅ Reader panel is HERE -->
-      <div class="reader" id="reader">
-        <div class="reader-head">
-          <div class="title" id="readerTitle">Module Preview</div>
-          <div class="actions">
-            <a class="btn" id="openBtn" href="ai-dishwasher.html">Open Linked Page →</a>
-            <a class="btn gold" href="architecture.html">Open Architecture Library →</a>
-          </div>
-        </div>
-        <div class="reader-body">
-          <div id="readerDesc">Hover a module to see live status. Click a module to load its preview here.</div>
-
-          <div class="kv" style="margin-top:14px;">
-            <div class="k">Status</div><div class="v" id="readerStatus">Idle</div>
-            <div class="k">Readiness</div><div class="v" id="readerPct">0%</div>
-          </div>
-        </div>
-      </div>
-
-<!-- ✅ Performance (CPI + Historical Memory) -->
-<div class="perf" id="perf">
-  <div class="perf-head">
-    <div class="perf-title">OmniClean™ Performance Intelligence</div>
-    <div class="perf-actions">
-      <span class="perf-pill" id="perfMem">Memory: Enabled</span>
-      <button class="btn" id="cycleStart" type="button">Start Cycle</button>
-      <button class="btn" id="cycleStop" type="button">Stop</button>
-      <button class="btn gold" id="memReset" type="button">Reset Memory</button>
-    </div>
-  </div>
-
-  <div class="perf-body">
-    <div class="perf-grid">
-      <div class="perf-card">
-        <div class="perf-k">Cleaning Performance Index (CPI)</div>
-        <div class="perf-v" id="cpiNow">—</div>
-        <div class="perf-s" id="cpiBand">Idle</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-k">Soil Level</div>
-        <div class="perf-v" id="soilNow">—</div>
-        <div class="meter"><div class="meter-fill" id="soilBar"></div></div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-k">Optimization Gain</div>
-        <div class="perf-v" id="optGain">—</div>
-        <div class="perf-s" id="optNote">Learning model warming up</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-k">Overwash Prevention</div>
-        <div class="perf-v" id="overwashNow">—</div>
-        <div class="perf-s" id="overwashNote">Adaptive control</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-k">Lifetime Avg CPI</div>
-        <div class="perf-v" id="cpiAvg">—</div>
-        <div class="perf-s" id="cpiTrend">—</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-k">Efficiency vs Baseline</div>
-        <div class="perf-v" id="effDelta">—</div>
-        <div class="perf-s" id="effNote">Water + energy + time</div>
+      <div class="actions">
+        <a class="btn" href="ai-dishwasher.html">Back to AI Dishwasher</a>
+        <a class="btn gold" href="architecture.html">Read Architectures</a>
       </div>
     </div>
 
-    <div class="perf-log-wrap">
-      <div class="perf-log-title">Adaptive Decisions Log</div>
-      <div class="perf-log" id="perfLog" aria-label="Adaptive decisions log"></div>
+    <div class="system-status">
+      <div class="status-inner">
+        <div id="status-label">System Status: Idle</div>
+        <div class="status-bar"><div id="status-progress"></div></div>
+      </div>
     </div>
-  </div>
-</div>
-      
-      <!-- ✅ Live Prototype Feed -->
-      <div class="feed" id="feed">
-        <div class="feed-head">
-          <div class="feed-title">Live Prototype Feed</div>
-          <div class="feed-actions">
-            <span class="feed-pill" id="feedMode">Mode: Simulated</span>
-            <button class="btn" id="feedPause" type="button">Pause</button>
-            <button class="btn gold" id="feedClear" type="button">Clear</button>
-          </div>
-        </div>
 
-        <div class="feed-body">
-          <div class="telemetry">
-            <div class="telemetry-card"><div class="telemetry-k">Cycle</div><div class="telemetry-v" id="tCycle">Idle</div></div>
-            <div class="telemetry-card"><div class="telemetry-k">Temp</div><div class="telemetry-v" id="tTemp">—</div></div>
-            <div class="telemetry-card"><div class="telemetry-k">Pump</div><div class="telemetry-v" id="tPump">—</div></div>
-            <div class="telemetry-card"><div class="telemetry-k">Brush Torque</div><div class="telemetry-v" id="tTorque">—</div></div>
-            <div class="telemetry-card"><div class="telemetry-k">Verification</div><div class="telemetry-v" id="tVerify">—</div></div>
-            <div class="telemetry-card"><div class="telemetry-k">Alert</div><div class="telemetry-v" id="tAlert">None</div></div>
-          </div>
-
-          <div class="log" id="feedLog" aria-label="Live feed log"></div>
+    <!-- ✅ Performance (CPI + Historical Memory) -->
+    <div class="perf" id="perf">
+      <div class="perf-head">
+        <div class="perf-title">OmniClean™ Performance Intelligence</div>
+        <div class="perf-actions">
+          <span class="perf-pill" id="perfMem">Memory: Enabled</span>
+          <button class="btn" id="cycleStart" type="button">Start Cycle</button>
+          <button class="btn" id="cycleStop" type="button">Stop</button>
+          <button class="btn gold" id="memReset" type="button">Reset Memory</button>
         </div>
       </div>
-    </section>
+
+      <div class="perf-body">
+        <div class="perf-grid">
+          <div class="perf-card">
+            <div class="perf-k">Cleaning Performance Index (CPI)</div>
+            <div class="perf-v" id="cpiNow">—</div>
+            <div class="perf-s" id="cpiBand">Idle</div>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-k">Soil Level</div>
+            <div class="perf-v" id="soilNow">—</div>
+            <div class="meter"><div class="meter-fill" id="soilBar"></div></div>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-k">Optimization Gain</div>
+            <div class="perf-v" id="optGain">—</div>
+            <div class="perf-s" id="optNote">Learning model warming up</div>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-k">Overwash Prevention</div>
+            <div class="perf-v" id="overwashNow">—</div>
+            <div class="perf-s" id="overwashNote">Adaptive control</div>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-k">Lifetime Avg CPI</div>
+            <div class="perf-v" id="cpiAvg">—</div>
+            <div class="perf-s" id="cpiTrend">Trend: —</div>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-k">Efficiency vs Baseline</div>
+            <div class="perf-v" id="effDelta">—</div>
+            <div class="perf-s" id="effNote">Water + energy + time</div>
+          </div>
+        </div>
+
+        <div class="perf-log-wrap">
+          <div class="perf-log-title">Adaptive Decisions Log</div>
+          <div class="perf-log" id="perfLog" aria-label="Adaptive decisions log"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Live Prototype Feed -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Live Prototype Feed</div>
+        <button class="btn" id="feedClear" type="button">Clear Feed</button>
+      </div>
+      <div class="feed" id="feedLog" aria-label="Telemetry feed"></div>
+    </div>
+
   </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div>© <span id="year"></span> Omnimorpha • OmniClean™ UI</div>
-        <div style="color: rgba(245,210,125,0.85); font-weight: 900;">Black • Gold • Systems</div>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Status bar
-    const progress = document.getElementById("status-progress");
-    const label = document.getElementById("status-label");
-
-    function setStatus(text, pct){
-      if (!progress || !label) return;
-      label.textContent = "System Status: " + text;
-      progress.style.width = pct;
-    }
-
-    // Preview panel
-    const readerTitle = document.getElementById("readerTitle");
-    const readerDesc = document.getElementById("readerDesc");
-    const readerStatus = document.getElementById("readerStatus");
-    const readerPct = document.getElementById("readerPct");
-    const openBtn = document.getElementById("openBtn");
-
-    const cards = document.querySelectorAll(".clickable");
-
-    cards.forEach(card => {
-      const title = card.dataset.title || "Module";
-      const status = card.dataset.status || "Active";
-      const pct = card.dataset.pct || "70%";
-      const desc = card.dataset.desc || "";
-      const href = card.getAttribute("href") || "ai-dishwasher.html";
-
-      // Hover updates status bar
-      card.addEventListener("mouseenter", () => setStatus(status, pct));
-      card.addEventListener("mouseleave", () => setStatus("Idle", "0%"));
-
-      // Click loads preview (prevents navigation)
-      card.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        readerTitle.textContent = title;
-        readerDesc.textContent = desc;
-        readerStatus.textContent = status;
-        readerPct.textContent = pct;
-        openBtn.setAttribute("href", href);
-
-        // Snap status
-        setStatus(status, "100%");
-        setTimeout(() => setStatus(status, pct), 500);
-
-        // Feed log marker
-        logLine(`UI selection: ${title} | Status=${status} | Readiness=${pct}`);
-      });
-    });
-
-    // Live feed (Simulated)
+    // ===== Small utilities: status + feed =====
+    const statusLabel = document.getElementById("status-label");
+    const statusProgress = document.getElementById("status-progress");
     const feedLog = document.getElementById("feedLog");
-    const feedPauseBtn = document.getElementById("feedPause");
     const feedClearBtn = document.getElementById("feedClear");
-    const feedMode = document.getElementById("feedMode");
 
-    const tCycle = document.getElementById("tCycle");
-    const tTemp = document.getElementById("tTemp");
-    const tPump = document.getElementById("tPump");
-    const tTorque = document.getElementById("tTorque");
-    const tVerify = document.getElementById("tVerify");
-    const tAlert = document.getElementById("tAlert");
-
-    let feedRunning = true;
-    let tick = 0;
-
-    function nowStamp(){
-      const d = new Date();
-      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    function setStatus(label, pct){
+      if(statusLabel) statusLabel.textContent = `System Status: ${label}`;
+      if(statusProgress) statusProgress.style.width = String(pct || "0%");
     }
 
     function logLine(msg){
       if(!feedLog) return;
       const div = document.createElement("div");
-      div.className = "log-line";
-      div.innerHTML = `<span class="ts">${nowStamp()}</span>${msg}`;
+      div.className = "line";
+      div.textContent = `${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})} — ${msg}`;
       feedLog.prepend(div);
-
-      const max = 60;
-      while(feedLog.children.length > max) feedLog.removeChild(feedLog.lastChild);
-    }
-
-    const cyclePhases = ["Idle", "Fill", "Pre-Rinse", "Active Wash", "Verification", "Drain", "Dry"];
-    function simulate(){
-      tick++;
-
-      const phase = cyclePhases[(Math.floor(tick/4)) % cyclePhases.length];
-      const temp = phase === "Dry" ? (120 + (tick%6)) : (95 + (tick%12));
-      const pump = phase === "Active Wash" ? "High" : (phase === "Fill" ? "Low" : "Med");
-      const torque = phase === "Active Wash" ? (42 + (tick%8)) + " Nm" : (10 + (tick%4)) + " Nm";
-      const verify = (phase === "Verification") ? (80 + (tick%20)) + "%" : "—";
-
-      let alert = "None";
-      if(phase === "Active Wash" && tick % 17 === 0) alert = "Micro-clog detected (auto-clear)";
-      if(phase === "Drain" && tick % 29 === 0) alert = "Drain flow variance (within tolerance)";
-
-      if(tCycle) tCycle.textContent = phase;
-      if(tTemp) tTemp.textContent = `${temp}°F`;
-      if(tPump) tPump.textContent = pump;
-      if(tTorque) tTorque.textContent = torque;
-      if(tVerify) tVerify.textContent = verify;
-      if(tAlert) tAlert.textContent = alert;
-
-      logLine(`Cycle=${phase} | Temp=${temp}°F | Pump=${pump} | Torque=${torque} | Verify=${verify} | Alert=${alert}`);
-    }
-
-    if(feedMode) feedMode.textContent = "Mode: Simulated";
-    logLine("Prototype feed initialized");
-    const interval = setInterval(() => { if(feedRunning) simulate(); }, 1200);
-
-    if(feedPauseBtn){
-      feedPauseBtn.addEventListener("click", () => {
-        feedRunning = !feedRunning;
-        feedPauseBtn.textContent = feedRunning ? "Pause" : "Resume";
-        logLine(feedRunning ? "Feed resumed" : "Feed paused");
-      });
+      while(feedLog.children.length > 80) feedLog.removeChild(feedLog.lastChild);
     }
 
     if(feedClearBtn){
@@ -860,273 +395,242 @@
         logLine("Feed cleared");
       });
     }
- 
-  <script>
-  // ===== CPI + Historical Memory (localStorage) =====
-  const LS_KEY = "omniclean_cpi_history_v1";
-  const MAX_CYCLES = 20;
 
-  const cpiNow = document.getElementById("cpiNow");
-  const cpiBand = document.getElementById("cpiBand");
-  const soilNow = document.getElementById("soilNow");
-  const soilBar = document.getElementById("soilBar");
-  const optGain = document.getElementById("optGain");
-  const optNote = document.getElementById("optNote");
-  const overwashNow = document.getElementById("overwashNow");
-  const overwashNote = document.getElementById("overwashNote");
-  const cpiAvg = document.getElementById("cpiAvg");
-  const cpiTrend = document.getElementById("cpiTrend");
-  const effDelta = document.getElementById("effDelta");
-  const effNote = document.getElementById("effNote");
-  const perfLog = document.getElementById("perfLog");
+    // ===== CPI + Historical Memory (localStorage) =====
+    const LS_KEY = "omniclean_cpi_history_v1";
+    const MAX_CYCLES = 20;
 
-  const cycleStartBtn = document.getElementById("cycleStart");
-  const cycleStopBtn = document.getElementById("cycleStop");
-  const memResetBtn = document.getElementById("memReset");
+    const cpiNow = document.getElementById("cpiNow");
+    const cpiBand = document.getElementById("cpiBand");
+    const soilNow = document.getElementById("soilNow");
+    const soilBar = document.getElementById("soilBar");
+    const optGain = document.getElementById("optGain");
+    const optNote = document.getElementById("optNote");
+    const overwashNow = document.getElementById("overwashNow");
+    const overwashNote = document.getElementById("overwashNote");
+    const cpiAvg = document.getElementById("cpiAvg");
+    const cpiTrend = document.getElementById("cpiTrend");
+    const effDelta = document.getElementById("effDelta");
+    const effNote = document.getElementById("effNote");
+    const perfLog = document.getElementById("perfLog");
 
-  let cycleActive = false;
-  let cycleBaseline = null; // first cycle snapshot
-  let cycleStartTs = null;
+    const cycleStartBtn = document.getElementById("cycleStart");
+    const cycleStopBtn = document.getElementById("cycleStop");
+    const memResetBtn = document.getElementById("memReset");
 
-  function safeParse(json, fallback){
-    try { return JSON.parse(json); } catch { return fallback; }
-  }
+    // IMPORTANT: declare optional element to avoid ReferenceError
+    const tCycle = null;
 
-  function loadHistory(){
-    const raw = localStorage.getItem(LS_KEY);
-    const data = raw ? safeParse(raw, []) : [];
-    return Array.isArray(data) ? data : [];
-  }
+    let cycleActive = false;
+    let cycleStartTs = null;
 
-  function saveHistory(arr){
-    localStorage.setItem(LS_KEY, JSON.stringify(arr));
-  }
+    function safeParse(json, fallback){
+      try { return JSON.parse(json); } catch { return fallback; }
+    }
 
-  function stamp(){
-    const d = new Date();
-    return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-  }
+    function loadHistory(){
+      const raw = localStorage.getItem(LS_KEY);
+      const data = raw ? safeParse(raw, []) : [];
+      return Array.isArray(data) ? data : [];
+    }
 
-  function perfLine(msg){
-    if(!perfLog) return;
-    const div = document.createElement("div");
-    div.className = "perf-line";
-    div.innerHTML = `<span style="color: rgba(245,210,125,0.90); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
-    perfLog.prepend(div);
-    while(perfLog.children.length > 50) perfLog.removeChild(perfLog.lastChild);
-  }
+    function saveHistory(arr){
+      localStorage.setItem(LS_KEY, JSON.stringify(arr));
+    }
 
-  // CPI components (0-100)
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+    function stamp(){
+      const d = new Date();
+      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    }
 
-  function computeCPI(metrics){
-    // metrics: turbidity(0-100), pressure(0-100), torque(0-100), tempStability(0-100), adaptAccuracy(0-100)
-    const SRE = clamp(100 - metrics.turbidity, 0, 100);     // clearer water => higher score
-    const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
-    const TO  = clamp(metrics.tempStability, 0, 100);
-    const AA  = clamp(metrics.adaptAccuracy, 0, 100);
+    function perfLine(msg){
+      if(!perfLog) return;
+      const div = document.createElement("div");
+      div.className = "perf-line";
+      div.innerHTML = `<span style="color: rgba(245,210,125,0.90); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
+      perfLog.prepend(div);
+      while(perfLog.children.length > 50) perfLog.removeChild(perfLog.lastChild);
+    }
 
-    const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
-    return clamp(cpi, 0, 100);
-  }
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
-  function bandLabel(cpi){
-    if(cpi >= 90) return "Exceptional Cycle";
-    if(cpi >= 80) return "High Performance";
-    if(cpi >= 70) return "Standard";
-    return "Adaptive Boost Triggered";
-  }
+    function computeCPI(metrics){
+      const SRE = clamp(100 - metrics.turbidity, 0, 100);
+      const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
+      const TO  = clamp(metrics.tempStability, 0, 100);
+      const AA  = clamp(metrics.adaptAccuracy, 0, 100);
+      const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
+      return clamp(cpi, 0, 100);
+    }
 
-  // Simulated “learning”: as history grows, we bias efficiency up slightly
-  function learningFactor(historyLen){
-    // 0 to ~0.12
-    return clamp(historyLen * 0.006, 0, 0.12);
-  }
+    function bandLabel(cpi){
+      if(cpi >= 90) return "Exceptional Cycle";
+      if(cpi >= 80) return "High Performance";
+      if(cpi >= 70) return "Standard";
+      return "Adaptive Boost Triggered";
+    }
 
-  function avg(arr, key){
-    if(arr.length === 0) return null;
-    const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
-    return s / arr.length;
-  }
+    function learningFactor(historyLen){
+      return clamp(historyLen * 0.006, 0, 0.12);
+    }
 
-  function pctFmt(x){
-    const sign = x >= 0 ? "+" : "";
-    return `${sign}${x.toFixed(1)}%`;
-  }
+    function avg(arr, key){
+      if(arr.length === 0) return null;
+      const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
+      return s / arr.length;
+    }
 
-  function updateSummaryUI(history){
-    const avgC = avg(history, "cpi");
-    if(avgC !== null){
-      cpiAvg.textContent = avgC.toFixed(1);
-      const last = history[0];
-      const prev = history[1];
-      if(prev){
-        const delta = last.cpi - prev.cpi;
-        cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
+    function pctFmt(x){
+      const sign = x >= 0 ? "+" : "";
+      return `${sign}${x.toFixed(1)}%`;
+    }
+
+    function updateSummaryUI(history){
+      const avgC = avg(history, "cpi");
+      if(avgC !== null){
+        cpiAvg.textContent = avgC.toFixed(1);
+        const last = history[0];
+        const prev = history[1];
+        if(prev){
+          const delta = last.cpi - prev.cpi;
+          cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
+        } else {
+          cpiTrend.textContent = "Trend: —";
+        }
       } else {
+        cpiAvg.textContent = "—";
         cpiTrend.textContent = "Trend: —";
       }
-    } else {
-      cpiAvg.textContent = "—";
-      cpiTrend.textContent = "Trend: —";
+
+      const baseline = history.length ? history[history.length - 1] : null;
+      if(baseline && history.length >= 2){
+        const latest = history[0];
+        const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
+        const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
+        const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
+        effDelta.textContent = pctFmt(gain);
+        effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
+      } else {
+        effDelta.textContent = "—";
+        effNote.textContent = "Water + energy + time";
+      }
     }
 
-    // Baseline = last element (oldest) OR first stored snapshot
-    const baseline = history.length ? history[history.length - 1] : null;
-    if(baseline && history.length >= 2){
-      const latest = history[0];
+    function generateCycleSnapshot(history){
+      const lf = learningFactor(history.length);
+      const soil = clamp(65 + (Math.random()*25) - (lf*40), 20, 95);
+      const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
 
-      // Efficiency composite: lower is better (water, energy, time)
-      const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
-      const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
+      const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
+      const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
 
-      const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
-      effDelta.textContent = pctFmt(gain);
-      effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
-    } else {
-      effDelta.textContent = "—";
-      effNote.textContent = "Water + energy + time";
-    }
-  }
+      const tempStability = clamp(80 + (Math.random()*14 - 7), 55, 96);
+      const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
 
-  // One cycle snapshot generator (believable numbers)
-  function generateCycleSnapshot(history){
-    const lf = learningFactor(history.length);
+      const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
 
-    // Soil starts higher early; learning reduces “overwashing”
-    const soil = clamp(65 + (Math.random()*25) - (lf*40), 20, 95);          // 20–95
-    const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
+      const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3), 70, 110);
+      const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4), 10.5, 16.5);
+      const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04), 0.95, 1.45);
 
-    const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
-    const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
+      const overwashPrevented = (cpi >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
+      const boost = (cpi < 70);
 
-    const tempStability = clamp(80 + (Math.random()*14 - 7), 55, 96);
-    const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
-
-    const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
-
-    // Water/Energy/Time reduce slightly with learning while keeping performance high
-    const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3), 70, 110);
-    const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4), 10.5, 16.5);
-    const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04), 0.95, 1.45);
-
-    // Overwash prevention triggers when CPI is high and soil already drops (simulated)
-    const overwashPrevented = (cpi >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
-
-    // Adaptive boost when CPI low-ish
-    const boost = (cpi < 70);
-
-    return {
-      ts: Date.now(),
-      cpi,
-      soil,
-      timeMin,
-      waterL,
-      energyKwh,
-      overwashPrevented,
-      boost
-    };
-  }
-
-  function renderCurrent(snapshot, history){
-    cpiNow.textContent = snapshot.cpi.toFixed(1);
-    cpiBand.textContent = bandLabel(snapshot.cpi);
-
-    soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
-
-    // optimization gain vs baseline (first cycle)
-    const baseline = history.length ? history[history.length - 1] : snapshot;
-    const baseC = baseline.cpi || snapshot.cpi;
-    const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
-    optGain.textContent = pctFmt(gain);
-    optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
-
-    overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
-    overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
-
-    if(snapshot.boost){
-      perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
-    } else {
-      perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
+      return { ts: Date.now(), cpi, soil, timeMin, waterL, energyKwh, overwashPrevented, boost };
     }
 
-    updateSummaryUI(history);
-  }
+    function renderCurrent(snapshot, history){
+      cpiNow.textContent = snapshot.cpi.toFixed(1);
+      cpiBand.textContent = bandLabel(snapshot.cpi);
 
-  function completeCycle(){
-    const history = loadHistory();
-    const snap = generateCycleSnapshot(history);
+      soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
+      soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
 
-    // Save newest first
-    history.unshift(snap);
-    if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
-    saveHistory(history);
+      const baseline = history.length ? history[history.length - 1] : snapshot;
+      const baseC = baseline.cpi || snapshot.cpi;
+      const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
+      optGain.textContent = pctFmt(gain);
+      optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
 
-    renderCurrent(snap, history);
+      overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
+      overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
 
-    // Also write to your existing feed log if present
-    if(typeof logLine === "function"){
+      if(snapshot.boost){
+        perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
+      } else {
+        perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
+      }
+
+      updateSummaryUI(history);
+    }
+
+    function completeCycle(){
+      const history = loadHistory();
+      const snap = generateCycleSnapshot(history);
+
+      history.unshift(snap);
+      if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
+      saveHistory(history);
+
+      renderCurrent(snap, history);
+
       logLine(`CPI=${snap.cpi.toFixed(1)} | Soil=${snap.soil.toFixed(0)} | Water=${snap.waterL.toFixed(1)}L | Energy=${snap.energyKwh.toFixed(2)}kWh | Time=${snap.timeMin.toFixed(0)}m | Overwash=${snap.overwashPrevented ? "Prevented" : "—"}`);
     }
-  }
 
-  function startCycle(){
-    if(cycleActive) return;
-    cycleActive = true;
-    cycleStartTs = Date.now();
-    perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
-    if(typeof setStatus === "function") setStatus("Cycle Running", "55%");
-    if(tCycle) tCycle.textContent = "Active Wash";
-  }
-
-  function stopCycle(){
-    if(!cycleActive) return;
-    cycleActive = false;
-    perfLine("Cycle completed — computing CPI + updating memory.");
-    if(typeof setStatus === "function") setStatus("Verification", "92%");
-    if(tCycle) tCycle.textContent = "Verification";
-    // finalize
-    completeCycle();
-    if(typeof setStatus === "function") setStatus("Idle", "0%");
-    if(tCycle) tCycle.textContent = "Idle";
-  }
-
-  function resetMemory(){
-    localStorage.removeItem(LS_KEY);
-    if(perfLog) perfLog.innerHTML = "";
-    cpiNow.textContent = "—";
-    cpiBand.textContent = "Idle";
-    soilNow.textContent = "—";
-    soilBar.style.width = "0%";
-    optGain.textContent = "—";
-    optNote.textContent = "Learning model warming up";
-    overwashNow.textContent = "—";
-    overwashNote.textContent = "Adaptive control";
-    cpiAvg.textContent = "—";
-    cpiTrend.textContent = "Trend: —";
-    effDelta.textContent = "—";
-    effNote.textContent = "Water + energy + time";
-    perfLine("Memory reset — performance model restarted.");
-  }
-
-  // Wire buttons
-  if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
-  if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
-  if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
-
-  // On load: show history summary
-  (function initPerf(){
-    const history = loadHistory();
-    if(history.length){
-      perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
-      renderCurrent(history[0], history);
-    } else {
-      perfLine("Memory initialized — run a cycle to generate CPI history.");
-      updateSummaryUI([]);
+    function startCycle(){
+      if(cycleActive) return;
+      cycleActive = true;
+      cycleStartTs = Date.now();
+      perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
+      setStatus("Cycle Running", "55%");
     }
-  })();
 
+    function stopCycle(){
+      if(!cycleActive) return;
+      cycleActive = false;
+      perfLine("Cycle completed — computing CPI + updating memory.");
+      setStatus("Verification", "92%");
+      completeCycle();
+      setStatus("Idle", "0%");
+    }
+
+    function resetMemory(){
+      localStorage.removeItem(LS_KEY);
+      if(perfLog) perfLog.innerHTML = "";
+      cpiNow.textContent = "—";
+      cpiBand.textContent = "Idle";
+      soilNow.textContent = "—";
+      soilBar.style.width = "0%";
+      optGain.textContent = "—";
+      optNote.textContent = "Learning model warming up";
+      overwashNow.textContent = "—";
+      overwashNote.textContent = "Adaptive control";
+      cpiAvg.textContent = "—";
+      cpiTrend.textContent = "Trend: —";
+      effDelta.textContent = "—";
+      effNote.textContent = "Water + energy + time";
+      perfLine("Memory reset — performance model restarted.");
+      logLine("Memory reset");
+      setStatus("Idle", "0%");
+    }
+
+    if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
+    if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
+    if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
+
+    (function initPerf(){
+      setStatus("Idle", "0%");
+      const history = loadHistory();
+      if(history.length){
+        perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
+        renderCurrent(history[0], history);
+        logLine(`Memory loaded (${history.length} cycles)`);
+      } else {
+        perfLine("Memory initialized — run a cycle to generate CPI history.");
+        updateSummaryUI([]);
+        logLine("Memory initialized");
+      }
+    })();
   </script>
 </body>
 </html>

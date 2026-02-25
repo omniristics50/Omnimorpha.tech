@@ -129,6 +129,7 @@
       gap: 10px;
       min-width: 220px;
       justify-content: flex-end;
+      flex-wrap: wrap;
     }
     .pill{
       display: inline-flex;
@@ -141,6 +142,7 @@
       color: rgba(255,255,255,0.84);
       font-size: 12px;
       font-weight: 700;
+      white-space: nowrap;
     }
     .pulse{
       width: 8px; height: 8px; border-radius: 99px;
@@ -215,6 +217,7 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 8px;
+      align-items: center;
     }
     .btn{
       display: inline-flex;
@@ -230,6 +233,7 @@
       font-size: 13px;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       cursor: pointer;
+      white-space: nowrap;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -274,6 +278,7 @@
       justify-content: space-between;
       gap: 12px;
       margin: 18px 0 14px;
+      flex-wrap: wrap;
     }
     .section-title h2{
       margin: 0;
@@ -368,18 +373,20 @@
           </div>
         </a>
 
-        <!-- ✅ These are the links that were likely causing your 404s.
-             Make sure these filenames actually exist next to index.html -->
+        <!-- ✅ FIXED NAV: links now match files you actually have -->
         <nav class="nav" aria-label="Primary">
-          <a href="appliances.html">Appliances</a>
-          <a href="technology.html">Technology</a>
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="ai-dishwasher.html">Appliances</a>
+          <a href="nexus.html">Technology</a>
           <a href="vehicles.html">Vehicles</a>
-          <a href="fashion.html">Fashion</a>
-          <a class="primary" href="investor.html">Investor Portal</a>
+          <a href="theverge.html">Fashion</a>
+          <a class="primary" href="portal.html">Investor Portal</a>
         </nav>
 
+        <!-- ✅ CTA now includes Architecture Library -->
         <div class="cta">
           <div class="pill"><span class="pulse"></span> Live Systems • Prototype</div>
+          <a class="btn gold" href="architecture.html">Architecture Library →</a>
         </div>
       </div>
     </div>
@@ -398,8 +405,9 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn gold" href="investor.html">Open Investor Portal →</a>
-            <a class="btn" href="technology.html">Explore Technology →</a>
+            <a class="btn gold" href="portal.html">Open Investor Portal →</a>
+            <a class="btn" href="ecosystem.html">Open Ecosystem →</a>
+            <a class="btn" href="architecture.html">Read Architectures →</a>
             <a class="btn" href="vehicles.html">View Vehicles →</a>
           </div>
         </div>
@@ -425,46 +433,46 @@
       </div>
 
       <div class="grid">
-        <a class="card" href="appliances.html">
+        <a class="card" href="ai-dishwasher.html">
           <div class="icon">🍽️</div>
           <h3>Appliances</h3>
-          <p>IntelliFridge™, AI Dishwasher, Smart Stove concepts and interfaces.</p>
+          <p>AI Dishwasher, IntelliFridge, Smart Stove, Washer-Dryer systems.</p>
           <div class="link">Open Appliances →</div>
         </a>
 
-        <a class="card" href="technology.html">
+        <a class="card" href="nexus.html">
           <div class="icon">🧬</div>
           <h3>Technology</h3>
-          <p>NEXUS intelligence layer, governance stack, telemetry and demos.</p>
+          <p>NEXUS intelligence layer, battery systems, and integrated architectures.</p>
           <div class="link">Open Technology →</div>
         </a>
 
         <a class="card" href="vehicles.html">
           <div class="icon">🏎️</div>
           <h3>Vehicles</h3>
-          <p>REGENT host chassis concepts, UX, and the circuit-engine narrative.</p>
+          <p>REGENT platforms, hypercars, luxury line, and concept architecture.</p>
           <div class="link">Open Vehicles →</div>
         </a>
 
-        <a class="card" href="fashion.html">
+        <a class="card" href="theverge.html">
           <div class="icon">🖤</div>
           <h3>Fashion</h3>
-          <p>Luxury design language that matches the ecosystem identity.</p>
+          <p>THEVERGE, TREVA, AYRÉLLE Noir, Les Gorgeous, and GIORDANO VERO.</p>
           <div class="link">Open Fashion →</div>
         </a>
 
-        <a class="card" href="investor.html">
+        <a class="card" href="portal.html">
           <div class="icon">📊</div>
           <h3>Investor Portal</h3>
-          <p>Architecture overview, narrative, and investor-facing materials.</p>
+          <p>Investor-facing access, decks, and protected architecture summaries.</p>
           <div class="link">Open Investor Portal →</div>
         </a>
 
-        <a class="card" href="index.html">
-          <div class="icon">✨</div>
-          <h3>Home</h3>
-          <p>Return to the main dashboard.</p>
-          <div class="link">You are here →</div>
+        <a class="card" href="architecture.html">
+          <div class="icon">📚</div>
+          <h3>Architecture Library</h3>
+          <p>Open and read architectures in-browser (PDF viewer + downloads).</p>
+          <div class="link">Read Architectures →</div>
         </a>
       </div>
     </section>
@@ -480,7 +488,6 @@
   </footer>
 
   <script>
-    // Tiny polish
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 

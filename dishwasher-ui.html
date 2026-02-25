@@ -547,6 +547,36 @@
     const LS_KEY = "omniclean_cpi_history_v1";
     const MAX_CYCLES = 20;
 
+   const washMode = document.getElementById("washMode");
+const loadSize = document.getElementById("loadSize");
+
+function calculateCPI() {
+  let base = 80;
+
+  switch (washMode.value) {
+    case "eco": base += 10; break;
+    case "intensive": base -= 8; break;
+    case "glass": base += 5; break;
+    case "ai": base += 12; break;
+  }
+
+  switch (loadSize.value) {
+    case "light": base += 6; break;
+    case "heavy": base -= 6; break;
+  }
+
+  return Math.max(60, Math.min(base, 100));
+}
+
+function updateSystem() {
+  const cpiValue = calculateCPI();
+  cpiNow.textContent = cpiValue + "%";
+}
+
+washMode.addEventListener("change", updateSystem);
+loadSize.addEventListener("change", updateSystem);
+
+updateSystem();
     const cpiNow = document.getElementById("cpiNow");
     const cpiBand = document.getElementById("cpiBand");
     const soilNow = document.getElementById("soilNow");

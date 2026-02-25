@@ -522,6 +522,27 @@
       }
     }
 
+    <!-- ===== Mode + Load Selector ===== -->
+<div class="selector-panel">
+
+  <label for="washMode">Wash Mode</label>
+  <select id="washMode">
+    <option value="eco">Eco</option>
+    <option value="normal" selected>Normal</option>
+    <option value="intensive">Intensive</option>
+    <option value="glass">GlassCare</option>
+    <option value="ai">AI Adaptive</option>
+  </select>
+
+  <label for="loadSize">Load Size</label>
+  <select id="loadSize">
+    <option value="light">Light</option>
+    <option value="medium" selected>Medium</option>
+    <option value="heavy">Heavy</option>
+  </select>
+
+</div>
+    
     // ===== CPI + Historical Memory =====
     const LS_KEY = "omniclean_cpi_history_v1";
     const MAX_CYCLES = 20;

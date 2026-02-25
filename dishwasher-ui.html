@@ -524,58 +524,141 @@
 
     <!-- ===== Mode + Load Selector ===== -->
 <div class="selector-panel">
-  <label for="washMode">Wash Mode</label>
+  <label for="washMode">Mode</label>
   <select id="washMode">
     <option value="eco">Eco</option>
-    <option value="normal" selected>Normal</option>
+    <option value="normal" selected>Standard</option>
     <option value="intensive">Intensive</option>
     <option value="glass">GlassCare</option>
     <option value="ai">AI Adaptive</option>
   </select>
 
-  <label for="loadSize">Load Size</label>
+  <label for="loadSize">Load</label>
   <select id="loadSize">
     <option value="light">Light</option>
-    <option value="medium" selected>Medium</option>
+    <option value="medium" selected>Mixed</option>
     <option value="heavy">Heavy</option>
   </select>
-
 </div>
-    
-    // ===== CPI + Historical Memory =====
-    const LS_KEY = "omniclean_cpi_history_v1";
-    const MAX_CYCLES = 20;
 
-   const washMode = document.getElementById("washMode");
-const loadSize = document.getElementById("loadSize");
+<!-- Make sure your CPI number element exists somewhere in the CPI section -->
+<!-- Example (use your existing CPI markup; just ensure id="cpiNow" exists) -->
+<div class="kpi">
+  <div class="kpi-title">Cleaning Performance Index (CPI)</div>
+  <div class="kpi-value"><span id="cpiNow">—</span></div>
+  <div class="kpi-sub" id="cpiBand">Idle</div>
+</div>
 
-function calculateCPI() {
-  let base = 80;
+<!-- 2) REPLACE YOUR ENTIRE <script> CONTENT WITH THIS (JS ONLY) -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ===== CPI + Historical Memory =====
+  const LS_KEY = "omniclean_cpi_history_v1";
+  const MAX_CYCLES = 20;
 
-  switch (washMode.value) {
-    case "eco": base += 10; break;
-    case "intensive": base -= 8; break;
-    case "glass": base += 5; break;
-    case "ai": base += 12; break;
+  // --- Required UI elements (safe lookups)
+  const cpiNow   = document.getElementById("cpiNow");
+  const cpiBand  = document.getElementById("cpiBand");
+  const washMode = document.getElementById("washMode");
+  const loadSize = document.getElementById("loadSize");
+
+  // If any critical element is missing, exit quietly (prevents console spam)
+  if (!cpiNow || !washMode || !loadSize) {
+    console.warn("[OmniClean] Missing required UI IDs: cpiNow / washMode / loadSize");
+    return;
   }
 
-  switch (loadSize.value) {
-    case "light": base += 6; break;
-    case "heavy": base -= 6; break;
+  // ===== Profile helpers (extend later) =====
+  function modeProfile(mode){
+    switch(mode){
+      case "eco":       return { cpiBias:+10 };
+      case "intensive": return { cpiBias:-8  };
+      case "glass":     return { cpiBias:+5  };
+      case "ai":        return { cpiBias:+12 };
+      default:          return { cpiBias: 0  }; // normal
+    }
   }
 
-  return Math.max(60, Math.min(base, 100));
-}
+  function loadProfile(load){
+    switch(load){
+      case "light": return { cpiBias:+6  };
+      case "heavy": return { cpiBias:-6  };
+      default:      return { cpiBias: 0  }; // medium/mixed
+    }
+  }
 
-function updateSystem() {
-  const cpiValue = calculateCPI();
-  cpiNow.textContent = cpiValue + "%";
-}
+  // ===== CPI calculation (safe + bounded) =====
+  function calculateCPI(){
+    let base = 80;
 
-washMode.addEventListener("change", updateSystem);
-loadSize.addEventListener("change", updateSystem);
+    const mp = modeProfile(washMode.value);
+    const lp = loadProfile(loadSize.value);
 
-updateSystem();
+    base += (mp.cpiBias || 0);
+    base += (lp.cpiBias || 0);
+
+    // clamp 60–100 (you can change later)
+    return Math.max(60, Math.min(base, 100));
+  }
+
+  // ===== Memory (optional but safe) =====
+  function loadHistory(){
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveHistory(entry){
+    const hist = loadHistory();
+    hist.unshift(entry);
+    hist.splice(MAX_CYCLES);
+    try { localStorage.setItem(LS_KEY, JSON.stringify(hist)); } catch {}
+    return hist;
+  }
+
+  function avg(list){
+    if (!list.length) return null;
+    let s = 0;
+    for (const x of list) s += x;
+    return s / list.length;
+  }
+
+  // ===== Main UI update =====
+  function updateSystem(reason="manual"){
+    const cpiValue = calculateCPI();
+    cpiNow.textContent = cpiValue + "%";
+
+    if (cpiBand) {
+      // simple banding (edit later)
+      cpiBand.textContent =
+        cpiValue >= 92 ? "Elite" :
+        cpiValue >= 85 ? "Optimized" :
+        cpiValue >= 75 ? "Stable" :
+                         "Adaptive";
+    }
+
+    // record lightweight history (no cycle start needed yet)
+    saveHistory({
+      ts: Date.now(),
+      cpi: cpiValue,
+      mode: washMode.value,
+      load: loadSize.value,
+      reason
+    });
+  }
+
+  // ===== Events =====
+  washMode.addEventListener("change", () => updateSystem("mode_change"));
+  loadSize.addEventListener("change", () => updateSystem("load_change"));
+
+  // Initial render
+  updateSystem("init");
+});
+</script>
     const cpiNow = document.getElementById("cpiNow");
     const cpiBand = document.getElementById("cpiBand");
     const soilNow = document.getElementById("soilNow");

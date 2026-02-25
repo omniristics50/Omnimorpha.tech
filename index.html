@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    /* ===========================
-       OMNIMORPHA — INDEX (FULL)
-       Black + Gold, cinematic, reliable links
-    =========================== */
-
     :root{
       --bg: #07080b;
       --panel: rgba(255,255,255,0.06);
@@ -81,18 +76,9 @@
       font-weight: 900;
       letter-spacing: 0.5px;
     }
-    .brand-title{
-      line-height: 1.1;
-    }
-    .brand-title .name{
-      font-weight: 900;
-      letter-spacing: 0.6px;
-    }
-    .brand-title .tag{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .brand-title{ line-height: 1.1; }
+    .brand-title .name{ font-weight: 900; letter-spacing: 0.6px; }
+    .brand-title .tag{ font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     .nav{
       display: flex;
@@ -157,9 +143,7 @@
     }
 
     /* Hero */
-    .hero{
-      padding: 56px 0 26px;
-    }
+    .hero{ padding: 56px 0 26px; }
     .hero-grid{
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -245,10 +229,7 @@
       border-color: rgba(245,210,125,0.32);
     }
 
-    .hero-side{
-      display: grid;
-      gap: 18px;
-    }
+    .hero-side{ display: grid; gap: 18px; }
     .mini{
       border-radius: var(--radius);
       background: rgba(255,255,255,0.06);
@@ -256,22 +237,11 @@
       padding: 18px;
       box-shadow: 0 16px 50px rgba(0,0,0,0.35);
     }
-    .mini h3{
-      margin: 0 0 6px 0;
-      font-size: 14px;
-      letter-spacing: 0.4px;
-    }
-    .mini p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
+    .mini h3{ margin: 0 0 6px 0; font-size: 14px; letter-spacing: 0.4px; }
+    .mini p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 
     /* Sections / Cards */
-    .section{
-      padding: 22px 0 56px;
-    }
+    .section{ padding: 22px 0 56px; }
     .section-title{
       display: flex;
       align-items: baseline;
@@ -280,15 +250,8 @@
       margin: 18px 0 14px;
       flex-wrap: wrap;
     }
-    .section-title h2{
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: 0.5px;
-    }
-    .section-title span{
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .section-title h2{ margin: 0; font-size: 18px; letter-spacing: 0.5px; }
+    .section-title span{ color: var(--muted); font-size: 13px; }
 
     .grid{
       display: grid;
@@ -311,21 +274,9 @@
       border-color: rgba(245,210,125,0.22);
       background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
     }
-    .card .icon{
-      font-size: 18px;
-      opacity: 0.95;
-    }
-    .card h3{
-      margin: 10px 0 8px;
-      font-size: 15px;
-      letter-spacing: 0.4px;
-    }
-    .card p{
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
+    .card .icon{ font-size: 18px; opacity: 0.95; }
+    .card h3{ margin: 10px 0 8px; font-size: 15px; letter-spacing: 0.4px; }
+    .card p{ margin: 0 0 14px; color: var(--muted); font-size: 13px; line-height: 1.55; }
     .card .link{
       display: inline-flex;
       align-items: center;
@@ -373,20 +324,19 @@
           </div>
         </a>
 
-        <!-- ✅ FIXED NAV: links now match files you actually have -->
+        <!-- ✅ NAV matches your actual files -->
         <nav class="nav" aria-label="Primary">
-  <a href="ecosystem.html">Ecosystem</a>
-  <a href="ai-camera.html">AI Camera</a>
-  <a href="ai-dishwasher.html">AI Dishwasher</a>
-  <a href="hypercars.html">Hypercars</a>
-  <a href="velocite.html">Velocité</a>
-  <a href="ayrelle.html">AYRÉLLE Noir</a>
-  <a href="investors.html">Investor Relations</a>
-  <a href="contact.html">Contact</a>
-  <a class="primary" href="portal.html">Investor Portal</a>
-</nav>
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="ai-camera.html">AI Camera</a>
+          <a href="ai-dishwasher.html">AI Dishwasher</a>
+          <a href="hypercars.html">Hypercars</a>
+          <a href="velocite.html">Velocité</a>
+          <a href="ayrelle.html">AYRÉLLE Noir</a>
+          <a href="investors.html">Investor Relations</a>
+          <a href="contact.html">Contact</a>
+          <a class="primary" href="portal.html">Investor Portal</a>
+        </nav>
 
-        <!-- ✅ CTA now includes Architecture Library -->
         <div class="cta">
           <div class="pill"><span class="pulse"></span> Live Systems • Prototype</div>
           <a class="btn gold" href="architecture.html">Architecture Library →</a>
@@ -411,7 +361,7 @@
             <a class="btn gold" href="portal.html">Open Investor Portal →</a>
             <a class="btn" href="ecosystem.html">Open Ecosystem →</a>
             <a class="btn" href="architecture.html">Read Architectures →</a>
-            <a class="btn" href="vehicles.html">View Vehicles →</a>
+            <a class="btn" href="ai-dishwasher.html">Open AI Dishwasher →</a>
           </div>
         </div>
 
@@ -428,76 +378,148 @@
       </div>
     </section>
 
-    <!-- SECTIONS -->
+    <!-- FEATURED -->
     <section class="section">
       <div class="section-title">
-        <h2>Explore the ecosystem</h2>
-        <span>All links are relative to prevent GitHub Pages path issues.</span>
+        <h2>Featured projects</h2>
+        <span>Direct links to pages you already have in your repo.</span>
       </div>
 
       <div class="grid">
-  <a class="card" href="ai-camera.html">
-    <div class="icon">📷</div>
-    <h3>AI Camera</h3>
-    <p>Omnimorpha AI Camera System and vehicle integration.</p>
-    <div class="link">Open AI Camera →</div>
-  </a>
+        <a class="card" href="ai-camera.html">
+          <div class="icon">📷</div>
+          <h3>AI Camera</h3>
+          <p>AI cameras, sensor stack, and vehicle integration pages.</p>
+          <div class="link">Open AI Camera →</div>
+        </a>
 
-        
         <a class="card" href="ai-dishwasher.html">
           <div class="icon">🍽️</div>
-          <h3>Appliances</h3>
-          <p>AI Dishwasher, IntelliFridge, Smart Stove, Washer-Dryer systems.</p>
-          <div class="link">Open Appliances →</div>
+          <h3>AI Dishwasher</h3>
+          <p>OmniClean™ architecture, UI, and product narrative.</p>
+          <div class="link">Open AI Dishwasher →</div>
         </a>
 
-        <a class="card" href="nexus.html">
-          <div class="icon">🧬</div>
-          <h3>Technology</h3>
-          <p>NEXUS intelligence layer, battery systems, and integrated architectures.</p>
-          <div class="link">Open Technology →</div>
+        <a class="card" href="fridge.html">
+          <div class="icon">🧊</div>
+          <h3>IntelliFridge</h3>
+          <p>IntelliFridge project page and supporting materials.</p>
+          <div class="link">Open IntelliFridge →</div>
         </a>
 
-          <a class="card" href="hypercars.html">
-    <div class="icon">🏎️</div>
-    <h3>Hypercars</h3>
-    <p>Omnimorpha hypercar lineup and core technology narrative.</p>
-    <div class="link">Open Hypercars →</div>
-  </a>
-       
-        <a class="card" href="vehicles.html">
-          <div class="icon">🏎️</div>
-          <h3>Vehicles</h3>
-          <p>REGENT platforms, hypercars, luxury line, and concept architecture.</p>
-          <div class="link">Open Vehicles →</div>
+        <a class="card" href="smart-stove.html">
+          <div class="icon">🔥</div>
+          <h3>Smart Stove</h3>
+          <p>Smart stove ecosystem page.</p>
+          <div class="link">Open Smart Stove →</div>
         </a>
 
-  <a class="card" href="ayrelle.html">
-    <div class="icon">🖤</div>
-    <h3>AYRÉLLE Noir</h3>
-    <p>Luxury brand hub and collection presentation.</p>
-    <div class="link">Open AYRÉLLE Noir →</div>
-  </a>      
-      
-        <a class="card" href="theverge.html">
-          <div class="icon">🖤</div>
-          <h3>Fashion</h3>
-          <p>THEVERGE, TREVA, AYRÉLLE Noir, Les Gorgeous, and GIORDANO VERO.</p>
-          <div class="link">Open Fashion →</div>
+        <a class="card" href="smartphone.html">
+          <div class="icon">📱</div>
+          <h3>Smartphone</h3>
+          <p>Omnimorpha smartphone concept and system integration.</p>
+          <div class="link">Open Smartphone →</div>
         </a>
 
-        <a class="card" href="portal.html">
-          <div class="icon">📊</div>
-          <h3>Investor Portal</h3>
-          <p>Investor-facing access, decks, and protected architecture summaries.</p>
-          <div class="link">Open Investor Portal →</div>
+        <a class="card" href="smartwatch.html">
+          <div class="icon">⌚</div>
+          <h3>Smartwatch</h3>
+          <p>Wearable hub and ecosystem integration.</p>
+          <div class="link">Open Smartwatch →</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- MORE PROJECTS -->
+    <section class="section">
+      <div class="section-title">
+        <h2>More projects</h2>
+        <span>Vehicles, snow systems, audio, and brands.</span>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="trucks.html">
+          <div class="icon">🛻</div>
+          <h3>Trucks</h3>
+          <p>Truck lineup and platform concepts.</p>
+          <div class="link">Open Trucks →</div>
         </a>
 
-        <a class="card" href="architecture.html">
-          <div class="icon">📚</div>
-          <h3>Architecture Library</h3>
-          <p>Open and read architectures in-browser (PDF viewer + downloads).</p>
-          <div class="link">Read Architectures →</div>
+        <a class="card" href="snow-vehicles.html">
+          <div class="icon">❄️</div>
+          <h3>Snow Vehicles</h3>
+          <p>Snow system overview and vehicle variants.</p>
+          <div class="link">Open Snow Vehicles →</div>
+        </a>
+
+        <a class="card" href="snow-mobile.html">
+          <div class="icon">🛷</div>
+          <h3>Snow Mobile</h3>
+          <p>Snow Mobile concept and architecture.</p>
+          <div class="link">Open Snow Mobile →</div>
+        </a>
+
+        <a class="card" href="snow-car.html">
+          <div class="icon">🚗</div>
+          <h3>Snow Car</h3>
+          <p>Snow Car concept and core systems.</p>
+          <div class="link">Open Snow Car →</div>
+        </a>
+
+        <a class="card" href="snow-truck.html">
+          <div class="icon">🚚</div>
+          <h3>Snow Truck</h3>
+          <p>Snow Truck heavy platform and snow handling.</p>
+          <div class="link">Open Snow Truck →</div>
+        </a>
+
+        <a class="card" href="earbuds.html">
+          <div class="icon">🎧</div>
+          <h3>Earbuds</h3>
+          <p>Wearable audio device page and integration.</p>
+          <div class="link">Open Earbuds →</div>
+        </a>
+
+        <a class="card" href="halia.html">
+          <div class="icon">🤖</div>
+          <h3>Halia</h3>
+          <p>Halia AI hub and ecosystem control layer.</p>
+          <div class="link">Open Halia →</div>
+        </a>
+
+        <a class="card" href="les-gorgeous.html">
+          <div class="icon">💄</div>
+          <h3>Les Gorgeous</h3>
+          <p>Beauty + fashion brand hub.</p>
+          <div class="link">Open Les Gorgeous →</div>
+        </a>
+
+        <a class="card" href="giordano-vero.html">
+          <div class="icon">👔</div>
+          <h3>GIORDANO VERO</h3>
+          <p>Menswear brand hub page.</p>
+          <div class="link">Open GIORDANO VERO →</div>
+        </a>
+
+        <a class="card" href="smart-cooktop.html">
+          <div class="icon">🍳</div>
+          <h3>Smart Cooktop</h3>
+          <p>Cooktop page and feature specs.</p>
+          <div class="link">Open Smart Cooktop →</div>
+        </a>
+
+        <a class="card" href="smart-range.html">
+          <div class="icon">🥘</div>
+          <h3>Smart Range</h3>
+          <p>Range page and feature specs.</p>
+          <div class="link">Open Smart Range →</div>
+        </a>
+
+        <a class="card" href="smart-stove.html">
+          <div class="icon">♨️</div>
+          <h3>Smart Stove</h3>
+          <p>Stove page and feature specs.</p>
+          <div class="link">Open Smart Stove →</div>
         </a>
       </div>
     </section>

@@ -1,1055 +1,824 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omnimorpha | OmniClean™ Dishwasher UI</title>
-
-  <link rel="stylesheet" href="styles.css" />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OmniClean™ Dishwasher UI — ACE Demo</title>
   <style>
     :root{
       --bg:#07080b;
-      --panel: rgba(255,255,255,0.06);
-      --panel2: rgba(255,255,255,0.09);
-      --border: rgba(255,255,255,0.12);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.70);
-      --gold:#f5d27d;
-      --gold2:#caa24e;
-      --shadow: 0 18px 60px rgba(0,0,0,0.55);
-      --radius: 18px;
-      --radius2: 22px;
+      --panel:rgba(255,255,255,.05);
+      --panel2:rgba(255,255,255,.07);
+      --stroke:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.55);
+      --gold:rgba(245,210,125,.95);
+      --good:rgba(120,255,190,.95);
+      --warn:rgba(255,200,120,.95);
+      --bad:rgba(255,120,150,.95);
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius:18px;
     }
-
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1000px 700px at 70% 0%, rgba(245,210,125,0.10), transparent 60%),
-                  radial-gradient(900px 600px at 20% 20%, rgba(255,255,255,0.06), transparent 55%),
-                  linear-gradient(180deg, #05060a, #07080b 35%, #06060a);
-      color: var(--text);
-      overflow-x:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1100px 700px at 30% 0%, rgba(245,210,125,.10), transparent 55%),
+                  radial-gradient(900px 650px at 80% 20%, rgba(120,190,255,.08), transparent 55%),
+                  var(--bg);
+      color:var(--text);
     }
-
-    a{ color:inherit; text-decoration:none; }
-    .container{
-      width:min(1180px, calc(100% - 48px));
-      margin: 26px auto 60px;
+    a{color:var(--gold); text-decoration:none}
+    .wrap{max-width:1180px; margin:0 auto; padding:26px 18px 48px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 16px; border:1px solid var(--stroke); background:rgba(0,0,0,.25);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+      position:sticky; top:10px; backdrop-filter: blur(10px);
     }
-
-    .top{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:14px; flex-wrap:wrap;
-      margin-bottom: 14px;
-    }
-
     .title{
-      display:flex; flex-direction:column; gap:6px;
+      display:flex; flex-direction:column; gap:3px;
     }
-    .title h1{
-      margin:0;
-      font-size: 22px;
-      letter-spacing: 0.4px;
+    .title h1{font-size:16px; margin:0; letter-spacing:.2px}
+    .title .sub{font-size:12px; color:var(--muted)}
+    .navlinks{display:flex; gap:14px; font-size:13px; color:var(--muted)}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      margin-top:16px;
     }
-    .title p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      max-width: 70ch;
-    }
-
-    .actions{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .topbar{position:relative; top:auto}
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.92);
-      font-weight: 900;
-      font-size: 13px;
+    .card{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding:14px 16px;
+      border-bottom:1px solid var(--stroke);
+      background:rgba(0,0,0,.22);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .card-h .h{
+      font-weight:700; letter-spacing:.2px; font-size:13px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      background:rgba(0,0,0,.18);
+    }
+    .dot{width:8px; height:8px; border-radius:50%}
+    .dot.idle{background:rgba(255,255,255,.35)}
+    .dot.run{background:var(--gold)}
+    .dot.ok{background:var(--good)}
+    .card-b{padding:16px}
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:end;
+    }
+    .field label{
+      display:block; font-size:12px; color:var(--muted); margin-bottom:6px;
+    }
+    select{
+      width:100%;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      outline:none;
+    }
+    select:focus{border-color:rgba(245,210,125,.55)}
+    .btnrow{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    button{
       cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      font-weight:650;
+      letter-spacing:.2px;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.16);
+    button:hover{border-color:rgba(245,210,125,.45)}
+    button.primary{background:rgba(245,210,125,.12); border-color:rgba(245,210,125,.35)}
+    button.danger{background:rgba(255,120,150,.10); border-color:rgba(255,120,150,.30)}
+    .status{
+      margin-top:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
     }
-    .btn.gold{
-      background: linear-gradient(135deg, rgba(245,210,125,0.24), rgba(245,210,125,0.10));
-      border-color: rgba(245,210,125,0.32);
+    .bar{
+      height:8px; border-radius:999px; flex:1;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
     }
-
-    /* Status bar */
-    .system-status{
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
-      padding: 14px 16px;
-      margin: 12px 0 16px;
-    }
-    .status-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
-    }
-    #status-label{
-      font-weight: 900;
-      letter-spacing: 0.3px;
-      color: rgba(245,210,125,0.92);
-    }
-    .status-bar{
-      flex: 1;
-      min-width: 260px;
-      height: 10px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-    #status-progress{
+    .bar > div{
       height:100%;
       width:0%;
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-      transition: width .5s ease;
+      background:linear-gradient(90deg, rgba(245,210,125,.65), rgba(245,210,125,.95));
     }
+    .status .label{font-size:12px; color:var(--muted); min-width:120px}
+    .status .value{font-size:12px; color:var(--text); font-weight:700; min-width:120px; text-align:right}
 
-    /* Performance (CPI + Memory) */
-    .perf{
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
-      overflow: hidden;
-      margin-top: 10px;
-    }
-    .perf-head{
-      display:flex; justify-content:space-between; align-items:center;
-      gap:12px; flex-wrap:wrap;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.18);
-    }
-    .perf-title{
-      font-weight: 900;
-      letter-spacing: 0.3px;
-      color: rgba(245,210,125,0.95);
-    }
-    .perf-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-
-    .perf-pill{
-      display:inline-flex;
-      align-items:center;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(245,210,125,0.10);
-      border: 1px solid rgba(245,210,125,0.25);
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(245,210,125,0.95);
-    }
-
-    .select-wrap{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-    }
-    .select-label{
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.70);
-    }
-    .select{
-      appearance: none;
-      background: rgba(0,0,0,0.20);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.92);
-      font-weight: 900;
-      font-size: 12px;
-      padding: 6px 28px 6px 10px;
-      border-radius: 12px;
-      outline: none;
-      cursor: pointer;
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(245,210,125,0.9) 50%),
-        linear-gradient(135deg, rgba(245,210,125,0.9) 50%, transparent 50%);
-      background-position:
-        calc(100% - 16px) 55%,
-        calc(100% - 10px) 55%;
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-    }
-
-    .perf-body{ padding: 14px 16px 16px; }
-
-    .perf-grid{
+    .kpis{
       display:grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-      margin-bottom: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
     }
-    .perf-card{
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
+    @media (max-width: 520px){
+      .kpis{grid-template-columns:1fr}
+      .controls{grid-template-columns:1fr}
     }
-    .perf-k{
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.70);
-      margin-bottom: 6px;
+    .kpi{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
     }
-    .perf-v{
-      font-size: 15px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.92);
-    }
-    .perf-s{
-      margin-top: 6px;
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255,255,255,0.70);
-    }
+    .kpi .t{font-size:12px; color:var(--muted); margin-bottom:8px}
+    .kpi .v{font-size:26px; font-weight:900; letter-spacing:.2px}
+    .kpi .s{font-size:12px; color:var(--muted); margin-top:6px}
+    .kpi .v .gold{color:var(--gold)}
     .meter{
-      height: 8px;
-      margin-top: 10px;
-      background: rgba(255,255,255,0.10);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .meter-fill{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-      transition: width 0.6s ease;
-    }
-
-    /* Chart panel */
-    .chart{
-      margin-top: 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,0.22);
-      border: 1px solid rgba(255,255,255,0.10);
+      margin-top:10px;
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
       overflow:hidden;
     }
-    .chart-head{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px; flex-wrap:wrap;
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.14);
-      font-weight: 900;
-      color: rgba(245,210,125,0.92);
+    .meter > div{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, rgba(245,210,125,.55), rgba(245,210,125,.95));
     }
-    .chart-sub{
-      font-weight: 900;
-      color: rgba(255,255,255,0.65);
-      font-size: 12px;
-    }
-    canvas{ display:block; width:100%; height:180px; }
 
-    .perf-log-wrap{
-      margin-top: 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.10);
-      overflow:hidden;
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top:12px;
     }
-    .perf-log-title{
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      font-weight: 900;
-      color: rgba(245,210,125,0.92);
-      background: rgba(0,0,0,0.15);
-    }
-    .perf-log{
-      height: 160px;
+    .log{
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:12px;
+      min-height:140px;
+      max-height:240px;
       overflow:auto;
-      padding: 10px 12px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      line-height: 1.5;
     }
-    .perf-line{ padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); }
-    .perf-line:last-child{ border-bottom: 0; }
+    .log .line{font-size:12px; color:rgba(255,255,255,.78); padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.08)}
+    .log .line:last-child{border-bottom:none}
     .badge{
-      display:inline-flex;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 900;
-      border: 1px solid rgba(245,210,125,0.25);
-      background: rgba(245,210,125,0.08);
-      color: rgba(245,210,125,0.95);
-      margin-left: 8px;
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid rgba(245,210,125,.28);
+      background:rgba(245,210,125,.10);
+      color:rgba(245,210,125,.95);
+      font-weight:800;
+      font-size:11px;
+      letter-spacing:.2px;
     }
 
-    /* Live feed */
-    .panel{
-      margin-top: 14px;
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.32);
-      overflow:hidden;
+    canvas{
+      width:100%;
+      height:180px;
+      display:block;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.18);
     }
-    .panel-head{
-      display:flex; justify-content:space-between; align-items:center;
-      gap:12px; flex-wrap:wrap;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.18);
-    }
-    .panel-title{
-      font-weight: 900;
-      color: rgba(245,210,125,0.92);
-    }
-    .feed{
-      height: 200px;
-      overflow:auto;
-      padding: 10px 12px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      line-height: 1.55;
-      background: rgba(0,0,0,0.25);
-    }
-    .line{ padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); }
-    .line:last-child{ border-bottom:0; }
-
-    @media (max-width: 980px){
-      .perf-grid{ grid-template-columns: repeat(2, 1fr); }
-      .status-bar{ min-width: 200px; }
-      canvas{ height: 170px; }
-    }
+    .meta{margin-top:8px; font-size:12px; color:var(--muted)}
   </style>
 </head>
 
 <body>
-  <main class="container">
+  <div class="wrap">
 
-    <div class="top">
+    <div class="topbar">
       <div class="title">
         <h1>OmniClean™ Dishwasher UI</h1>
-        <p>Adaptive Cleaning Engine (ACE) demo — CPI scoring, learning memory, mode/load profiles, soil decay curve, optimization events.</p>
+        <div class="sub">Adaptive Cleaning Engine (ACE) demo — CPI scoring, learning memory, mode/load profiles, soil decay curve, optimization events.</div>
       </div>
-
-      <div class="actions">
-        <a class="btn" href="ai-dishwasher.html">Back to AI Dishwasher</a>
-        <a class="btn gold" href="architecture.html">Read Architectures</a>
-      </div>
-    </div>
-
-    <div class="system-status">
-      <div class="status-inner">
-        <div id="status-label">System Status: Idle</div>
-        <div class="status-bar"><div id="status-progress"></div></div>
+      <div class="navlinks">
+        <a href="ai-dishwasher.html">Back to AI Dishwasher</a>
+        <a href="omniclean-architectures.html">Read Architectures</a>
       </div>
     </div>
 
-    <div class="perf" id="perf">
-      <div class="perf-head">
-        <div class="perf-title">OmniClean™ Performance Intelligence</div>
+    <div class="grid">
 
-        <div class="perf-actions">
-          <span class="perf-pill" id="perfMem">Memory: Enabled</span>
+      <!-- LEFT: Controls + System Status -->
+      <div class="card">
+        <div class="card-h">
+          <div class="h">
+            <span class="pill"><span class="dot idle" id="statusDot"></span><span id="sysStatus">System Status: Idle</span></span>
+            <span class="pill">Memory: <strong id="memState">Enabled</strong></span>
+          </div>
+        </div>
+        <div class="card-b">
 
-          <label class="select-wrap" aria-label="Select Wash Mode">
-            <span class="select-label">Mode</span>
-            <select id="modeSel" class="select">
-              <option value="standard" selected>Standard</option>
-              <option value="eco">Eco</option>
-              <option value="heavy">Heavy</option>
-              <option value="glass">Glass</option>
-              <option value="sanitize">Sanitize</option>
-            </select>
-          </label>
+          <div class="controls">
+            <div class="field">
+              <label for="washMode">Mode</label>
+              <select id="washMode">
+                <option value="eco">Eco</option>
+                <option value="normal" selected>Standard</option>
+                <option value="intensive">Intensive</option>
+                <option value="glass">GlassCare</option>
+                <option value="ai">AI Adaptive</option>
+              </select>
+            </div>
 
-          <label class="select-wrap" aria-label="Select Load Profile">
-            <span class="select-label">Load</span>
-            <select id="loadSel" class="select">
-              <option value="mixed" selected>Mixed</option>
-              <option value="light">Light</option>
-              <option value="heavy">Heavy</option>
-            </select>
-          </label>
+            <div class="field">
+              <label for="loadSize">Load</label>
+              <select id="loadSize">
+                <option value="light">Light</option>
+                <option value="medium" selected>Mixed</option>
+                <option value="heavy">Heavy</option>
+              </select>
+            </div>
+          </div>
 
-          <button class="btn" id="cycleStart" type="button">Start Cycle</button>
-          <button class="btn" id="cycleStop" type="button">Stop</button>
-          <button class="btn gold" id="memReset" type="button">Reset Memory</button>
+          <div class="btnrow">
+            <button class="primary" id="cycleStart">Start Cycle</button>
+            <button id="cycleStop">Stop</button>
+            <button class="danger" id="memReset">Reset Memory</button>
+            <button id="clearFeed">Clear Feed</button>
+          </div>
+
+          <div class="status">
+            <div class="label">System</div>
+            <div class="bar" aria-label="progress"><div id="statusBar"></div></div>
+            <div class="value" id="statusPct">0%</div>
+          </div>
+
+          <div class="row2">
+            <div class="kpis">
+              <div class="kpi">
+                <div class="t">Cleaning Performance Index (CPI)</div>
+                <div class="v"><span class="gold" id="cpiNow">—</span></div>
+                <div class="s" id="cpiBand">Idle</div>
+              </div>
+
+              <div class="kpi">
+                <div class="t">Soil Level</div>
+                <div class="v"><span class="gold" id="soilNow">—</span></div>
+                <div class="meter"><div id="soilBar"></div></div>
+                <div class="s">Soil decay curve</div>
+              </div>
+
+              <div class="kpi">
+                <div class="t">Optimization Gain</div>
+                <div class="v"><span class="gold" id="optGain">—</span></div>
+                <div class="s" id="optNote">Learning model warming up</div>
+              </div>
+
+              <div class="kpi">
+                <div class="t">Overwash Prevention</div>
+                <div class="v"><span class="gold" id="overwashNow">—</span></div>
+                <div class="s" id="overwashNote">Adaptive control</div>
+              </div>
+
+              <div class="kpi">
+                <div class="t">Lifetime Avg CPI</div>
+                <div class="v"><span class="gold" id="cpiAvg">—</span></div>
+                <div class="s" id="cpiTrend">Trend: —</div>
+              </div>
+
+              <div class="kpi">
+                <div class="t">Efficiency vs Baseline</div>
+                <div class="v"><span class="gold" id="effDelta">—</span></div>
+                <div class="s" id="effNote">Water + energy + time</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card-h" style="border-radius:16px; border:1px solid var(--stroke); margin-bottom:10px;">
+                <div class="h">Soil Decay Curve</div>
+              </div>
+              <canvas id="soilChart"></canvas>
+              <div class="meta" id="chartMeta">Idle</div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <div class="perf-body">
-        <div class="perf-grid">
-          <div class="perf-card">
-            <div class="perf-k">Cleaning Performance Index (CPI)</div>
-            <div class="perf-v" id="cpiNow">—</div>
-            <div class="perf-s" id="cpiBand">Idle</div>
-          </div>
-
-          <div class="perf-card">
-            <div class="perf-k">Soil Level</div>
-            <div class="perf-v" id="soilNow">—</div>
-            <div class="meter"><div class="meter-fill" id="soilBar"></div></div>
-          </div>
-
-          <div class="perf-card">
-            <div class="perf-k">Optimization Gain</div>
-            <div class="perf-v" id="optGain">—</div>
-            <div class="perf-s" id="optNote">Learning model warming up</div>
-          </div>
-
-          <div class="perf-card">
-            <div class="perf-k">Overwash Prevention</div>
-            <div class="perf-v" id="overwashNow">—</div>
-            <div class="perf-s" id="overwashNote">Adaptive control</div>
-          </div>
-
-          <div class="perf-card">
-            <div class="perf-k">Lifetime Avg CPI</div>
-            <div class="perf-v" id="cpiAvg">—</div>
-            <div class="perf-s" id="cpiTrend">Trend: —</div>
-          </div>
-
-          <div class="perf-card">
-            <div class="perf-k">Efficiency vs Baseline</div>
-            <div class="perf-v" id="effDelta">—</div>
-            <div class="perf-s" id="effNote">Water + energy + time</div>
-          </div>
+      <!-- RIGHT: Logs -->
+      <div class="card">
+        <div class="card-h">
+          <div class="h">Adaptive Decisions Log</div>
+          <div class="pill">Live Prototype Feed</div>
         </div>
-
-        <div class="chart">
-          <div class="chart-head">
-            <div>Soil Decay Curve</div>
-            <div class="chart-sub" id="chartMeta">Idle</div>
-          </div>
-          <canvas id="soilChart"></canvas>
-        </div>
-
-        <div class="perf-log-wrap">
-          <div class="perf-log-title">Adaptive Decisions Log</div>
-          <div class="perf-log" id="perfLog" aria-label="Adaptive decisions log"></div>
+        <div class="card-b">
+          <div class="log" id="perfLog" aria-label="decisions log"></div>
+          <div style="height:12px"></div>
+          <div class="log" id="protoFeed" aria-label="prototype feed"></div>
         </div>
       </div>
+
     </div>
+  </div>
 
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-title">Live Prototype Feed</div>
-        <button class="btn" id="feedClear" type="button">Clear Feed</button>
-      </div>
-      <div class="feed" id="feedLog" aria-label="Telemetry feed"></div>
-    </div>
-
-  </main>
-
-  <script>
-    // ===== Status + Feed =====
-    const statusLabel = document.getElementById("status-label");
-    const statusProgress = document.getElementById("status-progress");
-    const feedLog = document.getElementById("feedLog");
-    const feedClearBtn = document.getElementById("feedClear");
-
-    function setStatus(label, pct){
-      if(statusLabel) statusLabel.textContent = `System Status: ${label}`;
-      if(statusProgress) statusProgress.style.width = String(pct || "0%");
-    }
-
-    function logLine(msg){
-      if(!feedLog) return;
-      const div = document.createElement("div");
-      div.className = "line";
-      div.textContent = `${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})} — ${msg}`;
-      feedLog.prepend(div);
-      while(feedLog.children.length > 80) feedLog.removeChild(feedLog.lastChild);
-    }
-
-    if(feedClearBtn){
-      feedClearBtn.addEventListener("click", () => {
-        if(feedLog) feedLog.innerHTML = "";
-        logLine("Feed cleared");
-      });
-    }
-
-    // ===== Mode + Load =====
-    const modeSel = document.getElementById("modeSel");
-    const loadSel = document.getElementById("loadSel");
-
-    function getConfig(){
-      const mode = modeSel ? modeSel.value : "standard";
-      const load = loadSel ? loadSel.value : "mixed";
-      return { mode, load };
-    }
-
-    function modeProfile(mode){
-      switch(mode){
-        case "eco":
-          return { timeBias:+6, waterBias:-1.3, energyBias:-0.10, cpiBias:-1.0, boostBias:+0.10, tempBias:-3 };
-        case "heavy":
-          return { timeBias:+10, waterBias:+0.8, energyBias:+0.10, cpiBias:+2.0, boostBias:-0.05, tempBias:+3 };
-        case "glass":
-          return { timeBias:+2, waterBias:-0.4, energyBias:-0.04, cpiBias:+0.5, boostBias:+0.05, tempBias:-2 };
-        case "sanitize":
-          return { timeBias:+12, waterBias:+0.4, energyBias:+0.14, cpiBias:+1.0, boostBias:-0.02, tempBias:+6 };
-        default:
-          return { timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0, tempBias:0 };
-      }
-    }
-
-    function loadProfile(load){
-      switch(load){
-        case "light":
-          return { soilBias:-14, timeBias:-6, waterBias:-0.9, energyBias:-0.06, cpiBias:+1.0, boostBias:+0.06 };
-        case "heavy":
-          return { soilBias:+14, timeBias:+8, waterBias:+0.9, energyBias:+0.08, cpiBias:-0.5, boostBias:-0.04 };
-        default:
-          return { soilBias:0, timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0 };
-      }
-    }
-
-    <!-- ===== Mode + Load Selector ===== -->
-<div class="selector-panel">
-  <label for="washMode">Mode</label>
-  <select id="washMode">
-    <option value="eco">Eco</option>
-    <option value="normal" selected>Standard</option>
-    <option value="intensive">Intensive</option>
-    <option value="glass">GlassCare</option>
-    <option value="ai">AI Adaptive</option>
-  </select>
-
-  <label for="loadSize">Load</label>
-  <select id="loadSize">
-    <option value="light">Light</option>
-    <option value="medium" selected>Mixed</option>
-    <option value="heavy">Heavy</option>
-  </select>
-</div>
-
-<!-- Make sure your CPI number element exists somewhere in the CPI section -->
-<!-- Example (use your existing CPI markup; just ensure id="cpiNow" exists) -->
-<div class="kpi">
-  <div class="kpi-title">Cleaning Performance Index (CPI)</div>
-  <div class="kpi-value"><span id="cpiNow">—</span></div>
-  <div class="kpi-sub" id="cpiBand">Idle</div>
-</div>
-
-<!-- 2) REPLACE YOUR ENTIRE <script> CONTENT WITH THIS (JS ONLY) -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== CPI + Historical Memory =====
+  // ===== CPI + Historical Memory (localStorage) =====
   const LS_KEY = "omniclean_cpi_history_v1";
   const MAX_CYCLES = 20;
 
-  // --- Required UI elements (safe lookups)
-  const cpiNow   = document.getElementById("cpiNow");
-  const cpiBand  = document.getElementById("cpiBand");
+  // ===== UI Elements =====
+  const cpiNow = document.getElementById("cpiNow");
+  const cpiBand = document.getElementById("cpiBand");
+  const soilNow = document.getElementById("soilNow");
+  const soilBar = document.getElementById("soilBar");
+  const optGain = document.getElementById("optGain");
+  const optNote = document.getElementById("optNote");
+  const overwashNow = document.getElementById("overwashNow");
+  const overwashNote = document.getElementById("overwashNote");
+  const cpiAvg = document.getElementById("cpiAvg");
+  const cpiTrend = document.getElementById("cpiTrend");
+  const effDelta = document.getElementById("effDelta");
+  const effNote = document.getElementById("effNote");
+  const perfLog = document.getElementById("perfLog");
+  const protoFeed = document.getElementById("protoFeed");
+
   const washMode = document.getElementById("washMode");
   const loadSize = document.getElementById("loadSize");
 
-  // If any critical element is missing, exit quietly (prevents console spam)
-  if (!cpiNow || !washMode || !loadSize) {
-    console.warn("[OmniClean] Missing required UI IDs: cpiNow / washMode / loadSize");
-    return;
+  const cycleStartBtn = document.getElementById("cycleStart");
+  const cycleStopBtn = document.getElementById("cycleStop");
+  const memResetBtn = document.getElementById("memReset");
+  const clearFeedBtn = document.getElementById("clearFeed");
+
+  const sysStatus = document.getElementById("sysStatus");
+  const statusBar = document.getElementById("statusBar");
+  const statusPct = document.getElementById("statusPct");
+  const statusDot = document.getElementById("statusDot");
+
+  // ===== Helpers =====
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+  function safeParse(json, fallback){
+    try { return JSON.parse(json); } catch { return fallback; }
   }
 
-  // ===== Profile helpers (extend later) =====
+  function stamp(){
+    const d = new Date();
+    return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  }
+
+  function setStatus(label, pct){
+    if(sysStatus) sysStatus.textContent = `System Status: ${label}`;
+    if(statusPct) statusPct.textContent = pct;
+    if(statusBar) statusBar.style.width = pct;
+
+    if(statusDot){
+      statusDot.classList.remove("idle","run","ok");
+      if(label.toLowerCase().includes("cycle")) statusDot.classList.add("run");
+      else if(label.toLowerCase().includes("verification")) statusDot.classList.add("ok");
+      else statusDot.classList.add("idle");
+    }
+  }
+
+  function perfLine(msg){
+    if(!perfLog) return;
+    const div = document.createElement("div");
+    div.className = "line";
+    div.innerHTML = `<span style="color:rgba(245,210,125,.95); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
+    perfLog.prepend(div);
+    while(perfLog.children.length > 70) perfLog.removeChild(perfLog.lastChild);
+  }
+
+  function logLine(msg){
+    if(!protoFeed) return;
+    const div = document.createElement("div");
+    div.className = "line";
+    div.textContent = `${stamp()}  ${msg}`;
+    protoFeed.prepend(div);
+    while(protoFeed.children.length > 70) protoFeed.removeChild(protoFeed.lastChild);
+  }
+
+  function pctFmt(x){
+    const sign = x >= 0 ? "+" : "";
+    return `${sign}${x.toFixed(1)}%`;
+  }
+
+  function avg(arr, key){
+    if(arr.length === 0) return null;
+    const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
+    return s / arr.length;
+  }
+
+  function getConfig(){
+    return {
+      mode: washMode ? washMode.value : "normal",
+      load: loadSize ? loadSize.value : "medium"
+    };
+  }
+
+  // ===== Mode + Load Profiles (values must match <option value="...">) =====
   function modeProfile(mode){
     switch(mode){
-      case "eco":       return { cpiBias:+10 };
-      case "intensive": return { cpiBias:-8  };
-      case "glass":     return { cpiBias:+5  };
-      case "ai":        return { cpiBias:+12 };
-      default:          return { cpiBias: 0  }; // normal
+      case "eco":
+        return { timeBias:+6, waterBias:-0.8, energyBias:-0.06, cpiBias:+1.2, boostBias:+0.05, tempBias:-2.0 };
+      case "intensive":
+        return { timeBias:-6, waterBias:+0.9, energyBias:+0.10, cpiBias:-0.6, boostBias:-0.05, tempBias:+2.0 };
+      case "glass":
+        return { timeBias:+2, waterBias:-0.2, energyBias:-0.02, cpiBias:+0.5, boostBias:+0.04, tempBias:+0.6 };
+      case "ai":
+        return { timeBias:-2, waterBias:-0.4, energyBias:-0.03, cpiBias:+1.6, boostBias:+0.08, tempBias:+1.2 };
+      default: // normal
+        return { timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0, tempBias:0 };
     }
   }
 
   function loadProfile(load){
     switch(load){
-      case "light": return { cpiBias:+6  };
-      case "heavy": return { cpiBias:-6  };
-      default:      return { cpiBias: 0  }; // medium/mixed
+      case "light":
+        return { soilBias:-14, timeBias:-6, waterBias:-0.9, energyBias:-0.06, cpiBias:+1.0, boostBias:+0.06 };
+      case "heavy":
+        return { soilBias:+14, timeBias:+8, waterBias:+0.9, energyBias:+0.08, cpiBias:-0.5, boostBias:-0.04 };
+      default: // medium/mixed
+        return { soilBias:0, timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0 };
     }
   }
 
-  // ===== CPI calculation (safe + bounded) =====
-  function calculateCPI(){
-    let base = 80;
-
-    const mp = modeProfile(washMode.value);
-    const lp = loadProfile(loadSize.value);
-
-    base += (mp.cpiBias || 0);
-    base += (lp.cpiBias || 0);
-
-    // clamp 60–100 (you can change later)
-    return Math.max(60, Math.min(base, 100));
-  }
-
-  // ===== Memory (optional but safe) =====
+  // ===== Learning & History =====
   function loadHistory(){
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      const arr = raw ? JSON.parse(raw) : [];
-      return Array.isArray(arr) ? arr : [];
-    } catch {
-      return [];
+    const raw = localStorage.getItem(LS_KEY);
+    const data = raw ? safeParse(raw, []) : [];
+    return Array.isArray(data) ? data : [];
+  }
+  function saveHistory(arr){
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));
+  }
+  function learningFactor(historyLen){
+    return clamp(historyLen * 0.006, 0, 0.12);
+  }
+
+  // ===== CPI Core =====
+  function computeCPI(metrics){
+    const SRE = clamp(100 - metrics.turbidity, 0, 100);
+    const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
+    const TO  = clamp(metrics.tempStability, 0, 100);
+    const AA  = clamp(metrics.adaptAccuracy, 0, 100);
+    const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
+    return clamp(cpi, 0, 100);
+  }
+
+  function bandLabel(cpi){
+    if(cpi >= 90) return "Exceptional Cycle";
+    if(cpi >= 80) return "High Performance";
+    if(cpi >= 70) return "Standard";
+    return "Adaptive Boost Triggered";
+  }
+
+  function updateSummaryUI(history){
+    const avgC = avg(history, "cpi");
+    if(avgC !== null){
+      cpiAvg.textContent = avgC.toFixed(1);
+      const last = history[0];
+      const prev = history[1];
+      if(prev){
+        const delta = last.cpi - prev.cpi;
+        cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
+      } else {
+        cpiTrend.textContent = "Trend: —";
+      }
+    } else {
+      cpiAvg.textContent = "—";
+      cpiTrend.textContent = "Trend: —";
+    }
+
+    const baseline = history.length ? history[history.length - 1] : null;
+    if(baseline && history.length >= 2){
+      const latest = history[0];
+      const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
+      const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
+      const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
+      effDelta.textContent = pctFmt(gain);
+      effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
+    } else {
+      effDelta.textContent = "—";
+      effNote.textContent = "Water + energy + time";
     }
   }
 
-  function saveHistory(entry){
-    const hist = loadHistory();
-    hist.unshift(entry);
-    hist.splice(MAX_CYCLES);
-    try { localStorage.setItem(LS_KEY, JSON.stringify(hist)); } catch {}
-    return hist;
+  // ===== Soil Chart =====
+  const soilChart = document.getElementById("soilChart");
+  const chartMeta = document.getElementById("chartMeta");
+  const ctx = soilChart.getContext("2d");
+
+  let soilSeries = [];
+  let chartTimer = null;
+  let cycleActive = false;
+
+  function resizeCanvas(){
+    const dpr = window.devicePixelRatio || 1;
+    const rect = soilChart.getBoundingClientRect();
+    soilChart.width = Math.floor(rect.width * dpr);
+    soilChart.height = Math.floor(rect.height * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawChart();
   }
+  window.addEventListener("resize", resizeCanvas);
 
-  function avg(list){
-    if (!list.length) return null;
-    let s = 0;
-    for (const x of list) s += x;
-    return s / list.length;
-  }
+  function drawChart(){
+    const w = soilChart.getBoundingClientRect().width;
+    const h = soilChart.getBoundingClientRect().height;
+    ctx.clearRect(0,0,w,h);
 
-  // ===== Main UI update =====
-  function updateSystem(reason="manual"){
-    const cpiValue = calculateCPI();
-    cpiNow.textContent = cpiValue + "%";
-
-    if (cpiBand) {
-      // simple banding (edit later)
-      cpiBand.textContent =
-        cpiValue >= 92 ? "Elite" :
-        cpiValue >= 85 ? "Optimized" :
-        cpiValue >= 75 ? "Stable" :
-                         "Adaptive";
+    // grid
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = "rgba(255,255,255,0.08)";
+    ctx.lineWidth = 1;
+    for(let i=1;i<=4;i++){
+      const y = (h*i)/5;
+      ctx.beginPath();
+      ctx.moveTo(0,y);
+      ctx.lineTo(w,y);
+      ctx.stroke();
     }
 
-    // record lightweight history (no cycle start needed yet)
-    saveHistory({
-      ts: Date.now(),
-      cpi: cpiValue,
-      mode: washMode.value,
-      load: loadSize.value,
-      reason
+    if(soilSeries.length < 2) return;
+
+    ctx.strokeStyle = "rgba(245,210,125,0.95)";
+    ctx.lineWidth = 2;
+
+    const maxPoints = 60;
+    const series = soilSeries.slice(-maxPoints);
+    const xStep = w / (series.length - 1);
+
+    ctx.beginPath();
+    series.forEach((val, idx) => {
+      const x = idx * xStep;
+      const y = h - (val/100)*h;
+      if(idx === 0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
     });
+    ctx.stroke();
+
+    const lastVal = series[series.length - 1];
+    const x = (series.length - 1) * xStep;
+    const y = h - (lastVal/100)*h;
+    ctx.fillStyle = "rgba(245,210,125,0.95)";
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  function seedSoil(){
+    const cfg = getConfig();
+    const lp = loadProfile(cfg.load);
+    const base = clamp(72 + lp.soilBias*0.6, 25, 95);
+    soilSeries = [base];
+    drawChart();
+    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${base.toFixed(0)}`;
+  }
+
+  function stepSoil(){
+    if(!soilSeries.length) seedSoil();
+    const cfg = getConfig();
+
+    const last = soilSeries[soilSeries.length - 1];
+
+    // decay rate based on mode (ONLY the modes we actually have)
+    let decay = 1.7;
+    if(cfg.mode === "eco") decay = 1.2;
+    if(cfg.mode === "intensive") decay = 2.2;
+    if(cfg.mode === "glass") decay = 1.45;
+    if(cfg.mode === "ai") decay = 1.85;
+    // add small noise
+    decay += (Math.random()*0.25 - 0.12);
+
+    const next = clamp(last - decay, 0, 100);
+    soilSeries.push(next);
+
+    soilNow.textContent = `${next.toFixed(0)} / 100`;
+    soilBar.style.width = `${clamp(next, 0, 100)}%`;
+
+    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}`;
+    drawChart();
+  }
+
+  function startChart(){
+    seedSoil();
+    if(chartTimer) clearInterval(chartTimer);
+    chartTimer = setInterval(stepSoil, 900);
+  }
+
+  function stopChart(){
+    if(chartTimer) clearInterval(chartTimer);
+    chartTimer = null;
+    drawChart();
+  }
+
+  // ===== Snapshot generator ties chart soil into CPI =====
+  function generateCycleSnapshot(history, config){
+    const lf = learningFactor(history.length);
+
+    const mp = modeProfile(config.mode);
+    const lp = loadProfile(config.load);
+
+    const soilFromChart = soilSeries.length ? soilSeries[soilSeries.length - 1] : (65 + (lp.soilBias || 0));
+    const soil = clamp(soilFromChart + (Math.random()*6 - 3), 20, 95);
+    const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
+
+    const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
+    const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
+
+    const tempStability = clamp(80 + (Math.random()*14 - 7) + (mp.tempBias || 0), 55, 96);
+    const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
+
+    const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
+    const cpiBiased = clamp(cpi + (mp.cpiBias || 0) + (lp.cpiBias || 0), 0, 100);
+
+    const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3) + (mp.timeBias || 0) + (lp.timeBias || 0), 65, 125);
+    const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4) + (mp.waterBias || 0) + (lp.waterBias || 0), 9.5, 18.0);
+    const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04) + (mp.energyBias || 0) + (lp.energyBias || 0), 0.85, 1.65);
+
+    const overwashPrevented = (cpiBiased >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
+
+    const boostThreshold = 70 + Math.round(((mp.boostBias || 0) + (lp.boostBias || 0)) * 10);
+    const boost = (cpiBiased < boostThreshold);
+
+    return {
+      ts: Date.now(),
+      cpi: cpiBiased,
+      soil,
+      timeMin,
+      waterL,
+      energyKwh,
+      overwashPrevented,
+      boost,
+      mode: config.mode,
+      load: config.load,
+      soilCurve: soilSeries.slice(-60)
+    };
+  }
+
+  function renderCurrent(snapshot, history){
+    cpiNow.textContent = snapshot.cpi.toFixed(1);
+    cpiBand.textContent = bandLabel(snapshot.cpi);
+
+    soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
+    soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
+
+    const baseline = history.length ? history[history.length - 1] : snapshot;
+    const baseC = baseline.cpi || snapshot.cpi;
+    const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
+    optGain.textContent = pctFmt(gain);
+    optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
+
+    overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
+    overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
+
+    if(snapshot.boost){
+      perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
+    } else {
+      perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
+    }
+
+    perfLine(`Profile set — Mode: <span class="badge">${snapshot.mode.toUpperCase()}</span> Load: <span class="badge">${snapshot.load.toUpperCase()}</span>`);
+    updateSummaryUI(history);
+  }
+
+  function completeCycle(){
+    const history = loadHistory();
+    const cfg = getConfig();
+    const snap = generateCycleSnapshot(history, cfg);
+
+    history.unshift(snap);
+    if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
+    saveHistory(history);
+
+    renderCurrent(snap, history);
+
+    logLine(`Profile: mode=${snap.mode}, load=${snap.load}`);
+    logLine(`CPI=${snap.cpi.toFixed(1)} | Soil=${snap.soil.toFixed(0)} | Water=${snap.waterL.toFixed(1)}L | Energy=${snap.energyKwh.toFixed(2)}kWh | Time=${snap.timeMin.toFixed(0)}m | Overwash=${snap.overwashPrevented ? "Prevented" : "—"}`);
+    logLine("Soil decay curve saved to cycle history");
+  }
+
+  function startCycle(){
+    if(cycleActive) return;
+    cycleActive = true;
+    perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
+    logLine(`Cycle started (mode=${getConfig().mode}, load=${getConfig().load})`);
+    setStatus("Cycle Running", "55%");
+    startChart();
+  }
+
+  function stopCycle(){
+    if(!cycleActive) return;
+    cycleActive = false;
+    perfLine("Cycle completed — computing CPI + updating memory.");
+    setStatus("Verification", "92%");
+    stopChart();
+    completeCycle();
+    setStatus("Idle", "0%");
+  }
+
+  function resetMemory(){
+    localStorage.removeItem(LS_KEY);
+    if(perfLog) perfLog.innerHTML = "";
+    if(protoFeed) protoFeed.innerHTML = "";
+    cpiNow.textContent = "—";
+    cpiBand.textContent = "Idle";
+    soilNow.textContent = "—";
+    soilBar.style.width = "0%";
+    optGain.textContent = "—";
+    optNote.textContent = "Learning model warming up";
+    overwashNow.textContent = "—";
+    overwashNote.textContent = "Adaptive control";
+    cpiAvg.textContent = "—";
+    cpiTrend.textContent = "Trend: —";
+    effDelta.textContent = "—";
+    effNote.textContent = "Water + energy + time";
+    perfLine("Memory reset — performance model restarted.");
+    logLine("Memory reset");
+    setStatus("Idle", "0%");
+    soilSeries = [];
+    chartMeta.textContent = "Idle";
+    drawChart();
+    seedSoil();
+  }
+
+  function clearFeed(){
+    if(protoFeed) protoFeed.innerHTML = "";
+    logLine("Feed cleared");
   }
 
   // ===== Events =====
-  washMode.addEventListener("change", () => updateSystem("mode_change"));
-  loadSize.addEventListener("change", () => updateSystem("load_change"));
+  if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
+  if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
+  if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
+  if(clearFeedBtn) clearFeedBtn.addEventListener("click", clearFeed);
 
-  // Initial render
-  updateSystem("init");
-});
-</script>
-    const cpiNow = document.getElementById("cpiNow");
-    const cpiBand = document.getElementById("cpiBand");
-    const soilNow = document.getElementById("soilNow");
-    const soilBar = document.getElementById("soilBar");
-    const optGain = document.getElementById("optGain");
-    const optNote = document.getElementById("optNote");
-    const overwashNow = document.getElementById("overwashNow");
-    const overwashNote = document.getElementById("overwashNote");
-    const cpiAvg = document.getElementById("cpiAvg");
-    const cpiTrend = document.getElementById("cpiTrend");
-    const effDelta = document.getElementById("effDelta");
-    const effNote = document.getElementById("effNote");
-    const perfLog = document.getElementById("perfLog");
-
-    const cycleStartBtn = document.getElementById("cycleStart");
-    const cycleStopBtn = document.getElementById("cycleStop");
-    const memResetBtn = document.getElementById("memReset");
-
-    let cycleActive = false;
-
-    function safeParse(json, fallback){
-      try { return JSON.parse(json); } catch { return fallback; }
-    }
-
-    function loadHistory(){
-      const raw = localStorage.getItem(LS_KEY);
-      const data = raw ? safeParse(raw, []) : [];
-      return Array.isArray(data) ? data : [];
-    }
-
-    function saveHistory(arr){
-      localStorage.setItem(LS_KEY, JSON.stringify(arr));
-    }
-
-    function stamp(){
-      const d = new Date();
-      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-    }
-
-    function perfLine(msg){
-      if(!perfLog) return;
-      const div = document.createElement("div");
-      div.className = "perf-line";
-      div.innerHTML = `<span style="color: rgba(245,210,125,0.90); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
-      perfLog.prepend(div);
-      while(perfLog.children.length > 50) perfLog.removeChild(perfLog.lastChild);
-    }
-
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-    function computeCPI(metrics){
-      const SRE = clamp(100 - metrics.turbidity, 0, 100);
-      const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
-      const TO  = clamp(metrics.tempStability, 0, 100);
-      const AA  = clamp(metrics.adaptAccuracy, 0, 100);
-      const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
-      return clamp(cpi, 0, 100);
-    }
-
-    function bandLabel(cpi){
-      if(cpi >= 90) return "Exceptional Cycle";
-      if(cpi >= 80) return "High Performance";
-      if(cpi >= 70) return "Standard";
-      return "Adaptive Boost Triggered";
-    }
-
-    function learningFactor(historyLen){
-      return clamp(historyLen * 0.006, 0, 0.12);
-    }
-
-    function avg(arr, key){
-      if(arr.length === 0) return null;
-      const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
-      return s / arr.length;
-    }
-
-    function pctFmt(x){
-      const sign = x >= 0 ? "+" : "";
-      return `${sign}${x.toFixed(1)}%`;
-    }
-
-    function updateSummaryUI(history){
-      const avgC = avg(history, "cpi");
-      if(avgC !== null){
-        cpiAvg.textContent = avgC.toFixed(1);
-        const last = history[0];
-        const prev = history[1];
-        if(prev){
-          const delta = last.cpi - prev.cpi;
-          cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
-        } else {
-          cpiTrend.textContent = "Trend: —";
-        }
-      } else {
-        cpiAvg.textContent = "—";
-        cpiTrend.textContent = "Trend: —";
-      }
-
-      const baseline = history.length ? history[history.length - 1] : null;
-      if(baseline && history.length >= 2){
-        const latest = history[0];
-        const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
-        const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
-        const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
-        effDelta.textContent = pctFmt(gain);
-        effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
-      } else {
-        effDelta.textContent = "—";
-        effNote.textContent = "Water + energy + time";
-      }
-    }
-
-    // ===== Soil Chart =====
-    const soilChart = document.getElementById("soilChart");
-    const chartMeta = document.getElementById("chartMeta");
-    const ctx = soilChart.getContext("2d");
-
-    let soilSeries = []; // points 0..100
-    let chartTimer = null;
-
-    function resizeCanvas(){
-      const dpr = window.devicePixelRatio || 1;
-      const rect = soilChart.getBoundingClientRect();
-      soilChart.width = Math.floor(rect.width * dpr);
-      soilChart.height = Math.floor(rect.height * dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      drawChart();
-    }
-    window.addEventListener("resize", resizeCanvas);
-
-    function drawChart(){
-      const w = soilChart.getBoundingClientRect().width;
-      const h = soilChart.getBoundingClientRect().height;
-
-      ctx.clearRect(0,0,w,h);
-
-      // grid
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = "rgba(255,255,255,0.08)";
-      ctx.lineWidth = 1;
-
-      for(let i=1;i<=4;i++){
-        const y = (h*i)/5;
-        ctx.beginPath();
-        ctx.moveTo(0,y);
-        ctx.lineTo(w,y);
-        ctx.stroke();
-      }
-
-      // line
-      if(soilSeries.length < 2) return;
-
-      ctx.strokeStyle = "rgba(245,210,125,0.95)";
-      ctx.lineWidth = 2;
-
-      const maxPoints = 60;
-      const series = soilSeries.slice(-maxPoints);
-
-      const xStep = w / (series.length - 1);
-      ctx.beginPath();
-      series.forEach((val, idx) => {
-        const x = idx * xStep;
-        const y = h - (val/100)*h;
-        if(idx === 0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
-      });
-      ctx.stroke();
-
-      // current point
-      const lastVal = series[series.length - 1];
-      const x = (series.length - 1) * xStep;
-      const y = h - (lastVal/100)*h;
-      ctx.fillStyle = "rgba(245,210,125,0.95)";
-      ctx.beginPath();
-      ctx.arc(x,y,3,0,Math.PI*2);
-      ctx.fill();
-    }
-
-    function seedSoil(){
-      const cfg = getConfig();
-      const lp = loadProfile(cfg.load);
-      const mp = modeProfile(cfg.mode);
-
-      // Start soil baseline depends on load; sanitize/heavy often starts higher perceived need
-      const base = clamp(72 + lp.soilBias*0.6 + (cfg.mode === "heavy" ? 6 : 0) + (cfg.mode === "sanitize" ? 4 : 0), 25, 95);
-      soilSeries = [base];
-      drawChart();
-    }
-
-    function stepSoil(){
-      if(!soilSeries.length) seedSoil();
-      const cfg = getConfig();
-      const mp = modeProfile(cfg.mode);
-
-      const last = soilSeries[soilSeries.length - 1];
-
-      // Decay rate (Eco slower, Heavy faster)
-      let decay = 1.7;
-      if(cfg.mode === "eco") decay = 1.2;
-      if(cfg.mode === "heavy") decay = 2.1;
-      if(cfg.mode === "sanitize") decay = 1.8;
-      if(cfg.mode === "glass") decay = 1.5;
-
-      // add small noise
-      decay += (Math.random()*0.25 - 0.12);
-
-      const next = clamp(last - decay, 0, 100);
-      soilSeries.push(next);
-
-      // reflect in the live meter too
-      soilNow.textContent = `${next.toFixed(0)} / 100`;
-      soilBar.style.width = `${clamp(next, 0, 100)}%`;
-
-      chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}`;
-      drawChart();
-    }
-
-    function startChart(){
+  // Make mode/load changes reflect in soil meta (even while idle)
+  function onProfileChange(){
+    if(!cycleActive){
       seedSoil();
-      chartMeta.textContent = "Cycle running…";
-      if(chartTimer) clearInterval(chartTimer);
-      chartTimer = setInterval(stepSoil, 900);
+      perfLine(`Profile adjusted — Mode <span class="badge">${getConfig().mode.toUpperCase()}</span> Load <span class="badge">${getConfig().load.toUpperCase()}</span>`);
+      logLine(`Profile set: mode=${getConfig().mode}, load=${getConfig().load}`);
     }
+  }
+  if(washMode) washMode.addEventListener("change", onProfileChange);
+  if(loadSize) loadSize.addEventListener("change", onProfileChange);
 
-    function stopChart(){
-      if(chartTimer) clearInterval(chartTimer);
-      chartTimer = null;
-      chartMeta.textContent = "Cycle complete — curve saved";
-      drawChart();
-    }
+  // ===== Init =====
+  (function initPerf(){
+    setStatus("Idle", "0%");
+    resizeCanvas();
 
-    // ===== Snapshot generator uses chart soil as base (ties UI together) =====
-    function generateCycleSnapshot(history, config){
-      const lf = learningFactor(history.length);
+    const history = loadHistory();
+    if(history.length){
+      perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
+      renderCurrent(history[0], history);
+      logLine(`Memory loaded (${history.length} cycles)`);
 
-      const mp = modeProfile(config.mode);
-      const lp = loadProfile(config.load);
-
-      const soilFromChart = soilSeries.length ? soilSeries[soilSeries.length - 1] : (65 + lp.soilBias);
-      const soil = clamp(soilFromChart + (Math.random()*6 - 3), 20, 95);
-      const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
-
-      const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
-      const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
-
-      const tempStability = clamp(80 + (Math.random()*14 - 7) + mp.tempBias, 55, 96);
-      const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
-
-      const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
-      const cpiBiased = clamp(cpi + mp.cpiBias + lp.cpiBias, 0, 100);
-
-      const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3) + mp.timeBias + lp.timeBias, 65, 125);
-      const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4) + mp.waterBias + lp.waterBias, 9.5, 18.0);
-      const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04) + mp.energyBias + lp.energyBias, 0.85, 1.65);
-
-      const overwashPrevented = (cpiBiased >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
-
-      const boostThreshold = 70 + Math.round((mp.boostBias + lp.boostBias) * 10);
-      const boost = (cpiBiased < boostThreshold);
-
-      return {
-        ts: Date.now(),
-        cpi: cpiBiased,
-        soil,
-        timeMin,
-        waterL,
-        energyKwh,
-        overwashPrevented,
-        boost,
-        mode: config.mode,
-        load: config.load,
-        soilCurve: soilSeries.slice(-60) // store last curve segment
-      };
-    }
-
-    function renderCurrent(snapshot, history){
-      cpiNow.textContent = snapshot.cpi.toFixed(1);
-      cpiBand.textContent = bandLabel(snapshot.cpi);
-
-      soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
-      soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
-
-      const baseline = history.length ? history[history.length - 1] : snapshot;
-      const baseC = baseline.cpi || snapshot.cpi;
-      const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
-      optGain.textContent = pctFmt(gain);
-      optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
-
-      overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
-      overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
-
-      if(snapshot.boost){
-        perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
+      if(history[0].soilCurve && Array.isArray(history[0].soilCurve) && history[0].soilCurve.length){
+        soilSeries = history[0].soilCurve.slice();
+        chartMeta.textContent = "Loaded last saved curve";
+        drawChart();
       } else {
-        perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
-      }
-
-      perfLine(`Profile set — Mode: <span class="badge">${snapshot.mode.toUpperCase()}</span> Load: <span class="badge">${snapshot.load.toUpperCase()}</span>`);
-      updateSummaryUI(history);
-    }
-
-    function completeCycle(){
-      const history = loadHistory();
-      const cfg = getConfig();
-      const snap = generateCycleSnapshot(history, cfg);
-
-      history.unshift(snap);
-      if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
-      saveHistory(history);
-
-      renderCurrent(snap, history);
-
-      logLine(`Profile: mode=${snap.mode}, load=${snap.load}`);
-      logLine(`CPI=${snap.cpi.toFixed(1)} | Soil=${snap.soil.toFixed(0)} | Water=${snap.waterL.toFixed(1)}L | Energy=${snap.energyKwh.toFixed(2)}kWh | Time=${snap.timeMin.toFixed(0)}m | Overwash=${snap.overwashPrevented ? "Prevented" : "—"}`);
-      logLine("Soil decay curve saved to cycle history");
-    }
-
-    function startCycle(){
-      if(cycleActive) return;
-      cycleActive = true;
-      perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
-      logLine(`Cycle started (mode=${getConfig().mode}, load=${getConfig().load})`);
-      setStatus("Cycle Running", "55%");
-      startChart();
-    }
-
-    function stopCycle(){
-      if(!cycleActive) return;
-      cycleActive = false;
-      perfLine("Cycle completed — computing CPI + updating memory.");
-      setStatus("Verification", "92%");
-      stopChart();
-      completeCycle();
-      setStatus("Idle", "0%");
-    }
-
-    function resetMemory(){
-      localStorage.removeItem(LS_KEY);
-      if(perfLog) perfLog.innerHTML = "";
-      cpiNow.textContent = "—";
-      cpiBand.textContent = "Idle";
-      soilNow.textContent = "—";
-      soilBar.style.width = "0%";
-      optGain.textContent = "—";
-      optNote.textContent = "Learning model warming up";
-      overwashNow.textContent = "—";
-      overwashNote.textContent = "Adaptive control";
-      cpiAvg.textContent = "—";
-      cpiTrend.textContent = "Trend: —";
-      effDelta.textContent = "—";
-      effNote.textContent = "Water + energy + time";
-      perfLine("Memory reset — performance model restarted.");
-      logLine("Memory reset");
-      setStatus("Idle", "0%");
-      soilSeries = [];
-      chartMeta.textContent = "Idle";
-      drawChart();
-    }
-
-    if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
-    if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
-    if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
-
-    // Init
-    (function initPerf(){
-      setStatus("Idle", "0%");
-      resizeCanvas();
-
-      const history = loadHistory();
-      if(history.length){
-        perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
-        renderCurrent(history[0], history);
-        logLine(`Memory loaded (${history.length} cycles)`);
-
-        // If last cycle had curve, preload it
-        if(history[0].soilCurve && Array.isArray(history[0].soilCurve) && history[0].soilCurve.length){
-          soilSeries = history[0].soilCurve.slice();
-          chartMeta.textContent = "Loaded last saved curve";
-          drawChart();
-        } else {
-          chartMeta.textContent = "Idle";
-          seedSoil();
-        }
-      } else {
-        perfLine("Memory initialized — run a cycle to generate CPI history.");
-        updateSummaryUI([]);
-        logLine("Memory initialized");
         chartMeta.textContent = "Idle";
         seedSoil();
       }
-    })();
-  </script>
+    } else {
+      perfLine("Memory initialized — run a cycle to generate CPI history.");
+      updateSummaryUI([]);
+      logLine("Memory initialized");
+      chartMeta.textContent = "Idle";
+      seedSoil();
+    }
+  })();
+});
+</script>
 </body>
 </html>

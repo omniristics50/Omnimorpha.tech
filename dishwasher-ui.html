@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>OmniClean™ Dishwasher UI — ACE Demo</title>
+
   <style>
     :root{
       --bg:#07080b;
       --panel:rgba(255,255,255,.05);
-      --panel2:rgba(255,255,255,.07);
       --stroke:rgba(255,255,255,.10);
       --text:rgba(255,255,255,.88);
       --muted:rgba(255,255,255,.55);
@@ -16,42 +16,36 @@
       --good:rgba(120,255,190,.95);
       --warn:rgba(255,200,120,.95);
       --bad:rgba(255,120,150,.95);
-      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --shadow:0 18px 50px rgba(0,0,0,.55);
       --radius:18px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1100px 700px at 30% 0%, rgba(245,210,125,.10), transparent 55%),
-                  radial-gradient(900px 650px at 80% 20%, rgba(120,190,255,.08), transparent 55%),
-                  var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1100px 700px at 30% 0%, rgba(245,210,125,.10), transparent 55%),
+        radial-gradient(900px 650px at 80% 20%, rgba(120,190,255,.08), transparent 55%),
+        var(--bg);
       color:var(--text);
     }
     a{color:var(--gold); text-decoration:none}
     .wrap{max-width:1180px; margin:0 auto; padding:26px 18px 48px}
+
     .topbar{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
       padding:14px 16px; border:1px solid var(--stroke); background:rgba(0,0,0,.25);
       border-radius:var(--radius); box-shadow:var(--shadow);
       position:sticky; top:10px; backdrop-filter: blur(10px);
+      z-index:100; /* important */
     }
-    .title{
-      display:flex; flex-direction:column; gap:3px;
-    }
+    .title{display:flex; flex-direction:column; gap:3px}
     .title h1{font-size:16px; margin:0; letter-spacing:.2px}
     .title .sub{font-size:12px; color:var(--muted)}
     .navlinks{display:flex; gap:14px; font-size:13px; color:var(--muted)}
-    .grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-      margin-top:16px;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-      .topbar{position:relative; top:auto}
-    }
+
+    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:16px}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} .topbar{position:relative; top:auto} }
 
     .card{
       border:1px solid var(--stroke);
@@ -59,6 +53,8 @@
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
+      position:relative; /* important */
+      z-index:1;         /* important */
     }
     .card-h{
       padding:14px 16px;
@@ -66,10 +62,7 @@
       background:rgba(0,0,0,.22);
       display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
-    .card-h .h{
-      font-weight:700; letter-spacing:.2px; font-size:13px;
-      display:flex; align-items:center; gap:10px;
-    }
+    .card-h .h{font-weight:700; letter-spacing:.2px; font-size:13px; display:flex; align-items:center; gap:10px}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px;
@@ -83,17 +76,10 @@
     .dot.idle{background:rgba(255,255,255,.35)}
     .dot.run{background:var(--gold)}
     .dot.ok{background:var(--good)}
-    .card-b{padding:16px}
+    .card-b{padding:16px; position:relative; z-index:2}
 
-    .controls{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      align-items:end;
-    }
-    .field label{
-      display:block; font-size:12px; color:var(--muted); margin-bottom:6px;
-    }
+    .controls{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:end; position:relative; z-index:10}
+    .field label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px}
     select{
       width:100%;
       padding:10px 10px;
@@ -104,10 +90,7 @@
       outline:none;
     }
     select:focus{border-color:rgba(245,210,125,.55)}
-    .btnrow{
-      margin-top:12px;
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
+    .btnrow{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:10}
     button{
       cursor:pointer;
       padding:10px 12px;
@@ -117,6 +100,7 @@
       color:var(--text);
       font-weight:650;
       letter-spacing:.2px;
+      user-select:none;
     }
     button:hover{border-color:rgba(245,210,125,.45)}
     button.primary{background:rgba(245,210,125,.12); border-color:rgba(245,210,125,.35)}
@@ -128,6 +112,8 @@
       border-radius:14px;
       border:1px solid var(--stroke);
       background:rgba(0,0,0,.18);
+      position:relative;
+      z-index:10;
     }
     .bar{
       height:8px; border-radius:999px; flex:1;
@@ -135,23 +121,12 @@
       overflow:hidden;
       border:1px solid rgba(255,255,255,.08);
     }
-    .bar > div{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, rgba(245,210,125,.65), rgba(245,210,125,.95));
-    }
+    .bar > div{height:100%; width:0%; background:linear-gradient(90deg, rgba(245,210,125,.65), rgba(245,210,125,.95))}
     .status .label{font-size:12px; color:var(--muted); min-width:120px}
     .status .value{font-size:12px; color:var(--text); font-weight:700; min-width:120px; text-align:right}
 
-    .kpis{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 520px){
-      .kpis{grid-template-columns:1fr}
-      .controls{grid-template-columns:1fr}
-    }
+    .kpis{display:grid; grid-template-columns:1fr 1fr; gap:12px; position:relative; z-index:2}
+    @media (max-width:520px){ .kpis{grid-template-columns:1fr} .controls{grid-template-columns:1fr} }
     .kpi{
       padding:12px;
       border-radius:16px;
@@ -161,27 +136,12 @@
     .kpi .t{font-size:12px; color:var(--muted); margin-bottom:8px}
     .kpi .v{font-size:26px; font-weight:900; letter-spacing:.2px}
     .kpi .s{font-size:12px; color:var(--muted); margin-top:6px}
-    .kpi .v .gold{color:var(--gold)}
-    .meter{
-      margin-top:10px;
-      height:10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.08);
-      overflow:hidden;
-    }
-    .meter > div{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, rgba(245,210,125,.55), rgba(245,210,125,.95));
-    }
+    .kpi .gold{color:var(--gold)}
+    .meter{margin-top:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); overflow:hidden}
+    .meter > div{height:100%; width:0%; background:linear-gradient(90deg, rgba(245,210,125,.55), rgba(245,210,125,.95))}
 
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
+    .row2{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px; position:relative; z-index:2}
+
     .log{
       border:1px solid var(--stroke);
       background:rgba(0,0,0,.18);
@@ -190,6 +150,8 @@
       min-height:140px;
       max-height:240px;
       overflow:auto;
+      position:relative;
+      z-index:2;
     }
     .log .line{font-size:12px; color:rgba(255,255,255,.78); padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.08)}
     .log .line:last-child{border-bottom:none}
@@ -212,22 +174,12 @@
       border-radius:16px;
       border:1px solid var(--stroke);
       background:rgba(0,0,0,.18);
+      position:relative;
+      z-index:1;
+      pointer-events:none; /* critical: canvas can’t block clicks */
     }
     .meta{margin-top:8px; font-size:12px; color:var(--muted)}
- 
-  /* Click-fix: ensure charts/overlays don't block controls */
-#soilChart { pointer-events: none; }
-
-.controls, .btnrow, .status {
-  position: relative;
-  z-index: 50;
-}
-.card, .card-b, .row2, .kpis {
-  position: relative;
-  z-index: 1;
-}
-  
- </style>
+  </style>
 </head>
 
 <body>
@@ -246,7 +198,7 @@
 
     <div class="grid">
 
-      <!-- LEFT: Controls + System Status -->
+      <!-- LEFT -->
       <div class="card">
         <div class="card-h">
           <div class="h">
@@ -254,6 +206,7 @@
             <span class="pill">Memory: <strong id="memState">Enabled</strong></span>
           </div>
         </div>
+
         <div class="card-b">
 
           <div class="controls">
@@ -279,15 +232,15 @@
           </div>
 
           <div class="btnrow">
-            <button class="primary" id="cycleStart">Start Cycle</button>
-            <button id="cycleStop">Stop</button>
-            <button class="danger" id="memReset">Reset Memory</button>
-            <button id="clearFeed">Clear Feed</button>
+            <button class="primary" id="cycleStart" type="button">Start Cycle</button>
+            <button id="cycleStop" type="button">Stop</button>
+            <button class="danger" id="memReset" type="button">Reset Memory</button>
+            <button id="clearFeed" type="button">Clear Feed</button>
           </div>
 
           <div class="status">
             <div class="label">System</div>
-            <div class="bar" aria-label="progress"><div id="statusBar"></div></div>
+            <div class="bar"><div id="statusBar"></div></div>
             <div class="value" id="statusPct">0%</div>
           </div>
 
@@ -343,16 +296,16 @@
         </div>
       </div>
 
-      <!-- RIGHT: Logs -->
+      <!-- RIGHT -->
       <div class="card">
         <div class="card-h">
           <div class="h">Adaptive Decisions Log</div>
           <div class="pill">Live Prototype Feed</div>
         </div>
         <div class="card-b">
-          <div class="log" id="perfLog" aria-label="decisions log"></div>
+          <div class="log" id="perfLog"></div>
           <div style="height:12px"></div>
-          <div class="log" id="protoFeed" aria-label="prototype feed"></div>
+          <div class="log" id="protoFeed"></div>
         </div>
       </div>
 
@@ -394,18 +347,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusPct = document.getElementById("statusPct");
   const statusDot = document.getElementById("statusDot");
 
+  const soilChart = document.getElementById("soilChart");
+  const chartMeta = document.getElementById("chartMeta");
+
+  // Hard guard: if core UI missing, stop cleanly
+  if(!cpiNow || !soilNow || !washMode || !loadSize || !cycleStartBtn || !cycleStopBtn || !memResetBtn || !soilChart){
+    console.warn("[ACE] Missing required UI elements. Check IDs in HTML.");
+    return;
+  }
+
   // ===== Helpers =====
   function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-  function safeParse(json, fallback){
-    try { return JSON.parse(json); } catch { return fallback; }
-  }
-
+  function safeParse(json, fallback){ try { return JSON.parse(json); } catch { return fallback; } }
   function stamp(){
     const d = new Date();
-    return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit", second:"2-digit"});
   }
-
   function setStatus(label, pct){
     if(sysStatus) sysStatus.textContent = `System Status: ${label}`;
     if(statusPct) statusPct.textContent = pct;
@@ -418,7 +375,6 @@ document.addEventListener("DOMContentLoaded", () => {
       else statusDot.classList.add("idle");
     }
   }
-
   function perfLine(msg){
     if(!perfLog) return;
     const div = document.createElement("div");
@@ -427,7 +383,6 @@ document.addEventListener("DOMContentLoaded", () => {
     perfLog.prepend(div);
     while(perfLog.children.length > 70) perfLog.removeChild(perfLog.lastChild);
   }
-
   function logLine(msg){
     if(!protoFeed) return;
     const div = document.createElement("div");
@@ -436,38 +391,34 @@ document.addEventListener("DOMContentLoaded", () => {
     protoFeed.prepend(div);
     while(protoFeed.children.length > 70) protoFeed.removeChild(protoFeed.lastChild);
   }
-
   function pctFmt(x){
     const sign = x >= 0 ? "+" : "";
     return `${sign}${x.toFixed(1)}%`;
   }
-
   function avg(arr, key){
     if(arr.length === 0) return null;
     const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
     return s / arr.length;
   }
 
+  // ===== Config from UI =====
   function getConfig(){
-    return {
-      mode: washMode ? washMode.value : "normal",
-      load: loadSize ? loadSize.value : "medium"
-    };
+    return { mode: washMode.value, load: loadSize.value };
   }
 
-  // ===== Mode + Load Profiles (values must match <option value="...">) =====
+  // ===== Profiles (must match <option value="...">) =====
   function modeProfile(mode){
     switch(mode){
       case "eco":
-        return { timeBias:+6, waterBias:-0.8, energyBias:-0.06, cpiBias:+1.2, boostBias:+0.05, tempBias:-2.0 };
+        return { timeBias:+6, waterBias:-0.8, energyBias:-0.06, cpiBias:+1.2, boostBias:+0.05, tempBias:-2.0, soilDecay:1.2 };
       case "intensive":
-        return { timeBias:-6, waterBias:+0.9, energyBias:+0.10, cpiBias:-0.6, boostBias:-0.05, tempBias:+2.0 };
+        return { timeBias:-6, waterBias:+0.9, energyBias:+0.10, cpiBias:-0.6, boostBias:-0.05, tempBias:+2.0, soilDecay:2.2 };
       case "glass":
-        return { timeBias:+2, waterBias:-0.2, energyBias:-0.02, cpiBias:+0.5, boostBias:+0.04, tempBias:+0.6 };
+        return { timeBias:+2, waterBias:-0.2, energyBias:-0.02, cpiBias:+0.5, boostBias:+0.04, tempBias:+0.6, soilDecay:1.45 };
       case "ai":
-        return { timeBias:-2, waterBias:-0.4, energyBias:-0.03, cpiBias:+1.6, boostBias:+0.08, tempBias:+1.2 };
+        return { timeBias:-2, waterBias:-0.4, energyBias:-0.03, cpiBias:+1.6, boostBias:+0.08, tempBias:+1.2, soilDecay:1.85 };
       default: // normal
-        return { timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0, tempBias:0 };
+        return { timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0, tempBias:0, soilDecay:1.7 };
     }
   }
 
@@ -477,12 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return { soilBias:-14, timeBias:-6, waterBias:-0.9, energyBias:-0.06, cpiBias:+1.0, boostBias:+0.06 };
       case "heavy":
         return { soilBias:+14, timeBias:+8, waterBias:+0.9, energyBias:+0.08, cpiBias:-0.5, boostBias:-0.04 };
-      default: // medium/mixed
+      default: // medium
         return { soilBias:0, timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0 };
     }
   }
 
-  // ===== Learning & History =====
+  // ===== History =====
   function loadHistory(){
     const raw = localStorage.getItem(LS_KEY);
     const data = raw ? safeParse(raw, []) : [];
@@ -504,7 +455,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
     return clamp(cpi, 0, 100);
   }
-
   function bandLabel(cpi){
     if(cpi >= 90) return "Exceptional Cycle";
     if(cpi >= 80) return "High Performance";
@@ -544,10 +494,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== Soil Chart =====
-  const soilChart = document.getElementById("soilChart");
-  const chartMeta = document.getElementById("chartMeta");
   const ctx = soilChart.getContext("2d");
-
   let soilSeries = [];
   let chartTimer = null;
   let cycleActive = false;
@@ -568,7 +515,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.clearRect(0,0,w,h);
 
     // grid
-    ctx.globalAlpha = 1;
     ctx.strokeStyle = "rgba(255,255,255,0.08)";
     ctx.lineWidth = 1;
     for(let i=1;i<=4;i++){
@@ -609,56 +555,53 @@ document.addEventListener("DOMContentLoaded", () => {
   function seedSoil(){
     const cfg = getConfig();
     const lp = loadProfile(cfg.load);
-    const base = clamp(72 + lp.soilBias*0.6, 25, 95);
+    const base = clamp(72 + (lp.soilBias*0.6), 25, 95);
     soilSeries = [base];
+    soilNow.textContent = `${base.toFixed(0)} / 100`;
+    soilBar.style.width = `${clamp(base,0,100)}%`;
+    if(chartMeta) chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${base.toFixed(0)}`;
     drawChart();
-    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${base.toFixed(0)}`;
   }
 
   function stepSoil(){
-  if(!soilSeries || soilSeries.length === 0) seedSoil();
-  ...
-};
+    if(!soilSeries || soilSeries.length === 0) seedSoil();
+
+    const cfg = getConfig();
+    const mp = modeProfile(cfg.mode);
 
     const last = soilSeries[soilSeries.length - 1];
+    let decay = mp.soilDecay;
 
-    // decay rate based on mode (ONLY the modes we actually have)
-    let decay = 1.7;
-    if(cfg.mode === "eco") decay = 1.2;
-    if(cfg.mode === "intensive") decay = 2.2;
-    if(cfg.mode === "glass") decay = 1.45;
-    if(cfg.mode === "ai") decay = 1.85;
-    // add small noise
+    // small noise
     decay += (Math.random()*0.25 - 0.12);
 
     const next = clamp(last - decay, 0, 100);
     soilSeries.push(next);
 
     soilNow.textContent = `${next.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(next, 0, 100)}%`;
+    soilBar.style.width = `${clamp(next,0,100)}%`;
 
-    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}`;
+    if(chartMeta) chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}`;
     drawChart();
   }
 
   function startChart(){
-  // Force a valid seed every time a cycle starts
-  seedSoil();
-  stepSoil(); // immediate first step so it never shows 0
-  if(chartTimer) clearInterval(chartTimer);
-  chartTimer = setInterval(stepSoil, 900);
-}
+    seedSoil();
+    stepSoil(); // immediate update (prevents 0/100)
+    if(chartTimer) clearInterval(chartTimer);
+    chartTimer = setInterval(stepSoil, 900);
+  }
 
   function stopChart(){
     if(chartTimer) clearInterval(chartTimer);
     chartTimer = null;
+    if(chartMeta) chartMeta.textContent = "Cycle complete — curve saved";
     drawChart();
   }
 
-  // ===== Snapshot generator ties chart soil into CPI =====
+  // ===== Snapshot generator =====
   function generateCycleSnapshot(history, config){
     const lf = learningFactor(history.length);
-
     const mp = modeProfile(config.mode);
     const lp = loadProfile(config.load);
 
@@ -680,8 +623,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04) + (mp.energyBias || 0) + (lp.energyBias || 0), 0.85, 1.65);
 
     const overwashPrevented = (cpiBiased >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
-
-    const boostThreshold = 70 + Math.round(((mp.boostBias || 0) + (lp.boostBias || 0)) * 10);
+    const boostThreshold = 70 + Math.round((((mp.boostBias || 0) + (lp.boostBias || 0)) * 10));
     const boost = (cpiBiased < boostThreshold);
 
     return {
@@ -704,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cpiBand.textContent = bandLabel(snapshot.cpi);
 
     soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(snapshot.soil, 0, 100)}%`;
+    soilBar.style.width = `${clamp(snapshot.soil,0,100)}%`;
 
     const baseline = history.length ? history[history.length - 1] : snapshot;
     const baseC = baseline.cpi || snapshot.cpi;
@@ -741,10 +683,12 @@ document.addEventListener("DOMContentLoaded", () => {
     logLine("Soil decay curve saved to cycle history");
   }
 
+  // ===== Controls =====
   function startCycle(){
-    if (cpiBand) cpiBand.textContent = "Tracking…";
     if(cycleActive) return;
     cycleActive = true;
+
+    cpiBand.textContent = "Tracking…";
     perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
     logLine(`Cycle started (mode=${getConfig().mode}, load=${getConfig().load})`);
     setStatus("Cycle Running", "55%");
@@ -754,6 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopCycle(){
     if(!cycleActive) return;
     cycleActive = false;
+
     perfLine("Cycle completed — computing CPI + updating memory.");
     setStatus("Verification", "92%");
     stopChart();
@@ -765,6 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem(LS_KEY);
     if(perfLog) perfLog.innerHTML = "";
     if(protoFeed) protoFeed.innerHTML = "";
+
     cpiNow.textContent = "—";
     cpiBand.textContent = "Idle";
     soilNow.textContent = "—";
@@ -777,13 +723,19 @@ document.addEventListener("DOMContentLoaded", () => {
     cpiTrend.textContent = "Trend: —";
     effDelta.textContent = "—";
     effNote.textContent = "Water + energy + time";
+
+    cycleActive = false;
+    if(chartTimer) clearInterval(chartTimer);
+    chartTimer = null;
+    soilSeries = [];
+    if(chartMeta) chartMeta.textContent = "Idle";
+    setStatus("Idle", "0%");
+    drawChart();
+
     perfLine("Memory reset — performance model restarted.");
     logLine("Memory reset");
-    setStatus("Idle", "0%");
-    soilSeries = [];
-    chartMeta.textContent = "Idle";
-    drawChart();
     seedSoil();
+    updateSummaryUI([]);
   }
 
   function clearFeed(){
@@ -791,13 +743,13 @@ document.addEventListener("DOMContentLoaded", () => {
     logLine("Feed cleared");
   }
 
-  // ===== Events =====
-  if(cycleStartBtn) cycleStartBtn.addEventListener("click", startCycle);
-  if(cycleStopBtn) cycleStopBtn.addEventListener("click", stopCycle);
-  if(memResetBtn) memResetBtn.addEventListener("click", resetMemory);
+  // ===== Wire events (with explicit pointer confirmation) =====
+  cycleStartBtn.addEventListener("click", startCycle);
+  cycleStopBtn.addEventListener("click", stopCycle);
+  memResetBtn.addEventListener("click", resetMemory);
   if(clearFeedBtn) clearFeedBtn.addEventListener("click", clearFeed);
 
-  // Make mode/load changes reflect in soil meta (even while idle)
+  // If user changes mode/load while idle, refresh seed + note
   function onProfileChange(){
     if(!cycleActive){
       seedSoil();
@@ -805,11 +757,11 @@ document.addEventListener("DOMContentLoaded", () => {
       logLine(`Profile set: mode=${getConfig().mode}, load=${getConfig().load}`);
     }
   }
-  if(washMode) washMode.addEventListener("change", onProfileChange);
-  if(loadSize) loadSize.addEventListener("change", onProfileChange);
+  washMode.addEventListener("change", onProfileChange);
+  loadSize.addEventListener("change", onProfileChange);
 
   // ===== Init =====
-  (function initPerf(){
+  (function init(){
     setStatus("Idle", "0%");
     resizeCanvas();
 
@@ -821,21 +773,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if(history[0].soilCurve && Array.isArray(history[0].soilCurve) && history[0].soilCurve.length){
         soilSeries = history[0].soilCurve.slice();
-        chartMeta.textContent = "Loaded last saved curve";
+        if(chartMeta) chartMeta.textContent = "Loaded last saved curve";
         drawChart();
       } else {
-        chartMeta.textContent = "Idle";
+        if(chartMeta) chartMeta.textContent = "Idle";
         seedSoil();
       }
     } else {
       perfLine("Memory initialized — run a cycle to generate CPI history.");
       updateSummaryUI([]);
       logLine("Memory initialized");
-      chartMeta.textContent = "Idle";
+      if(chartMeta) chartMeta.textContent = "Idle";
       seedSoil();
     }
   })();
 });
 </script>
+
 </body>
 </html>

@@ -603,8 +603,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stepSoil(){
-    if(!soilSeries.length) seedSoil();
-    const cfg = getConfig();
+  if(!soilSeries || soilSeries.length === 0) seedSoil();
+  ...
+};
 
     const last = soilSeries[soilSeries.length - 1];
 
@@ -628,10 +629,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function startChart(){
-    seedSoil();
-    if(chartTimer) clearInterval(chartTimer);
-    chartTimer = setInterval(stepSoil, 900);
-  }
+  // Force a valid seed every time a cycle starts
+  seedSoil();
+  stepSoil(); // immediate first step so it never shows 0
+  if(chartTimer) clearInterval(chartTimer);
+  chartTimer = setInterval(stepSoil, 900);
+}
 
   function stopChart(){
     if(chartTimer) clearInterval(chartTimer);
@@ -726,6 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function startCycle(){
+    if (cpiBand) cpiBand.textContent = "Tracking…";
     if(cycleActive) return;
     cycleActive = true;
     perfLine("Cycle started — adaptive model tracking soil decay + coverage.");

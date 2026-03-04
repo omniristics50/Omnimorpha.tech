@@ -1,223 +1,364 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>OmniClean™ Dishwasher UI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OmniClean™ Dishwasher UI — ACE Demo</title>
 
-<style>
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  background:#0e0e11;
-  color:#eee;
-  padding:30px;
-}
-
-.panel{
-  background:#18181d;
-  padding:20px;
-  border-radius:8px;
-  margin-bottom:20px;
-}
-
-label{
-  display:block;
-  margin-top:10px;
-}
-
-select,button{
-  padding:8px;
-  margin-top:6px;
-}
-
-.kpi{
-  font-size:26px;
-  margin-top:10px;
-}
-
-.bar{
-  height:12px;
-  background:#333;
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:6px;
-}
-
-.bar span{
-  display:block;
-  height:100%;
-  background:#e8b24c;
-  width:0%;
-}
-
-#log{
-  font-size:13px;
-  max-height:150px;
-  overflow:auto;
-  background:#111;
-  padding:10px;
-}
-</style>
-
+  <style>
+    body{margin:0;background:#0e0e11;color:#eee;font-family:Arial,Helvetica,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .panel{background:#18181d;border-radius:10px;padding:16px;margin:12px 0}
+    label{display:block;margin-top:10px;color:#bbb;font-size:13px}
+    select,button{padding:10px 12px;margin-top:6px;border-radius:10px;border:1px solid #333;background:#111;color:#eee}
+    button{cursor:pointer}
+    button:hover{border-color:#e8b24c}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .kpi{font-size:34px;font-weight:900;margin:6px 0}
+    .muted{color:#aaa;font-size:13px}
+    .bar{height:12px;background:#333;border-radius:999px;overflow:hidden;margin-top:8px}
+    .bar span{display:block;height:100%;width:0%;background:#e8b24c}
+    #log{font-size:13px;max-height:220px;overflow:auto;background:#111;padding:10px;border-radius:10px;border:1px solid #333}
+    canvas{width:100%;height:180px;background:#101014;border-radius:10px;border:1px solid #333;display:block}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid #333;background:#111;color:#bbb;font-size:12px}
+    .ok{color:#9dffbf}
+    .warn{color:#ffd08a}
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <h2 style="margin:0 0 6px 0;">OmniClean™ Dishwasher UI</h2>
+    <div class="muted">Adaptive Cleaning Engine (ACE) demo — CPI scoring, mode/load profiles, soil decay curve, boost events, cycle tick count.</div>
 
-<h2>OmniClean™ Dishwasher UI</h2>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;">
+        <div class="pill" id="sysStatus">System Status: Idle</div>
+        <div class="pill">Tick: <span id="tickCount">0</span></div>
+      </div>
 
-<div class="panel">
-<label>Mode</label>
-<select id="washMode">
-<option value="eco">Eco</option>
-<option value="normal" selected>Standard</option>
-<option value="intensive">Intensive</option>
-<option value="glass">Glass</option>
-<option value="ai">AI Adaptive</option>
-</select>
+      <label for="washMode">Mode</label>
+      <select id="washMode">
+        <option value="eco">Eco</option>
+        <option value="normal" selected>Standard</option>
+        <option value="intensive">Intensive</option>
+        <option value="glass">GlassCare</option>
+        <option value="ai">AI Adaptive</option>
+      </select>
 
-<label>Load</label> <select id="loadSize">
+      <label for="loadSize">Load</label>
+      <select id="loadSize">
+        <option value="light">Light</option>
+        <option value="medium" selected>Mixed</option>
+        <option value="heavy">Heavy</option>
+      </select>
 
-<option value="light">Light</option>
-<option value="medium" selected>Mixed</option>
-<option value="heavy">Heavy</option>
-</select>
+      <div class="row" style="margin-top:12px;">
+        <button id="cycleStart" type="button">Start Cycle</button>
+        <button id="cycleStop" type="button">Stop</button>
+        <button id="memReset" type="button">Reset</button>
+      </div>
+    </div>
 
-<br><br> <button id="cycleStart">Start Cycle</button> <button id="cycleStop">Stop</button> <button id="memReset">Reset Memory</button>
+    <div class="panel">
+      <div class="muted">Cleaning Performance Index (CPI)</div>
+      <div class="kpi"><span id="cpiNow">—</span>%</div>
+      <div class="muted">Band: <span id="cpiBand">Idle</span></div>
+    </div>
 
-</div>
+    <div class="panel">
+      <div class="muted">Soil Level</div>
+      <div class="kpi" style="font-size:22px;"><span id="soilNow">—</span> / 100</div>
+      <div class="bar"><span id="soilBar"></span></div>
+      <div class="muted" id="boostState">BOOST: off</div>
+    </div>
 
-<div class="panel">
-<div>Cleaning Performance Index</div>
-<div class="kpi"><span id="cpiNow">—</span>%</div>
-<div id="cpiBand">Idle</div>
-</div>
+    <div class="panel">
+      <div class="muted">Soil Decay Curve</div>
+      <canvas id="soilChart"></canvas>
+      <div class="muted" id="chartMeta">Idle</div>
+    </div>
 
-<div class="panel">
-<div>Soil Level</div>
-<div id="soilNow">—</div>
-<div class="bar"><span id="soilBar"></span></div>
-</div>
-
-<div class="panel">
-<div>Adaptive Decisions Log</div>
-<div id="log"></div>
-</div>
+    <div class="panel">
+      <div class="muted">Adaptive Decisions Log</div>
+      <div id="log"></div>
+    </div>
+  </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
+  // ===== Hard proof the script is running =====
+  console.log("[ACE] Loaded ✅");
 
-const cpiNow = document.getElementById("cpiNow");
-const cpiBand = document.getElementById("cpiBand");
-const soilNow = document.getElementById("soilNow");
-const soilBar = document.getElementById("soilBar");
+  const washMode = document.getElementById("washMode");
+  const loadSize = document.getElementById("loadSize");
 
-const washMode = document.getElementById("washMode");
-const loadSize = document.getElementById("loadSize");
+  const startBtn = document.getElementById("cycleStart");
+  const stopBtn  = document.getElementById("cycleStop");
+  const resetBtn = document.getElementById("memReset");
 
-const startBtn = document.getElementById("cycleStart");
-const stopBtn = document.getElementById("cycleStop");
-const resetBtn = document.getElementById("memReset");
+  const sysStatus = document.getElementById("sysStatus");
+  const tickCount = document.getElementById("tickCount");
 
-const log = document.getElementById("log");
+  const cpiNow = document.getElementById("cpiNow");
+  const cpiBand = document.getElementById("cpiBand");
 
-let cycleActive=false;
-let soil=80;
-let timer=null;
+  const soilNow = document.getElementById("soilNow");
+  const soilBar = document.getElementById("soilBar");
 
-function logLine(msg){
- const d=document.createElement("div");
- d.textContent=new Date().toLocaleTimeString()+"  "+msg;
- log.prepend(d);
-}
+  const boostState = document.getElementById("boostState");
 
-function calculateCPI(){
- let base=80;
+  const log = document.getElementById("log");
 
- switch(washMode.value){
-  case "eco": base+=8; break;
-  case "intensive": base-=6; break;
-  case "glass": base+=4; break;
-  case "ai": base+=10; break;
- }
+  const soilChart = document.getElementById("soilChart");
+  const ctx = soilChart.getContext("2d");
+  const chartMeta = document.getElementById("chartMeta");
 
- switch(loadSize.value){
-  case "light": base+=5; break;
-  case "heavy": base-=5; break;
- }
+  // ===== State =====
+  let cycleActive = false;
+  let timer = null;
+  let tick = 0;
 
- return Math.max(60,Math.min(base,100));
-}
+  let soil = 80;
+  let soilSeries = [];
 
-function updateUI(){
- soilNow.textContent=Math.round(soil)+" / 100";
- soilBar.style.width=soil+"%";
+  // Step 4 boost logic
+  let boostActive = false;
+  let boostTicksLeft = 0;
+  let stallCount = 0;
+  let lastSoilValue = null;
 
- const cpi=calculateCPI();
- cpiNow.textContent=cpi;
+  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
 
- if(cpi>=90) cpiBand.textContent="Exceptional";
- else if(cpi>=80) cpiBand.textContent="High Performance";
- else if(cpi>=70) cpiBand.textContent="Standard";
- else cpiBand.textContent="Adaptive Boost";
-}
+  function stamp(){
+    const d = new Date();
+    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit", second:"2-digit"});
+  }
 
-function runStep(){
+  function logLine(msg){
+    const div = document.createElement("div");
+    div.textContent = `${stamp()}  ${msg}`;
+    log.prepend(div);
+    while(log.children.length > 60) log.removeChild(log.lastChild);
+  }
 
- if(!cycleActive) return;
+  function setStatus(text){
+    sysStatus.textContent = `System Status: ${text}`;
+  }
 
- soil-=Math.random()*2+1;
+  function modeDecay(mode){
+    if(mode === "eco") return 1.1;
+    if(mode === "intensive") return 2.1;
+    if(mode === "glass") return 1.4;
+    if(mode === "ai") return 1.7;
+    return 1.55; // normal
+  }
 
- if(soil<5){
-  soil=5;
-  stopCycle();
- }
+  function loadBias(load){
+    if(load === "light") return -6;
+    if(load === "heavy") return +6;
+    return 0;
+  }
 
- updateUI();
-}
+  function calculateCPI(){
+    let base = 80;
 
-function startCycle(){
+    // mode effect
+    if(washMode.value === "eco") base += 6;
+    if(washMode.value === "intensive") base -= 6;
+    if(washMode.value === "glass") base += 4;
+    if(washMode.value === "ai") base += 10;
 
- if(cycleActive) return;
+    // load effect
+    if(loadSize.value === "light") base += 5;
+    if(loadSize.value === "heavy") base -= 5;
 
- cycleActive=true;
- soil=80;
+    // small benefit if boost was used (demo effect)
+    if(boostActive) base += 1;
 
- logLine("Cycle started");
- updateUI();
+    return clamp(base, 60, 100);
+  }
 
- timer=setInterval(runStep,900);
-}
+  function bandLabel(cpi){
+    if(cpi >= 90) return "Exceptional";
+    if(cpi >= 80) return "High Performance";
+    if(cpi >= 70) return "Standard";
+    return "Adaptive Boost";
+  }
 
-function stopCycle(){
+  function resizeCanvas(){
+    const dpr = window.devicePixelRatio || 1;
+    const rect = soilChart.getBoundingClientRect();
+    soilChart.width = Math.floor(rect.width * dpr);
+    soilChart.height = Math.floor(rect.height * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
 
- if(!cycleActive) return;
+  function drawChart(){
+    const w = soilChart.getBoundingClientRect().width;
+    const h = soilChart.getBoundingClientRect().height;
+    ctx.clearRect(0,0,w,h);
 
- cycleActive=false;
+    // grid
+    ctx.strokeStyle = "rgba(255,255,255,0.08)";
+    ctx.lineWidth = 1;
+    for(let i=1;i<=4;i++){
+      const y=(h*i)/5;
+      ctx.beginPath();
+      ctx.moveTo(0,y);
+      ctx.lineTo(w,y);
+      ctx.stroke();
+    }
 
- clearInterval(timer);
+    if(soilSeries.length < 2) return;
 
- const cpi=calculateCPI();
- cpiNow.textContent=cpi;
+    ctx.strokeStyle = "rgba(232,178,76,0.95)";
+    ctx.lineWidth = 2;
 
- logLine("Cycle finished — CPI "+cpi);
-}
+    const series = soilSeries.slice(-80);
+    const xStep = w / (series.length - 1);
 
-function resetMemory(){
- soil=80;
- cpiNow.textContent="—";
- soilNow.textContent="—";
- soilBar.style.width="0%";
- cpiBand.textContent="Idle";
- log.innerHTML="";
-}
+    ctx.beginPath();
+    series.forEach((val, idx) => {
+      const x = idx * xStep;
+      const y = h - (val/100)*h;
+      if(idx===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+  }
 
-startBtn.addEventListener("click",startCycle);
-stopBtn.addEventListener("click",stopCycle);
-resetBtn.addEventListener("click",resetMemory);
+  function updateUI(){
+    tickCount.textContent = String(tick);
 
+    const cpi = calculateCPI();
+    cpiNow.textContent = String(Math.round(cpi));
+    cpiBand.textContent = bandLabel(cpi);
+
+    soilNow.textContent = String(Math.round(soil));
+    soilBar.style.width = `${clamp(soil,0,100)}%`;
+
+    boostState.textContent = boostActive ? "BOOST: ON" : "BOOST: off";
+    boostState.className = boostActive ? "warn" : "muted";
+
+    const boostTag = boostActive ? " • BOOST" : "";
+    chartMeta.textContent = `Mode: ${washMode.value.toUpperCase()} • Load: ${loadSize.value.toUpperCase()} • Soil: ${Math.round(soil)}${boostTag}`;
+
+    drawChart();
+  }
+
+  function seedSoil(){
+    const base = clamp(78 + loadBias(loadSize.value), 35, 92);
+    soil = base;
+    soilSeries = [soil];
+    lastSoilValue = null;
+    stallCount = 0;
+    boostActive = false;
+    boostTicksLeft = 0;
+  }
+
+  function step(){
+    if(!cycleActive) return;
+
+    tick += 1;
+
+    // decay
+    let decay = modeDecay(washMode.value);
+    decay += (Math.random()*0.25 - 0.12);
+
+    // stall detection
+    if(lastSoilValue !== null){
+      const drop = (lastSoilValue - soil);
+      if(drop < 0.35) stallCount += 1;
+      else stallCount = Math.max(0, stallCount - 1);
+    }
+    lastSoilValue = soil;
+
+    // boost trigger
+    if(!boostActive && stallCount >= 3){
+      boostActive = true;
+      boostTicksLeft = 6;
+      stallCount = 0;
+      logLine("Soil persistence detected — BOOST engaged");
+    }
+
+    // boost effect
+    if(boostActive){
+      decay *= 1.55;
+      boostTicksLeft -= 1;
+      if(boostTicksLeft <= 0){
+        boostActive = false;
+        logLine("BOOST ended — returning to baseline");
+      }
+    }
+
+    const CLEAN_FLOOR = 6;
+    soil = clamp(soil - decay, CLEAN_FLOOR, 100);
+    soilSeries.push(soil);
+
+    updateUI();
+
+    // auto-complete
+    if(soil <= 7){
+      logLine("Target clarity reached — auto-stopping");
+      stopCycle();
+    }
+  }
+
+  function startCycle(){
+    if(cycleActive) return;
+    cycleActive = true;
+    tick = 0;
+    setStatus("Cycle Running");
+    logLine("Cycle started");
+    seedSoil();
+    resizeCanvas();
+    updateUI();
+
+    if(timer) clearInterval(timer);
+    timer = setInterval(step, 900);
+  }
+
+  function stopCycle(){
+    if(!cycleActive) return;
+    cycleActive = false;
+    setStatus("Idle");
+    if(timer) clearInterval(timer);
+    timer = null;
+
+    const cpi = calculateCPI();
+    logLine(`Cycle finished — CPI ${Math.round(cpi)} • ticks ${tick}`);
+    updateUI();
+  }
+
+  function resetAll(){
+    if(timer) clearInterval(timer);
+    timer = null;
+    cycleActive = false;
+    tick = 0;
+    setStatus("Idle");
+    log.innerHTML = "";
+    soil = 80;
+    soilSeries = [];
+    boostActive = false;
+    boostTicksLeft = 0;
+    stallCount = 0;
+    lastSoilValue = null;
+    resizeCanvas();
+    updateUI();
+    logLine("Reset complete");
+  }
+
+  // Wire buttons
+  startBtn.addEventListener("click", startCycle);
+  stopBtn.addEventListener("click", stopCycle);
+  resetBtn.addEventListener("click", resetAll);
+
+  // Init
+  resizeCanvas();
+  updateUI();
+  logLine("ACE initialized");
 });
 </script>
-
 </body>
 </html>

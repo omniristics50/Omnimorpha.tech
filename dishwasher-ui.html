@@ -160,24 +160,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return 0;
   }
 
-  function calculateCPI(){
-    let base = 80;
+function calculateCPI(){
+  let base = 88;
 
-    // mode effect
-    if(washMode.value === "eco") base += 6;
-    if(washMode.value === "intensive") base -= 6;
-    if(washMode.value === "glass") base += 4;
-    if(washMode.value === "ai") base += 10;
+  // mode effect
+  if(washMode.value === "eco") base += 4;
+  if(washMode.value === "intensive") base -= 5;
+  if(washMode.value === "glass") base += 2;
+  if(washMode.value === "ai") base += 6;
 
-    // load effect
-    if(loadSize.value === "light") base += 5;
-    if(loadSize.value === "heavy") base -= 5;
+  // load effect
+  if(loadSize.value === "light") base += 3;
+  if(loadSize.value === "heavy") base -= 4;
 
-    // small benefit if boost was used (demo effect)
-    if(boostActive) base += 1;
+  // soil effect: dirtier -> lower CPI; cleaner -> higher CPI
+  base += (50 - soil) * 0.22;
 
-    return clamp(base, 60, 100);
-  }
+  // boost effect
+  if(boostActive) base += 2.5;
+
+  // tiny live variance
+  base += (Math.random() * 1.2 - 0.6);
+
+  return clamp(base, 60, 100);
+}
 
   function bandLabel(cpi){
     if(cpi >= 90) return "Exceptional";
@@ -248,14 +254,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function seedSoil(){
-    const base = clamp(78 + loadBias(loadSize.value), 35, 92);
-    soil = base;
-    soilSeries = [soil];
-    lastSoilValue = null;
-    stallCount = 0;
-    boostActive = false;
-    boostTicksLeft = 0;
-  }
+  let base = 78;
+
+  // load raises/lowers starting soil
+  if(loadSize.value === "light") base -= 10;
+  if(loadSize.value === "heavy") base += 10;
+
+  // mode changes perceived starting soil slightly
+  if(washMode.value === "eco") base += 4;
+  if(washMode.value === "intensive") base += 6;
+
+  // randomize start
+  base += (Math.random() * 8 - 4);
+
+  soil = clamp(base, 35, 95);
+  soilSeries = [soil];
+
+  // reset ACE decision state
+  lastSoilValue = null;
+  stallCount = 0;
+  boostActive = false;
+  boostTicksLeft = 0;
+}
 
   function step(){
     if(!cycleActive) return;

@@ -499,6 +499,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let chartTimer = null;
   let cycleActive = false;
 
+// ===== ACE Live Decision State (Step 4) =====
+let boostActive = false;
+let boostTicksLeft = 0;
+let stallCount = 0;
+let lastSoilValue = null;
+  
   function resizeCanvas(){
     const dpr = window.devicePixelRatio || 1;
     const rect = soilChart.getBoundingClientRect();
@@ -564,26 +570,73 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stepSoil(){
-    if(!soilSeries || soilSeries.length === 0) seedSoil();
+  if(!soilSeries || soilSeries.length === 0) seedSoil();
 
-    const cfg = getConfig();
-    const mp = modeProfile(cfg.mode);
+  const cfg = getConfig();
+  const mp = modeProfile(cfg.mode);
 
-    const last = soilSeries[soilSeries.length - 1];
-    let decay = mp.soilDecay;
+  const last = soilSeries[soilSeries.length - 1];
 
-    // small noise
-    decay += (Math.random()*0.25 - 0.12);
+  // Base decay from mode
+  let decay = mp.soilDecay;
 
-    const next = clamp(last - decay, 0, 100);
-    soilSeries.push(next);
+  // Noise (keeps it feeling “live”)
+  decay += (Math.random()*0.25 - 0.12);
 
-    soilNow.textContent = `${next.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(next,0,100)}%`;
-
-    if(chartMeta) chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}`;
-    drawChart();
+  // ===== ACE Stall Detection =====
+  // If soil isn't dropping enough, count it as a stall
+  if (lastSoilValue !== null) {
+    const drop = (lastSoilValue - last);
+    if (drop < 0.35) stallCount += 1;
+    else stallCount = Math.max(0, stallCount - 1);
   }
+  lastSoilValue = last;
+
+  // ===== ACE Adaptive Boost Logic =====
+  // Trigger BOOST if stall persists while cycle is active
+  if (cycleActive && !boostActive && stallCount >= 3) {
+    boostActive = true;
+    boostTicksLeft = 6; // lasts ~6 ticks (about 5–6 seconds depending on interval)
+    stallCount = 0;
+
+    perfLine(`Soil persistence detected — engaging <span class="badge">BOOST</span>.`);
+    logLine("ACE: BOOST engaged (pressure↑, rotation↑, time extension logic simulated)");
+  }
+
+  // Apply boost effect (clean faster while boost is active)
+  if (boostActive) {
+    decay *= 1.55; // stronger cleaning during boost
+    boostTicksLeft -= 1;
+
+    if (boostTicksLeft <= 0) {
+      boostActive = false;
+      perfLine(`Adaptive Boost ended — returning to baseline profile.`);
+      logLine("ACE: BOOST ended");
+    }
+  }
+
+  // ===== Soil floor + progress =====
+  const CLEAN_FLOOR = 6;
+  const next = clamp(last - decay, CLEAN_FLOOR, 100);
+  soilSeries.push(next);
+
+  soilNow.textContent = `${next.toFixed(0)} / 100`;
+  soilBar.style.width = `${clamp(next,0,100)}%`;
+
+  if(chartMeta){
+    const boostTag = boostActive ? " • BOOST" : "";
+    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}${boostTag}`;
+  }
+
+  drawChart();
+
+  // Auto-complete when target clarity reached
+  if (cycleActive && next <= 7) {
+    perfLine("Target clarity reached — auto-stopping cycle.");
+    stopCycle();
+    return;
+  }
+}
 
   function startChart(){
     seedSoil();
@@ -685,8 +738,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Controls =====
   function startCycle(){
-    if(cycleActive) return;
-    cycleActive = true;
+  if(cycleActive) return;
+  cycleActive = true;
+
+  boostActive = false;
+  boostTicksLeft = 0;
+  stallCount = 0;
+  lastSoilValue = null;
+
+  // ...rest of your startCycle
+}
 
     cpiBand.textContent = "Tracking…";
     perfLine("Cycle started — adaptive model tracking soil decay + coverage.");

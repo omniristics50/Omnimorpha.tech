@@ -1,853 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OmniClean™ Dishwasher UI — ACE Demo</title>
+<meta charset="UTF-8">
+<title>OmniClean™ Dishwasher UI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root{
-      --bg:#07080b;
-      --panel:rgba(255,255,255,.05);
-      --stroke:rgba(255,255,255,.10);
-      --text:rgba(255,255,255,.88);
-      --muted:rgba(255,255,255,.55);
-      --gold:rgba(245,210,125,.95);
-      --good:rgba(120,255,190,.95);
-      --warn:rgba(255,200,120,.95);
-      --bad:rgba(255,120,150,.95);
-      --shadow:0 18px 50px rgba(0,0,0,.55);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background:
-        radial-gradient(1100px 700px at 30% 0%, rgba(245,210,125,.10), transparent 55%),
-        radial-gradient(900px 650px at 80% 20%, rgba(120,190,255,.08), transparent 55%),
-        var(--bg);
-      color:var(--text);
-    }
-    a{color:var(--gold); text-decoration:none}
-    .wrap{max-width:1180px; margin:0 auto; padding:26px 18px 48px}
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#0e0e11;
+  color:#eee;
+  padding:30px;
+}
 
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding:14px 16px; border:1px solid var(--stroke); background:rgba(0,0,0,.25);
-      border-radius:var(--radius); box-shadow:var(--shadow);
-      position:sticky; top:10px; backdrop-filter: blur(10px);
-      z-index:100; /* important */
-    }
-    .title{display:flex; flex-direction:column; gap:3px}
-    .title h1{font-size:16px; margin:0; letter-spacing:.2px}
-    .title .sub{font-size:12px; color:var(--muted)}
-    .navlinks{display:flex; gap:14px; font-size:13px; color:var(--muted)}
+.panel{
+  background:#18181d;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
 
-    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:16px}
-    @media (max-width:980px){ .grid{grid-template-columns:1fr} .topbar{position:relative; top:auto} }
+label{
+  display:block;
+  margin-top:10px;
+}
 
-    .card{
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative; /* important */
-      z-index:1;         /* important */
-    }
-    .card-h{
-      padding:14px 16px;
-      border-bottom:1px solid var(--stroke);
-      background:rgba(0,0,0,.22);
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .card-h .h{font-weight:700; letter-spacing:.2px; font-size:13px; display:flex; align-items:center; gap:10px}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border:1px solid var(--stroke);
-      border-radius:999px;
-      font-size:12px;
-      color:var(--muted);
-      background:rgba(0,0,0,.18);
-    }
-    .dot{width:8px; height:8px; border-radius:50%}
-    .dot.idle{background:rgba(255,255,255,.35)}
-    .dot.run{background:var(--gold)}
-    .dot.ok{background:var(--good)}
-    .card-b{padding:16px; position:relative; z-index:2}
+select,button{
+  padding:8px;
+  margin-top:6px;
+}
 
-    .controls{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:end; position:relative; z-index:10}
-    .field label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px}
-    select{
-      width:100%;
-      padding:10px 10px;
-      border-radius:12px;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.25);
-      color:var(--text);
-      outline:none;
-    }
-    select:focus{border-color:rgba(245,210,125,.55)}
-    .btnrow{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:10}
-    button{
-      cursor:pointer;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.25);
-      color:var(--text);
-      font-weight:650;
-      letter-spacing:.2px;
-      user-select:none;
-    }
-    button:hover{border-color:rgba(245,210,125,.45)}
-    button.primary{background:rgba(245,210,125,.12); border-color:rgba(245,210,125,.35)}
-    button.danger{background:rgba(255,120,150,.10); border-color:rgba(255,120,150,.30)}
-    .status{
-      margin-top:12px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
-      position:relative;
-      z-index:10;
-    }
-    .bar{
-      height:8px; border-radius:999px; flex:1;
-      background:rgba(255,255,255,.08);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .bar > div{height:100%; width:0%; background:linear-gradient(90deg, rgba(245,210,125,.65), rgba(245,210,125,.95))}
-    .status .label{font-size:12px; color:var(--muted); min-width:120px}
-    .status .value{font-size:12px; color:var(--text); font-weight:700; min-width:120px; text-align:right}
+.kpi{
+  font-size:26px;
+  margin-top:10px;
+}
 
-    .kpis{display:grid; grid-template-columns:1fr 1fr; gap:12px; position:relative; z-index:2}
-    @media (max-width:520px){ .kpis{grid-template-columns:1fr} .controls{grid-template-columns:1fr} }
-    .kpi{
-      padding:12px;
-      border-radius:16px;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
-    }
-    .kpi .t{font-size:12px; color:var(--muted); margin-bottom:8px}
-    .kpi .v{font-size:26px; font-weight:900; letter-spacing:.2px}
-    .kpi .s{font-size:12px; color:var(--muted); margin-top:6px}
-    .kpi .gold{color:var(--gold)}
-    .meter{margin-top:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); overflow:hidden}
-    .meter > div{height:100%; width:0%; background:linear-gradient(90deg, rgba(245,210,125,.55), rgba(245,210,125,.95))}
+.bar{
+  height:12px;
+  background:#333;
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:6px;
+}
 
-    .row2{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px; position:relative; z-index:2}
+.bar span{
+  display:block;
+  height:100%;
+  background:#e8b24c;
+  width:0%;
+}
 
-    .log{
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
-      border-radius:16px;
-      padding:12px;
-      min-height:140px;
-      max-height:240px;
-      overflow:auto;
-      position:relative;
-      z-index:2;
-    }
-    .log .line{font-size:12px; color:rgba(255,255,255,.78); padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.08)}
-    .log .line:last-child{border-bottom:none}
-    .badge{
-      display:inline-block;
-      padding:2px 8px;
-      border-radius:999px;
-      border:1px solid rgba(245,210,125,.28);
-      background:rgba(245,210,125,.10);
-      color:rgba(245,210,125,.95);
-      font-weight:800;
-      font-size:11px;
-      letter-spacing:.2px;
-    }
+#log{
+  font-size:13px;
+  max-height:150px;
+  overflow:auto;
+  background:#111;
+  padding:10px;
+}
+</style>
 
-    canvas{
-      width:100%;
-      height:180px;
-      display:block;
-      border-radius:16px;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
-      position:relative;
-      z-index:1;
-      pointer-events:none; /* critical: canvas can’t block clicks */
-    }
-    .meta{margin-top:8px; font-size:12px; color:var(--muted)}
-  </style>
 </head>
 
 <body>
-  <div class="wrap">
 
-    <div class="topbar">
-      <div class="title">
-        <h1>OmniClean™ Dishwasher UI</h1>
-        <div class="sub">Adaptive Cleaning Engine (ACE) demo — CPI scoring, learning memory, mode/load profiles, soil decay curve, optimization events.</div>
-      </div>
-      <div class="navlinks">
-        <a href="ai-dishwasher.html">Back to AI Dishwasher</a>
-        <a href="omniclean-architectures.html">Read Architectures</a>
-      </div>
-    </div>
+<h2>OmniClean™ Dishwasher UI</h2>
 
-    <div class="grid">
+<div class="panel">
+<label>Mode</label>
+<select id="washMode">
+<option value="eco">Eco</option>
+<option value="normal" selected>Standard</option>
+<option value="intensive">Intensive</option>
+<option value="glass">Glass</option>
+<option value="ai">AI Adaptive</option>
+</select>
 
-      <!-- LEFT -->
-      <div class="card">
-        <div class="card-h">
-          <div class="h">
-            <span class="pill"><span class="dot idle" id="statusDot"></span><span id="sysStatus">System Status: Idle</span></span>
-            <span class="pill">Memory: <strong id="memState">Enabled</strong></span>
-          </div>
-        </div>
+<label>Load</label> <select id="loadSize">
 
-        <div class="card-b">
+<option value="light">Light</option>
+<option value="medium" selected>Mixed</option>
+<option value="heavy">Heavy</option>
+</select>
 
-          <div class="controls">
-            <div class="field">
-              <label for="washMode">Mode</label>
-              <select id="washMode">
-                <option value="eco">Eco</option>
-                <option value="normal" selected>Standard</option>
-                <option value="intensive">Intensive</option>
-                <option value="glass">GlassCare</option>
-                <option value="ai">AI Adaptive</option>
-              </select>
-            </div>
+<br><br> <button id="cycleStart">Start Cycle</button> <button id="cycleStop">Stop</button> <button id="memReset">Reset Memory</button>
 
-            <div class="field">
-              <label for="loadSize">Load</label>
-              <select id="loadSize">
-                <option value="light">Light</option>
-                <option value="medium" selected>Mixed</option>
-                <option value="heavy">Heavy</option>
-              </select>
-            </div>
-          </div>
+</div>
 
-          <div class="btnrow">
-            <button class="primary" id="cycleStart" type="button">Start Cycle</button>
-            <button id="cycleStop" type="button">Stop</button>
-            <button class="danger" id="memReset" type="button">Reset Memory</button>
-            <button id="clearFeed" type="button">Clear Feed</button>
-          </div>
+<div class="panel">
+<div>Cleaning Performance Index</div>
+<div class="kpi"><span id="cpiNow">—</span>%</div>
+<div id="cpiBand">Idle</div>
+</div>
 
-          <div class="status">
-            <div class="label">System</div>
-            <div class="bar"><div id="statusBar"></div></div>
-            <div class="value" id="statusPct">0%</div>
-          </div>
+<div class="panel">
+<div>Soil Level</div>
+<div id="soilNow">—</div>
+<div class="bar"><span id="soilBar"></span></div>
+</div>
 
-          <div class="row2">
-            <div class="kpis">
-              <div class="kpi">
-                <div class="t">Cleaning Performance Index (CPI)</div>
-                <div class="v"><span class="gold" id="cpiNow">—</span></div>
-                <div class="s" id="cpiBand">Idle</div>
-              </div>
-
-              <div class="kpi">
-                <div class="t">Soil Level</div>
-                <div class="v"><span class="gold" id="soilNow">—</span></div>
-                <div class="meter"><div id="soilBar"></div></div>
-                <div class="s">Soil decay curve</div>
-              </div>
-
-              <div class="kpi">
-                <div class="t">Optimization Gain</div>
-                <div class="v"><span class="gold" id="optGain">—</span></div>
-                <div class="s" id="optNote">Learning model warming up</div>
-              </div>
-
-              <div class="kpi">
-                <div class="t">Overwash Prevention</div>
-                <div class="v"><span class="gold" id="overwashNow">—</span></div>
-                <div class="s" id="overwashNote">Adaptive control</div>
-              </div>
-
-              <div class="kpi">
-                <div class="t">Lifetime Avg CPI</div>
-                <div class="v"><span class="gold" id="cpiAvg">—</span></div>
-                <div class="s" id="cpiTrend">Trend: —</div>
-              </div>
-
-              <div class="kpi">
-                <div class="t">Efficiency vs Baseline</div>
-                <div class="v"><span class="gold" id="effDelta">—</span></div>
-                <div class="s" id="effNote">Water + energy + time</div>
-              </div>
-            </div>
-
-            <div>
-              <div class="card-h" style="border-radius:16px; border:1px solid var(--stroke); margin-bottom:10px;">
-                <div class="h">Soil Decay Curve</div>
-              </div>
-              <canvas id="soilChart"></canvas>
-              <div class="meta" id="chartMeta">Idle</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- RIGHT -->
-      <div class="card">
-        <div class="card-h">
-          <div class="h">Adaptive Decisions Log</div>
-          <div class="pill">Live Prototype Feed</div>
-        </div>
-        <div class="card-b">
-          <div class="log" id="perfLog"></div>
-          <div style="height:12px"></div>
-          <div class="log" id="protoFeed"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<div class="panel">
+<div>Adaptive Decisions Log</div>
+<div id="log"></div>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ===== CPI + Historical Memory (localStorage) =====
-  const LS_KEY = "omniclean_cpi_history_v1";
-  const MAX_CYCLES = 20;
+document.addEventListener("DOMContentLoaded", ()=>{
 
-  // ===== UI Elements =====
-  const cpiNow = document.getElementById("cpiNow");
-  const cpiBand = document.getElementById("cpiBand");
-  const soilNow = document.getElementById("soilNow");
-  const soilBar = document.getElementById("soilBar");
-  const optGain = document.getElementById("optGain");
-  const optNote = document.getElementById("optNote");
-  const overwashNow = document.getElementById("overwashNow");
-  const overwashNote = document.getElementById("overwashNote");
-  const cpiAvg = document.getElementById("cpiAvg");
-  const cpiTrend = document.getElementById("cpiTrend");
-  const effDelta = document.getElementById("effDelta");
-  const effNote = document.getElementById("effNote");
-  const perfLog = document.getElementById("perfLog");
-  const protoFeed = document.getElementById("protoFeed");
+const cpiNow = document.getElementById("cpiNow");
+const cpiBand = document.getElementById("cpiBand");
+const soilNow = document.getElementById("soilNow");
+const soilBar = document.getElementById("soilBar");
 
-  const washMode = document.getElementById("washMode");
-  const loadSize = document.getElementById("loadSize");
+const washMode = document.getElementById("washMode");
+const loadSize = document.getElementById("loadSize");
 
-  const cycleStartBtn = document.getElementById("cycleStart");
-  const cycleStopBtn = document.getElementById("cycleStop");
-  const memResetBtn = document.getElementById("memReset");
-  const clearFeedBtn = document.getElementById("clearFeed");
+const startBtn = document.getElementById("cycleStart");
+const stopBtn = document.getElementById("cycleStop");
+const resetBtn = document.getElementById("memReset");
 
-  const sysStatus = document.getElementById("sysStatus");
-  const statusBar = document.getElementById("statusBar");
-  const statusPct = document.getElementById("statusPct");
-  const statusDot = document.getElementById("statusDot");
+const log = document.getElementById("log");
 
-  const soilChart = document.getElementById("soilChart");
-  const chartMeta = document.getElementById("chartMeta");
+let cycleActive=false;
+let soil=80;
+let timer=null;
 
-  // Hard guard: if core UI missing, stop cleanly
-  if(!cpiNow || !soilNow || !washMode || !loadSize || !cycleStartBtn || !cycleStopBtn || !memResetBtn || !soilChart){
-    console.warn("[ACE] Missing required UI elements. Check IDs in HTML.");
-    return;
-  }
-
-  // ===== Helpers =====
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-  function safeParse(json, fallback){ try { return JSON.parse(json); } catch { return fallback; } }
-  function stamp(){
-    const d = new Date();
-    return d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit", second:"2-digit"});
-  }
-  function setStatus(label, pct){
-    if(sysStatus) sysStatus.textContent = `System Status: ${label}`;
-    if(statusPct) statusPct.textContent = pct;
-    if(statusBar) statusBar.style.width = pct;
-
-    if(statusDot){
-      statusDot.classList.remove("idle","run","ok");
-      if(label.toLowerCase().includes("cycle")) statusDot.classList.add("run");
-      else if(label.toLowerCase().includes("verification")) statusDot.classList.add("ok");
-      else statusDot.classList.add("idle");
-    }
-  }
-  function perfLine(msg){
-    if(!perfLog) return;
-    const div = document.createElement("div");
-    div.className = "line";
-    div.innerHTML = `<span style="color:rgba(245,210,125,.95); font-weight:900; margin-right:8px;">${stamp()}</span>${msg}`;
-    perfLog.prepend(div);
-    while(perfLog.children.length > 70) perfLog.removeChild(perfLog.lastChild);
-  }
-  function logLine(msg){
-    if(!protoFeed) return;
-    const div = document.createElement("div");
-    div.className = "line";
-    div.textContent = `${stamp()}  ${msg}`;
-    protoFeed.prepend(div);
-    while(protoFeed.children.length > 70) protoFeed.removeChild(protoFeed.lastChild);
-  }
-  function pctFmt(x){
-    const sign = x >= 0 ? "+" : "";
-    return `${sign}${x.toFixed(1)}%`;
-  }
-  function avg(arr, key){
-    if(arr.length === 0) return null;
-    const s = arr.reduce((sum, x) => sum + (Number(x[key]) || 0), 0);
-    return s / arr.length;
-  }
-
-  // ===== Config from UI =====
-  function getConfig(){
-    return { mode: washMode.value, load: loadSize.value };
-  }
-
-  // ===== Profiles (must match <option value="...">) =====
-  function modeProfile(mode){
-    switch(mode){
-      case "eco":
-        return { timeBias:+6, waterBias:-0.8, energyBias:-0.06, cpiBias:+1.2, boostBias:+0.05, tempBias:-2.0, soilDecay:1.2 };
-      case "intensive":
-        return { timeBias:-6, waterBias:+0.9, energyBias:+0.10, cpiBias:-0.6, boostBias:-0.05, tempBias:+2.0, soilDecay:2.2 };
-      case "glass":
-        return { timeBias:+2, waterBias:-0.2, energyBias:-0.02, cpiBias:+0.5, boostBias:+0.04, tempBias:+0.6, soilDecay:1.45 };
-      case "ai":
-        return { timeBias:-2, waterBias:-0.4, energyBias:-0.03, cpiBias:+1.6, boostBias:+0.08, tempBias:+1.2, soilDecay:1.85 };
-      default: // normal
-        return { timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0, tempBias:0, soilDecay:1.7 };
-    }
-  }
-
-  function loadProfile(load){
-    switch(load){
-      case "light":
-        return { soilBias:-14, timeBias:-6, waterBias:-0.9, energyBias:-0.06, cpiBias:+1.0, boostBias:+0.06 };
-      case "heavy":
-        return { soilBias:+14, timeBias:+8, waterBias:+0.9, energyBias:+0.08, cpiBias:-0.5, boostBias:-0.04 };
-      default: // medium
-        return { soilBias:0, timeBias:0, waterBias:0, energyBias:0, cpiBias:0, boostBias:0 };
-    }
-  }
-
-  // ===== History =====
-  function loadHistory(){
-    const raw = localStorage.getItem(LS_KEY);
-    const data = raw ? safeParse(raw, []) : [];
-    return Array.isArray(data) ? data : [];
-  }
-  function saveHistory(arr){
-    localStorage.setItem(LS_KEY, JSON.stringify(arr));
-  }
-  function learningFactor(historyLen){
-    return clamp(historyLen * 0.006, 0, 0.12);
-  }
-
-  // ===== CPI Core =====
-  function computeCPI(metrics){
-    const SRE = clamp(100 - metrics.turbidity, 0, 100);
-    const CE  = clamp((metrics.pressure * 0.55) + (metrics.torque * 0.45), 0, 100);
-    const TO  = clamp(metrics.tempStability, 0, 100);
-    const AA  = clamp(metrics.adaptAccuracy, 0, 100);
-    const cpi = (0.35*SRE) + (0.25*CE) + (0.20*TO) + (0.20*AA);
-    return clamp(cpi, 0, 100);
-  }
-  function bandLabel(cpi){
-    if(cpi >= 90) return "Exceptional Cycle";
-    if(cpi >= 80) return "High Performance";
-    if(cpi >= 70) return "Standard";
-    return "Adaptive Boost Triggered";
-  }
-
-  function updateSummaryUI(history){
-    const avgC = avg(history, "cpi");
-    if(avgC !== null){
-      cpiAvg.textContent = avgC.toFixed(1);
-      const last = history[0];
-      const prev = history[1];
-      if(prev){
-        const delta = last.cpi - prev.cpi;
-        cpiTrend.textContent = delta >= 0 ? `Trend: ↑ ${delta.toFixed(1)}` : `Trend: ↓ ${Math.abs(delta).toFixed(1)}`;
-      } else {
-        cpiTrend.textContent = "Trend: —";
-      }
-    } else {
-      cpiAvg.textContent = "—";
-      cpiTrend.textContent = "Trend: —";
-    }
-
-    const baseline = history.length ? history[history.length - 1] : null;
-    if(baseline && history.length >= 2){
-      const latest = history[0];
-      const baseEff = (baseline.waterL * 0.4) + (baseline.energyKwh * 0.35) + (baseline.timeMin * 0.25);
-      const nowEff  = (latest.waterL * 0.4) + (latest.energyKwh * 0.35) + (latest.timeMin * 0.25);
-      const gain = clamp(((baseEff - nowEff) / baseEff) * 100, -99, 99);
-      effDelta.textContent = pctFmt(gain);
-      effNote.textContent = gain >= 0 ? "Improving vs baseline" : "Variance vs baseline";
-    } else {
-      effDelta.textContent = "—";
-      effNote.textContent = "Water + energy + time";
-    }
-  }
-
-  // ===== Soil Chart =====
-  const ctx = soilChart.getContext("2d");
-  let soilSeries = [];
-  let chartTimer = null;
-  let cycleActive = false;
-
-// ===== ACE Live Decision State (Step 4) =====
-let boostActive = false;
-let boostTicksLeft = 0;
-let stallCount = 0;
-let lastSoilValue = null;
-  
-  function resizeCanvas(){
-    const dpr = window.devicePixelRatio || 1;
-    const rect = soilChart.getBoundingClientRect();
-    soilChart.width = Math.floor(rect.width * dpr);
-    soilChart.height = Math.floor(rect.height * dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    drawChart();
-  }
-  window.addEventListener("resize", resizeCanvas);
-
-  function drawChart(){
-    const w = soilChart.getBoundingClientRect().width;
-    const h = soilChart.getBoundingClientRect().height;
-    ctx.clearRect(0,0,w,h);
-
-    // grid
-    ctx.strokeStyle = "rgba(255,255,255,0.08)";
-    ctx.lineWidth = 1;
-    for(let i=1;i<=4;i++){
-      const y = (h*i)/5;
-      ctx.beginPath();
-      ctx.moveTo(0,y);
-      ctx.lineTo(w,y);
-      ctx.stroke();
-    }
-
-    if(soilSeries.length < 2) return;
-
-    ctx.strokeStyle = "rgba(245,210,125,0.95)";
-    ctx.lineWidth = 2;
-
-    const maxPoints = 60;
-    const series = soilSeries.slice(-maxPoints);
-    const xStep = w / (series.length - 1);
-
-    ctx.beginPath();
-    series.forEach((val, idx) => {
-      const x = idx * xStep;
-      const y = h - (val/100)*h;
-      if(idx === 0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-    });
-    ctx.stroke();
-
-    const lastVal = series[series.length - 1];
-    const x = (series.length - 1) * xStep;
-    const y = h - (lastVal/100)*h;
-    ctx.fillStyle = "rgba(245,210,125,0.95)";
-    ctx.beginPath();
-    ctx.arc(x,y,3,0,Math.PI*2);
-    ctx.fill();
-  }
-
-  function seedSoil(){
-    const cfg = getConfig();
-    const lp = loadProfile(cfg.load);
-    const base = clamp(72 + (lp.soilBias*0.6), 25, 95);
-    soilSeries = [base];
-    soilNow.textContent = `${base.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(base,0,100)}%`;
-    if(chartMeta) chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${base.toFixed(0)}`;
-    drawChart();
-  }
-
-  function stepSoil(){
-  if(!soilSeries || soilSeries.length === 0) seedSoil();
-
-  const cfg = getConfig();
-  const mp = modeProfile(cfg.mode);
-
-  const last = soilSeries[soilSeries.length - 1];
-
-  // Base decay from mode
-  let decay = mp.soilDecay;
-
-  // Noise (keeps it feeling “live”)
-  decay += (Math.random()*0.25 - 0.12);
-
-  // ===== ACE Stall Detection =====
-  // If soil isn't dropping enough, count it as a stall
-  if (lastSoilValue !== null) {
-    const drop = (lastSoilValue - last);
-    if (drop < 0.35) stallCount += 1;
-    else stallCount = Math.max(0, stallCount - 1);
-  }
-  lastSoilValue = last;
-
-  // ===== ACE Adaptive Boost Logic =====
-  // Trigger BOOST if stall persists while cycle is active
-  if (cycleActive && !boostActive && stallCount >= 3) {
-    boostActive = true;
-    boostTicksLeft = 6; // lasts ~6 ticks (about 5–6 seconds depending on interval)
-    stallCount = 0;
-
-    perfLine(`Soil persistence detected — engaging <span class="badge">BOOST</span>.`);
-    logLine("ACE: BOOST engaged (pressure↑, rotation↑, time extension logic simulated)");
-  }
-
-  // Apply boost effect (clean faster while boost is active)
-  if (boostActive) {
-    decay *= 1.55; // stronger cleaning during boost
-    boostTicksLeft -= 1;
-
-    if (boostTicksLeft <= 0) {
-      boostActive = false;
-      perfLine(`Adaptive Boost ended — returning to baseline profile.`);
-      logLine("ACE: BOOST ended");
-    }
-  }
-
-  // ===== Soil floor + progress =====
-  const CLEAN_FLOOR = 6;
-  const next = clamp(last - decay, CLEAN_FLOOR, 100);
-  soilSeries.push(next);
-
-  soilNow.textContent = `${next.toFixed(0)} / 100`;
-  soilBar.style.width = `${clamp(next,0,100)}%`;
-
-  if(chartMeta){
-    const boostTag = boostActive ? " • BOOST" : "";
-    chartMeta.textContent = `Mode: ${cfg.mode.toUpperCase()} • Load: ${cfg.load.toUpperCase()} • Soil: ${next.toFixed(0)}${boostTag}`;
-  }
-
-  drawChart();
-
-  // Auto-complete when target clarity reached
-  if (cycleActive && next <= 7) {
-    perfLine("Target clarity reached — auto-stopping cycle.");
-    stopCycle();
-    return;
-  }
+function logLine(msg){
+ const d=document.createElement("div");
+ d.textContent=new Date().toLocaleTimeString()+"  "+msg;
+ log.prepend(d);
 }
 
-  function startChart(){
-    seedSoil();
-    stepSoil(); // immediate update (prevents 0/100)
-    if(chartTimer) clearInterval(chartTimer);
-    chartTimer = setInterval(stepSoil, 900);
-  }
+function calculateCPI(){
+ let base=80;
 
-  function stopChart(){
-    if(chartTimer) clearInterval(chartTimer);
-    chartTimer = null;
-    if(chartMeta) chartMeta.textContent = "Cycle complete — curve saved";
-    drawChart();
-  }
+ switch(washMode.value){
+  case "eco": base+=8; break;
+  case "intensive": base-=6; break;
+  case "glass": base+=4; break;
+  case "ai": base+=10; break;
+ }
 
-  // ===== Snapshot generator =====
-  function generateCycleSnapshot(history, config){
-    const lf = learningFactor(history.length);
-    const mp = modeProfile(config.mode);
-    const lp = loadProfile(config.load);
+ switch(loadSize.value){
+  case "light": base+=5; break;
+  case "heavy": base-=5; break;
+ }
 
-    const soilFromChart = soilSeries.length ? soilSeries[soilSeries.length - 1] : (65 + (lp.soilBias || 0));
-    const soil = clamp(soilFromChart + (Math.random()*6 - 3), 20, 95);
-    const turbidity = clamp(soil + (Math.random()*10 - 5), 0, 100);
-
-    const pressure = clamp(78 + (Math.random()*12 - 6), 55, 95);
-    const torque   = clamp(74 + (Math.random()*14 - 7), 50, 95);
-
-    const tempStability = clamp(80 + (Math.random()*14 - 7) + (mp.tempBias || 0), 55, 96);
-    const adaptAccuracy = clamp(76 + (Math.random()*16 - 8) + (lf*18), 50, 98);
-
-    const cpi = computeCPI({turbidity, pressure, torque, tempStability, adaptAccuracy});
-    const cpiBiased = clamp(cpi + (mp.cpiBias || 0) + (lp.cpiBias || 0), 0, 100);
-
-    const timeMin = clamp(92 - (lf*10) + (Math.random()*6 - 3) + (mp.timeBias || 0) + (lp.timeBias || 0), 65, 125);
-    const waterL  = clamp(14.5 - (lf*1.6) + (Math.random()*0.8 - 0.4) + (mp.waterBias || 0) + (lp.waterBias || 0), 9.5, 18.0);
-    const energyKwh = clamp(1.25 - (lf*0.12) + (Math.random()*0.08 - 0.04) + (mp.energyBias || 0) + (lp.energyBias || 0), 0.85, 1.65);
-
-    const overwashPrevented = (cpiBiased >= 88 && soil <= 60) ? true : (Math.random() < (0.15 + lf));
-    const boostThreshold = 70 + Math.round((((mp.boostBias || 0) + (lp.boostBias || 0)) * 10));
-    const boost = (cpiBiased < boostThreshold);
-
-    return {
-      ts: Date.now(),
-      cpi: cpiBiased,
-      soil,
-      timeMin,
-      waterL,
-      energyKwh,
-      overwashPrevented,
-      boost,
-      mode: config.mode,
-      load: config.load,
-      soilCurve: soilSeries.slice(-60)
-    };
-  }
-
-  function renderCurrent(snapshot, history){
-    cpiNow.textContent = snapshot.cpi.toFixed(1);
-    cpiBand.textContent = bandLabel(snapshot.cpi);
-
-    soilNow.textContent = `${snapshot.soil.toFixed(0)} / 100`;
-    soilBar.style.width = `${clamp(snapshot.soil,0,100)}%`;
-
-    const baseline = history.length ? history[history.length - 1] : snapshot;
-    const baseC = baseline.cpi || snapshot.cpi;
-    const gain = clamp(((snapshot.cpi - baseC) / baseC) * 100, -99, 99);
-    optGain.textContent = pctFmt(gain);
-    optNote.textContent = gain >= 0 ? "Performance improving" : "Performance variance";
-
-    overwashNow.textContent = snapshot.overwashPrevented ? "Prevented" : "Monitoring";
-    overwashNote.textContent = snapshot.overwashPrevented ? "Cycle ended at optimal clarity" : "Adaptive control engaged";
-
-    if(snapshot.boost){
-      perfLine(`Adaptive Boost engaged <span class="badge">BOOST</span> — CPI below threshold, extending wash + increasing pressure.`);
-    } else {
-      perfLine(`Optimization event — adjusted profile for clarity and coverage (CPI ${snapshot.cpi.toFixed(1)}).`);
-    }
-
-    perfLine(`Profile set — Mode: <span class="badge">${snapshot.mode.toUpperCase()}</span> Load: <span class="badge">${snapshot.load.toUpperCase()}</span>`);
-    updateSummaryUI(history);
-  }
-
-  function completeCycle(){
-    const history = loadHistory();
-    const cfg = getConfig();
-    const snap = generateCycleSnapshot(history, cfg);
-
-    history.unshift(snap);
-    if(history.length > MAX_CYCLES) history.length = MAX_CYCLES;
-    saveHistory(history);
-
-    renderCurrent(snap, history);
-
-    logLine(`Profile: mode=${snap.mode}, load=${snap.load}`);
-    logLine(`CPI=${snap.cpi.toFixed(1)} | Soil=${snap.soil.toFixed(0)} | Water=${snap.waterL.toFixed(1)}L | Energy=${snap.energyKwh.toFixed(2)}kWh | Time=${snap.timeMin.toFixed(0)}m | Overwash=${snap.overwashPrevented ? "Prevented" : "—"}`);
-    logLine("Soil decay curve saved to cycle history");
-  }
-
-  // ===== Controls =====
-  function startCycle(){
-  if(cycleActive) return;
-  cycleActive = true;
-
-  boostActive = false;
-  boostTicksLeft = 0;
-  stallCount = 0;
-  lastSoilValue = null;
-
-  // ...rest of your startCycle
+ return Math.max(60,Math.min(base,100));
 }
 
-    cpiBand.textContent = "Tracking…";
-    perfLine("Cycle started — adaptive model tracking soil decay + coverage.");
-    logLine(`Cycle started (mode=${getConfig().mode}, load=${getConfig().load})`);
-    setStatus("Cycle Running", "55%");
-    startChart();
-  }
+function updateUI(){
+ soilNow.textContent=Math.round(soil)+" / 100";
+ soilBar.style.width=soil+"%";
 
-  function stopCycle(){
-    if(!cycleActive) return;
-    cycleActive = false;
+ const cpi=calculateCPI();
+ cpiNow.textContent=cpi;
 
-    perfLine("Cycle completed — computing CPI + updating memory.");
-    setStatus("Verification", "92%");
-    stopChart();
-    completeCycle();
-    setStatus("Idle", "0%");
-  }
+ if(cpi>=90) cpiBand.textContent="Exceptional";
+ else if(cpi>=80) cpiBand.textContent="High Performance";
+ else if(cpi>=70) cpiBand.textContent="Standard";
+ else cpiBand.textContent="Adaptive Boost";
+}
 
-  function resetMemory(){
-    localStorage.removeItem(LS_KEY);
-    if(perfLog) perfLog.innerHTML = "";
-    if(protoFeed) protoFeed.innerHTML = "";
+function runStep(){
 
-    cpiNow.textContent = "—";
-    cpiBand.textContent = "Idle";
-    soilNow.textContent = "—";
-    soilBar.style.width = "0%";
-    optGain.textContent = "—";
-    optNote.textContent = "Learning model warming up";
-    overwashNow.textContent = "—";
-    overwashNote.textContent = "Adaptive control";
-    cpiAvg.textContent = "—";
-    cpiTrend.textContent = "Trend: —";
-    effDelta.textContent = "—";
-    effNote.textContent = "Water + energy + time";
+ if(!cycleActive) return;
 
-    cycleActive = false;
-    if(chartTimer) clearInterval(chartTimer);
-    chartTimer = null;
-    soilSeries = [];
-    if(chartMeta) chartMeta.textContent = "Idle";
-    setStatus("Idle", "0%");
-    drawChart();
+ soil-=Math.random()*2+1;
 
-    perfLine("Memory reset — performance model restarted.");
-    logLine("Memory reset");
-    seedSoil();
-    updateSummaryUI([]);
-  }
+ if(soil<5){
+  soil=5;
+  stopCycle();
+ }
 
-  function clearFeed(){
-    if(protoFeed) protoFeed.innerHTML = "";
-    logLine("Feed cleared");
-  }
+ updateUI();
+}
 
-  // ===== Wire events (with explicit pointer confirmation) =====
-  cycleStartBtn.addEventListener("click", startCycle);
-  cycleStopBtn.addEventListener("click", stopCycle);
-  memResetBtn.addEventListener("click", resetMemory);
-  if(clearFeedBtn) clearFeedBtn.addEventListener("click", clearFeed);
+function startCycle(){
 
-  // If user changes mode/load while idle, refresh seed + note
-  function onProfileChange(){
-    if(!cycleActive){
-      seedSoil();
-      perfLine(`Profile adjusted — Mode <span class="badge">${getConfig().mode.toUpperCase()}</span> Load <span class="badge">${getConfig().load.toUpperCase()}</span>`);
-      logLine(`Profile set: mode=${getConfig().mode}, load=${getConfig().load}`);
-    }
-  }
-  washMode.addEventListener("change", onProfileChange);
-  loadSize.addEventListener("change", onProfileChange);
+ if(cycleActive) return;
 
-  // ===== Init =====
-  (function init(){
-    setStatus("Idle", "0%");
-    resizeCanvas();
+ cycleActive=true;
+ soil=80;
 
-    const history = loadHistory();
-    if(history.length){
-      perfLine(`Memory loaded <span class="badge">${history.length} cycles</span> — showing latest performance.`);
-      renderCurrent(history[0], history);
-      logLine(`Memory loaded (${history.length} cycles)`);
+ logLine("Cycle started");
+ updateUI();
 
-      if(history[0].soilCurve && Array.isArray(history[0].soilCurve) && history[0].soilCurve.length){
-        soilSeries = history[0].soilCurve.slice();
-        if(chartMeta) chartMeta.textContent = "Loaded last saved curve";
-        drawChart();
-      } else {
-        if(chartMeta) chartMeta.textContent = "Idle";
-        seedSoil();
-      }
-    } else {
-      perfLine("Memory initialized — run a cycle to generate CPI history.");
-      updateSummaryUI([]);
-      logLine("Memory initialized");
-      if(chartMeta) chartMeta.textContent = "Idle";
-      seedSoil();
-    }
-  })();
+ timer=setInterval(runStep,900);
+}
+
+function stopCycle(){
+
+ if(!cycleActive) return;
+
+ cycleActive=false;
+
+ clearInterval(timer);
+
+ const cpi=calculateCPI();
+ cpiNow.textContent=cpi;
+
+ logLine("Cycle finished — CPI "+cpi);
+}
+
+function resetMemory(){
+ soil=80;
+ cpiNow.textContent="—";
+ soilNow.textContent="—";
+ soilBar.style.width="0%";
+ cpiBand.textContent="Idle";
+ log.innerHTML="";
+}
+
+startBtn.addEventListener("click",startCycle);
+stopBtn.addEventListener("click",stopCycle);
+resetBtn.addEventListener("click",resetMemory);
+
 });
 </script>
 

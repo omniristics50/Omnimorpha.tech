@@ -173,13 +173,14 @@ function calculateCPI(){
   if(loadSize.value === "light") base += 3;
   if(loadSize.value === "heavy") base -= 4;
 
-  // soil effect: dirtier -> lower CPI; cleaner -> higher CPI
-  base += (50 - soil) * 0.22;
+  // soil effect: dirtier → lower CPI; cleaner → higher CPI
+  // soil ranges ~80 down to ~6, so this swings CPI visibly
+  base += (50 - soil) * 0.22;     // adjust 0.18–0.28 to taste
 
   // boost effect
   if(boostActive) base += 2.5;
 
-  // tiny live variance
+  // tiny live variance (keeps it from being stuck)
   base += (Math.random() * 1.2 - 0.6);
 
   return clamp(base, 60, 100);
@@ -253,10 +254,10 @@ function calculateCPI(){
     drawChart();
   }
 
-  function seedSoil(){
+function seedSoil(){
   let base = 78;
 
-  // load raises/lowers starting soil
+  // load raises starting soil
   if(loadSize.value === "light") base -= 10;
   if(loadSize.value === "heavy") base += 10;
 
@@ -264,13 +265,12 @@ function calculateCPI(){
   if(washMode.value === "eco") base += 4;
   if(washMode.value === "intensive") base += 6;
 
-  // randomize start
+  // randomize start a bit
   base += (Math.random() * 8 - 4);
 
   soil = clamp(base, 35, 95);
   soilSeries = [soil];
 
-  // reset ACE decision state
   lastSoilValue = null;
   stallCount = 0;
   boostActive = false;

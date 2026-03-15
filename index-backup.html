@@ -1,1 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnimorpha | Home</title>
+
+  <!-- ✅ Use RELATIVE paths (no leading /) to avoid GitHub Pages repo-path 404s -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root{
+      --bg: #07080b;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.09);
+      --border: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --gold: #f5d27d;
+      --gold2: #caa24e;
+      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --radius2: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1000px 700px at 70% 0%, rgba(245,210,125,0.10), transparent 60%),
+                  radial-gradient(900px 600px at 20% 20%, rgba(255,255,255,0.06), transparent 55%),
+                  linear-gradient(180deg, #05060a, #07080b 35%, #06060a);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container{
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Top nav */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,8,11,0.55);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .brand-mark{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245,210,125,0.25), rgba(245,210,125,0.06));
+      border: 1px solid rgba(245,210,125,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .brand-title{ line-height: 1.1; }
+    .brand-title .name{ font-weight: 900; letter-spacing: 0.6px; }
+    .brand-title .tag{ font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav a{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,0.86);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      background: transparent;
+    }
+    .nav a:hover{
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
+    }
+    .nav a.primary{
+      background: linear-gradient(135deg, rgba(245,210,125,0.22), rgba(245,210,125,0.08));
+      border-color: rgba(245,210,125,0.30);
+      color: rgba(255,255,255,0.94);
+    }
+
+    .cta{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.84);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .pulse{
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--gold);
+      box-shadow: 0 0 0 0 rgba(245,210,125,0.55);
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse{
+      0% { box-shadow: 0 0 0 0 rgba(245,210,125,0.55); }
+      70% { box-shadow: 0 0 0 10px rgba(245,210,125,0.00); }
+      100% { box-shadow: 0 0 0 0 rgba(245,210,125,0.00); }
+    }
+
+    /* Hero */
+    .hero{ padding: 56px 0 26px; }
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .hero-card{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before{
+      content: "";
+      position: absolute;
+      inset: -120px -140px auto auto;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(245,210,125,0.20), transparent 65%);
+      pointer-events: none;
+    }
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(245,210,125,0.22);
+      background: rgba(245,210,125,0.08);
+      color: rgba(245,210,125,0.95);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+    h1{
+      margin: 0 0 10px 0;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing: 0.4px;
+      line-height: 1.05;
+    }
+    .sub{
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+      max-width: 62ch;
+    }
+    .hero-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+      font-weight: 800;
+      font-size: 13px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+    }
+    .btn.gold{
+      background: linear-gradient(135deg, rgba(245,210,125,0.24), rgba(245,210,125,0.10));
+      border-color: rgba(245,210,125,0.32);
+    }
+
+    .hero-side{ display: grid; gap: 18px; }
+    .mini{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+    }
+    .mini h3{ margin: 0 0 6px 0; font-size: 14px; letter-spacing: 0.4px; }
+    .mini p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    /* Sections / Cards */
+    .section{ padding: 22px 0 56px; }
+    .section-title{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0 14px;
+      flex-wrap: wrap;
+    }
+    .section-title h2{ margin: 0; font-size: 18px; letter-spacing: 0.5px; }
+    .section-title span{ color: var(--muted); font-size: 13px; }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      padding: 18px;
+      box-shadow: 0 14px 46px rgba(0,0,0,0.30);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      min-height: 168px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(245,210,125,0.22);
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+    }
+    .card .icon{ font-size: 18px; opacity: 0.95; }
+    .card h3{ margin: 10px 0 8px; font-size: 15px; letter-spacing: 0.4px; }
+    .card p{ margin: 0 0 14px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .card .link{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(245,210,125,0.95);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    footer{
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.25);
+      padding: 20px 0 30px;
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
+    }
+    .footer-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .cta{ display:none; }
+      .grid{ grid-template-columns: 1fr; }
+      .nav{ justify-content: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="index.html" aria-label="Omnimorpha Home">
+          <div class="brand-mark">O</div>
+          <div class="brand-title">
+            <div class="name">OMNIMORPHA</div>
+            <div class="tag">Ecosystem • Intelligence • Design</div>
+          </div>
+        </a>
+
+        <!-- ✅ NAV matches your actual files -->
+        <nav class="nav" aria-label="Primary">
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="ai-camera.html">AI Camera</a>
+          <a href="ai-dishwasher.html">AI Dishwasher</a>
+          <nav class="nav" aria-label="Primary">
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="ai-camera.html">AI Camera</a>
+          <a href="ai-dishwasher.html">AI Dishwasher</a>
+          <a href="dishwasher-ui.html">Dishwasher UI</a>
+          <a href="hypercars.html">Hypercars</a>
+          <a href="velocite.html">Velocité</a>
+          <a href="ayrelle.html">AYRÉLLE Noir</a>
+          <a class="primary" href="portal.html">Investor Portal</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+          <a href="hypercars.html">Hypercars</a>
+          <a href="velocite.html">Velocité</a>
+          <a href="ayrelle.html">AYRÉLLE Noir</a>
+          <a href="investors.html">Investor Relations</a>
+          <a href="contact.html">Contact</a>
+          <a class="primary" href="portal.html">Investor Portal</a>
+        </nav>
+
+        <div class="cta">
+          <div class="pill"><span class="pulse"></span> Live Systems • Prototype</div>
+          <a class="btn gold" href="architecture.html">Architecture Library →</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="kicker">NEXUS + REGENT • Live Intelligence Stack</div>
+          <h1>Omnimorpha: a premium ecosystem built around real-time intelligence.</h1>
+          <p class="sub">
+            A cinematic, high-end interface across Appliances, Technology, Vehicles, and Fashion —
+            with investor-ready architecture and governance-forward design.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn gold" href="portal.html">Open Investor Portal →</a>
+            <a class="btn" href="ecosystem.html">Open Ecosystem →</a>
+            <a class="btn" href="architecture.html">Read Architectures →</a>
+            <a class="btn" href="ai-dishwasher.html">Open AI Dishwasher →</a>
+          </div>
+        </div>
+
+        <div class="hero-side">
+  <a href="nexus.html" class="mini clickable" data-system="nexus" aria-label="Open NEXUS">
+    <h3>🧠 NEXUS</h3>
+    <p>Live risk intelligence, simulation logic, and strategy recommendations—designed to be embedded into the web experience.</p>
+  </a>
+
+  <a href="regent.html" class="mini clickable" data-system="regent" aria-label="Open REGENT">
+    <h3>⚙️ REGENT</h3>
+    <p>Circuit-engine concept UI: deliberate controls, refusal rituals, auditability, and calm authority interfaces.</p>
+  </a>
+</div>
+
+     </div>
+      </div>
+    </section>
+
+<div class="system-status">
+  <div class="status-inner">
+    <div id="status-label">System Status: Idle</div>
+    <div class="status-bar">
+      <div id="status-progress"></div>
+    </div>
+  </div>
+</div>
+    
+    <!-- FEATURED -->
+    <section class="section">
+      <div class="section-title">
+        <h2>Featured projects</h2>
+        <span>Direct links to pages you already have in your repo.</span>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="ai-camera.html">
+          <div class="icon">📷</div>
+          <h3>AI Camera</h3>
+          <p>AI cameras, sensor stack, and vehicle integration pages.</p>
+          <div class="link">Open AI Camera →</div>
+        </a>
+
+        <a class="card" href="ai-dishwasher.html">
+          <div class="icon">🍽️</div>
+          <h3>AI Dishwasher</h3>
+          <p>OmniClean™ architecture, UI, and product narrative.</p>
+          <div class="link">Open AI Dishwasher →</div>
+        </a>
+        <a class="card" href="dishwasher-ui.html">
+        <div class="icon">🧼</div>
+        <h3>Dishwasher UI</h3>
+        <p>Live prototype UI: modules, status bar, and feed.</p>
+        <div class="link">Open Dishwasher UI →</div>
+      </a>
+        <a class="card" href="fridge.html">
+          <div class="icon">🧊</div>
+          <h3>IntelliFridge</h3>
+          <p>IntelliFridge project page and supporting materials.</p>
+          <div class="link">Open IntelliFridge →</div>
+        </a>
+
+        <a class="card" href="smart-stove.html">
+          <div class="icon">🔥</div>
+          <h3>Smart Stove</h3>
+          <p>Smart stove ecosystem page.</p>
+          <div class="link">Open Smart Stove →</div>
+        </a>
+
+        <a class="card" href="smartphone.html">
+          <div class="icon">📱</div>
+          <h3>Smartphone</h3>
+          <p>Omnimorpha smartphone concept and system integration.</p>
+          <div class="link">Open Smartphone →</div>
+        </a>
+
+        <a class="card" href="smartwatch.html">
+          <div class="icon">⌚</div>
+          <h3>Smartwatch</h3>
+          <p>Wearable hub and ecosystem integration.</p>
+          <div class="link">Open Smartwatch →</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- MORE PROJECTS -->
+    <section class="section">
+      <div class="section-title">
+        <h2>More projects</h2>
+        <span>Vehicles, snow systems, audio, and brands.</span>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="trucks.html">
+          <div class="icon">🛻</div>
+          <h3>Trucks</h3>
+          <p>Truck lineup and platform concepts.</p>
+          <div class="link">Open Trucks →</div>
+        </a>
+
+        <a class="card" href="snow-vehicles.html">
+          <div class="icon">❄️</div>
+          <h3>Snow Vehicles</h3>
+          <p>Snow system overview and vehicle variants.</p>
+          <div class="link">Open Snow Vehicles →</div>
+        </a>
+
+        <a class="card" href="snow-mobile.html">
+          <div class="icon">🛷</div>
+          <h3>Snow Mobile</h3>
+          <p>Snow Mobile concept and architecture.</p>
+          <div class="link">Open Snow Mobile →</div>
+        </a>
+
+        <a class="card" href="snow-car.html">
+          <div class="icon">🚗</div>
+          <h3>Snow Car</h3>
+          <p>Snow Car concept and core systems.</p>
+          <div class="link">Open Snow Car →</div>
+        </a>
+
+        <a class="card" href="snow-truck.html">
+          <div class="icon">🚚</div>
+          <h3>Snow Truck</h3>
+          <p>Snow Truck heavy platform and snow handling.</p>
+          <div class="link">Open Snow Truck →</div>
+        </a>
+
+        <a class="card" href="earbuds.html">
+          <div class="icon">🎧</div>
+          <h3>Earbuds</h3>
+          <p>Wearable audio device page and integration.</p>
+          <div class="link">Open Earbuds →</div>
+        </a>
+
+        <a class="card" href="halia.html">
+          <div class="icon">🤖</div>
+          <h3>Halia</h3>
+          <p>Halia AI hub and ecosystem control layer.</p>
+          <div class="link">Open Halia →</div>
+        </a>
+
+        <a class="card" href="les-gorgeous.html">
+          <div class="icon">💄</div>
+          <h3>Les Gorgeous</h3>
+          <p>Beauty + fashion brand hub.</p>
+          <div class="link">Open Les Gorgeous →</div>
+        </a>
+
+        <a class="card" href="giordano-vero.html">
+          <div class="icon">👔</div>
+          <h3>GIORDANO VERO</h3>
+          <p>Menswear brand hub page.</p>
+          <div class="link">Open GIORDANO VERO →</div>
+        </a>
+
+        <a class="card" href="smart-cooktop.html">
+          <div class="icon">🍳</div>
+          <h3>Smart Cooktop</h3>
+          <p>Cooktop page and feature specs.</p>
+          <div class="link">Open Smart Cooktop →</div>
+        </a>
+
+        <a class="card" href="smart-range.html">
+          <div class="icon">🥘</div>
+          <h3>Smart Range</h3>
+          <p>Range page and feature specs.</p>
+          <div class="link">Open Smart Range →</div>
+        </a>
+
+        <a class="card" href="smart-stove.html">
+          <div class="icon">♨️</div>
+          <h3>Smart Stove</h3>
+          <p>Stove page and feature specs.</p>
+          <div class="link">Open Smart Stove →</div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>© <span id="year"></span> Omnimorpha • All systems under development.</div>
+        <div style="color: rgba(245,210,125,0.85); font-weight: 800;">Black • Gold • Calm Authority</div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Status bar behavior
+  const cards = document.querySelectorAll(".clickable");
+  const progress = document.getElementById("status-progress");
+  const label = document.getElementById("status-label");
+
+  function setStatus(text, pct){
+    if (!progress || !label) return;
+    label.textContent = text;
+    progress.style.width = pct;
+  }
+
+  cards.forEach(card => {
+    card.addEventListener("mouseenter", () => {
+      const system = card.dataset.system;
+      if(system === "nexus") setStatus("System Status: NEXUS Intelligence Online", "85%");
+      if(system === "regent") setStatus("System Status: REGENT Circuit Engine Active", "92%");
+    });
+
+    card.addEventListener("mouseleave", () => {
+      setStatus("System Status: Idle", "0%");
+    });
+  });
+</script>>
+
+</body>
+</html>
 

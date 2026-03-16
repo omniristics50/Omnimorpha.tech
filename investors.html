@@ -132,6 +132,34 @@
      NEXUS Battery Intelligence Panel
   ================================= */
 
+  .nexus-chart-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .nexus-chart-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+  }
+
+  .nexus-chart-title {
+    color: #ddd;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .nexus-chart {
+    width: 100%;
+    height: 220px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    display: block;
+  }
+  
   .nexus-panel {
     margin: 40px 0;
     padding: 24px;
@@ -178,6 +206,22 @@
     line-height: 1.8;
     color: #ddd;
   }
+
+.nexus-alert {
+  background: rgba(255, 60, 60, 0.15);
+  border: 1px solid rgba(255, 60, 60, 0.5);
+  color: #ff5a5a;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.hidden {
+  display: none;
+}
   
 </head>
 <body>
@@ -219,6 +263,10 @@
   <h2>🔋 NEXUS Battery Intelligence</h2>
   <p class="nexus-subtitle">Live runtime telemetry from the NEXUS AI Battery system.</p>
 
+<div id="nexus-alert-banner" class="nexus-alert hidden">
+  ⚠️ SAFE MODE ACTIVE — Battery Risk Critical
+</div>
+  
   <div class="nexus-grid">
     <div class="nexus-card">
       <div class="nexus-label">SOC</div>
@@ -256,6 +304,24 @@
     <div><strong>Governance Reason:</strong> <span id="nexus-reason">--</span></div>
     <div><strong>Recommended Max Load:</strong> <span id="nexus-max-load">--</span></div>
   </div>
+
+      <div class="nexus-chart-grid">
+        <div class="nexus-chart-card">
+          <div class="nexus-chart-title">SOC Over Time</div>
+          <canvas id="nexus-soc-chart" class="nexus-chart" width="900" height="220"></canvas>
+        </div>
+
+        <div class="nexus-chart-card">
+          <div class="nexus-chart-title">Temperature Over Time</div>
+          <canvas id="nexus-temp-chart" class="nexus-chart" width="900" height="220"></canvas>
+        </div>
+
+        <div class="nexus-chart-card">
+          <div class="nexus-chart-title">Risk Score Over Time</div>
+          <canvas id="nexus-risk-chart" class="nexus-chart" width="900" height="220"></canvas>
+        </div>
+      </div>
+  
 </section>
     
     <!-- ========================= -->
@@ -451,6 +517,145 @@
     loadNexusTelemetry();
     setInterval(loadNexusTelemetry, 1000);
   </script>
+
+<script>
+  function drawLineChart(canvasId, points, maxY, labelFormatter) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 1;
+
+    const leftPad = 45;
+    const rightPad = 12;
+    const topPad = 12;
+    const bottomPad = 28;
+
+    const chartW = w - leftPad - rightPad;
+    const chartH = h - topPad - bottomPad;
+
+    // axes
+    ctx.beginPath();
+    ctx.moveTo(leftPad, topPad);
+    ctx.lineTo(leftPad, h - bottomPad);
+    ctx.lineTo(w - rightPad, h - bottomPad);
+    ctx.stroke();
+
+    // y labels
+    ctx.fillStyle = "#aaa";
+    ctx.font = "12px Segoe UI";
+
+    for (let i = 0; i <= 4; i++) {
+      const yVal = maxY * (1 - i / 4);
+      const y = topPad + (chartH * i / 4);
+
+      ctx.strokeStyle = "rgba(255,255,255,0.08)";
+      ctx.beginPath();
+      ctx.moveTo(leftPad, y);
+      ctx.lineTo(w - rightPad, y);
+      ctx.stroke();
+
+      ctx.fillText(labelFormatter(yVal), 6, y + 4);
+    }
+
+    if (!points || points.length < 2) return;
+
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    points.forEach((p, i) => {
+      const x = leftPad + (i / (points.length - 1)) * chartW;
+      const y = topPad + (1 - Math.min(p, maxY) / maxY) * chartH;
+
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+
+    ctx.stroke();
+  }
+
+  async function loadNexusTelemetry() {
+    try {
+      const response = await fetch("http://127.0.0.1:8765/telemetry");
+      const data = await response.json();
+
+      if (!data.ok) return;
+
+      document.getElementById("nexus-soc").textContent =
+        `${data.frame.soc_pct.toFixed(2)}%`;
+
+      document.getElementById("nexus-voltage").textContent =
+        `${data.frame.pack_voltage_v.toFixed(2)} V`;
+
+      document.getElementById("nexus-temp").textContent =
+        `${data.frame.pack_temp_c.toFixed(2)} °C`;
+
+      document.getElementById("nexus-health").textContent =
+        `${data.frame.battery_health_pct.toFixed(2)}%`;
+
+      document.getElementById("nexus-risk").textContent =
+        data.frame.risk_score.toFixed(3);
+
+      document.getElementById("nexus-band").textContent =
+        data.status.alert_band;
+
+const banner = document.getElementById("nexus-alert-banner");
+
+if (data.status.alert_band === "RED" || data.status.safe_mode) {
+  banner.classList.remove("hidden");
+} else {
+  banner.classList.add("hidden");
+}
+      
+      document.getElementById("nexus-event").textContent =
+        data.status.last_event;
+
+      document.getElementById("nexus-reason").textContent =
+        data.governance.summary.reason;
+
+      document.getElementById("nexus-max-load").textContent =
+        `${data.governance.constraints.max_load_recommended_kw} kW`;
+    } catch (error) {
+      console.error("Failed to load NEXUS telemetry:", error);
+    }
+  }
+
+  async function loadNexusHistory() {
+    try {
+      const response = await fetch("http://127.0.0.1:8765/history");
+      const data = await response.json();
+
+      if (!data.ok || !data.history) return;
+
+      const history = data.history.slice(-60);
+
+      const socPoints = history.map(item => item.soc_pct);
+      const tempPoints = history.map(item => item.pack_temp_c);
+      const riskPoints = history.map(item => item.risk_score);
+
+      drawLineChart("nexus-soc-chart", socPoints, 100, v => `${Math.round(v)}%`);
+      drawLineChart("nexus-temp-chart", tempPoints, 80, v => `${Math.round(v)}°`);
+      drawLineChart("nexus-risk-chart", riskPoints, 1.0, v => v.toFixed(2));
+    } catch (error) {
+      console.error("Failed to load NEXUS history:", error);
+    }
+  }
+
+  function refreshNexusUI() {
+    loadNexusTelemetry();
+    loadNexusHistory();
+  }
+
+  refreshNexusUI();
+  setInterval(refreshNexusUI, 1000);
+</script>
   
 </body>
 </html>

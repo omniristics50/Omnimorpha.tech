@@ -127,7 +127,7 @@
     }
 
   </style>
-
+  
     /* ===============================
      NEXUS Battery Intelligence Panel
   ================================= */
@@ -217,6 +217,59 @@
   font-weight: 700;
   text-align: center;
   letter-spacing: 0.5px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===============================
+   NEXUS SYSTEM STATUS BAND
+================================ */
+
+.nexus-band {
+  font-weight: 700;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+/* GREEN */
+
+.band-green {
+  background: rgba(60,255,120,0.12);
+  border: 1px solid rgba(60,255,120,0.5);
+  color: #5cff9a;
+}
+
+/* YELLOW */
+
+.band-yellow {
+  background: rgba(255,210,60,0.15);
+  border: 1px solid rgba(255,210,60,0.6);
+  color: #ffd84f;
+}
+
+/* RED */
+
+.band-red {
+  background: rgba(255,60,60,0.18);
+  border: 1px solid rgba(255,60,60,0.7);
+  color: #ff5a5a;
+}
+
+/* SAFE MODE */
+
+.safe-mode-banner {
+  background: rgba(255,60,60,0.2);
+  border: 1px solid rgba(255,60,60,0.7);
+  color: #ff5a5a;
+  padding: 12px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .hidden {
@@ -424,6 +477,14 @@
       <h2>🔋 NEXUS Battery Intelligence</h2>
       <p class="nexus-subtitle">Live runtime telemetry from the NEXUS AI Battery system.</p>
 
+<div id="nexus-system-band" class="nexus-band band-green">
+  SYSTEM STATUS — NOMINAL
+</div>
+
+<div id="nexus-safe-mode" class="safe-mode-banner hidden">
+  ⚠ SAFE MODE ACTIVE — SYSTEM PROTECTION ENGAGED
+</div>
+      
       <div class="nexus-grid">
         <div class="nexus-card">
           <div class="nexus-label">SOC</div>
@@ -656,6 +717,34 @@ if (data.status.alert_band === "RED" || data.status.safe_mode) {
   refreshNexusUI();
   setInterval(refreshNexusUI, 1000);
 </script>
+
+const band = document.getElementById("nexus-system-band");
+const safeMode = document.getElementById("nexus-safe-mode");
+
+const alert = data.status.alert_band;
+
+band.classList.remove("band-green","band-yellow","band-red");
+
+if(alert === "GREEN"){
+  band.classList.add("band-green");
+  band.textContent = "SYSTEM STATUS — NOMINAL";
+}
+
+if(alert === "YELLOW"){
+  band.classList.add("band-yellow");
+  band.textContent = "SYSTEM STATUS — ELEVATED RISK";
+}
+
+if(alert === "RED"){
+  band.classList.add("band-red");
+  band.textContent = "SYSTEM STATUS — CRITICAL";
+}
+
+if(data.status.safe_mode){
+  safeMode.classList.remove("hidden");
+}else{
+  safeMode.classList.add("hidden");
+}
   
 </body>
 </html>
